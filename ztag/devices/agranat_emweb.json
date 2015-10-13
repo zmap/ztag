@@ -1,0 +1,20 @@
+{
+"80": {
+   "http": {
+     "get": {
+       "headers": {
+         "www_authenticate": "Basic realm=\"Efficient Networks Web User Interface\"", 
+         "server": "Agranat-EmWeb/R4_01"
+       }, 
+       "status_code": 401, 
+       "status_line": "HTTP/1.0 401 Unauthorized", 
+       "server": {
+         "product": "EmWeb", 
+         "version": "R4_01", 
+         "manufacturer": "Agranat"
+       }, 
+       "body_sha256": "hkkNa6hIVVuJcKCHGk2hGg3EPvo0kvsJAvZdUiR3Erk="
+     }
+   }
+ }
+}

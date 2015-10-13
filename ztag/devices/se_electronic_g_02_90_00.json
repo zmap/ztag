@@ -1,0 +1,18 @@
+{
+    "502": {
+        "modbus": {
+            "device_id": {
+                "function_code": 43,
+                "mei_response": {
+                    "objects": {
+                        "product_code": "G 02 90 00      ",
+                        "vendor": "SE-Elektronic",
+                        "revision": "V02.01.21"
+                    },
+                    "conformity_level": 1
+                },
+                "metadata": {}
+            }
+        }
+    }
+}

@@ -1,0 +1,109 @@
+{
+    "443": {
+        "https": {
+            "tls": {
+                "cipher_suite": {
+                    "id": "0x0035", 
+                    "name": "TLS_RSA_WITH_AES_256_CBC_SHA"
+                }, 
+                "version": "TLSv1.0", 
+                "ocsp_stapling": false, 
+                "certificate": {
+                    "parsed": {
+                        "fingerprint_sha256": "7c3a5692235b1837f9b841767e7fe4fbde011ba93408f377b45c92fad326a389", 
+                        "subject_dn": "C=US, ST=Georgia, L=Atlanta, O=American Megatrends Inc, OU=Service Processors, CN=AMI, emailAddress=support@ami.com", 
+                        "signature_algorithm": {
+                            "oid": "1.2.840.113549.1.1.5", 
+                            "name": "SHA1WithRSA"
+                        }, 
+                        "subject": {
+                            "province": [
+                                "Georgia"
+                            ], 
+                            "locality": [
+                                "Atlanta"
+                            ], 
+                            "country": [
+                                "US"
+                            ], 
+                            "organizational_unit": [
+                                "Service Processors"
+                            ], 
+                            "common_name": [
+                                "AMI"
+                            ], 
+                            "organization": [
+                                "American Megatrends Inc"
+                            ]
+                        }, 
+                        "validity": {
+                            "start": "2008-09-12T09:36:47Z", 
+                            "end": "2010-01-25T09:36:47Z"
+                        }, 
+                        "issuer_dn": "C=US, ST=Georgia, L=Atlanta, O=American Megatrends Inc, OU=Service Processors, CN=AMI, emailAddress=support@ami.com", 
+                        "fingerprint_sha1": "361d1f98e3b7618665bff9757a5a8c0dd3b96001", 
+                        "version": 3, 
+                        "extensions": {
+                            "authority_key_id": "e2f79160207318ec47b363e7eeeba51ead350be4", 
+                            "basic_constraints": {
+                                "is_ca": true
+                            }, 
+                            "subject_key_id": "4veRYCBzGOxHs2Pn7uulHq01C+Q=", 
+                            "certificate_policies": []
+                        }, 
+                        "signature": {
+                            "self_signed": true, 
+                            "valid": false, 
+                            "value": "HzOoZMU721+516DUQBFLcliQuy3n+j0uV7CXFRxTm8d/HOZowRdpZrRcAO/8PIi2MLVCbDJgmmlMJv71PTFyrEqMuN+Hwto4PTzjItAVOsE80xovANfMVR3USc3knefnsEVONaD/PqmeMcqzqPs4Ci71dQPVOG7my9wHPa3b6Hg=", 
+                            "signature_algorithm": {
+                                "oid": "1.2.840.113549.1.1.5", 
+                                "name": "SHA1WithRSA"
+                            }
+                        }, 
+                        "serial_number": "11526922346694919618", 
+                        "fingerprint_md5": "ae1cdddc746fc09f6c71b2f361ca8b0d", 
+                        "subject_key_info": {
+                            "key_algorithm": {
+                                "oid": "", 
+                                "name": "RSA"
+                            }, 
+                            "rsa_public_key": {
+                                "length": 1024, 
+                                "modulus": "0ZEwchCR/REcC5gpPFlLcJr5c+ln5bBd2SotUdK1mtOiXuxQuHQbJmNfWY+JvuHUjboH5IYPHiMGsnSzRwEq20WuUB1Er56dwy1Z+ksnkRXNhur1YW2ntExR/nlBuMT3WdM8/WjT4mvMHNMtsRGbb+xyyDf+1FDs6eixxfNUy8c=", 
+                                "exponent": 65537
+                            }
+                        }, 
+                        "issuer": {
+                            "province": [
+                                "Georgia"
+                            ], 
+                            "locality": [
+                                "Atlanta"
+                            ], 
+                            "country": [
+                                "US"
+                            ], 
+                            "organizational_unit": [
+                                "Service Processors"
+                            ], 
+                            "common_name": [
+                                "AMI"
+                            ], 
+                            "organization": [
+                                "American Megatrends Inc"
+                            ]
+                        }
+                    }
+                }, 
+                "validation": {
+                    "browser_trusted": false, 
+                    "browser_error": "x509: certificate has expired or is not yet valid"
+                }
+            }, 
+            "heartbleed": {
+                "heartbeat_enabled": false, 
+                "heartbleed_vulnerable": false
+            }
+        }
+    }
+}

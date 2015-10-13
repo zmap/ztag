@@ -1,0 +1,30 @@
+from ztag.annotation import Annotation
+from ztag import protocols
+import ztag.test
+import re
+
+
+class FtpLatronix(Annotation):
+    name = "Latronix"
+    protocol = protocols.FTP
+    subprotocol = protocols.FTP.BANNER
+    port = None
+
+    product_re = re.compile(
+        "^220 FTP Version (\d+\.\d+) on EPS2-100",
+        re.IGNORECASE
+        )
+
+    def process(self, obj, meta):
+        banner = obj["banner"]
+
+        if self.product_re.search(banner):
+            meta.global_metadata.device_type = Type.PRINT_SERVER
+            meta.global_metadata.manufacturer = Manufacturer.LATRONIX
+            meta.global_metadata.product = "EPS2-100"
+
+            version = self.product_re.search(banner).group(1)
+            meta.local_metadata.version = version
+            return meta
+
+        return None

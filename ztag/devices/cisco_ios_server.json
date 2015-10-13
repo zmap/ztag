@@ -1,0 +1,16 @@
+{
+  "80": {
+    "http": {
+      "get": {
+        "body_sha256": "hkkNa6hIVVuJcKCHGk2hGg3EPvo0kvsJAvZdUiR3Erk=", 
+        "status_code": 401, 
+        "status_line": "HTTP/1.1 401 Unauthorized", 
+        "headers": {
+          "www_authenticate": "Basic realm=\"level_15_access\"", 
+          "accept_ranges": "none", 
+          "server": "cisco-IOS"
+        }
+      }
+    }
+  }
+}

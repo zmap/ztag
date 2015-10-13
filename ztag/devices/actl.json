@@ -1,0 +1,18 @@
+{
+    "502": {
+        "modbus": {
+            "device_id": {
+                "function_code": 43,
+                "mei_response": {
+                    "objects": {
+                        "product_code": "43",
+                        "vendor": "ACTL",
+                        "revision": "EW_6_4s5"
+                    },
+                    "conformity_level": 129
+                },
+                "metadata": {}
+            }
+        }
+    }
+}

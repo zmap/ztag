@@ -1,0 +1,18 @@
+{
+    "502": {
+        "modbus": {
+            "device_id": {
+                "function_code": 43,
+                "mei_response": {
+                    "objects": {
+                        "product_code": "00-0F-0C-00-17-06",
+                        "vendor": "SYNCHRONIC",
+                        "revision": "16"
+                    },
+                    "conformity_level": 1
+                },
+                "metadata": {}
+            }
+        }
+    }
+}

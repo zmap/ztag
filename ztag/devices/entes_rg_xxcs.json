@@ -1,0 +1,22 @@
+{
+    "502": {
+        "modbus": {
+            "device_id": {
+                "function_code": 43,
+                "mei_response": {
+                    "objects": {
+                        "user_application_name": "BY CENK GOCER Tel:+90 532 4683905",
+                        "vendor": "ENTES AS",
+                        "model_name": "RG-XXCS",
+                        "product_code": "23000102",
+                        "product_name": "POWER FACTOR CONTROLLER",
+                        "vendor_url": "www.entes.com.tr",
+                        "revision": "V4.01"
+                    },
+                    "conformity_level": 1
+                },
+                "metadata": {}
+            }
+        }
+    }
+}

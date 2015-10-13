@@ -1,0 +1,12 @@
+#!/usr/bin/python
+import os
+import unittest
+
+parent_dir = os.path.abspath(os.path.join(__file__, os.pardir))
+tag_dir = os.path.abspath(os.path.join(parent_dir, 'ztag', 'annotations'))
+
+
+suite = unittest.TestLoader().discover(start_dir=tag_dir, pattern='*.py',
+                                       top_level_dir=parent_dir)
+
+unittest.TextTestRunner().run(suite)

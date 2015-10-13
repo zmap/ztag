@@ -1,0 +1,18 @@
+{
+    "502": {
+        "modbus": {
+            "device_id": {
+                "function_code": 43,
+                "mei_response": {
+                    "objects": {
+                        "product_code": "Productcode\u0000",
+                        "vendor": "Flexim GmbH\u0000k\ufffd\u0000\u0000\u0001\u0000\u0000\u0000\u0000\u0000",
+                        "revision": "Versi"
+                    },
+                    "conformity_level": 1
+                },
+                "metadata": {}
+            }
+        }
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "502": {
+        "modbus": {
+            "device_id": {
+                "function_code": 43,
+                "mei_response": {
+                    "objects": {
+                        "product_code": "29",
+                        "vendor": "ABB Stotz Kontakt",
+                        "revision": "V2.3.3,2013-12-18"
+                    },
+                    "conformity_level": 130
+                },
+                "metadata": {}
+            }
+        }
+    }
+}

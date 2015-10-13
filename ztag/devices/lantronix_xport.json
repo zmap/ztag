@@ -1,0 +1,18 @@
+{
+    "502": {
+        "modbus": {
+            "device_id": {
+                "function_code": 43,
+                "mei_response": {
+                    "objects": {
+                        "product_code": "XPort",
+                        "vendor": "Lantronix Inc",
+                        "revision": "V3.3.0.1GC"
+                    },
+                    "conformity_level": 1
+                },
+                "metadata": {}
+            }
+        }
+    }
+}

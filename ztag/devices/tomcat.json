@@ -1,0 +1,27 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220-Microsoft FTP Service\r\n"
+            }
+        }
+    }, 
+    "80": {
+        "http": {
+            "get": {
+                "body_sha256": "9oH7Vc2urXRmjoWOSbKOvgW7Iw252glQhZKLIAnUv9M=", 
+                "status_code": 200, 
+                "status_line": "HTTP/1.1 200 OK", 
+                "headers": {
+                    "content_length": "1193", 
+                    "x_powered_by": "WAF/2.0", 
+                    "server": "Tomcat", 
+                    "last_modified": "Fri, 21 Feb 2003 12:15:52 GMT", 
+                    "content_type": "text/html", 
+                    "content_location": "http://69.165.70.192/iisstart.htm", 
+                    "accept_ranges": "bytes"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,177 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 FTP server ready.\r\n",
+                "metadata": {}
+            }
+        }
+    },
+    "443": {
+        "https": {
+            "tls": {
+                "certificate": {
+                    "parsed": {
+                        "fingerprint_sha1": "1f62051278331e3a46b5297c1816a3598935523b",
+                        "subject_dn": "C=DE, ST=Bayern, L=Holzkirchen, O=PEWEU, OU=Automation Control Devices, CN=10.10.12.13, emailAddress=info-eu@eu.pewg.panasonic.com",
+                        "issuer": {
+                            "province": [
+                                "Bayern"
+                            ],
+                            "locality": [
+                                "Holzkirchen"
+                            ],
+                            "country": [
+                                "DE"
+                            ],
+                            "organizational_unit": [
+                                "Automation Control Devices"
+                            ],
+                            "common_name": [
+                                "PEWEU"
+                            ],
+                            "organization": [
+                                "Panasonic Electric Works Europe AG"
+                            ]
+                        },
+                        "signature": {
+                            "self_signed": false,
+                            "valid": false,
+                            "value": "EPPpYFXtal9CVmk/GDBUuhLIKxYV3lEvI5k1OqJ0bBR+hQosKh7qByYu9ibFui3xS9c/wQy36V8sLOx0Zw4bq2hawManTc2PF3+wwGQRs1xYukldt9cZDje631LTg4cSLPcMOz4gwV0P76nhWwNBdOCar0BqAm+TvNRNZ+GVnEs=",
+                            "signature_algorithm": {
+                                "oid": "1.2.840.113549.1.1.4",
+                                "name": "MD5WithRSA"
+                            }
+                        },
+                        "serial_number": "4",
+                        "validity": {
+                            "start": "2007-06-12T14:11:56Z",
+                            "end": "2017-06-09T14:11:56Z"
+                        },
+                        "issuer_dn": "C=DE, ST=Bayern, L=Holzkirchen, O=Panasonic Electric Works Europe AG, OU=Automation Control Devices, CN=PEWEU, emailAddress=info-eu@eu.pewg.panasonic.com",
+                        "fingerprint_sha256": "46b96816c76e2ad5d50023c4af08e0b3aa9a007324b6ed9e17d5b9837f5942ff",
+                        "version": 3,
+                        "extensions": {
+                            "authority_key_id": "5964dd9626636714858d347830f348e07e9f3848",
+                            "basic_constraints": {
+                                "is_ca": false
+                            },
+                            "subject_key_id": "jhTmLCCRPXEJ24WI/yt/Uxd19OA=",
+                            "certificate_policies": []
+                        },
+                        "signature_algorithm": {
+                            "oid": "1.2.840.113549.1.1.4",
+                            "name": "MD5WithRSA"
+                        },
+                        "unknown_extensions": [
+                            {
+                                "critical": false,
+                                "id": "2.16.840.1.113730.1.13",
+                                "value": "Fh1PcGVuU1NMIEdlbmVyYXRlZCBDZXJ0aWZpY2F0ZQ=="
+                            }
+                        ],
+                        "fingerprint_md5": "6315bcb56217fd13d32eaf4975d8340f",
+                        "subject_key_info": {
+                            "key_algorithm": {
+                                "oid": "",
+                                "name": "RSA"
+                            },
+                            "rsa_public_key": {
+                                "length": 1024,
+                                "modulus": "vmyhWDdJjB0/K+MIcihTOvG1aECn63RxWaM2lx3z5qFhjTxCkntXCZmyecYlUv+VBENZGWIqIaI1EzDmxQZdp+uGSJDWJRgp/eincm5JXgv+KTe2HNPpbNdR+XgGgDOESJbUl+Y2J2i6hHVBS/swAgiaicenKdR0XvjiD/YAlkM=",
+                                "exponent": 65537
+                            }
+                        },
+                        "subject": {
+                            "province": [
+                                "Bayern"
+                            ],
+                            "locality": [
+                                "Holzkirchen"
+                            ],
+                            "country": [
+                                "DE"
+                            ],
+                            "organizational_unit": [
+                                "Automation Control Devices"
+                            ],
+                            "common_name": [
+                                "10.10.12.13"
+                            ],
+                            "organization": [
+                                "PEWEU"
+                            ]
+                        }
+                    }
+                },
+                "cipher_suite": {
+                    "id": "0x0005",
+                    "name": "TLS_RSA_WITH_RC4_128_SHA"
+                },
+                "version": "SSLv3",
+                "ocsp_stapling": false,
+                "validation": {
+                    "browser_trusted": false,
+                    "browser_error": "x509: certificate signed by unknown authority"
+                },
+                "metadata": {}
+            },
+            "dhe": {
+                "support": false,
+                "metadata": {}
+            },
+            "dhe_export": {
+                "support": false,
+                "metadata": {}
+            },
+            "ssl_3": {
+                "support": true,
+                "metadata": {}
+            },
+            "rsa_export": {
+                "support": false,
+                "metadata": {}
+            }
+        }
+    },
+    "80": {
+        "http": {
+            "get": {
+                "body": "<html>\r\n<head>\r\n<!-- icon for iOS Devices -->\r\n<link rel=\"apple-touch-icon\" href=\"apple-touch-icon.png\"/>\r\n<link rel=\"apple-touch-icon\" sizes=\"114x114\" href=\"apple-touch-icon-iphone4.png\"/>\r\n<link rel=\"apple-touch-icon\" sizes=\"72x72\" href=\"apple-touch-icon-ipad.png\" />\r\n<link rel=\"apple-touch-startup-image\" href=\"images/splash-screen-320x460.png\"/>\r\n<link rel=\"apple-touch-startup-image\" sizes=\"1024x748\" href=\"images/splash-screen-1024x748.png\" />\r\n<link rel=\"apple-touch-startup-image\" sizes=\"768x1004\" href=\"images/splash-screen-768x1004.png\" />\r\n<link rel=\"apple-touch-startup-image\" sizes=\"640x960\" href=\"images/splash-screen-640x960.png\" />\r\n<!-- END icon for iOS Devices -->\r\n<link rel=\"shortcut icon\" type=\"image/png\" href=\"cmc.png\" />\r\n\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\" /> \r\n    <title>Commune de Martigny-Combe - T\ufffdl\ufffdalarmes et t\ufffdl\ufffdgestion</title>\r\n<script type=\"text/javascript\">\r\n function iPhoneAlert() {\r\n if((navigator.userAgent.match(/iPhone/i))||(navigator.userAgent.match(/iPod/i))||(navigator.userAgent.match(/windows phone/i))) {\r\n var question = confirm(\"Souhaitez-vous naviguer sur le site optimis\ufffd pour iPhone?\")\r\n if (question){\r\n window.location = \"http://213.221.142.222/plc?iphone.mtm\";\r\n }else{\r\n\r\n }\r\n }\r\n }\r\n </script>\r\n\r\n</head>\r\n<frameset onload=\"iPhoneAlert();\" rows=\"67,*\">\r\n<frame marginheight =\"0\" marginwidth =\"0\" frameborder=\"0\" scrolling = \"no\" noresize src=\"http://213.221.142.222/plc?top.mtm\" name=\"haut\" />\r\n<frame marginheight =\"0\" marginwidth =\"0\" frameborder=\"0\" scrolling = \"no\" noresize src=\"http://213.221.142.222/plc?base\" name=\"main\" />\r\n<noframes>\r\n<body onLoad=\"iPhoneAlert();\">Cette page HTML n\ufffdcessite un navigateur supportant les frames, veuillez nous en excuser.</body>\r\n</noframes>\r\n</frameset> \r\n</html>\r\n",
+                "title": "Commune de Martigny-Combe - T\ufffdl\ufffdalarmes et t\ufffdl\ufffdgestion",
+                "status_code": 200,
+                "status_line": "HTTP/1.1 200 OK",
+                "headers": {
+                    "last_modified": "Sun, 01 Jan 2006 00:01:48 GMT",
+                    "content_type": "text/html",
+                    "server": "IPC@CHIP"
+                },
+                "body_sha256": "ZRxtBSFT57tKztTojDm6iuoDHvRQ7BmS9/yIgaCqMXQ=",
+                "metadata": {
+                    "product": "HTTP Server",
+                    "manufacturer": "Apache"
+                }
+            }
+        }
+    },
+    "502": {
+        "modbus": {
+            "device_id": {
+                "function_code": 43,
+                "mei_response": {
+                    "objects": {
+                        "user_application_name": "FP-MB-TCP",
+                        "vendor": "PEWEU",
+                        "model_name": "130730",
+                        "product_code": "FPWEBD",
+                        "product_name": "FP-WebServer",
+                        "vendor_url": "www.peweu.de",
+                        "revision": "V2.6"
+                    },
+                    "conformity_level": 1
+                },
+                "metadata": {}
+            }
+        }
+    }
+}

@@ -1,0 +1,371 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 Hello.\r\n"
+            }
+        }
+    }, 
+    "22": {
+        "ssh": {
+            "banner": {
+                "raw_banner": "\u0000\u0000\u0002\ufffd\u0007\u0014\ufffd\ufffd'W/\ufffd\ufffd\ufffdR \ufffd\ufffd#\ufffd;\u0010\u0000\u0000\u0000Ydiffie-hellman-group-exchange-sha1,diffie-hellman-group14-sha1,diffie-hellman-group1-sha1\u0000\u0000\u0000\u000fssh-rsa,ssh-dss\u0000\u0000\u0000\ufffdaes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,aes192-cbc,aes256-cbc,arcfour,rijndael-cbc@lysator.liu.se\u0000\u0000\u0000\ufffdaes128-ctr,aes192-ctr,aes256-ctr,arcfour256,arcfour128,aes128-cbc,3des-cbc,blowfish-cbc,cast128-cbc,aes192-cbc,aes256-cbc,arcfour,rijndael-cbc@lysator.liu.se\u0000\u0000\u0000Uhmac-md5,hmac-sha1,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96\u0000\u0000\u0000Uhmac-md5,hmac-sha1,hmac-ripemd160,hmac-ripemd160@openssh.com,hmac-sha1-96,hmac-md5-96\u0000\u0000\u0000\u0015none,zlib@openssh.com\u0000\u0000\u0000\u0015none,zlib@openssh.com\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000"
+            }
+        }
+    }, 
+    "443": {
+        "https": {
+            "tls": {
+                "certificate": {
+                    "parsed": {
+                        "fingerprint_sha256": "986c7ff5ba671e599b62bb3262b835f06031a35c55d09c57ac4fb3dc9c9d28e1", 
+                        "subject_dn": "OU=Domain Control Validated, CN=www.xbrlcarib.org", 
+                        "signature_algorithm": {
+                            "oid": "1.2.840.113549.1.1.11", 
+                            "name": "SHA256WithRSA"
+                        }, 
+                        "subject": {
+                            "common_name": [
+                                "www.xbrlcarib.org"
+                            ], 
+                            "organizational_unit": [
+                                "Domain Control Validated"
+                            ]
+                        }, 
+                        "validity": {
+                            "start": "2015-07-31T19:56:38Z", 
+                            "end": "2016-07-31T19:37:38Z"
+                        }, 
+                        "issuer_dn": "C=US, ST=Arizona, L=Scottsdale, O=GoDaddy.com, Inc., OU=http://certs.godaddy.com/repository/, CN=Go Daddy Secure Certificate Authority - G2", 
+                        "fingerprint_sha1": "10c9b2305bd369b6c83b76bde4d3c824be6e8d3e", 
+                        "version": 3, 
+                        "extensions": {
+                            "authority_key_id": "40c2bd278ecc348330a233d7fb6cb3f0b42c80ce", 
+                            "certificate_policies": [
+                                "2.16.840.1.114413.1.7.23.1"
+                            ], 
+                            "authority_info_access": {
+                                "ocsp_urls": [
+                                    "http://ocsp.godaddy.com/"
+                                ], 
+                                "issuer_urls": [
+                                    "http://certificates.godaddy.com/repository/gdig2.crt"
+                                ]
+                            }, 
+                            "extended_key_usage": [
+                                1, 
+                                2
+                            ], 
+                            "subject_alt_name": {
+                                "dns_names": [
+                                    "www.xbrlcarib.org", 
+                                    "xbrlcarib.org"
+                                ]
+                            }, 
+                            "basic_constraints": {
+                                "is_ca": false
+                            }, 
+                            "crl_distribution_points": [
+                                "http://crl.godaddy.com/gdig2s1-101.crl"
+                            ], 
+                            "key_usage": {
+                                "key_encipherment": true, 
+                                "value": 5, 
+                                "digital_signature": true
+                            }, 
+                            "subject_key_id": "o90qvlXHw/d491D+Jw4NPUqugJA="
+                        }, 
+                        "signature": {
+                            "self_signed": false, 
+                            "valid": true, 
+                            "value": "hvdrD9qE4dhgIfAsLCwAlz2X+kWY1q87ogJGhv1hnLLHhSaFW7CjXcObyf/b3Brcw+hQ0L/2OgPDjyDZK16BN8Ef+B5Iy54jv+wj5Ou66RyFgiCS8jVF/K019nDvKWhz9qV8HXQirmfVWojDV8CyEwI/5fKYN1+87Ucc8mzvagwdqkEfL1ZRVbDaEnsGgp9Ulk5BrBXiRajYYDTajc7dHkPouU/KGNulaJc1X77L0Sx60WgNlodsa2W0qAjAsHLGYElNqQ091oLstdRZjCN5l0qAWXfBD/dpvEQpiLTFJplY4iJ+Tmbd67eJbIXE0zfxYxNlrzlHguXoVMFMYLkzZw==", 
+                            "signature_algorithm": {
+                                "oid": "1.2.840.113549.1.1.11", 
+                                "name": "SHA256WithRSA"
+                            }
+                        }, 
+                        "serial_number": "17331234571468230236", 
+                        "fingerprint_md5": "f52a4d82562589c7a834503e67acf054", 
+                        "subject_key_info": {
+                            "key_algorithm": {
+                                "oid": "", 
+                                "name": "RSA"
+                            }, 
+                            "rsa_public_key": {
+                                "length": 2048, 
+                                "modulus": "pWnMwf1s97HNnzmVemNqs1tIulocPCOzZGOZzXCSX4di3V8ClzyAclfc9i9beDhEj/6PQl1nrGRfPTn9pMjwd6XEGL6ItZGVkcDBl70OfiiJIQKPbG5+oFSZtcwSMGpLETDdsyI8eeFPv1TnI1RCDbb0wpEkdH0O/HuUJO1yzrIxxtcvHvZtJ/gjWAPI8NGfhR8Rl0OPAuWT3PJyMxhkaQHSbTXvkmO00IS635hJW2CRMdOlB/tiRxSQuuaw6TjzuxmcQr1bqTDUpgqBiBxyJ52ASP3EFdMQxtAdWaRoNkIZI8cjBfv3WfoTtV7u+sd/JGVmA2zSXi7lV0EdYWHANw==", 
+                                "exponent": 65537
+                            }
+                        }, 
+                        "issuer": {
+                            "province": [
+                                "Arizona"
+                            ], 
+                            "locality": [
+                                "Scottsdale"
+                            ], 
+                            "country": [
+                                "US"
+                            ], 
+                            "organizational_unit": [
+                                "http://certs.godaddy.com/repository/"
+                            ], 
+                            "common_name": [
+                                "Go Daddy Secure Certificate Authority - G2"
+                            ], 
+                            "organization": [
+                                "GoDaddy.com, Inc."
+                            ]
+                        }
+                    }
+                }, 
+                "chain": [
+                    {
+                        "parsed": {
+                            "fingerprint_sha256": "973a41276ffd01e027a2aad49e34c37846d3e976ff6a620b6712e33832041aa6", 
+                            "subject_dn": "C=US, ST=Arizona, L=Scottsdale, O=GoDaddy.com, Inc., OU=http://certs.godaddy.com/repository/, CN=Go Daddy Secure Certificate Authority - G2", 
+                            "signature_algorithm": {
+                                "oid": "1.2.840.113549.1.1.11", 
+                                "name": "SHA256WithRSA"
+                            }, 
+                            "subject": {
+                                "province": [
+                                    "Arizona"
+                                ], 
+                                "locality": [
+                                    "Scottsdale"
+                                ], 
+                                "country": [
+                                    "US"
+                                ], 
+                                "organizational_unit": [
+                                    "http://certs.godaddy.com/repository/"
+                                ], 
+                                "common_name": [
+                                    "Go Daddy Secure Certificate Authority - G2"
+                                ], 
+                                "organization": [
+                                    "GoDaddy.com, Inc."
+                                ]
+                            }, 
+                            "validity": {
+                                "start": "2011-05-03T07:00:00Z", 
+                                "end": "2031-05-03T07:00:00Z"
+                            }, 
+                            "issuer_dn": "C=US, ST=Arizona, L=Scottsdale, O=GoDaddy.com, Inc., CN=Go Daddy Root Certificate Authority - G2", 
+                            "fingerprint_sha1": "27ac9369faf25207bb2627cefaccbe4ef9c319b8", 
+                            "version": 3, 
+                            "extensions": {
+                                "authority_key_id": "3a9a8507106728b6eff6bd05416e20c194da0fde", 
+                                "certificate_policies": [
+                                    "2.5.29.32.0"
+                                ], 
+                                "authority_info_access": {
+                                    "ocsp_urls": [
+                                        "http://ocsp.godaddy.com/"
+                                    ]
+                                }, 
+                                "basic_constraints": {
+                                    "is_ca": true
+                                }, 
+                                "crl_distribution_points": [
+                                    "http://crl.godaddy.com/gdroot-g2.crl"
+                                ], 
+                                "key_usage": {
+                                    "certificate_sign": true, 
+                                    "crl_sign": true, 
+                                    "value": 96
+                                }, 
+                                "subject_key_id": "QMK9J47MNIMwojPX+2yz8LQsgM4="
+                            }, 
+                            "signature": {
+                                "self_signed": false, 
+                                "valid": true, 
+                                "value": "CH5skxDIOLiWqZBL/6FfTwTvbD6ciAbJUI+mc/dXMRu+vOQv2/i601vgtOfmeWIODKLXamNzMbX1qEikOwgtol2Q17R8JU8RVjDEtkSdeyyd5V7m7wxhqr/kKhvuhJ64g33BQ85EpxNwDZEf9MgTrYNg2dhyqHMkHrWsIg7KF4liWEQbq4klAQAPzcQbYttRtNMPUSqb9Lxz/HbONqTN2dgs6q6b9SqykNFNdRiKP4pBkCN9W0v+pANYm0ayw2Bgg/h9UEHOwqGQw7vvAi/SFVTuRBXZCq6nijPtsS12NibcBOuf92EfFdyHb+5GliitoSZ9CgmnLgSjjbz4vAQwAQ==", 
+                                "signature_algorithm": {
+                                    "oid": "1.2.840.113549.1.1.11", 
+                                    "name": "SHA256WithRSA"
+                                }
+                            }, 
+                            "serial_number": "7", 
+                            "fingerprint_md5": "96c25031bc0dc35cfba723731e1b4140", 
+                            "subject_key_info": {
+                                "key_algorithm": {
+                                    "oid": "", 
+                                    "name": "RSA"
+                                }, 
+                                "rsa_public_key": {
+                                    "length": 2048, 
+                                    "modulus": "ueDLENSvdr3Uk2LrMGS4gQhswwTZYheOL/8+Zc+PzmLmPFIc2hZFS1WreGtjg2KQzg9pbJnIGhSLTMxFM+qI3J6jryv+gGGdeVfEzy70PzA8XUf8mha8wzeWQVGOEUtU+Ci+0Iy+8DA4HvOwJvhmR2Nt3nEmR484R1PRRh2049wA6kWsvbxx2apvANvbzTA6eU9fTEf4He9bwsSdYDuxskOR2KQzTuqz1idPrSWKpcb01dCmrnQFZFeItURV1C0qOj74uL3pMgoClGTEFjpQ8Uqu53kzrwwgB3/o3wQ5wmkCbGNS+nfBG8h0h8i5kxhQVDVLaU68O9NJLh/cwdJS+w==", 
+                                    "exponent": 65537
+                                }
+                            }, 
+                            "issuer": {
+                                "common_name": [
+                                    "Go Daddy Root Certificate Authority - G2"
+                                ], 
+                                "country": [
+                                    "US"
+                                ], 
+                                "organization": [
+                                    "GoDaddy.com, Inc."
+                                ], 
+                                "province": [
+                                    "Arizona"
+                                ], 
+                                "locality": [
+                                    "Scottsdale"
+                                ]
+                            }
+                        }
+                    }, 
+                    {
+                        "parsed": {
+                            "fingerprint_sha256": "45140b3247eb9cc8c5b4f0d7b53091f73292089e6e5a63e2749dd3aca9198eda", 
+                            "subject_dn": "C=US, ST=Arizona, L=Scottsdale, O=GoDaddy.com, Inc., CN=Go Daddy Root Certificate Authority - G2", 
+                            "signature_algorithm": {
+                                "oid": "1.2.840.113549.1.1.11", 
+                                "name": "SHA256WithRSA"
+                            }, 
+                            "subject": {
+                                "common_name": [
+                                    "Go Daddy Root Certificate Authority - G2"
+                                ], 
+                                "country": [
+                                    "US"
+                                ], 
+                                "organization": [
+                                    "GoDaddy.com, Inc."
+                                ], 
+                                "province": [
+                                    "Arizona"
+                                ], 
+                                "locality": [
+                                    "Scottsdale"
+                                ]
+                            }, 
+                            "validity": {
+                                "start": "2009-09-01T00:00:00Z", 
+                                "end": "2037-12-31T23:59:59Z"
+                            }, 
+                            "issuer_dn": "C=US, ST=Arizona, L=Scottsdale, O=GoDaddy.com, Inc., CN=Go Daddy Root Certificate Authority - G2", 
+                            "fingerprint_sha1": "47beabc922eae80e78783462a79f45c254fde68b", 
+                            "version": 3, 
+                            "extensions": {
+                                "basic_constraints": {
+                                    "is_ca": true
+                                }, 
+                                "key_usage": {
+                                    "certificate_sign": true, 
+                                    "crl_sign": true, 
+                                    "value": 96
+                                }, 
+                                "certificate_policies": [], 
+                                "subject_key_id": "OpqFBxBnKLbv9r0FQW4gwZTaD94="
+                            }, 
+                            "signature": {
+                                "self_signed": true, 
+                                "valid": true, 
+                                "value": "mdtdedX5l1lnA2HxfjsGMXUtoSCOT2WHtPemnLzY6S/Q21ruz3SMc7Q4QtoFe/gCdbj9pbHXrvbX3hPLUxB+ikbRl/q3LisRq5CwJ4D56J9a6Tefq+TfbLOFF5092SRPeZE11l8E64CDq5oCLbUQ9NiQxwRzQO1yJaCpn+yeq2gSmVfGjxI6CaS9RP0GFTfBm+Qyo+046Nhk8yx+FPwC6p/N/wdoF9sikDgteo3RVPFp418zyno9ewrjyn9fOeXidbrFdhgzzizwL0yt97Hnzk+oxJtKVAbFf33VCA/iHP5+F7isXvbUFrJDCQxN9qdrtJmEZcp6iOLiRL5c9+oc9Q==", 
+                                "signature_algorithm": {
+                                    "oid": "1.2.840.113549.1.1.11", 
+                                    "name": "SHA256WithRSA"
+                                }
+                            }, 
+                            "serial_number": "0", 
+                            "fingerprint_md5": "803abc22c1e6fb8d9b3b274a321b9a01", 
+                            "subject_key_info": {
+                                "key_algorithm": {
+                                    "oid": "", 
+                                    "name": "RSA"
+                                }, 
+                                "rsa_public_key": {
+                                    "length": 2048, 
+                                    "modulus": "v3FiCPH6WTT3G8kYo/eASVjpIoMTpsUgQwE7hPHmhUmfJ+r2hBtOoLTbcJjHMgGxBT4HTu70+k8vWTAi56sZVmvigAf88xZ1gDlRe+X5NbZ0TqmNghPktj+pA4P6or6KFWp/3gvDthkUBcrqw6gElDtGfDIN8wBmIsiNaW02jBEYt9OyHGC0OPoCjM7T3UYH3go+6118yHz7sCtTpJJiaVElBWEaRIGMLKlDliPfrDqBmg4pxRyp6V0etp6eMAo5zvGIgPtLXcwy7IViQyU0AlYnAZG0O3AqP26x6JyIAX2f1PnbU21gnb8s51iruF9G/M7EGwM8CetJMVxpRrPgRw==", 
+                                    "exponent": 65537
+                                }
+                            }, 
+                            "issuer": {
+                                "common_name": [
+                                    "Go Daddy Root Certificate Authority - G2"
+                                ], 
+                                "country": [
+                                    "US"
+                                ], 
+                                "organization": [
+                                    "GoDaddy.com, Inc."
+                                ], 
+                                "province": [
+                                    "Arizona"
+                                ], 
+                                "locality": [
+                                    "Scottsdale"
+                                ]
+                            }
+                        }
+                    }
+                ], 
+                "cipher_suite": {
+                    "id": "0x0035", 
+                    "name": "TLS_RSA_WITH_AES_256_CBC_SHA"
+                }, 
+                "version": "TLSv1.0", 
+                "ocsp_stapling": false, 
+                "validation": {
+                    "browser_trusted": true
+                }
+            }, 
+            "dhe": {
+                "support": false
+            }, 
+            "dhe_export": {
+                "support": false
+            }, 
+            "rsa_export": {
+                "support": false
+            }, 
+            "heartbleed": {
+                "heartbeat_enabled": false, 
+                "heartbleed_vulnerable": false
+            }
+        }
+    }, 
+    "53": {
+        "dns": {
+            "open_resolver": {
+                "authorities": [
+                    "F.ROOT-SERVERS.net", 
+                    "G.ROOT-SERVERS.net", 
+                    "H.ROOT-SERVERS.net", 
+                    "I.ROOT-SERVERS.net", 
+                    "J.ROOT-SERVERS.net", 
+                    "K.ROOT-SERVERS.net", 
+                    "L.ROOT-SERVERS.net", 
+                    "M.ROOT-SERVERS.net", 
+                    "A.ROOT-SERVERS.net", 
+                    "B.ROOT-SERVERS.net", 
+                    "C.ROOT-SERVERS.net", 
+                    "D.ROOT-SERVERS.net", 
+                    "E.ROOT-SERVERS.net"
+                ], 
+                "support": true, 
+                "iterative_resolver": true, 
+                "recursive_resolver": false
+            }
+        }
+    }, 
+    "80": {
+        "http": {
+            "get": {
+                "headers": {
+                    "content_type": "text/html", 
+                    "server": "Apache-Coyote/1.1,Apache-Coyote/1.1"
+                }, 
+                "status_code": 200, 
+                "title": "The Business Reporting Authority | SQL Power Group Inc.", 
+                "status_line": "HTTP/1.1 200 OK", 
+                "body_sha256": "4LUNsOg94gqt5oiMgFk+OTrSWusB0ON0lHfSGHFQxK8="
+            }
+        }
+    }
+}

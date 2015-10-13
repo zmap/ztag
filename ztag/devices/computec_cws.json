@@ -1,0 +1,41 @@
+{
+    "80": {
+        "http": {
+            "get": {
+                "body": "<html>\n    <head>\n\t    <meta http-equiv=\"content-type\" content=\"text/html;charset=iso-8859-1\">\n\t    <meta http-equiv=\"refresh\" content=\"0;URL=http:/cws-cgi/cwsxml.cgi?mode=xsltparse&xslt=mainpage.xsl\">\n        <title>Computec Oy, CWS06 MainPage</title>\n    </head>\n</html>\n",
+                "title": "Computec Oy, CWS06 MainPage",
+                "status_code": 200,
+                "status_line": "HTTP/1.1 200 OK",
+                "headers": {
+                    "content_length": "273",
+                    "last_modified": "Tue, 10 Nov 2009 10:01:13 GMT",
+                    "accept_ranges": "bytes",
+                    "content_type": "text/html",
+                    "server": "Boa/0.94.14rc20"
+                },
+                "body_sha256": "cqH4x3lpZpdPjeXul5KGox7GjYA1ePfMyRxO3k3HBq8=",
+                "metadata": {
+                    "product": "HTTP Server",
+                    "version": "0.94.14rc20",
+                    "manufacturer": "Apache"
+                }
+            }
+        }
+    },
+    "502": {
+        "modbus": {
+            "device_id": {
+                "function_code": 43,
+                "mei_response": {
+                    "objects": {
+                        "product_code": "CWS06        ",
+                        "vendor": "Computec Oy",
+                        "revision": "v3.159"
+                    },
+                    "conformity_level": 1
+                },
+                "metadata": {}
+            }
+        }
+    }
+}

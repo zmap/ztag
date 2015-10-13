@@ -1,0 +1,22 @@
+{
+    "502": {
+        "modbus": {
+            "device_id": {
+                "function_code": 43,
+                "mei_response": {
+                    "objects": {
+                        "user_application_name": "By RIDVAN GONUL Tel:+90 533 339 0",
+                        "vendor": "ENTES AS",
+                        "model_name": "MPR-63 ",
+                        "product_code": "63000167",
+                        "product_name": "Network Analyser",
+                        "vendor_url": "www.entes.com.tr",
+                        "revision": "v1.67"
+                    },
+                    "conformity_level": 1
+                },
+                "metadata": {}
+            }
+        }
+    }
+}

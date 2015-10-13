@@ -1,0 +1,149 @@
+{
+    "443": {
+        "https": {
+            "tls": {
+                "server_key_exchange": {
+                    "ecdh_params": {
+                        "curve_id": {
+                            "id": 23, 
+                            "name": "secp256r1"
+                        }
+                    }
+                }, 
+                "certificate": {
+                    "parsed": {
+                        "fingerprint_sha1": "1db489c0b5db2b82e71e42e37e045898606d6f27", 
+                        "subject_dn": "C=FR, ST=49, L=CHOLET, O=AGENA3000, OU=NGINX, CN=NGINX, emailAddress=cobian@agena3000.fr", 
+                        "issuer": {
+                            "province": [
+                                "49"
+                            ], 
+                            "locality": [
+                                "CHOLET"
+                            ], 
+                            "country": [
+                                "FR"
+                            ], 
+                            "organizational_unit": [
+                                "NGINX"
+                            ], 
+                            "common_name": [
+                                "NGINX"
+                            ], 
+                            "organization": [
+                                "AGENA3000"
+                            ]
+                        }, 
+                        "signature": {
+                            "self_signed": true, 
+                            "valid": true, 
+                            "value": "0O8mUJjIGWe6dZCq0BfvzKWuHkZpWmDgLXuN06PnilymG0qsIktxLh4LG0GhDKDMBmRCidtUUix+4w51vaLF0ZMkWUYHC9X0HYRv9fdBAcrU1caiP9ybcMhUHTfLhv9A6qbo+DMc4Jr5Yxkwi4+Kel4HiF9YNvlovwiU9u8md6Y=", 
+                            "signature_algorithm": {
+                                "oid": "1.2.840.113549.1.1.5", 
+                                "name": "SHA1WithRSA"
+                            }
+                        }, 
+                        "validity": {
+                            "start": "2014-04-15T13:22:58Z", 
+                            "end": "2024-04-12T13:22:58Z"
+                        }, 
+                        "issuer_dn": "C=FR, ST=49, L=CHOLET, O=AGENA3000, OU=NGINX, CN=NGINX, emailAddress=cobian@agena3000.fr", 
+                        "fingerprint_sha256": "548ba4e520401ceaae6529575c63e83bbed0413203d702e0e9f202260a612b15", 
+                        "version": 2, 
+                        "extensions": {
+                            "certificate_policies": []
+                        }, 
+                        "signature_algorithm": {
+                            "oid": "1.2.840.113549.1.1.5", 
+                            "name": "SHA1WithRSA"
+                        }, 
+                        "serial_number": "15623230530783600115", 
+                        "fingerprint_md5": "e9517f773af43766bec676a6133107b4", 
+                        "subject_key_info": {
+                            "key_algorithm": {
+                                "oid": "", 
+                                "name": "RSA"
+                            }, 
+                            "rsa_public_key": {
+                                "length": 1024, 
+                                "modulus": "8g9kX6r6X7RUE7PAxApK28Au8DsnjgbS22oWUf5NtlpRIHUUlu2QvtCAeHLuuNx4vQ9xDKGO3lbqSDCnRhljxW0+rj1dTQXXxEjwY46ealHl2fdMkO3ESZmSpW34VIvw0z9sCCf49FEFEJIxBcr/9851EpIlxCEYEWS3BRC5/LM=", 
+                                "exponent": 65537
+                            }
+                        }, 
+                        "subject": {
+                            "province": [
+                                "49"
+                            ], 
+                            "locality": [
+                                "CHOLET"
+                            ], 
+                            "country": [
+                                "FR"
+                            ], 
+                            "organizational_unit": [
+                                "NGINX"
+                            ], 
+                            "common_name": [
+                                "NGINX"
+                            ], 
+                            "organization": [
+                                "AGENA3000"
+                            ]
+                        }
+                    }
+                }, 
+                "cipher_suite": {
+                    "id": "0xC02F", 
+                    "name": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+                }, 
+                "version": "TLSv1.2", 
+                "ocsp_stapling": false, 
+                "signature": {
+                    "hash_algorithm": "sha256", 
+                    "valid": true, 
+                    "signature_algorithm": "rsa"
+                }, 
+                "validation": {
+                    "browser_trusted": false, 
+                    "browser_error": "x509: certificate signed by unknown authority"
+                }, 
+                "metadata": {}
+            }, 
+            "dhe_export": {
+                "support": false, 
+                "metadata": {}
+            }, 
+            "rsa_export": {
+                "support": false, 
+                "metadata": {}
+            }, 
+            "ssl_3": {
+                "support": true, 
+                "metadata": {}
+            }
+        }
+    }, 
+    "80": {
+        "http": {
+            "get": {
+                "body": "<html><body></body></html>\n", 
+                "body_sha256": "7C9E59vS67EmisfnoGAuwhBrx/2doXuQEtuBvlXL1IU=", 
+                "status_code": 200, 
+                "status_line": "HTTP/1.1 200 OK", 
+                "headers": {
+                    "content_length": "27", 
+                    "server": "nginx/1.4.6 (Ubuntu)", 
+                    "connection": "keep-alive", 
+                    "last_modified": "Thu, 13 Dec 2012 08:31:42 GMT", 
+                    "content_type": "text/html", 
+                    "accept_ranges": "bytes"
+                }, 
+                "metadata": {
+                    "product": "HTTP Server", 
+                    "version": "1.4.6", 
+                    "manufacturer": "Apache"
+                }
+            }
+        }
+    }
+}
