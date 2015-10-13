@@ -50,10 +50,6 @@ modify `obj`. Only set the properties on `meta` that your annotation can
 determine. Optionally, your function can also return `None` to signify it cannot
 annotate `obj`. This is functionally identical to returning `meta` unmodified.
 
-## Testing your Annotation
-
-TODO
-
 ## Schema
 
 ### Layout

@@ -5,7 +5,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 
 setup(
   name='ztag',
-  version='0.0.0',
+  version='1.0.0',
   description='utility for transforming and annotating JSON scan data',
   licsense="Apache License, Version 2.0",
   long_description=open(os.path.join(here, 'README.md')).read(),
@@ -33,3 +33,4 @@ setup(
     ]
   }
 )
+
