@@ -8,39 +8,74 @@ class FtpAxis(Annotation):
     port = None
 
     camera_manufact_re = re.compile(
-                        "^220 AXIS .*Network .*Camera",
-                        re.IGNORECASE
-                        )
+        "^220 AXIS .*Network .*Camera",
+        re.IGNORECASE
+        )
     vid_encode_manufact_re = re.compile(
-                        "^220 AXIS [^\s]* Video Encoder",
-                        re.IGNORECASE
-                        )
-    product_re = re.compile("^220 AXIS (.+) \d+\.\d+", re.IGNORECASE)
+        "^220 AXIS [^\s]* Video Encoder",
+        re.IGNORECASE
+        )
+    camera_product_re = re.compile(
+        "^220 AXIS (.+ Camera) \d+\.\d+",
+        re.IGNORECASE
+        )
+    encode_product_re = re.compile(
+        "^220 AXIS (.+ Encoder(?: Blade)?) \d+",
+        re.IGNORECASE
+        )
     manufact_re = re.compile("^220 AXIS .* ready", re.IGNORECASE)
+    version_re = re.compile(
+        "(?:(?:Camera)|(?:Encoder Blade)|(?:Encoder)) (\d+(?:\.\d+)*) \(",
+        re.IGNORECASE
+        )
+
+    tests = {
+        "FtpAxis_1": {
+            "global_metadata": {
+                "device_type": Type.CAMERA,
+                "manufacturer": Manufacturer.AXIS,
+                "product": "221 Network Camera"
+            },
+            "local_metadata": {
+                "version": "4.45.1"
+            }
+        },
+        "FtpAxis_2": {
+            "global_metadata": {
+                "manufacturer": Manufacturer.AXIS,
+                "product": "Q7401 Video Encoder"
+            },
+            "local_metadata": {
+                "version": "5.50.2"
+            }
+        },
+    }
 
     def process(self, obj, meta):
         banner = obj["banner"]
-        tagged = False
 
         if self.camera_manufact_re.search(banner):
-            meta.global_data.device_type = Type.CAMERA
-            meta.global_data.manufacturer = Manufacturer.AXIS
-            meta.global_data.product = self.product_re.search(banner).group(1)
-            tagged = True
+            meta.global_metadata.device_type = Type.CAMERA
+            meta.global_metadata.manufacturer = Manufacturer.AXIS
+            meta.global_metadata.product = self.camera_product_re.search(banner).group(1)
+
+            version = self.version_re.search(banner).group(1)
+            meta.local_metadata.version = version
+
+            return meta
 
         if self.vid_encode_manufact_re.search(banner):
-            meta.global_data.manufacturer = Manufacturer.AXIS
-            meta.global_data.product = self.product_re.search(banner).group(1)
-            tagged = True
+            meta.global_metadata.manufacturer = Manufacturer.AXIS
+            meta.global_metadata.product = self.encode_product_re.search(banner).group(1)
+
+            version = self.version_re.search(banner).group(1)
+            meta.local_metadata.version = version
+
+            return meta
 
         if self.manufact_re.search(banner):
-            meta.global_data.manufacturer = Manufacturer.AXIS
-            tagged = True
-
-        if tagged:
+            meta.global_metadata.manufacturer = Manufacturer.AXIS
             return meta
-        else:
-            return None
 
     """ Camera Tests
     "220 AXIS 221 Network Camera 4.45.1 (Mar 11 2008) ready.\r\n"

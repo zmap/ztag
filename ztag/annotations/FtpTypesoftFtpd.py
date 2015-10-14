@@ -15,19 +15,29 @@ class FtpTypesoftFtpd(Annotation):
         re.IGNORECASE
         )
     version_re = re.compile(
-        "Server (\d+\.\d+) ready",
+        "Server (\d+(?:\.\d+)*) ready",
         re.IGNORECASE
         )
+
+    tests = {
+        "FtpTypSoft_1": {
+            "local_metadata": {
+                "product": "TYPSoft FTPd",
+                "version": "1.10"
+            }
+        }
+    }
 
     def process(self, obj, meta):
         banner = obj["banner"]
 
-        if impl_re.search(banner):
-            meta.local_metadata.product = "TYPSoft FTP"
+        if self.impl_re.search(banner):
+            meta.local_metadata.product = "TYPSoft FTPd"
+
             version = self.version_re.search(banner).group(1)
             meta.local_metadata.version = version
 
-        return meta
+            return meta
 
     """ Tests
     "220 TYPSoft FTP Server 1.10 ready...\r\n"

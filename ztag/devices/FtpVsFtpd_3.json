@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "500 OOPS: vsftpd: root is not mounted\r\n"
+            }
+        }
+    }
+}

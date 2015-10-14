@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 Welcome to Seagate Central Shared Storage FTP service.\r\n"
+            }
+        }
+    }
+}

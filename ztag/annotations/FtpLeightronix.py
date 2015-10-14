@@ -1,4 +1,6 @@
 from ztag.annotation import Annotation
+from ztag.annotation import Type
+from ztag.annotation import Manufacturer
 from ztag import protocols
 import ztag.test
 import re
@@ -9,6 +11,17 @@ class FtpLeightronix(Annotation):
     protocol = protocols.FTP
     subprotocol = protocols.FTP.BANNER
     port = None
+
+    tests = {
+        "FtpLeightronix_1": {
+            "global_metadata": {
+                "manufacturer": Manufacturer.LEIGHTRONIX
+            },
+            "local_metadata": {
+                "version": "1.01"
+            }
+        }
+    }
 
     manufact_re = re.compile(
         "^220-lgxftpd V(\d+\.\d+), LEIGHTRONIX, INC\.",

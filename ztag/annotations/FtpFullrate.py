@@ -21,12 +21,25 @@ class FtpFullrate(Annotation):
         re.IGNORECASE
         )
 
+    tests = {
+        "FtpFullrate_1": {
+            "global_metadata": {
+                "device_type": Type.DSL_MODEM,
+                "manufacturer": Manufacturer.FULLRATE
+            },
+            "local_metadata": {
+                "version": "1.0"
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
         if self.manufact_re.search(banner):
             meta.global_metadata.device_type = Type.DSL_MODEM
             meta.global_metadata.manufacturer = Manufacturer.FULLRATE
+
             version = self.ftp_version_re.search(banner)
             if version:
                 meta.local_metadata.version = version.group(1)

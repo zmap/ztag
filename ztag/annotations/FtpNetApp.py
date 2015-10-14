@@ -1,4 +1,5 @@
 from ztag.annotation import Annotation
+from ztag.annotation import Manufacturer
 from ztag import protocols
 import ztag.test
 import re
@@ -20,6 +21,18 @@ class FtpNetApp(Annotation):
         re.IGNORECASE
         )
 
+    tests = {
+        "FtpNetApp_1": {
+            "global_metadata": {
+                "manufacturer": Manufacturer.NETAPP
+            },
+            "local_metadata": {
+                "version": "8.0.5",
+                "revision": "P1"
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
@@ -32,4 +45,4 @@ class FtpNetApp(Annotation):
             rev = self.version_re.search(banner).group(2)
             meta.local_metadata.revision = rev
 
-        return meta
+            return meta

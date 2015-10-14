@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220-TiMOS-C-9.0.R6 cpm/hops ALCATEL SR 7750 Copyright (c) 2000-2011 Alcatel-Lucent.\r\n220-All rights reserved. All use subject to applicable license agreements.\r\n220-Built on Tue Sep 27 12:38:04 PDT 2011 by builder in /rel9.0/b1/R6/panos/main\r\n220-\r\n220 FTP server ready\r\n"
+            }
+        }
+    }
+}

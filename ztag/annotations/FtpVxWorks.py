@@ -25,14 +25,30 @@ class FtpVxWorks(Annotation):
         re.IGNORECASE
         )
 
+    tests = {
+        "FtpVxWorks_1": {
+            "local_metadata": {
+                "product": "VxWorks",
+                "version": "5.4.2"
+            }
+        },
+        "FtpVxWorks_2": {
+            "local_metadata": {
+                "product": "VxWorks",
+                "version": "5.4"
+            }
+        },
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
         if (
-            impl_1_re.search(banner) or
-            impl_2_re.search(banner)
+            self.impl_1_re.search(banner) or
+            self.impl_2_re.search(banner)
         ):
             meta.local_metadata.product = "VxWorks"
+
             version = self.version_re.search(banner).group(1)
             meta.local_metadata.version = version
 

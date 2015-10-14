@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 LaCie-CloudBox FTP Server [192.168.1.197]\r\n"
+            }
+        }
+    }
+}

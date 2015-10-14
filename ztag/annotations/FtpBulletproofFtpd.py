@@ -12,6 +12,18 @@ class FtpBulletproofFtpd(Annotation):
 
     impl_re = re.compile("^220[- ]BulletProof FTP Server ready", re.IGNORECASE)
 
+    tests = {
+        "FtpBulletproofFtpd_1": {
+            "global_metadata": {
+                "os": OperatingSystem.WINDOWS
+            },
+            "local_metadata": {
+                "product": "BulletProof FTP"
+            }
+        }
+    }
+
+
     def process(self, obj, meta):
         banner = obj["banner"]
         if self.impl_re.search(banner):

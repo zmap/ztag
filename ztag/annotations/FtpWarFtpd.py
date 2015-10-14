@@ -13,15 +13,31 @@ class FtpWarFtpd(Annotation):
     impl_re = re.compile("WarFTPd \d+\.\d+", re.IGNORECASE)
     version_re = re.compile("WarFTPd (\d+(\.\d+)*)", re.IGNORECASE)
 
+    tests = {
+        "FtpWarFtpd_1": {
+            "local_metadata": {
+                "product": "WarFtpd",
+                "version": "1.82.00",
+            }
+        },
+        "FtpWarFtpd_2": {
+            "local_metadata": {
+                "product": "WarFtpd",
+                "version": "1.65",
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
         if self.impl_re.search(banner):
             meta.local_metadata.product = "WarFtpd"
+
             version = self.version_re.search(banner).group(1)
             meta.local_metadata.version = version
 
-        return meta
+            return meta
 
     """ Tests
     "220-www1.powerweb.net\r\n    WarFTPd 1.82.00-RC11 (Sep 22 2006) Ready\r\n    (C)opyright 1996 - 2006 by Jarle (jgaa) Aase - all rights reserved.\r\n220 Please enter your user name.\r\n"

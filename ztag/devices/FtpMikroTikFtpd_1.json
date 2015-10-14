@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 MikroTik FTP server (MikroTik 2.9.27) ready\r\n"
+            }
+        }
+    }
+}

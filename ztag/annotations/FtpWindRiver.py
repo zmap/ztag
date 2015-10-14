@@ -15,16 +15,29 @@ class FtpWindRiver(Annotation):
     manufact_re = re.compile("^220 Wind River FTP server", re.IGNORECASE)
     version_re = re.compile("FTP server (\d+\.\d+) ready", re.IGNORECASE)
 
+    tests = {
+        "FtpWindRiver_1": {
+            "global_metadata": {
+                "device_type": Type.SOHO_ROUTER,
+                "manufacturer": Manufacturer.WIND_RIVER,
+            },
+            "local_metadata": {
+                "version": "6.5"
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
         if self.manufact_re.search(banner):
             meta.global_metadata.device_type = Type.SOHO_ROUTER
             meta.global_metadata.manufacturer = Manufacturer.WIND_RIVER
+
             version = self.version_re.search(banner).group(1)
             meta.local_metadata.version = version
 
-        return meta
+            return meta
 
     """ Tests
     "220 Wind River FTP server 6.5 ready.\r\n"

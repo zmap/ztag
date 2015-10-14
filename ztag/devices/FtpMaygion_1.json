@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 IPCamera FtpServer(www.maygion.com),do NOT change firmware unless you know what you are doing!\r\n"
+            }
+        }
+    }
+}

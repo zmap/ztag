@@ -13,9 +13,18 @@ class FtpBelkin(Annotation):
     port = None
 
     manufact_re = re.compile(
-                        "^220 Belkin Network USB Hub Ver \d+\.\d+\.\d+ FTP",
-                        re.IGNORECASE
-                        )
+        "^220 Belkin Network USB Hub Ver \d+\.\d+\.\d+ FTP",
+        re.IGNORECASE
+        )
+
+    tests = {
+        "FtpBelkin_1": {
+            "global_metadata": {
+                "device_type": Type.USB_HUB,
+                "manufacturer": Manufacturer.BELKIN
+            }
+        }
+    }
 
     def process(self, obj, meta):
         banner = obj["banner"]

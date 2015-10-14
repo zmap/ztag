@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 NASFTPD Turbo station 1.3.4e Server (ProFTPD) [::ffff:10.100.0.20]\r\n"
+            }
+        }
+    }
+}

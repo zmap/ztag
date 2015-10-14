@@ -12,13 +12,19 @@ class FtpGenericUpdate(Annotation):
     subprotocol = protocols.FTP.BANNER
     port = None
 
+    tests = {
+        "FtpGenericUpdate_1": {
+            "tags": ["Update utility"]
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
-        if banner.beginswith("220 Ftp firmware update utility"):
-            meta.tags.append("Generic FTP firmware update utility")
+        if banner.startswith("220 Ftp firmware update utility"):
+            meta.tags.add("Update utility")
 
-        return meta
+            return meta
 
     """ Tests
     "220 Ftp firmware update utility\r\n"

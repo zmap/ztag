@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 Intercon FTP server (MikroTik 5.26) ready\r\n"
+            }
+        }
+    }
+}

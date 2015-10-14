@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 NetworkSpace2 FTP Server [10.0.1.50]\r\n"
+            }
+        }
+    }
+}

@@ -15,6 +15,18 @@ class FtpCerebusFtpd(Annotation):
         re.IGNORECASE
         )
 
+    tests = {
+        "FtpCerebusFtpd_1": {
+            "global_metadata": {
+                "os": OperatingSystem.WINDOWS
+            },
+            "local_metadata": {
+                "product": "Cerberus FTPd",
+                "version": "Personal"
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 

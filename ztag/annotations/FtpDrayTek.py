@@ -12,19 +12,28 @@ class FtpDrayTek(Annotation):
     subprotocol = protocols.FTP.BANNER
     port = None
     manufact_re = re.compile("^220 DrayTek FTP version", re.IGNORECASE)
+    version_re = re.compile("FTP version (\d+\.\d+)", re.IGNORECASE)
+
+    tests = {
+        "FtpDrayTek_1": {
+            "global_metadata": {
+                "manufacturer": Manufacturer.DRAYTEK
+            },
+            "local_metadata": {
+                "version": "1.0"
+            }
+        }
+    }
 
     def process(self, obj, meta):
         banner = obj["banner"]
-        tagged = False
 
         if self.manufact_re.search(banner):
-            meta.global_metadaa.manufacturer = Manufacturer.DRAYTEK
-            tagged = True
-
-        if tagged:
+            meta.global_metadata.manufacturer = Manufacturer.DRAYTEK
+            
+            version = self.version_re.search(banner).group(1)
+            meta.local_metadata.version = version
             return meta
-        else:
-            return None
 
     """ Tests
     "220 DrayTek FTP version 1.0\r\n"

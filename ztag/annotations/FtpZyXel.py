@@ -21,16 +21,27 @@ class FtpZyXel(Annotation):
         re.IGNORECASE
         )
 
+    tests = {
+        "FtpZyXel_1": {
+            "global_metadata": {
+                "device_type": Type.DSL_MODEM,
+                "manufacturer": Manufacturer.ZYXEL,
+                "product": "P-660RU-T1v2"
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
         if self.manufact_re.search(banner):
             meta.global_metadata.device_type = Type.DSL_MODEM
             meta.global_metadata.manufacturer = Manufacturer.ZYXEL
+
             product = self.product_re.search(banner).group(1)
             meta.global_metadata.product = product
 
-        return meta
+            return meta
 
     """ Tests
     "220 P-660HW-T FTP version 1.0 ready at Mon Jun 22 02:31:19 2015\r\n"

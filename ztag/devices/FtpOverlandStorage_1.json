@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 ProFTPD 1.2.9 Server (Snap Appliance FTP Server) [SNAP2252876.spec.local]\r\n"
+            }
+        }
+    }
+}

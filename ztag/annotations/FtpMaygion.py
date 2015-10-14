@@ -17,6 +17,15 @@ class FtpMaygion(Annotation):
         re.IGNORECASE
         )
 
+    tests = {
+        "FtpMaygion_1": {
+            "global_metadata": {
+                "device_type": Type.CAMERA,
+                "manufacturer": Manufacturer.MAYGION
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
@@ -24,7 +33,7 @@ class FtpMaygion(Annotation):
             meta.global_metadata.device_type = Type.CAMERA
             meta.global_metadata.manufacturer = Manufacturer.MAYGION
 
-        return meta
+            return meta
 
     """ Tests
     "220 IPCamera FtpServer(www.maygion.com),do NOT change firmware unless you know what you are doing!\r\n"

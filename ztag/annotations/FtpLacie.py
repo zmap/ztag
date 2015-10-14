@@ -33,6 +33,30 @@ class FtpLacie(Annotation):
             ),
     }
 
+    tests = {
+        "FtpLacie_1": {
+            "global_metadata": {
+                "device_type": Type.NAS,
+                "manufacturer": Manufacturer.LACIE,
+                "product": "Network Space 2"
+            }
+        },
+        "FtpLacie_2": {
+            "global_metadata": {
+                "device_type": Type.NAS,
+                "manufacturer": Manufacturer.LACIE,
+                "product": "CloudBox"
+            }
+        },
+        "FtpLacie_3": {
+            "global_metadata": {
+                "device_type": Type.NAS,
+                "manufacturer": Manufacturer.LACIE,
+                "product": "5Big"
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
@@ -41,12 +65,9 @@ class FtpLacie(Annotation):
             if regex.search(banner):
                 meta.global_metadata.device_type = Type.NAS
                 meta.global_metadata.manufacturer = Manufacturer.LACIE
-                found = " && ".join([found, product])
+                meta.global_metadata.product = product
 
-        if found != "":
-            meta.global_metadata.product = found
-
-        return meta
+                return meta
 
     """ Tests
     "220 NetworkSpace2 FTP Server [10.0.1.50]\r\n"

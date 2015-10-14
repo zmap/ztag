@@ -17,7 +17,7 @@ class FtpXerox(Annotation):
         re.IGNORECASE
         )
     product_1_re = re.compile(
-        "^220 FUJI XEROX (.+)",
+        "^220 FUJI XEROX ([- _a-zA-Z0-9]+)",
         re.IGNORECASE
         )
 
@@ -26,9 +26,26 @@ class FtpXerox(Annotation):
         re.IGNORECASE
         )
     product_2_re = re.compile(
-        "^220 Xerox (.+)",
+        "^220 Xerox ([- _a-zA-Z0-9]+)",
         re.IGNORECASE
         )
+
+    tests = {
+        "FtpXerox_1": {
+            "global_metadata": {
+                "device_type": Type.GENERIC_PRINTER,
+                "manufacturer": Manufacturer.XEROX,
+                "product": "Phaser 6500DN"
+            }
+        },
+        "FtpXerox_2": {
+            "global_metadata": {
+                "device_type": Type.GENERIC_PRINTER,
+                "manufacturer": Manufacturer.XEROX,
+                "product": "DocuPrint CM305 df",
+            }
+        },
+    }
 
     def process(self, obj, meta):
         banner = obj["banner"]
@@ -36,16 +53,20 @@ class FtpXerox(Annotation):
         if self.manufact_1_re.search(banner):
             meta.global_metadata.device_type = Type.GENERIC_PRINTER
             meta.global_metadata.manufacturer = Manufacturer.XEROX
-            product = product_1_re.search(banner).group(1)
+
+            product = self.product_1_re.search(banner).group(1)
             meta.global_metadata.product = product
+
+            return meta
 
         if self.manufact_2_re.search(banner):
             meta.global_metadata.device_type = Type.GENERIC_PRINTER
             meta.global_metadata.manufacturer = Manufacturer.XEROX
-            product = product_2_re.search(banner).group(1)
+
+            product = self.product_2_re.search(banner).group(1)
             meta.global_metadata.product = product
 
-        return meta
+            return meta
 
     """ Tests
     "220 Xerox Phaser 6500DN\r\n"

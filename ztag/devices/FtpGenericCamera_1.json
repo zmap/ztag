@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 Network-Camera FTP server (Version 6.4/OpenBSD/Linux-ftpd-0.17) ready.\r\n"
+            }
+        }
+    }
+}

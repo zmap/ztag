@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 HP ARPA FTP Server [A0010L09] (C) Hewlett-Packard Co. 2000 [PASV SUPPORT]\r\n"
+            }
+        }
+    }
+}

@@ -15,15 +15,25 @@ class FtpTnFtpd(Annotation):
         )
     version_re = re.compile("\(tnftpd (.+)\)", re.IGNORECASE)
 
-    def process(self, obj, meta):
-        server = obj["banner"]
+    tests = {
+        "FtpTnFtpd_1": {
+            "local_metadata": {
+                "product": "tnftpd",
+                "version": "20080929"
+            }
+        }
+    }
 
-        if impl_re.search(d["banner"]):
+    def process(self, obj, meta):
+        banner = obj["banner"]
+
+        if self.impl_re.search(banner):
             meta.local_metadata.product = "tnftpd"
+
             version = self.version_re.search(banner).group(1)
             meta.local_metadata.version = version
 
-        return meta
+            return meta
 
     """ Tests
     "220 192.168.0.3 FTP server (tnftpd 20100324+GSSAPI) ready.\r\n"

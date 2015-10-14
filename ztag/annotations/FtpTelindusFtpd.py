@@ -12,13 +12,21 @@ class FtpTelindusFtpd(Annotation):
 
     impl_re = re.compile("^220 Telindus FTP server ready", re.IGNORECASE)
 
+    tests = {
+        "FtpTelindusFtpd_1": {
+            "local_metadata": {
+                "product": "Telindus FTPd"
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
         if self.impl_re.search(banner):
-            meta.local_metadata.product = "Telindus FTP"
+            meta.local_metadata.product = "Telindus FTPd"
 
-        return meta
+            return meta
 
     """ Tests
     "220 Telindus FTP server ready.\r\n"

@@ -17,6 +17,22 @@ class FtpNetgear(Annotation):
         re.IGNORECASE
         )
 
+    tests = {
+        "FtpNetGear_1": {
+            "global_metadata": {
+                "device_type": Type.NAS,
+                "manufacturer": Manufacturer.NETGEAR,
+                "product": "ReadyNAS"
+            },
+            "local_metadata": {
+                "product": "ProFTPD",
+                "version": "1.3.3",
+                "revision": "g"
+            }
+        }
+    }
+
+
     def process(self, obj, meta):
         banner = obj["banner"]
 

@@ -1,5 +1,6 @@
 import re
 from ztag.annotation import Annotation
+from ztag.annotation import OperatingSystem
 from ztag import protocols
 import ztag.test
 
@@ -13,6 +14,17 @@ class FtpIis(Annotation):
         "^220[- ]Microsoft FTP Service",
         re.IGNORECASE
         )
+
+    tests = {
+        "FtpIis_1": {
+            "global_metadata": {
+                "os": OperatingSystem.WINDOWS
+            },
+            "local_metadata": {
+                "product": "IIS"
+            }
+        }
+    }
 
     def process(self, obj, meta):
         banner = obj["banner"]

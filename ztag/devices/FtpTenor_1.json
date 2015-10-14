@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 <3582a65a>  Tenor Multipath Switch FTP server (Version VxWorks5.4.2) ready.\r\n"
+            }
+        }
+    }
+}

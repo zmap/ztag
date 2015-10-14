@@ -14,19 +14,45 @@ class FtpIpTime(Annotation):
 
     manufact_re = re.compile("^220 ipTIME_FTPD", re.IGNORECASE)
     version_re = re.compile(
-        "^220 ipTIME_FTPD (\d+\.\d+\.\d+[a-z]) Server",
+        "^220 ipTIME_FTPD (\d+\.\d+\.\d+)([a-z])? Server",
         re.IGNORECASE
         )
+
+    tests = {
+        "FtpIpTime_1": {
+            "global_metadata": {
+                "manufacturer": Manufacturer.IPTIME
+            },
+            "local_metadata": {
+                "product": "ipTIME_FTPD",
+                "version": "1.3.4",
+                "revision": "d"
+            }
+        },
+        "FtpIpTime_2": {
+            "global_metadata": {
+                "manufacturer": Manufacturer.IPTIME
+            },
+            "local_metadata": {
+                "product": "ipTIME_FTPD",
+                "version": "1.3.0",
+            }
+        }
+    }
 
     def process(self, obj, meta):
         banner = obj["banner"]
 
         if self.manufact_re.search(banner):
             meta.global_metadata.manufacturer = Manufacturer.IPTIME
-            version = self.version_re.search(banner).group(1)
-            meta.local_metadata.version = version
 
-        return meta
+            meta.local_metadata.product = "ipTIME_FTPD"
+
+            match = self.version_re.search(banner)
+            meta.local_metadata.version = match.group(1)
+            meta.local_metadata.revision = match.group(2)
+
+            return meta
 
     """ Tests
     "220 ipTIME_FTPD 1.3.4d Server (SCJY0207-1B34D2) [114.204.150.130]\r\n"

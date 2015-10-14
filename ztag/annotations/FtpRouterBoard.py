@@ -22,12 +22,25 @@ class FtpRouterBoard(Annotation):
         re.IGNORECASE
         )
 
-    product_re = re.compile("^200 \d+ -> (.+) FTP server", re.IGNORECASE)
+    product_re = re.compile("^220 \d+ -> (.+) FTP server", re.IGNORECASE)
 
     implementation_re = re.compile(
-        "^200 .+ FTP server \((.+) (\d+\.\d+)\)",
+        "^220 .+ FTP server \(MikroTik (\d+(?:\.\d+)*)\)",
         re.IGNORECASE
         )
+
+    tests = {
+        "FtpRouterBoard_1": {
+            "global_metadata": {
+                "manufacturer": Manufacturer.ROUTER_BOARD,
+                "product": "711-5HnD"
+            },
+            "local_metadata": {
+                "product": "MikroTik",
+                "version": "6.10"
+            }
+        }
+    }
 
     def process(self, obj, meta):
         banner = obj["banner"]
@@ -38,11 +51,14 @@ class FtpRouterBoard(Annotation):
         ):
 
             meta.global_metadata.manufacturer = Manufacturer.ROUTER_BOARD
+
             product = self.product_re.search(banner).group(1)
             meta.global_metadata.product = product
+
+            meta.local_metadata.product = "MikroTik"
+
             implementation = self.implementation_re.search(banner)
-            meta.local_metadata.product = implementation.group(2)
-            meta.local_metadata.version = implementation.group(3)
+            meta.local_metadata.version = implementation.group(1)
 
         return meta
 

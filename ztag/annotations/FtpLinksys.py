@@ -19,21 +19,40 @@ class FtpLinksys(Annotation):
         re.IGNORECASE
         )
 
+    tests = {
+        "FtpLinksys_1": {
+            "global_metadata": {
+                "manufacturer": Manufacturer.LINKSYS
+            }
+        },
+        "FtpLinksys_2": {
+            "global_metadata": {
+                "manufacturer": Manufacturer.LINKSYS,
+                "product": "WRT350N"
+            },
+            "local_metadata": {
+                "product": "ProFTPD",
+                "version": "1.3.0",
+                "revision": "rc2"
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
         if self.manufact_re.search(banner):
-            meta.global_data.manufacturer = Manufacturer.LINKSYS
+            meta.global_metadata.manufacturer = Manufacturer.LINKSYS
 
         if "(LinksysWRT350N)" in banner:
-            meta.global_data.manufacturer = Manufacturer.LINKSYS
-            meta.global_data.product = "WRT350N"
+            meta.global_metadata.manufacturer = Manufacturer.LINKSYS
+            meta.global_metadata.product = "WRT350N"
 
             match = self.version_re.search(banner)
             if match:
-                meta.local_data.product = "ProFTPD"
-                meta.local_data.version = match.group(1)
-                meta.local_data.revision = match.group(2)
+                meta.local_metadata.product = "ProFTPD"
+                meta.local_metadata.version = match.group(1)
+                meta.local_metadata.revision = match.group(2)
 
         return meta
 

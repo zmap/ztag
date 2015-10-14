@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 Welcome to DCS-6620G FTP Server\r\n"
+            }
+        }
+    }
+}

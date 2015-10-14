@@ -17,6 +17,15 @@ class FtpLutron(Annotation):
         re.IGNORECASE
         )
 
+    tests = {
+        "FtpLutron_1": {
+            "global_metadata": {
+                "manufacturer": Manufacturer.LUTRON,
+                "product": "HomeWorks Processor"
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 

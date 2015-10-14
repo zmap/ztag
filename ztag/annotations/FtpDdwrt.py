@@ -17,16 +17,32 @@ class FtpDdwrt(Annotation):
         re.IGNORECASE
         )
 
+    tests = {
+        "FtpDdwrt_1": {
+            "global_metadata": {
+                "device_type": Type.SOHO_ROUTER,
+            },
+            "local_metadata": {
+                "product": "ProFTPD",
+                "version": "1.3.4",
+                "revision": "d"
+            },
+            "tags": ["Running DD-WRT"]
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
         match = self.multi_re.search(banner)
         if match:
             meta.global_metadata.device_type = Type.SOHO_ROUTER
+
             meta.local_metadata.product = "ProFTPD"
             meta.local_metadata.version = match.group(1)
-            meta.local_metadata.revistion = match.group(2)
-            meta.tags.append("Running DD-WRT")
+            meta.local_metadata.revision = match.group(2)
+
+            meta.tags.add("Running DD-WRT")
 
         return meta
 

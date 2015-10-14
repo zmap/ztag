@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220-ZXFS Ftp Server v1.0, Service ready for new user.\r\n 1 user online, your ip is 141.212.122.224:37454\r\n220 this server supports SIZE, resume broken downloads\r\n"
+            }
+        }
+    }
+}

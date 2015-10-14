@@ -9,6 +9,19 @@ class FtpPureFptd(Annotation):
     subprotocol = protocols.FTP.BANNER
     port = None
 
+    tests = {
+        "FtpPureFtpd_1": {
+            "local_metadata": {
+                "product": "Pure-FTPd"
+            }
+        },
+        "FtpPureFtpd_2": {
+            "local_metadata": {
+                "product": "Pure-FTPd"
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 

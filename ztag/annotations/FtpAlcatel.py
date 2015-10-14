@@ -13,20 +13,44 @@ class FtpAlcatel(Annotation):
     port = None
     manufact_re = re.compile("ALCATEL SR 7750")
 
+    software_re = re.compile(
+        "^220-TiMOS-C-(\d+\.\d+\.(R\d)?) cpm/hops(?:64)? ALCATEL SR 7750 Copyright",
+        re.IGNORECASE
+        )
+
+    tests = {
+        "FtpAlcatel_1": {
+            "global_metadata": {
+                "device_type": Type.INFRASTRUCTURE_ROUTER,
+                "manufacturer": Manufacturer.ALCATEL,
+                "product": "SR 7750"
+            }
+        },
+        "FtpAlcatel_2": {
+            "global_metadata": {
+                "device_type": Type.INFRASTRUCTURE_ROUTER,
+                "manufacturer": Manufacturer.ALCATEL,
+                "product": "SR 7750",
+                "os": OperatingSystem.TIMOS,
+                "os_version": "9.0.R6"
+            }
+        },
+    }
+
     def process(self, obj, meta):
-        banner = ob["banner"]
-        tagged = False
+        banner = obj["banner"]
 
         if self.manufact_re.search(banner):
             meta.global_metadata.device_type = Type.INFRASTRUCTURE_ROUTER
             meta.global_metadata.manufacturer = Manufacturer.ALCATEL
             meta.global_metadata.product = "SR 7750"
-            tagged = True
 
-        if tagged:
+            match = self.software_re.search(banner)
+            if match:
+                meta.global_metadata.os = OperatingSystem.TIMOS
+                meta.global_metadata.os_version = match.group(1)
+
             return meta
-        else:
-            return None
 
     """ Tests
     "220-TiMOS-C-12.0.R4 cpm/hops64 ALCATEL SR 7750 Copyright (c) 2000-2014 Alcatel-Lucent.\r\n220-All rights reserved. All use subject to applicable license agreements.\r\n220-Built on Tue Jul 29 16:26:06 PDT 2014 by builder in /rel12.0/b1/R4/panos/main\r\n220-\r\n220- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\r\n220-\r\n220-                               - W A R N I N G -\r\n220-\r\n220-                                                                                                                                                                    A notice that any unauthorized use of the system is unlawful,\r\n220-            and may be subject to civil and/or criminal penalties.\r\n220-\r\n220-\r %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% \r\n220 FTP server ready\r\n"
