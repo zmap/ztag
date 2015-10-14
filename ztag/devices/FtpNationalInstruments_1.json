@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220-National Instruments FTP\r\n220 Service Ready \r\n"
+            }
+        }
+    }
+}

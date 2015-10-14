@@ -11,17 +11,39 @@ class FtpVsFtpd(Annotation):
 
     versionStr = "\d+\.\d+(\.\d+)?(([a-z])|(rc\d))?"
     impl_re = re.compile(
-        "^220 (\()?vsFTPd " + versionStr + "\+ \(ext\.\d+\)",
+        "^220 (\()?vsFTPd (\d+(\.\d+)*)[+]?",
         re.IGNORECASE
         )
     version_re = re.compile("vsFTPd (\d+\.\d+\.\d+)", re.IGNORECASE)
-    rev_re = re.compile("\(ext\.(\d+)\)", re.IGNORECASE)
+    rev_re = re.compile("\((ext\.(?:\d+))\)", re.IGNORECASE)
+
+    tests = {
+        "FtpVsFtpd_1": {
+            "local_metadata": {
+                "product": "vsftpd",
+                "version": "2.3.2"
+            }
+        },
+        "FtpVsFtpd_2": {
+            "local_metadata": {
+                "product": "vsftpd",
+                "version": "3.0.2",
+                "revision": "ext.1"
+            }
+        },
+        "FtpVsFtpd_3": {
+            "local_metadata": {
+                "product": "vsftpd",
+            },
+            "tags": ["Broken installation"]
+        }
+    }
 
     def process(self, obj, meta):
         banner = obj["banner"]
 
         if (
-            selfimpl_re.search(banner) or
+            self.impl_re.search(banner) or
             banner.startswith("220 Welcome to the vsftp daemon")
         ):
             meta.local_metadata.product = "vsftpd"
@@ -41,7 +63,7 @@ class FtpVsFtpd(Annotation):
             banner.startswith("500 OOPS: vsftpd: both local and anonymous access disabled")
         ):
             meta.local_metadata.product = "vsftpd"
-            meta.tags.append("Broken installation")
+            meta.tags.add("Broken installation")
 
         return meta
 

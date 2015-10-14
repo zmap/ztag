@@ -17,16 +17,30 @@ class FtpTitanFtpd(Annotation):
         )
     version_re = re.compile("Server (\d+\.\d+\.\d+) Ready", re.IGNORECASE)
 
+    tests = {
+        "FtpTitanFtpd_1": {
+            "global_metadata": {
+                "os": OperatingSystem.WINDOWS_SERVER
+            },
+            "local_metadata": {
+                "product": "Titan FTPd",
+                "version": "9.22.1634"
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
-        if impl_str.search(banner):
+        if self.impl_str.search(banner):
             meta.global_metadata.os = OperatingSystem.WINDOWS_SERVER
-            meta.local_metadata.product = "Titan FTP"
+
+            meta.local_metadata.product = "Titan FTPd"
+
             version = self.version_re.search(banner).group(1)
             meta.local_metadata.version = version
 
-        return meta
+            return meta
 
     """ Tests
     "220 Titan FTP Server 8.22.1205 Ready.\r\n"

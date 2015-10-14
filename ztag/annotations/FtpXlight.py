@@ -14,18 +14,32 @@ class FtpXlight(Annotation):
         "^220 Xlight FTP(?: Server)? \d+\.\d+",
         re.IGNORECASE
         )
-    version_re = re.compile("FTP( Server)? (\d+\.\d+)", re.IGNORECASE)
+    version_re = re.compile("FTP(?: Server)? (\d+\.\d+)", re.IGNORECASE)
+
+    tests = {
+        "FtpXlight_1": {
+            "global_metadata": {
+                "os": OperatingSystem.WINDOWS,
+            },
+            "local_metadata": {
+                "product": "Xlight",
+                "version": "3.8"
+            }
+        }
+    }
 
     def process(self, obj, meta):
         banner = obj["banner"]
 
         if self.product_re.search(banner):
             meta.global_metadata.os = OperatingSystem.WINDOWS
+
             meta.local_metadata.product = "Xlight"
+
             version = self.version_re.search(banner).group(1)
             meta.local_metadata.version = version
 
-        return meta
+            return meta
 
     """ Tests
     "220 Xlight FTP Server 2.4 ready...\r\n"

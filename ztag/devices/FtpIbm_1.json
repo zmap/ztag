@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220-QTCP at PEGASUS1.\r\n220 Connection will close if idle more than 5 minutes.\r\n"
+            }
+        }
+    }
+}

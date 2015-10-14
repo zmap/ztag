@@ -18,12 +18,23 @@ class FtpLexmark(Annotation):
         )
     product_re = re.compile("^220 .+ Lexmark (.+) FTP Server", re.IGNORECASE)
 
+    tests = {
+        "FtpLexmark_1": {
+            "global_metadata": {
+                "device_type": Type.GENERIC_PRINTER,
+                "manufacturer": Manufacturer.LEXMARK,
+                "product": "E460dn"
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
         if self.manufact_re.search(banner):
             meta.global_metadata.device_type = Type.GENERIC_PRINTER
             meta.global_metadata.manufacturer = Manufacturer.LEXMARK
+
             product = self.product_re.search(banner).group(1)
             meta.global_metadata.product = product
 

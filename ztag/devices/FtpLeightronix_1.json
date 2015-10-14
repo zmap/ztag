@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220-lgxftpd V1.01, LEIGHTRONIX, INC.\r\n220-You are connecting from 141.212.122.224:50455.\r\n220 Proceed with login.\r\n"
+            }
+        }
+    }
+}

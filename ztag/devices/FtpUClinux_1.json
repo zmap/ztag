@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220- Welcome to the uClinux ftpd!\r\n220 uClinux FTP server (GNU inetutils 1.4.1) ready.\r\n"
+            }
+        }
+    }
+}

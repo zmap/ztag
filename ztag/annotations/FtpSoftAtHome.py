@@ -1,4 +1,5 @@
 import re
+from ztag.annotation import Manufacturer
 from ztag.annotation import Annotation
 from ztag.annotation import Type
 from ztag.annotation import OperatingSystem
@@ -16,11 +17,23 @@ class FtpSoftAtHome(Annotation):
         re.IGNORECASE
     )
 
+    tests = {
+        "FtpSoftAtHome_1": {
+            "global_metadata": {
+                "manufacturer": Manufacturer.SOFT_AT_HOME,
+            },
+            "local_metadata": {
+                "product": "SoftAtHome Framework"
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
         if self.manufact_re.search(banner):
-            meta.local_metadata.product = "SoftAtHome"
+            meta.global_metadata.manufacturer = Manufacturer.SOFT_AT_HOME
+            meta.local_metadata.product = "SoftAtHome Framework"
 
         return meta
 

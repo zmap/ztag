@@ -1,10 +1,11 @@
 from ztag.annotation import Annotation
+from ztag.annotation import OperatingSystem
 from ztag import protocols
 import ztag.test
 import re
 
 
-class IPSwitchFTP(Annotation):
+class FtpWsFtpd(Annotation):
     name = "IPSwitch FTP Server"
     protocol = protocols.FTP
     subprotocol = protocols.FTP.BANNER
@@ -15,12 +16,26 @@ class IPSwitchFTP(Annotation):
         re.IGNORECASE
         )
 
+    tests = {
+        "FtpWsFtpd_1": {
+            "global_metadata": {
+                "os": OperatingSystem.WINDOWS,
+            },
+            "local_metadata": {
+                "product": "WS_FTP",
+                "version": "3.1.3"
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
         if "ws_ftp server" in banner.lower():
-            meta.local_metadata.product = "WS_FTP"
             meta.global_metadata.os = OperatingSystem.WINDOWS
+
+            meta.local_metadata.product = "WS_FTP"
+
             match = self.version_re.search(banner)
             meta.local_metadata.version = match.group(1)
 

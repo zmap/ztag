@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 Network-Camera FTP server (GNU inetutils 1.4.2) ready.\r\n"
+            }
+        }
+    }
+}

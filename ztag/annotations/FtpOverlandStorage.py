@@ -17,6 +17,20 @@ class FtpOverlandStorage(Annotation):
         re.IGNORECASE
         )
 
+    tests = {
+        "FtpOverlandStorage_1": {
+            "global_metadata": {
+                "device_type": Type.NAS,
+                "manufacturer": Manufacturer.OVERLAND_STORAGE,
+                "product": "Snap Appliance"
+            },
+            "local_metadata": {
+                "product": "ProFTPD",
+                "version": "1.2.9"
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 

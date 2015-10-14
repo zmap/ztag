@@ -13,11 +13,28 @@ class FtpWesternDigital(Annotation):
     port = None
 
     productDict = {
-        "My Cloud": re.compile("^220 Welcome to WD My Cloud", re.IGNORECASE),
+        "MyCloud": re.compile("^220 Welcome to WD My Cloud", re.IGNORECASE),
         "MyBookLive": re.compile(
             "^220 \"Welcome to MyBookLive",
             re.IGNORECASE
             )
+    }
+
+    tests = {
+        "FtpWesternDigital_1": {
+            "global_metadata": {
+                "device_type": Type.NAS,
+                "manufacturer": Manufacturer.WESTERN_DIGITAL,
+                "product": "MyBookLive",
+            }
+        },
+        "FtpWesternDigital_2": {
+            "global_metadata": {
+                "device_type": Type.NAS,
+                "manufacturer": Manufacturer.WESTERN_DIGITAL,
+                "product": "MyCloud",
+            }
+        },
     }
 
     def process(self, obj, meta):
@@ -26,11 +43,12 @@ class FtpWesternDigital(Annotation):
         for product, regex in self.productDict.items():
             if regex.search(banner):
                 meta.global_metadata.device_type = Type.NAS
-                temp = Manufacturer.WESTERN_DIGITAL
-                meta.global_metadata.manufacturer = temp
                 meta.global_metadata.product = product
 
-        return meta
+                temp = Manufacturer.WESTERN_DIGITAL
+                meta.global_metadata.manufacturer = temp
+
+                return meta
 
     """ Tests
     "220 \"Welcome to MyBookLive\"\r\n"

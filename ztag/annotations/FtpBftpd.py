@@ -20,6 +20,20 @@ class FtpBftpd(Annotation):
         re.IGNORECASE
         )
 
+    tests = {
+        "FtpBftpd_1": {
+            "local_metadata": {
+                "product": "bftpd",
+                "version": "2.2"
+            }
+        },
+        "FtpBftpd_2": {
+            "local_metadata": {
+                "product": "bftpd",
+            }
+        },
+    }
+
     impl_2_re = re.compile("^220 \(bftpd\)\r\n$", re.IGNORECASE)
 
     def process(self, obj, meta):

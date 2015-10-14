@@ -17,12 +17,21 @@ class FtpIbm(Annotation):
         re.IGNORECASE
         )
 
+    tests = {
+        "FtpIbm_1": {
+            "global_metadata": {
+                "manufacturer": Manufacturer.IBM,
+                "product": "IBM I-series"
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
         if self.ibm_re.search(banner):
             meta.global_metadata.manufacturer = Manufacturer.IBM
-            meta.global_metadata.product = "IBM I-series server"
+            meta.global_metadata.product = "IBM I-series"
 
         return meta
 

@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 Ftp firmware update utility\r\n"
+            }
+        }
+    }
+}

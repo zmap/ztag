@@ -23,23 +23,47 @@ class FtpSynology(Annotation):
         re.IGNORECASE
         )
 
+    tests = {
+        "FtpSynology_1": {
+            "global_metadata": {
+                "device_type": Type.NAS,
+                "manufacturer": Manufacturer.SYNOLOGY,
+                "product": "DiskStation"
+            }
+        },
+        "FtpSynology_2": {
+            "global_metadata": {
+                "device_type": Type.NAS,
+                "manufacturer": Manufacturer.SYNOLOGY,
+                "product": "Cube Station"
+            }
+        },
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
-        if self.manufact_1_re.search(banner):
-            meta.global_metadata.manufacturer = Manufacturer.SYNOLOGY
-
-        if (manufact_2_re.search(banner) or selfmanufact_3_re.search(banner)):
+        if (
+            self.manufact_2_re.search(banner) or
+            self.manufact_3_re.search(banner)
+        ):
             meta.global_metadata.device_type = Type.NAS
             meta.global_metadata.manufacturer = Manufacturer.SYNOLOGY
-            meta.global_metadata.product = "Disk Station"
+            meta.global_metadata.product = "DiskStation"
+
+            return meta
 
         if banner.startswith("220 Cube Station FTP server"):
             meta.global_metadata.device_type = Type.NAS
             meta.global_metadata.manufacturer = Manufacturer.SYNOLOGY
             meta.global_metadata.product = "Cube Station"
 
-        return meta
+            return meta
+
+        if self.manufact_1_re.search(banner):
+            meta.global_metadata.manufacturer = Manufacturer.SYNOLOGY
+
+            return meta
 
     """ Tests
     "220 DiskStation FTP server ready.\r\n"

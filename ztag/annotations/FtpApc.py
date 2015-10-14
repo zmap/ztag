@@ -14,22 +14,37 @@ class FtpAcp(Annotation):
 
     manufact_re = re.compile("^220 AP\d+ Network Management Card AOS")
     product_re = re.compile("^220 (AP\d+)", re.IGNORECASE)
+    version_re = re.compile("AOS v(\d+(?:\.\d+)*) FTP server", re.IGNORECASE)
+
+    tests = {
+        "FtpApc_1": {
+            "global_metadata": {
+                "device_type": Type.PDU,
+                "manufacturer": Manufacturer.APC,
+                "product": "AP9630",
+            },
+            "local_metadata": {
+                "product": "AOS",
+                "version": "5.1.5"
+            }
+        }
+    }
 
     def process(self, obj, meta):
         banner = obj["banner"]
-        changed = False
 
         if self.manufact_re.search(banner):
             meta.global_metadata.device_type = Type.PDU
             meta.global_metadata.manufacturer = Manufacturer.APC
+            meta.local_metadata.product = "AOS"
+
             product = self.product_re.search(banner).group(1)
             meta.global_metadata.product = product
-            changed = True
 
-        if changed:
+            version = self.version_re.search(banner).group(1)
+            meta.local_metadata.version = version
+
             return meta
-        else:
-            return None
 
     """ Tests
     "220 AP9630 Network Management Card AOS v5.1.5 FTP server ready.\r\n"

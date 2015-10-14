@@ -24,30 +24,42 @@ class FtpDlink(Annotation):
                         "^220 DCS-\d+[A-Z+]? FTP server ready",
                         re.IGNORECASE
                         )
-    product_2_re = re.compile("^220 (DCS-\d+[A-Z]?) FTP", re.IGNORECASE)
+    product_2_re = re.compile("^220 (DCS-\d+[+A-Z]?) FTP", re.IGNORECASE)
+
+    tests = {
+        "FtpDlink_1": {
+            "global_metadata": {
+                "device_type": Type.CAMERA,
+                "manufacturer": Manufacturer.DLINK,
+                "product": "DCS-2100+"
+            }
+        },
+        "FtpDlink_2": {
+            "global_metadata": {
+                "device_type": Type.CAMERA,
+                "manufacturer": Manufacturer.DLINK,
+                "product": "DCS-6620G"
+            }
+        }
+    }
 
     def process(self, obj, meta):
         banner = obj["banner"]
-        tagged = False
 
         if self.manufact_1_re.search(banner):
             meta.global_metadata.device_type = Type.CAMERA
             meta.global_metadata.manufacturer = Manufacturer.DLINK
             product = self.product_1_re.search(banner).group(1)
             meta.global_metadata.product = product
-            tagged = True
+            return meta
 
         if self.manufact_2_re.search(banner):
             meta.global_metadata.device_type = Type.CAMERA
             meta.global_metadata.manufacturer = Manufacturer.DLINK
             product = self.product_2_re.search(banner).group(1)
             meta.global_metadata.product = product
-            tagged = True
-
-        if tagged:
             return meta
-        else:
-            return None
+
 
     """ Tests
     "220 DCS-5300 FTP server ready.\r\n"

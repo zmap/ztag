@@ -12,11 +12,18 @@ class FtpKebi(Annotation):
 
     impl_re = re.compile("^220- Kebi FTP Server", re.IGNORECASE)
 
+    version_re = re.compile("\(Version (\d+(?:\.\d+)*)\)", re.IGNORECASE)
+
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
         if self.imple_re.search(banner):
-            meta.local_metadata.product = "Kebi"
+            meta.local_metadata.product = "Kebi Ftpd"
+
+        match = self.version_re.search(banner)
+        if match:
+            meta.local_metadata.version = match.group(1)
 
         return meta
 

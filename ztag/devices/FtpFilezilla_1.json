@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220-FileZilla Server v0.9.30 beta\r\n220-written by Tim Kosse (Tim.Kosse@gmx.de)\r\n220 Please visit http://sourceforge.net/projects/filezilla/\r\n"
+            }
+        }
+    }
+}

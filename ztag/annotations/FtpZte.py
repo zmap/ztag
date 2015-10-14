@@ -17,15 +17,25 @@ class FtpZte(Annotation):
         re.IGNORECASE
         )
 
+    tests = {
+        "FtpZte_1": {
+            "global_metadata": {
+                "device_type": Type.INFRASTRUCTURE_ROUTER,
+                "manufacturer": Manufacturer.ZTE,
+                "product": "OX253P"
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
         if self.manufact_re.search(banner):
             meta.global_metadata.device_type = Type.INFRASTRUCTURE_ROUTER
             meta.global_metadata.manufacturer = Manufacturer.ZTE
-            meta.global_metadata.manufacturer = "OX253P"
+            meta.global_metadata.product = "OX253P"
 
-        return meta
+            return meta
 
     """ Tests
     "220 OX253P FTP version 1.0 ready at Mon Dec 27 09:06:04 2010\r\n"

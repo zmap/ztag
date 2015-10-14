@@ -14,16 +14,34 @@ class FtpFritz(Annotation):
     manufact_re = re.compile("^220 FRITZ!Box", re.IGNORECASE)
     product_re = re.compile("^220 (.+) FTP server ready", re.IGNORECASE)
 
+    tests = {
+        "FtpFritz_1": {
+            "global_metadata": {
+                "device_type": Type.CABLE_MODEM,
+                "manufacturer": Manufacturer.AVM,
+                "product": "FRITZ!BoxFonWLAN7390"
+            }
+        },
+        "FtpFritz_2": {
+            "global_metadata": {
+                "device_type": Type.CABLE_MODEM,
+                "manufacturer": Manufacturer.AVM,
+                "product": "FRITZ!BoxFonWLAN7360(EWEEdition)"
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
         if self.manufact_re.search(banner):
             meta.global_metadata.device_type = Type.CABLE_MODEM
             meta.global_metadata.manufacturer = Manufacturer.AVM
+
             product = self.product_re.search(banner).group(1)
             meta.global_metadata.product = product
 
-        return meta
+            return meta
 
     """ Tests
     "220 FRITZ!Box7272 FTP server ready.\r\n"

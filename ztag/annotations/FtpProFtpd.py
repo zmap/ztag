@@ -14,16 +14,16 @@ class FtpProFtpd(Annotation):
             "local_metadata": {
                 "product": "ProFTPD",
                 "version": "1.3.1",
-                }
-            },
+            }
+        },
         "FtpProFtpd_2": {
             "local_metadata": {
                 "product": "ProFTPD",
                 "version": "1.3.4",
                 "revision": "a"
-                }
             }
         }
+    }
 
     version_re = re.compile(
         "ProFTPD (\d+\.\d+\.\d+)([a-z])? Server",

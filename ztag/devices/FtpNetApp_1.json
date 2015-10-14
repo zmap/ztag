@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 fas3210c1 FTP server (NetApp Release 8.0.5P1 7-Mode: Mon Aug 26 23:17:39 PDT 2013) ready\r\n"
+            }
+        }
+    }
+}

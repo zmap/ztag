@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 LaCie-5big-Pro FTP Server [::ffff:192.168.1.24]\r\n"
+            }
+        }
+    }
+}

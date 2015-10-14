@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 DCS-2100+ FTP server ready.\r\n"
+            }
+        }
+    }
+}

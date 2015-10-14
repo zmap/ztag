@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220---------- Bienvenue sur Pure-FTPd [privsep] [TLS] ----------\r\n220-Vous etes l'utilisateur 1 sur les 100 autorises.\r\n220-L'heure locale est 01:32. Port du serveur : 21.\r\n220-Ceci est un systeme prive - Aucun utilisateur anonyme autorise\r\n220-Les connections en IPv6 sont les bienvenues sur ce serveur.\r\n220 Vous serez deconnectes apres 5 minutes d'inactivite.\r\n"
+            }
+        }
+    }
+}

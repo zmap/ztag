@@ -11,20 +11,30 @@ class FtpFilezilla(Annotation):
 
     product_re = re.compile("^220[- ]FileZilla Server", re.IGNORECASE)
     version_re = re.compile(
-        "^220[- ]FileZilla Server( version)? (v)?(\d+\.\d+\.\d+)",
+        "^220[- ]FileZilla Server(?: version)? (?:v)?(\d+(?:\.\d+)*)",
         re.IGNORECASE
         )
+
+    tests = {
+        "FtpFilezilla_1": {
+            "local_metadata": {
+                "product": "FileZilla",
+                "version": "0.9.30",
+            }
+        }
+    }
 
     def process(self, obj, meta):
         banner = obj["banner"]
 
         if self.product_re.search(banner):
             meta.local_metadata.product = "FileZilla"
+
             version = self.version_re.search(banner)
             if version:
-                meta.local_metadata.version = version.group(3)
+                meta.local_metadata.version = version.group(1)
 
-        return meta
+            return meta
 
     """ Tests
     "220-FileZilla Server version 0.9.43 beta\r\n220-written by Tim Kosse (tim.kosse@filezilla-project.org)\r\n220 Please visit http://sourceforge.net/projects/filezilla/\r\n"

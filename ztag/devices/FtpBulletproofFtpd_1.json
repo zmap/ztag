@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 BulletProof FTP Server ready ...\r\n"
+            }
+        }
+    }
+}

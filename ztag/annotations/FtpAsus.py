@@ -23,6 +23,30 @@ class FtpAsus(Annotation):
         re.IGNORECASE
         )
 
+    tests = {
+        "FtpAsus_1": {
+            "global_metadata": {
+                "device_type": Type.SOHO_ROUTER,
+                "manufacturer": Manufacturer.ASUS,
+                "product": "WL700gE"
+            }
+        },
+        "FtpAsus_2": {
+            "global_metadata": {
+                "device_type": Type.SOHO_ROUTER,
+                "manufacturer": Manufacturer.ASUS,
+                "product": "RT-AC68U"
+            }
+        },
+        "FtpAsus_3": {
+            "global_metadata": {
+                "device_type": Type.SOHO_ROUTER,
+                "manufacturer": Manufacturer.ASUS,
+                "product": "DSL-AC68U"
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
@@ -33,12 +57,14 @@ class FtpAsus(Annotation):
             product = self.product_1_re.search(banner).group(1)
             meta.global_metadata.product = product
 
+            return meta
+
         if self.manufact_2_re.search(banner):
             meta.global_metadata.device_type = Type.SOHO_ROUTER
             meta.global_metadata.manufacturer = Manufacturer.ASUS
             meta.global_metadata.product = "WL700gE"
 
-        return meta
+            return meta
 
     """ Tests
     "220 Welcome to the WL700gE FTP service.\r\n"

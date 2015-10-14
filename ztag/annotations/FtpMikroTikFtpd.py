@@ -11,17 +11,27 @@ class FtpMikroTikFtpd(Annotation):
     port = None
 
     impl_re = re.compile("^220 MikroTik FTP server", re.IGNORECASE)
-    version_re = re.compile("\(MikroTik (\d+\.\d+)\)", re.IGNORECASE)
+    version_re = re.compile("\(MikroTik (\d+(?:\.\d+)*)\)", re.IGNORECASE)
+
+    tests = {
+        "FtpMikroTikFtpd_1": {
+            "local_metadata": {
+                "product": "MikroTik",
+                "version": "2.9.27"
+            }
+        }
+    }
 
     def process(self, obj, meta):
         banner = obj["banner"]
 
         if self.impl_re.search(banner):
             meta.local_metadata.product = "MikroTik"
+
             version = self.version_re.search(banner).group(1)
             meta.local_metadata.version = version
 
-        return meta
+            return meta
 
     """ Tests
     "220 MikroTik FTP server (MikroTik 3.30) ready\r\n"

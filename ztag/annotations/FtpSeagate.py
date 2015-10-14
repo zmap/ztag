@@ -23,6 +23,24 @@ class FtpSeagate(Annotation):
         )
     product_re = re.compile("Seagate-([-A-Za-z0-9_]+)", re.IGNORECASE)
 
+    tests = {
+        "FtpSeagate_1": {
+            "global_metadata": {
+                "device_type": Type.NAS,
+                "manufacturer": Manufacturer.SEAGATE,
+                "product": "Seagate Central"
+            }
+        },
+        "FtpSeagate_2": {
+            "global_metadata": {
+                "device_type": Type.NAS,
+                "manufacturer": Manufacturer.SEAGATE,
+                "product": "DP4"
+            }
+        },
+    }
+
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
@@ -31,13 +49,15 @@ class FtpSeagate(Annotation):
             meta.global_metadata.manufacturer = Manufacturer.SEAGATE
             meta.global_metadata.product = "Seagate Central"
 
+            return meta
+
         if self.manufact_2_re.search(banner):
             meta.global_metadata.device_type = Type.NAS
             meta.global_metadata.manufacturer = Manufacturer.SEAGATE
             product = self.product_re.search(banner).group(1)
             meta.global_metadata.product = product
 
-        return meta
+            return meta
 
     """ Tests
     "220 Welcome to Seagate Central Shared Storage FTP service.\r\n"

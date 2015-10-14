@@ -14,13 +14,21 @@ class FtpNcFtpd(Annotation):
         re.IGNORECASE
     )
 
+    tests = {
+        "FtpNcFtpd_1": {
+            "local_metadata": {
+                "product": "NcFTPD"
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
-        if impl_re.search(banner):
+        if self.impl_re.search(banner):
             meta.local_metadata.product = "NcFTPD"
 
-        return meta
+            return meta
 
     """ Tests
     "220 ftp522.pair.com NcFTPd Server (licensed copy) ready.\r\n"

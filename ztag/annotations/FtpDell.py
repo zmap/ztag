@@ -13,45 +13,62 @@ class FtpDell(Annotation):
     port = None
 
     printer_1_re = re.compile(
-                        "^220 (\w+ )?Dell (\w+ )?Laser Printer",
-                        re.IGNORECASE
-                        )
+        "^220 (\w+ )?Dell (\w+ )?Laser Printer",
+        re.IGNORECASE
+        )
     product_1_re = re.compile(
-                        "^220 ET[0-9A-Z]+ Dell (\w+) Laser Printer",
-                        re.IGNORECASE
-                        )
+        "^220 ET[0-9A-Z]+ Dell (\w+ Laser) Printer",
+        re.IGNORECASE
+        )
 
     printer_2_re = re.compile(
-                        "^220 Dell (\w+ )?Color Laser",
-                        re.IGNORECASE
-                        )
+        "^220 Dell (\w+ )?Color Laser",
+        re.IGNORECASE
+        )
     product_2_re = re.compile(
-                        "^220 Dell (Color )?Laser( Printer)? (\w+)",
-                        re.IGNORECASE
-                        )
+        "^220 Dell (?:Color )?Laser(?: Printer)? (\w+)",
+        re.IGNORECASE
+        )
+
+    tests = {
+        "FtpDell_1": {
+            "global_metadata": {
+                "device_type": Type.LASER_PRINTER,
+                "manufacturer": Manufacturer.DELL,
+                "product": "B2360dn Laser"
+            }
+        },
+        "FtpDell_2": {
+            "global_metadata": {
+                "device_type": Type.LASER_PRINTER,
+                "manufacturer": Manufacturer.DELL,
+                "product": "5110cn"
+            }
+        }
+    }
+
 
     def process(self, obj, meta):
         banner = obj["banner"]
-        tagged = False
 
         if self.printer_1_re.search(banner):
             meta.global_metadata.device_type = Type.LASER_PRINTER
             meta.global_metadata.manufacturer = Manufacturer.DELL
+
             product = self.product_1_re.search(banner).group(1)
             meta.global_metadata.product = product
-            tagged = True
+
+            return meta
+
 
         if self.printer_2_re.search(banner):
             meta.global_metadata.device_type = Type.LASER_PRINTER
             meta.global_metadata.manufacturer = Manufacturer.DELL
-            product = self.product_2_re.search(banner).group(3)
-            meta.global_metadata.product = product
-            tagged = True
 
-        if tagged:
+            product = self.product_2_re.search(banner).group(1)
+            meta.global_metadata.product = product
+
             return meta
-        else:
-            return None
 
     """ Tests
     "220 ET0021B7A1AAF8 Dell B2360dn Laser Printer FTP Server NH41.CY.N454 ready.\r\n"

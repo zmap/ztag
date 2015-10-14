@@ -15,6 +15,15 @@ class FtpWFtpd(Annotation):
         )
     version_re = re.compile("WFTPD (\d+\.\d+) service", re.IGNORECASE)
 
+    tests = {
+        "FtpWFtpd_1": {
+            "local_metadata": {
+                "product": "WFTPD",
+                "version": "2.30"
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
@@ -22,6 +31,8 @@ class FtpWFtpd(Annotation):
             meta.local_metadata.product = "WFTPD"
             version = self.version_re.search(banner).group(1)
             meta.local_metadata.version = version
+
+            return meta
 
     """ Tests
     "220 WFTPD 3.2 service (by Texas Imperial Software) ready for new user\r\n"

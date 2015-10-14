@@ -18,9 +18,23 @@ class FtpSharp(Annotation):
         )
     product_re = re.compile("SHARP (.+) Ver", re.IGNORECASE)
     version_re = re.compile(
-        "Ver (\d+(\.\d+)*)([a-z])? FTP",
+        "Ver (\d+(?:\.\d+[a-z]?)*) FTP",
         re.IGNORECASE
         )
+
+    tests = {
+        "FtpSharp_1": {
+            "global_metadata": {
+                "device_type": Type.GENERIC_PRINTER,
+                "manufacturer": Manufacturer.SHARP,
+                "product": "MX-5110N"
+            },
+            "local_metadata": {
+                "version": "01.05.00.0m.80"
+            }
+        }
+    }
+                
 
     def process(self, obj, meta):
         banner = obj["banner"]
@@ -32,12 +46,10 @@ class FtpSharp(Annotation):
             product = self.product_re.search(banner).group(1)
             meta.global_metadata.product = product
 
-            version = self.version_re.search(banner).group(1)
-            rev = self.version_re.search(banner).group(3)
-            meta.local_metadata.version = version
-            meta.local_metadata.revision = rev
+            match = self.version_re.search(banner)
+            meta.local_metadata.version = match.group(1)
 
-        return meta
+            return meta
 
     """ Tests
     "220 SHARP MX-3100N Ver 01.05.00.0b FTP server.\r\n"

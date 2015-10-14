@@ -17,13 +17,22 @@ class FtpAllworks(Annotation):
                         re.IGNORECASE
                         )
 
+    tests = {
+        "FtpAllworks_1": {
+            "global_metadata": {
+                "device_type": Type.VOIP,
+                "manufacturer": Manufacturer.ALLWORKS,
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
         tagged = False
 
         if self.manufact_re.search(banner):
-            meta.global_data.device_type = Type.VOIP
-            meta.global_data.manufacturer = Manufacturer.ALLWORKS
+            meta.global_metadata.device_type = Type.VOIP
+            meta.global_metadata.manufacturer = Manufacturer.ALLWORKS
             tagged = True
 
         if tagged:

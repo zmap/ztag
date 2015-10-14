@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 Seagate-DP4 FTP Server [::ffff:192.168.1.50]\r\n"
+            }
+        }
+    }
+}

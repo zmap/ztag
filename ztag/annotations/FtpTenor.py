@@ -17,9 +17,23 @@ class FtpTenor(Annotation):
         re.IGNORECASE
         )
     version_re = re.compile(
-        "FTP server \(Version ([a-zA-Z]+)(\d+\.\d+\,\d+)\)",
+        "FTP server \(Version ([a-zA-Z]+)(?: )?(\d+\.\d+\.\d+)\)",
         re.IGNORECASE
         )
+    
+    tests = {
+        "FtpTenor_1": {
+            "global_metadata": {
+                "device_type": Type.SOHO_ROUTER,
+                "manufacturer": Manufacturer.SONUS,
+                "product": "Tenor Multipath Switch",
+            },
+            "local_metadata": {
+                "product": "VxWorks",
+                "version": "5.4.2"
+            }
+        }
+    }
 
     def process(self, obj, meta):
         banner = obj["banner"]
@@ -28,9 +42,10 @@ class FtpTenor(Annotation):
             meta.global_metadata.device_type = Type.SOHO_ROUTER
             meta.global_metadata.manufacturer = Manufacturer.SONUS
             meta.global_metadata.product = "Tenor Multipath Switch"
-            version = self.version_re.search(banner)
-            meta.local_metadata.product = version.group(1)
-            meta.local_metadata.version = version.group(2)
+
+            match = self.version_re.search(banner)
+            meta.local_metadata.product = match.group(1)
+            meta.local_metadata.version = match.group(2)
 
         return meta
 

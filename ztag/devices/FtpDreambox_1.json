@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 Welcome to the OpenDreambox FTP service.\r\n"
+            }
+        }
+    }
+}

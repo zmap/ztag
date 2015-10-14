@@ -20,12 +20,29 @@ class FtpSony(Annotation):
     manufact_2_re = re.compile("^220-Sony Network Camera", re.IGNORECASE)
     product_2_re = re.compile("Network Camera ([-A-Z0-9_]+)", re.IGNORECASE)
 
+    tests = {
+        "FtpSony_1": {
+            "global_metadata": {
+                "device_type": Type.CAMERA,
+                "manufacturer": Manufacturer.SONY,
+                "product": "SNC-EP520"
+            }
+        },
+        "FtpSony_2": {
+            "global_metadata": {
+                "device_type": Type.CAMERA,
+                "manufacturer": Manufacturer.SONY
+            }
+        },
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
         if self.manufact_1_re.search(banner):
             meta.global_metadata.device_type = Type.CAMERA
             meta.global_metadata.manufacturer = Manufacturer.SONY
+            return meta
 
         if self.manufact_2_re.search(banner):
             meta.global_metadata.device_type = Type.CAMERA
@@ -33,7 +50,7 @@ class FtpSony(Annotation):
             product = self.product_2_re.search(banner).group(1)
             meta.global_metadata.product = product
 
-        return meta
+            return meta
 
     """ Tests
     "220-Sony Network Camera SNC-EP520\r\n220 \r\n"

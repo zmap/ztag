@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 ProFTPD 1.3.3g Server (NETGEAR ReadyNAS) [192.168.0.10]\r\n"
+            }
+        }
+    }
+}

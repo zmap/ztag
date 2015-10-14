@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 ipTIME_FTPD 1.3.0 Server (NAS2-C9219D) [192.168.0.100]\r\n"
+            }
+        }
+    }
+}

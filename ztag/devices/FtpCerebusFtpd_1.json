@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220-Cerberus FTP Server - Personal Edition\r\n220-UNREGISTERED\r\n220-Welcome to Cerberus FTP Server\r\n220 Created by Cerberus, LLC\r\n"
+            }
+        }
+    }
+}

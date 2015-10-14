@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 Microsoft FTP Service\r\n"
+            }
+        }
+    }
+}

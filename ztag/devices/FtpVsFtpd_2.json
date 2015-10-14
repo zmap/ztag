@@ -1,0 +1,9 @@
+{
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 vsFTPd 3.0.2+ (ext.1) ready...\r\n"
+            }
+        }
+    }
+}

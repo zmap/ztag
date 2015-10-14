@@ -15,6 +15,15 @@ class Nucleus(Annotation):
         re.IGNORECASE
         )
 
+    tests = {
+        "FtpNucleus_1": {
+            "local_metadata": {
+                "product": "Nucleus",
+                "version": "1.7"
+            }
+        }
+    }
+
     def process(self, obj, meta):
         banner = obj["banner"]
 
