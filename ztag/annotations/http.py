@@ -46,6 +46,9 @@ class HTTPServerParse(Annotation):
         elif m.local_metadata.product == "bigip":
             m.local_metadata.manufacturer = "F5"
             m.local_metadata.product = "BigIP"
+        elif m.local_metadata.product == "gse":
+            m.local_metadata.manufacturer = "Google"
+            m.local_metadata.product = "Scripting Engine"
 
         if "HTTP" in m.global_metadata.os: 
             m.global_metadata.os = None
