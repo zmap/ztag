@@ -18,7 +18,7 @@ class CommonSMTP(Annotation):
         elif "Exim" in s_banner:
             meta.local_metadata.product = "Exim"
             return meta
-        elif "gsmtp" in s_banner
+        elif "gsmtp" in s_banner:
             meta.local_metadata.manufacturer = "Google"
             meta.local_metadata.product = "SMTP"
             return meta
