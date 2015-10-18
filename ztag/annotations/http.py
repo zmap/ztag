@@ -34,8 +34,19 @@ class HTTPServerParse(Annotation):
         elif m.local_metadata.product.lower() == "httpd":
             m.local_metadata.manufacturer = "Apache"
             m.local_metadata.product = "httpd"
+        elif m.local_metadata.product.lower() == "ats":
+            m.local_metadata.manufacturer = "Apache"
+            m.local_metadata.product = "Traffic Server"
         elif m.local_metadata.product == "gws":
             m.local_metadata.manufacturer = "Google"
+            m.local_metadata.product = "Web Server"
+        elif m.local_metadata.product == "ghs":
+            m.local_metadata.manufacturer = "Google"
+            m.local_metadata.product = "Hosted Site"
+        elif m.local_metadata.product == "bigip":
+            m.local_metadata.manufacturer = "F5"
+            m.local_metadata.product = "BigIP"
+
         if "HTTP" in m.global_metadata.os: 
             m.global_metadata.os = None
         if m.local_metadata.product == "IIS":

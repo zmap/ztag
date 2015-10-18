@@ -15,3 +15,7 @@ class CommonIMAP(Annotation):
         elif "Courier-IMAP" in s_banner:
             meta.local_metadata.product = "Courier"
             return meta
+        elif "Gimap" in s_banner:
+            meta.local_metadata.manufacturer = "Google"
+            meta.local_metadata.product = "IMAP"
+            return meta
