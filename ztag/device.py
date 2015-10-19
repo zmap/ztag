@@ -38,3 +38,6 @@ class Device(object):
                 if type(self.source[port]) == dict and protocol.pretty_name in self.source[port]:
                     return self.source[port][protocol.pretty_name][subprotocol.pretty_name]
 
+
+
+Device._populate_devices()
