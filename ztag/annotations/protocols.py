@@ -20,7 +20,7 @@ PROTOCOLS = [
     (protocols.POP3S, protocols.POP3S.TLS, {"device_with_pop3s":{"tags":["pop3s",]}}),
     (protocols.SMTP, protocols.SMTP.STARTTLS, {"device_with_smtp":{"tags":["smtp",]}}),
     (protocols.SMTPS, protocols.SMTPS.TLS, {"device_with_smtps":{"tags":["smtps",]}}),
-    (protocols.MODBUS, protocols.MODBUS.DEVICE_ID, {"device_with_modbus":{"tags":["modbus",]}}),
+    (protocols.MODBUS, protocols.MODBUS.DEVICE_ID, {"schneider_nf3000":{"tags":["modbus",]}}),
 ]
 
 for proto, subproto, tests in PROTOCOLS:
