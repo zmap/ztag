@@ -9,8 +9,8 @@ class CiscoServer(Annotation):
 
     tests = {
         "cisco_server":{
-            "local_metadata":{
-                "manufacturer":"Cisco"
+            "global_metadata":{
+                "manufacturer":"Cisco",
             }
         }
     } 

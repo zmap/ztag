@@ -8,9 +8,11 @@ class CiscoHTTPS(TLSTag):
 
     tests = {
         "cisco_ios_server":{
-            "local_metadata":{
-                "manufacturer":"Cisco"
-            }
+            "global_metadata":{
+                "manufacturer":"Cisco",
+                "device_type":Type.NETWORK
+            },
+            "tags":["embedded",]
         }
     } 
 
@@ -18,6 +20,6 @@ class CiscoHTTPS(TLSTag):
         cn = obj["certificate"]["parsed"]["issuer"]["common_name"][0]
         if "cisco" in cn.lower():
             meta.global_metadata.manufacturer = Manufacturer.CISCO
-            meta.tags.add("embedded")
             meta.global_metadata.device_type = Type.NETWORK
+            meta.tags.add("embedded")
             return meta
