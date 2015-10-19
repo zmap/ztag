@@ -1,4 +1,5 @@
 import os
+import os.path
 import json
 
 class Device(object):
@@ -12,6 +13,7 @@ class Device(object):
             if file.startswith("."):
                 continue
             full_path = os.path.join(path, file)
+            assert os.path.exists(full_path)
             name = ".".join(file.split(".")[:-1])
             content = open(full_path).read()
             try:
