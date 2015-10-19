@@ -27,6 +27,7 @@ setup(
     "python-dateutil",
     "zsearch_definitions"
   ],
+  package_data={"ztag":["devices/*",]},
   entry_points = {
     'console_scripts': [
       'ztag = ztag.__main__:main',
