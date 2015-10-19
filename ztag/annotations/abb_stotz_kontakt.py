@@ -7,13 +7,13 @@ class ABBStotzKontakt(Annotation):
     subprotocol = protocols.MODBUS.DEVICE_ID
     port = None
 
-    tests = {
-        "abb_stotz_kontakt": {
-            "global_metadata": {
-                "manufacturer": Manufacturer.ABB_STOTZ_KONTAKT,
-            }
-        }
-    }
+    #ttests = {
+    #    "abb_stotz_kontakt": {
+    #        "global_metadata": {
+    #            "manufacturer": Manufacturer.ABB_STOTZ_KONTAKT,
+    #        }
+    #    }
+    #}
 
     def process(self, obj, meta):
         vendor = obj["mei_response"]["objects"]["vendor"].lower()
