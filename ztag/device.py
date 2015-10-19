@@ -9,16 +9,17 @@ class Device(object):
     @classmethod
     def _populate_devices(cls):
         path = os.path.join(os.path.dirname(__file__), "devices")
-        for file in os.listdir(path):
-            if file.startswith("."):
+        for f in os.listdir(path):
+            if f.startswith("."):
                 continue
-            full_path = os.path.join(path, file)
+            full_path = os.path.join(path, f)
             assert os.path.exists(full_path)
-            name = ".".join(file.split(".")[:-1])
+            name = ".".join(f.split(".")[:-1])
             content = open(full_path).read()
             try:
                 cls._devices_by_name[name] = cls(content)
             except:
+                print content
                 raise Exception("Device %s is not a valid JSON document" % name)
 
     @classmethod
