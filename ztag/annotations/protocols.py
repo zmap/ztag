@@ -1,3 +1,5 @@
+import sys
+
 from ztag.annotation import Annotation
 
 from ztag import protocols
@@ -19,12 +21,14 @@ PROTOCOLS = [
     (protocols.POP3, protocols.POP3.STARTTLS, {"device_with_pop3":{"tags":["pop3",]}}),
     (protocols.POP3S, protocols.POP3S.TLS, {"device_with_pop3s":{"tags":["pop3s",]}}),
     (protocols.SMTP, protocols.SMTP.STARTTLS, {"device_with_smtp":{"tags":["smtp",]}}),
-    (protocols.SMTPS, protocols.SMTPS.TLS, {"device_with_smtps":{"tags":["smtps",]}}),
     (protocols.MODBUS, protocols.MODBUS.DEVICE_ID, {"schneider_nf3000":{"tags":["modbus",]}}),
+    (protocols.SMTPS, protocols.SMTPS.TLS, {"device_with_smtps":{"tags":["smtps",]}}),
 ]
 
 for proto, subproto, tests in PROTOCOLS:
-    c = type("%s_annotation" % proto.pretty_name, (Annotation,), {"process":__process})
+    name = "%sAnnotation" % proto.pretty_name.upper()
+    c = type(name, (Annotation,), {"process":__process})
     c.protocol = proto
     c.subprotocol = subproto
     c.tests = tests
+    setattr(sys.modules[__name__], name, c)
