@@ -12,6 +12,7 @@ def _mprocess(self, obj, meta):
     if v:
         v2 = v.groups(0)
         meta.local_metadata.version = v2[0]
+    return meta
 
 
 class MicrosoftExchangeMail(Annotation):
