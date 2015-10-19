@@ -108,3 +108,4 @@ class AnnotationTesting(object):
         print "tests passing: %i/%i" % (have_tests - failures, have_tests)
         print "\n"
         return 1 if failures or Annotation._annotation_annotations_fail else 0
+

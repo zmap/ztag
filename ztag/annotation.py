@@ -369,7 +369,7 @@ class TLSTag(Annotation):
 
     @staticmethod
     def get_subject(d):
-        return d["certificate"]["subject"]
+        return d["certificate"]["parsed"]["subject"]
 
     @staticmethod
     def get_sha256p(self, d):

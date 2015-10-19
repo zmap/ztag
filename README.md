@@ -1,5 +1,7 @@
 # ZTag
 
+[![Build Status](https://travis-ci.org/zmap/ztag.svg?branch=master)](https://travis-ci.org/zmap/ztag)
+
 ZTag is a utility that works in conjunction with ZMap and ZGrab and allows 
 annotating raw scan data with additional metadata (e.g., device models and 
 vulnerabilities) and transforming records. ZTag is used extensively within
