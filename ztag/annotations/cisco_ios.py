@@ -21,5 +21,5 @@ class CiscoIOSServer(Annotation):
         if "cisco-ios" in server.lower():
             meta.global_metadata.manufacturer = Manufacturer.CISCO
             meta.global_metadata.os = "IOS"
-            meta.device_type = Type.INFRASTRUCTURE_ROUTER
+            meta.global_metadata.device_type = Type.INFRASTRUCTURE_ROUTER
             return meta
