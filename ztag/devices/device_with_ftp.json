@@ -352,7 +352,6 @@
                 "title": "Marine Surveyor Florida", 
                 "status_code": 200, 
                 "status_line": "HTTP/1.1 200 OK", 
-                "body":"<html></html>"
                 "headers": {
                     "content_length": "112926", 
                     "x_powered_by": "ASP.NET", 
