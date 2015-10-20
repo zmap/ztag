@@ -1,0 +1,435 @@
+{
+    "995": {
+        "pop3s": {
+            "tls": {
+                "tls": {
+                    "server_key_exchange": {
+                        "ecdh_params": {
+                            "curve_id": {
+                                "id": 24, 
+                                "name": "secp384r1"
+                            }
+                        }
+                    }, 
+                    "certificate": {
+                        "parsed": {
+                            "fingerprint_sha256": "0107c3cd44758fdb7531d2498383f75fa46cb68ecbb267854463d20eeba30217", 
+                            "subject_dn": "O=Dovecot mail server, OU=smtps, CN=smtps, emailAddress=root@smtps", 
+                            "signature_algorithm": {
+                                "oid": "1.2.840.113549.1.1.11", 
+                                "name": "SHA256WithRSA"
+                            }, 
+                            "subject": {
+                                "common_name": [
+                                    "smtps"
+                                ], 
+                                "organization": [
+                                    "Dovecot mail server"
+                                ], 
+                                "organizational_unit": [
+                                    "smtps"
+                                ]
+                            }, 
+                            "validity": {
+                                "start": "2014-07-19T10:31:08Z", 
+                                "end": "2024-07-18T10:31:08Z"
+                            }, 
+                            "issuer_dn": "O=Dovecot mail server, OU=smtps, CN=smtps, emailAddress=root@smtps", 
+                            "fingerprint_sha1": "f601f6d54401755d240d172b4fc89cff4cc8680a", 
+                            "version": 3, 
+                            "extensions": {
+                                "authority_key_id": "b77ae17b329629e26e91ad9791e5e1081377c334", 
+                                "basic_constraints": {
+                                    "is_ca": true
+                                }, 
+                                "subject_key_id": "t3rhezKWKeJuka2XkeXhCBN3wzQ=", 
+                                "certificate_policies": []
+                            }, 
+                            "signature": {
+                                "self_signed": true, 
+                                "valid": true, 
+                                "value": "UrgqDPMNnPNG5lZkMgBwsdKUzMrmEOK2zZK90tjqwzFDhkX8OpO1rUF0Ta4W6iKW/OQ1bFZLOG89m58hWj/e/kElfK6mjYmRu3yMfqVS/sIJkiNUtSG3zKFMAOQhAQd3DTERmH0pZBNlneJKCW88Q16GEcNJONy/SKOER/LkfSPtXgWZANxjUlQQ3bF11gdHEF7ecpZ1XeJz7aJfN4N3lqmeLoJYEBrWexgyx4QDd+IUUnutFu5EyBifo7AaG4wTtS6D0zLs1Wo/BbaiTncxRTuE3emhLlFXvCD5zqhTugmRWCSO/dVIoERxOqc1drDU+zAlgHVKl68BK4sWIVXSUw==", 
+                                "signature_algorithm": {
+                                    "oid": "1.2.840.113549.1.1.11", 
+                                    "name": "SHA256WithRSA"
+                                }
+                            }, 
+                            "serial_number": "10409818213678967357", 
+                            "fingerprint_md5": "28f86e284ce5a23390375f66b0a4bb19", 
+                            "subject_key_info": {
+                                "key_algorithm": {
+                                    "oid": "", 
+                                    "name": "RSA"
+                                }, 
+                                "rsa_public_key": {
+                                    "length": 2048, 
+                                    "modulus": "wMw3u3dO+/tfP3MRtfq1M5LCHOUxylIhReZTKA2WZ7eIw5OEZ496avqoyepq0vx36uE8qX5zJY4BR3z76moYyb+kP9zmSnjk4FUCepjf+YlRHP1xF1K+kW+brAdcsJqHyfmdsv4OJpEIQHeyJIJKqz6OAaPq+ZgrTKwNMtO2wqHqMUwanVawH+lnSo1Yfr/QKE0DhU3Sd5PzS/VbnJwCG2e1RaBAU8rFdr/oTG1OKJnl7oglbAlnezZP/D1DaIVcgI6anzBUky6BgZm9CcLp9LNPtLKRSgU6EO1SvSuCYfgZ5WxGI1uMp0zyu9ZElwny+IafEWbipir/UXSqEQMiyw==", 
+                                    "exponent": 65537
+                                }
+                            }, 
+                            "issuer": {
+                                "common_name": [
+                                    "smtps"
+                                ], 
+                                "organization": [
+                                    "Dovecot mail server"
+                                ], 
+                                "organizational_unit": [
+                                    "smtps"
+                                ]
+                            }
+                        }
+                    }, 
+                    "cipher_suite": {
+                        "id": "0xC02F", 
+                        "name": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+                    }, 
+                    "version": "TLSv1.2", 
+                    "ocsp_stapling": false, 
+                    "signature": {
+                        "hash_algorithm": "sha256", 
+                        "valid": true, 
+                        "signature_algorithm": "rsa"
+                    }, 
+                    "validation": {
+                        "browser_trusted": false, 
+                        "browser_error": "x509: certificate signed by unknown authority"
+                    }
+                }, 
+                "banner": "+OK Dovecot (Ubuntu) ready.\r\n", 
+                "metadata": {}
+            }
+        }
+    }, 
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 (vsFTPd 3.0.2)\r\n", 
+                "metadata": {}
+            }
+        }
+    }, 
+    "22": {
+        "ssh": {
+            "banner": {
+                "protocol_version": "2.0", 
+                "raw_banner": "SSH-2.0-OpenSSH_6.6p1 Ubuntu-2ubuntu1\r\n", 
+                "software_version": "OpenSSH_6.6p1", 
+                "metadata": {}
+            }
+        }
+    }, 
+    "143": {
+        "imap": {
+            "starttls": {
+                "tls": {
+                    "server_key_exchange": {
+                        "ecdh_params": {
+                            "curve_id": {
+                                "id": 24, 
+                                "name": "secp384r1"
+                            }
+                        }
+                    }, 
+                    "certificate": {
+                        "parsed": {
+                            "fingerprint_sha256": "0107c3cd44758fdb7531d2498383f75fa46cb68ecbb267854463d20eeba30217", 
+                            "subject_dn": "O=Dovecot mail server, OU=smtps, CN=smtps, emailAddress=root@smtps", 
+                            "signature_algorithm": {
+                                "oid": "1.2.840.113549.1.1.11", 
+                                "name": "SHA256WithRSA"
+                            }, 
+                            "subject": {
+                                "common_name": [
+                                    "smtps"
+                                ], 
+                                "organization": [
+                                    "Dovecot mail server"
+                                ], 
+                                "organizational_unit": [
+                                    "smtps"
+                                ]
+                            }, 
+                            "validity": {
+                                "start": "2014-07-19T10:31:08Z", 
+                                "end": "2024-07-18T10:31:08Z"
+                            }, 
+                            "issuer_dn": "O=Dovecot mail server, OU=smtps, CN=smtps, emailAddress=root@smtps", 
+                            "fingerprint_sha1": "f601f6d54401755d240d172b4fc89cff4cc8680a", 
+                            "version": 3, 
+                            "extensions": {
+                                "authority_key_id": "b77ae17b329629e26e91ad9791e5e1081377c334", 
+                                "basic_constraints": {
+                                    "is_ca": true
+                                }, 
+                                "subject_key_id": "t3rhezKWKeJuka2XkeXhCBN3wzQ=", 
+                                "certificate_policies": []
+                            }, 
+                            "signature": {
+                                "self_signed": true, 
+                                "valid": true, 
+                                "value": "UrgqDPMNnPNG5lZkMgBwsdKUzMrmEOK2zZK90tjqwzFDhkX8OpO1rUF0Ta4W6iKW/OQ1bFZLOG89m58hWj/e/kElfK6mjYmRu3yMfqVS/sIJkiNUtSG3zKFMAOQhAQd3DTERmH0pZBNlneJKCW88Q16GEcNJONy/SKOER/LkfSPtXgWZANxjUlQQ3bF11gdHEF7ecpZ1XeJz7aJfN4N3lqmeLoJYEBrWexgyx4QDd+IUUnutFu5EyBifo7AaG4wTtS6D0zLs1Wo/BbaiTncxRTuE3emhLlFXvCD5zqhTugmRWCSO/dVIoERxOqc1drDU+zAlgHVKl68BK4sWIVXSUw==", 
+                                "signature_algorithm": {
+                                    "oid": "1.2.840.113549.1.1.11", 
+                                    "name": "SHA256WithRSA"
+                                }
+                            }, 
+                            "serial_number": "10409818213678967357", 
+                            "fingerprint_md5": "28f86e284ce5a23390375f66b0a4bb19", 
+                            "subject_key_info": {
+                                "key_algorithm": {
+                                    "oid": "", 
+                                    "name": "RSA"
+                                }, 
+                                "rsa_public_key": {
+                                    "length": 2048, 
+                                    "modulus": "wMw3u3dO+/tfP3MRtfq1M5LCHOUxylIhReZTKA2WZ7eIw5OEZ496avqoyepq0vx36uE8qX5zJY4BR3z76moYyb+kP9zmSnjk4FUCepjf+YlRHP1xF1K+kW+brAdcsJqHyfmdsv4OJpEIQHeyJIJKqz6OAaPq+ZgrTKwNMtO2wqHqMUwanVawH+lnSo1Yfr/QKE0DhU3Sd5PzS/VbnJwCG2e1RaBAU8rFdr/oTG1OKJnl7oglbAlnezZP/D1DaIVcgI6anzBUky6BgZm9CcLp9LNPtLKRSgU6EO1SvSuCYfgZ5WxGI1uMp0zyu9ZElwny+IafEWbipir/UXSqEQMiyw==", 
+                                    "exponent": 65537
+                                }
+                            }, 
+                            "issuer": {
+                                "common_name": [
+                                    "smtps"
+                                ], 
+                                "organization": [
+                                    "Dovecot mail server"
+                                ], 
+                                "organizational_unit": [
+                                    "smtps"
+                                ]
+                            }
+                        }
+                    }, 
+                    "cipher_suite": {
+                        "id": "0xC02F", 
+                        "name": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+                    }, 
+                    "version": "TLSv1.2", 
+                    "ocsp_stapling": false, 
+                    "signature": {
+                        "hash_algorithm": "sha256", 
+                        "valid": true, 
+                        "signature_algorithm": "rsa"
+                    }, 
+                    "validation": {
+                        "browser_trusted": false, 
+                        "browser_error": "x509: certificate signed by unknown authority"
+                    }
+                }, 
+                "starttls": "a001 OK Begin TLS negotiation now.\r\n", 
+                "banner": "* OK [CAPABILITY IMAP4rev1 LITERAL+ SASL-IR LOGIN-REFERRALS ID ENABLE IDLE STARTTLS LOGINDISABLED] Dovecot (Ubuntu) ready.\r\n", 
+                "metadata": {
+                    "product": "Dovecot", 
+                    "description": "Dovecot"
+                }
+            }
+        }
+    }, 
+    "110": {
+        "pop3": {
+            "starttls": {
+                "tls": {
+                    "server_key_exchange": {
+                        "ecdh_params": {
+                            "curve_id": {
+                                "id": 24, 
+                                "name": "secp384r1"
+                            }
+                        }
+                    }, 
+                    "certificate": {
+                        "parsed": {
+                            "fingerprint_sha256": "0107c3cd44758fdb7531d2498383f75fa46cb68ecbb267854463d20eeba30217", 
+                            "subject_dn": "O=Dovecot mail server, OU=smtps, CN=smtps, emailAddress=root@smtps", 
+                            "signature_algorithm": {
+                                "oid": "1.2.840.113549.1.1.11", 
+                                "name": "SHA256WithRSA"
+                            }, 
+                            "subject": {
+                                "common_name": [
+                                    "smtps"
+                                ], 
+                                "organization": [
+                                    "Dovecot mail server"
+                                ], 
+                                "organizational_unit": [
+                                    "smtps"
+                                ]
+                            }, 
+                            "validity": {
+                                "start": "2014-07-19T10:31:08Z", 
+                                "end": "2024-07-18T10:31:08Z"
+                            }, 
+                            "issuer_dn": "O=Dovecot mail server, OU=smtps, CN=smtps, emailAddress=root@smtps", 
+                            "fingerprint_sha1": "f601f6d54401755d240d172b4fc89cff4cc8680a", 
+                            "version": 3, 
+                            "extensions": {
+                                "authority_key_id": "b77ae17b329629e26e91ad9791e5e1081377c334", 
+                                "basic_constraints": {
+                                    "is_ca": true
+                                }, 
+                                "subject_key_id": "t3rhezKWKeJuka2XkeXhCBN3wzQ=", 
+                                "certificate_policies": []
+                            }, 
+                            "signature": {
+                                "self_signed": true, 
+                                "valid": true, 
+                                "value": "UrgqDPMNnPNG5lZkMgBwsdKUzMrmEOK2zZK90tjqwzFDhkX8OpO1rUF0Ta4W6iKW/OQ1bFZLOG89m58hWj/e/kElfK6mjYmRu3yMfqVS/sIJkiNUtSG3zKFMAOQhAQd3DTERmH0pZBNlneJKCW88Q16GEcNJONy/SKOER/LkfSPtXgWZANxjUlQQ3bF11gdHEF7ecpZ1XeJz7aJfN4N3lqmeLoJYEBrWexgyx4QDd+IUUnutFu5EyBifo7AaG4wTtS6D0zLs1Wo/BbaiTncxRTuE3emhLlFXvCD5zqhTugmRWCSO/dVIoERxOqc1drDU+zAlgHVKl68BK4sWIVXSUw==", 
+                                "signature_algorithm": {
+                                    "oid": "1.2.840.113549.1.1.11", 
+                                    "name": "SHA256WithRSA"
+                                }
+                            }, 
+                            "serial_number": "10409818213678967357", 
+                            "fingerprint_md5": "28f86e284ce5a23390375f66b0a4bb19", 
+                            "subject_key_info": {
+                                "key_algorithm": {
+                                    "oid": "", 
+                                    "name": "RSA"
+                                }, 
+                                "rsa_public_key": {
+                                    "length": 2048, 
+                                    "modulus": "wMw3u3dO+/tfP3MRtfq1M5LCHOUxylIhReZTKA2WZ7eIw5OEZ496avqoyepq0vx36uE8qX5zJY4BR3z76moYyb+kP9zmSnjk4FUCepjf+YlRHP1xF1K+kW+brAdcsJqHyfmdsv4OJpEIQHeyJIJKqz6OAaPq+ZgrTKwNMtO2wqHqMUwanVawH+lnSo1Yfr/QKE0DhU3Sd5PzS/VbnJwCG2e1RaBAU8rFdr/oTG1OKJnl7oglbAlnezZP/D1DaIVcgI6anzBUky6BgZm9CcLp9LNPtLKRSgU6EO1SvSuCYfgZ5WxGI1uMp0zyu9ZElwny+IafEWbipir/UXSqEQMiyw==", 
+                                    "exponent": 65537
+                                }
+                            }, 
+                            "issuer": {
+                                "common_name": [
+                                    "smtps"
+                                ], 
+                                "organization": [
+                                    "Dovecot mail server"
+                                ], 
+                                "organizational_unit": [
+                                    "smtps"
+                                ]
+                            }
+                        }
+                    }, 
+                    "cipher_suite": {
+                        "id": "0xC02F", 
+                        "name": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+                    }, 
+                    "version": "TLSv1.2", 
+                    "ocsp_stapling": false, 
+                    "signature": {
+                        "hash_algorithm": "sha256", 
+                        "valid": true, 
+                        "signature_algorithm": "rsa"
+                    }, 
+                    "validation": {
+                        "browser_trusted": false, 
+                        "browser_error": "x509: certificate signed by unknown authority"
+                    }
+                }, 
+                "starttls": "+OK Begin TLS negotiation now.\r\n", 
+                "banner": "+OK Dovecot (Ubuntu) ready.\r\n", 
+                "metadata": {
+                    "product": "Dovecot", 
+                    "description": "Dovecot"
+                }
+            }
+        }
+    }, 
+    "993": {
+        "imaps": {
+            "tls": {
+                "tls": {
+                    "server_key_exchange": {
+                        "ecdh_params": {
+                            "curve_id": {
+                                "id": 24, 
+                                "name": "secp384r1"
+                            }
+                        }
+                    }, 
+                    "certificate": {
+                        "parsed": {
+                            "fingerprint_sha256": "0107c3cd44758fdb7531d2498383f75fa46cb68ecbb267854463d20eeba30217", 
+                            "subject_dn": "O=Dovecot mail server, OU=smtps, CN=smtps, emailAddress=root@smtps", 
+                            "signature_algorithm": {
+                                "oid": "1.2.840.113549.1.1.11", 
+                                "name": "SHA256WithRSA"
+                            }, 
+                            "subject": {
+                                "common_name": [
+                                    "smtps"
+                                ], 
+                                "organization": [
+                                    "Dovecot mail server"
+                                ], 
+                                "organizational_unit": [
+                                    "smtps"
+                                ]
+                            }, 
+                            "validity": {
+                                "start": "2014-07-19T10:31:08Z", 
+                                "end": "2024-07-18T10:31:08Z"
+                            }, 
+                            "issuer_dn": "O=Dovecot mail server, OU=smtps, CN=smtps, emailAddress=root@smtps", 
+                            "fingerprint_sha1": "f601f6d54401755d240d172b4fc89cff4cc8680a", 
+                            "version": 3, 
+                            "extensions": {
+                                "authority_key_id": "b77ae17b329629e26e91ad9791e5e1081377c334", 
+                                "basic_constraints": {
+                                    "is_ca": true
+                                }, 
+                                "subject_key_id": "t3rhezKWKeJuka2XkeXhCBN3wzQ=", 
+                                "certificate_policies": []
+                            }, 
+                            "signature": {
+                                "self_signed": true, 
+                                "valid": true, 
+                                "value": "UrgqDPMNnPNG5lZkMgBwsdKUzMrmEOK2zZK90tjqwzFDhkX8OpO1rUF0Ta4W6iKW/OQ1bFZLOG89m58hWj/e/kElfK6mjYmRu3yMfqVS/sIJkiNUtSG3zKFMAOQhAQd3DTERmH0pZBNlneJKCW88Q16GEcNJONy/SKOER/LkfSPtXgWZANxjUlQQ3bF11gdHEF7ecpZ1XeJz7aJfN4N3lqmeLoJYEBrWexgyx4QDd+IUUnutFu5EyBifo7AaG4wTtS6D0zLs1Wo/BbaiTncxRTuE3emhLlFXvCD5zqhTugmRWCSO/dVIoERxOqc1drDU+zAlgHVKl68BK4sWIVXSUw==", 
+                                "signature_algorithm": {
+                                    "oid": "1.2.840.113549.1.1.11", 
+                                    "name": "SHA256WithRSA"
+                                }
+                            }, 
+                            "serial_number": "10409818213678967357", 
+                            "fingerprint_md5": "28f86e284ce5a23390375f66b0a4bb19", 
+                            "subject_key_info": {
+                                "key_algorithm": {
+                                    "oid": "", 
+                                    "name": "RSA"
+                                }, 
+                                "rsa_public_key": {
+                                    "length": 2048, 
+                                    "modulus": "wMw3u3dO+/tfP3MRtfq1M5LCHOUxylIhReZTKA2WZ7eIw5OEZ496avqoyepq0vx36uE8qX5zJY4BR3z76moYyb+kP9zmSnjk4FUCepjf+YlRHP1xF1K+kW+brAdcsJqHyfmdsv4OJpEIQHeyJIJKqz6OAaPq+ZgrTKwNMtO2wqHqMUwanVawH+lnSo1Yfr/QKE0DhU3Sd5PzS/VbnJwCG2e1RaBAU8rFdr/oTG1OKJnl7oglbAlnezZP/D1DaIVcgI6anzBUky6BgZm9CcLp9LNPtLKRSgU6EO1SvSuCYfgZ5WxGI1uMp0zyu9ZElwny+IafEWbipir/UXSqEQMiyw==", 
+                                    "exponent": 65537
+                                }
+                            }, 
+                            "issuer": {
+                                "common_name": [
+                                    "smtps"
+                                ], 
+                                "organization": [
+                                    "Dovecot mail server"
+                                ], 
+                                "organizational_unit": [
+                                    "smtps"
+                                ]
+                            }
+                        }
+                    }, 
+                    "cipher_suite": {
+                        "id": "0xC02F", 
+                        "name": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+                    }, 
+                    "version": "TLSv1.2", 
+                    "ocsp_stapling": false, 
+                    "signature": {
+                        "hash_algorithm": "sha256", 
+                        "valid": true, 
+                        "signature_algorithm": "rsa"
+                    }, 
+                    "validation": {
+                        "browser_trusted": false, 
+                        "browser_error": "x509: certificate signed by unknown authority"
+                    }
+                }, 
+                "metadata": {}
+            }
+        }
+    }
+}

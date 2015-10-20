@@ -1,0 +1,213 @@
+{
+    "25": {
+        "smtp": {
+            "starttls": {
+                "ehlo": "250-dborgula.dyndns.org\r\n250-PIPELINING\r\n250-SIZE 10240000\r\n250-VRFY\r\n250-ETRN\r\n250-STARTTLS\r\n250 8BITMIME\r\n", 
+                "tls": {
+                    "cipher_suite": {
+                        "id": "0x0005", 
+                        "name": "TLS_RSA_WITH_RC4_128_SHA"
+                    }, 
+                    "version": "TLSv1.0", 
+                    "ocsp_stapling": false, 
+                    "certificate": {
+                        "parsed": {
+                            "fingerprint_sha1": "cc082b62e1c301bf30128c99542dc690d0444c06", 
+                            "subject_dn": "C=SK, ST=Berkshire, L=Bratislava, O=Dusan Borgula, OU=SMTPS Service, CN=dborgula.dyndns.org, emailAddress=dusan@dborgula.dyndns.org", 
+                            "issuer": {
+                                "province": [
+                                    "Berkshire"
+                                ], 
+                                "locality": [
+                                    "Bratislava"
+                                ], 
+                                "country": [
+                                    "SK"
+                                ], 
+                                "organizational_unit": [
+                                    "SMTPS Service"
+                                ], 
+                                "common_name": [
+                                    "dborgula.dyndns.org"
+                                ], 
+                                "organization": [
+                                    "Dusan Borgula"
+                                ]
+                            }, 
+                            "signature": {
+                                "self_signed": true, 
+                                "valid": false, 
+                                "value": "nZ4LrV6STcanluGwEpayNXtaUAaaB6tfHhyFZj84RhFW7sam1eg18pd9Zu0RWUt5oICfk02781MieIW4XVK5hFJmRdbTgOV+nqlcCkhxPdqdKFH2WHhVJvyv/BsMf/4d74PFKxmmfy9X+z7gwHgztJaolu7HfS+kzpgliViOgy0=", 
+                                "signature_algorithm": {
+                                    "oid": "1.2.840.113549.1.1.4", 
+                                    "name": "MD5WithRSA"
+                                }
+                            }, 
+                            "validity": {
+                                "start": "2009-12-05T16:41:52Z", 
+                                "end": "2010-12-05T16:41:52Z"
+                            }, 
+                            "issuer_dn": "C=SK, ST=Berkshire, L=Bratislava, O=Dusan Borgula, OU=SMTPS Service, CN=dborgula.dyndns.org, emailAddress=dusan@dborgula.dyndns.org", 
+                            "fingerprint_sha256": "59daa28c341d38b9d41278e20e0de03a78f2c539deec4f008f3ae519562089e4", 
+                            "version": 3, 
+                            "extensions": {
+                                "authority_key_id": "0f9226b8d57724d89ad81d46fd124aed57cb5308", 
+                                "basic_constraints": {
+                                    "is_ca": true
+                                }, 
+                                "subject_key_id": "D5ImuNV3JNia2B1G/RJK7VfLUwg=", 
+                                "certificate_policies": []
+                            }, 
+                            "signature_algorithm": {
+                                "oid": "1.2.840.113549.1.1.4", 
+                                "name": "MD5WithRSA"
+                            }, 
+                            "serial_number": "0", 
+                            "fingerprint_md5": "d89e575c4b4c169d966f21690a1d84c8", 
+                            "subject_key_info": {
+                                "key_algorithm": {
+                                    "oid": "", 
+                                    "name": "RSA"
+                                }, 
+                                "rsa_public_key": {
+                                    "length": 1024, 
+                                    "modulus": "u04BRgDNDRqdxunrIhUnSu+NgMNH9BN3bHU3TawERKiQsxBKiqmtHEXPm2MzxYmoIRrFmAhqfLFfrYWws7+rnht9qxTAuXRwLNP0j+oreEZD2xl8bzZsxIpMu63zIzZP07qt2ZviA+24zw0eB2kPv3+Oxoe38uwG6OQ3fRXIVw8=", 
+                                    "exponent": 65537
+                                }
+                            }, 
+                            "subject": {
+                                "province": [
+                                    "Berkshire"
+                                ], 
+                                "locality": [
+                                    "Bratislava"
+                                ], 
+                                "country": [
+                                    "SK"
+                                ], 
+                                "organizational_unit": [
+                                    "SMTPS Service"
+                                ], 
+                                "common_name": [
+                                    "dborgula.dyndns.org"
+                                ], 
+                                "organization": [
+                                    "Dusan Borgula"
+                                ]
+                            }
+                        }
+                    }, 
+                    "validation": {
+                        "browser_trusted": false, 
+                        "browser_error": "x509: certificate has expired or is not yet valid"
+                    }
+                }, 
+                "metadata": {
+                    "product": "Postfix", 
+                    "description": "Postfix"
+                }, 
+                "banner": "220 dborgula.dyndns.org ESMTP Postfix\r\n", 
+                "starttls": "220 Ready to start TLS\r\n"
+            }
+        }
+    }, 
+    "993": {
+        "imaps": {
+            "tls": {
+                "tls": {
+                    "cipher_suite": {
+                        "id": "0x0005", 
+                        "name": "TLS_RSA_WITH_RC4_128_SHA"
+                    }, 
+                    "version": "TLSv1.0", 
+                    "ocsp_stapling": false, 
+                    "certificate": {
+                        "parsed": {
+                            "fingerprint_sha1": "d2d5fe5aa622a3cc16a11ed9d230451afb980714", 
+                            "subject_dn": "C=SK, OU=IMAP server, CN=dborgula.dyndns.org, emailAddress=dusan@dborgula.dyndns.org", 
+                            "issuer": {
+                                "common_name": [
+                                    "dborgula.dyndns.org"
+                                ], 
+                                "country": [
+                                    "SK"
+                                ], 
+                                "organizational_unit": [
+                                    "IMAP server"
+                                ]
+                            }, 
+                            "signature": {
+                                "self_signed": true, 
+                                "valid": false, 
+                                "value": "QkDsRSJ2jw+B0scoJlC2CxmW7KDH3/KkAtdKGHxVL2QsM2XJxgxlm08E5tv8caK27BxumjFrnx+Ws6nwNUEaloROyJ+gGezGNHjtzi84LGaAGKet8ov0Rmj3cik5PKvpceUfe5HOoy8ni7dI4eFXpTb/4sEzsuNeLyX6hbHss6E=", 
+                                "signature_algorithm": {
+                                    "oid": "1.2.840.113549.1.1.4", 
+                                    "name": "MD5WithRSA"
+                                }
+                            }, 
+                            "serial_number": "15084126746722278954", 
+                            "validity": {
+                                "start": "2009-12-01T20:44:12Z", 
+                                "end": "2010-12-01T20:44:12Z"
+                            }, 
+                            "issuer_dn": "C=SK, OU=IMAP server, CN=dborgula.dyndns.org, emailAddress=dusan@dborgula.dyndns.org", 
+                            "fingerprint_sha256": "b1fb4ef885d43c111e7be8668b129d66186f60b5b4cdb7d723f840fbc97b54b0", 
+                            "version": 3, 
+                            "extensions": {
+                                "certificate_policies": []
+                            }, 
+                            "signature_algorithm": {
+                                "oid": "1.2.840.113549.1.1.4", 
+                                "name": "MD5WithRSA"
+                            }, 
+                            "unknown_extensions": [
+                                {
+                                    "critical": false, 
+                                    "id": "2.16.840.1.113730.1.1", 
+                                    "value": "AwIGQA=="
+                                }
+                            ], 
+                            "fingerprint_md5": "7df5da82d8de4c505012d99bc78ee52c", 
+                            "subject_key_info": {
+                                "key_algorithm": {
+                                    "oid": "", 
+                                    "name": "RSA"
+                                }, 
+                                "rsa_public_key": {
+                                    "length": 1024, 
+                                    "modulus": "61DyD+A/OCXxGvtAA0OeXvA/L3fv4ukzbqjCTz426rVYJHt7uoSHEdfPW20Bc8gEt6QkBfJ6r/0qWRWHJWdRUH9sqjJIrcu7qpaxDm2uMiTIb7W1DpWQ4AMJCFFddTDNShPR8mFH52qQ7yYxS9Zu1FfYmFUYlkGoJeF6YDniLF0=", 
+                                    "exponent": 65537
+                                }
+                            }, 
+                            "subject": {
+                                "common_name": [
+                                    "dborgula.dyndns.org"
+                                ], 
+                                "country": [
+                                    "SK"
+                                ], 
+                                "organizational_unit": [
+                                    "IMAP server"
+                                ]
+                            }
+                        }
+                    }, 
+                    "validation": {
+                        "browser_trusted": false, 
+                        "browser_error": "x509: certificate has expired or is not yet valid"
+                    }
+                }, 
+                "banner": "* OK dovecot ready.\r\n", 
+                "metadata": {}
+            }
+        }
+    }, 
+    "22": {
+        "ssh": {
+            "banner": {
+                "raw_banner": "SSH-2.0-OpenSSH_4.0\n", 
+                "metadata": {}
+            }
+        }
+    }
+}
