@@ -1,0 +1,485 @@
+{
+    "25": {
+        "smtp": {
+            "starttls": {
+                "ehlo": "250-mail.imap-mb.com\r\n250-PIPELINING\r\n250-SIZE\r\n250-VRFY\r\n250-ETRN\r\n250-STARTTLS\r\n250-AUTH PLAIN\r\n250-AUTH=PLAIN\r\n250-ENHANCEDSTATUSCODES\r\n250-8BITMIME\r\n250 DSN\r\n", 
+                "tls": {
+                    "cipher_suite": {
+                        "id": "0x0005", 
+                        "name": "TLS_RSA_WITH_RC4_128_SHA"
+                    }, 
+                    "version": "TLSv1.0", 
+                    "ocsp_stapling": false, 
+                    "certificate": {
+                        "parsed": {
+                            "fingerprint_sha1": "8c909704e2da3e855b089fd905c19a5fa722de78", 
+                            "subject_dn": "C=HU, ST=Buda, L=Budapest, O=IMAP MB Partners Zrt., OU=imap-mb.com, CN=mail.imap-mb.com, emailAddress=postmaster@imap-mb.com", 
+                            "issuer": {
+                                "province": [
+                                    "Buda"
+                                ], 
+                                "locality": [
+                                    "Budapest"
+                                ], 
+                                "country": [
+                                    "HU"
+                                ], 
+                                "organizational_unit": [
+                                    "imap-mb.com"
+                                ], 
+                                "common_name": [
+                                    "imap-mb.com"
+                                ], 
+                                "organization": [
+                                    "IMAP MB Partners Zrt."
+                                ]
+                            }, 
+                            "signature": {
+                                "self_signed": false, 
+                                "valid": false, 
+                                "value": "tDkxm/7TcANuUu2CB5p1a9aCAZTkq+JEwUAIICftE4CMiUYMk57+OMtVoQQHFifserfkayw1BDZXdmMrrrMFh+sgFLCq0w14s6u3ZNG6AcWccHlMemyqbgg+9ydUpZQYM3SqP+s5KQEg/MiYNtgA/y11XIy5UpLiX3EDBbyEdAE=", 
+                                "signature_algorithm": {
+                                    "oid": "1.2.840.113549.1.1.4", 
+                                    "name": "MD5WithRSA"
+                                }
+                            }, 
+                            "validity": {
+                                "start": "2013-02-16T11:17:58Z", 
+                                "end": "2023-02-14T11:17:58Z"
+                            }, 
+                            "issuer_dn": "C=HU, ST=Buda, L=Budapest, O=IMAP MB Partners Zrt., OU=imap-mb.com, CN=imap-mb.com, emailAddress=postmaster@imap-mb.com", 
+                            "fingerprint_sha256": "66a0c9539363e2514925ad108ef7e9e36a823d99cce1b4bccb07e22d7e505313", 
+                            "version": 2, 
+                            "extensions": {
+                                "certificate_policies": []
+                            }, 
+                            "signature_algorithm": {
+                                "oid": "1.2.840.113549.1.1.4", 
+                                "name": "MD5WithRSA"
+                            }, 
+                            "serial_number": "0", 
+                            "fingerprint_md5": "959f2a8ecf771bea55212be8c5ba7faf", 
+                            "subject_key_info": {
+                                "key_algorithm": {
+                                    "oid": "", 
+                                    "name": "RSA"
+                                }, 
+                                "rsa_public_key": {
+                                    "length": 1024, 
+                                    "modulus": "ps8uUQj0qXdbtbmHCBwAveWZwWCgmTwFSq8bWGCigDUonS2Ncgw4vocjQTWHM7xjtvK40EpOizHUxN9TS0LMqKwHil927BV+M17fI1P6dESm9swWbjExzm1Czy/r5Yrsll9RiXHAYQBI6/v3WkHZRueWRS9ntOMk3d3pmvnU+RE=", 
+                                    "exponent": 65537
+                                }
+                            }, 
+                            "subject": {
+                                "province": [
+                                    "Buda"
+                                ], 
+                                "locality": [
+                                    "Budapest"
+                                ], 
+                                "country": [
+                                    "HU"
+                                ], 
+                                "organizational_unit": [
+                                    "imap-mb.com"
+                                ], 
+                                "common_name": [
+                                    "mail.imap-mb.com"
+                                ], 
+                                "organization": [
+                                    "IMAP MB Partners Zrt."
+                                ]
+                            }
+                        }
+                    }, 
+                    "validation": {
+                        "browser_trusted": false, 
+                        "browser_error": "x509: certificate signed by unknown authority"
+                    }
+                }, 
+                "metadata": {
+                    "product": "Postfix", 
+                    "description": "Postfix"
+                }, 
+                "banner": "220 mail.imap-mb.com ESMTP Postfix (Debian/GNU)\r\n", 
+                "starttls": "220 2.0.0 Ready to start TLS\r\n"
+            }
+        }
+    }, 
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 ProFTPD 1.3.3a Server (Debian) [::ffff:78.47.58.250]\r\n", 
+                "metadata": {
+                    "product": "ProFTPD", 
+                    "version": "1.3.3", 
+                    "description": "ProFTPD 1.3.3 a", 
+                    "revision": "a"
+                }
+            }
+        }
+    }, 
+    "22": {
+        "ssh": {
+            "banner": {
+                "protocol_version": "2.0", 
+                "raw_banner": "SSH-2.0-OpenSSH_5.5p1 Debian-6+squeeze2\r\n", 
+                "software_version": "OpenSSH_5.5p1", 
+                "metadata": {}
+            }
+        }
+    }, 
+    "443": {
+        "https": {
+            "dhe": {
+                "support": false, 
+                "metadata": {}
+            }, 
+            "dhe_export": {
+                "support": false, 
+                "metadata": {}
+            }, 
+            "rsa_export": {
+                "support": false, 
+                "metadata": {}
+            }
+        }
+    }, 
+    "110": {
+        "pop3": {
+            "starttls": {
+                "tls": {
+                    "cipher_suite": {
+                        "id": "0x0005", 
+                        "name": "TLS_RSA_WITH_RC4_128_SHA"
+                    }, 
+                    "version": "TLSv1.0", 
+                    "ocsp_stapling": false, 
+                    "certificate": {
+                        "parsed": {
+                            "fingerprint_sha1": "8c909704e2da3e855b089fd905c19a5fa722de78", 
+                            "subject_dn": "C=HU, ST=Buda, L=Budapest, O=IMAP MB Partners Zrt., OU=imap-mb.com, CN=mail.imap-mb.com, emailAddress=postmaster@imap-mb.com", 
+                            "issuer": {
+                                "province": [
+                                    "Buda"
+                                ], 
+                                "locality": [
+                                    "Budapest"
+                                ], 
+                                "country": [
+                                    "HU"
+                                ], 
+                                "organizational_unit": [
+                                    "imap-mb.com"
+                                ], 
+                                "common_name": [
+                                    "imap-mb.com"
+                                ], 
+                                "organization": [
+                                    "IMAP MB Partners Zrt."
+                                ]
+                            }, 
+                            "signature": {
+                                "self_signed": false, 
+                                "valid": false, 
+                                "value": "tDkxm/7TcANuUu2CB5p1a9aCAZTkq+JEwUAIICftE4CMiUYMk57+OMtVoQQHFifserfkayw1BDZXdmMrrrMFh+sgFLCq0w14s6u3ZNG6AcWccHlMemyqbgg+9ydUpZQYM3SqP+s5KQEg/MiYNtgA/y11XIy5UpLiX3EDBbyEdAE=", 
+                                "signature_algorithm": {
+                                    "oid": "1.2.840.113549.1.1.4", 
+                                    "name": "MD5WithRSA"
+                                }
+                            }, 
+                            "validity": {
+                                "start": "2013-02-16T11:17:58Z", 
+                                "end": "2023-02-14T11:17:58Z"
+                            }, 
+                            "issuer_dn": "C=HU, ST=Buda, L=Budapest, O=IMAP MB Partners Zrt., OU=imap-mb.com, CN=imap-mb.com, emailAddress=postmaster@imap-mb.com", 
+                            "fingerprint_sha256": "66a0c9539363e2514925ad108ef7e9e36a823d99cce1b4bccb07e22d7e505313", 
+                            "version": 2, 
+                            "extensions": {
+                                "certificate_policies": []
+                            }, 
+                            "signature_algorithm": {
+                                "oid": "1.2.840.113549.1.1.4", 
+                                "name": "MD5WithRSA"
+                            }, 
+                            "serial_number": "0", 
+                            "fingerprint_md5": "959f2a8ecf771bea55212be8c5ba7faf", 
+                            "subject_key_info": {
+                                "key_algorithm": {
+                                    "oid": "", 
+                                    "name": "RSA"
+                                }, 
+                                "rsa_public_key": {
+                                    "length": 1024, 
+                                    "modulus": "ps8uUQj0qXdbtbmHCBwAveWZwWCgmTwFSq8bWGCigDUonS2Ncgw4vocjQTWHM7xjtvK40EpOizHUxN9TS0LMqKwHil927BV+M17fI1P6dESm9swWbjExzm1Czy/r5Yrsll9RiXHAYQBI6/v3WkHZRueWRS9ntOMk3d3pmvnU+RE=", 
+                                    "exponent": 65537
+                                }
+                            }, 
+                            "subject": {
+                                "province": [
+                                    "Buda"
+                                ], 
+                                "locality": [
+                                    "Budapest"
+                                ], 
+                                "country": [
+                                    "HU"
+                                ], 
+                                "organizational_unit": [
+                                    "imap-mb.com"
+                                ], 
+                                "common_name": [
+                                    "mail.imap-mb.com"
+                                ], 
+                                "organization": [
+                                    "IMAP MB Partners Zrt."
+                                ]
+                            }
+                        }
+                    }, 
+                    "validation": {
+                        "browser_trusted": false, 
+                        "browser_error": "x509: certificate signed by unknown authority"
+                    }
+                }, 
+                "metadata": {
+                    "product": "Dovecot", 
+                    "description": "Dovecot"
+                }, 
+                "banner": "+OK Dovecot ready.\r\n", 
+                "starttls": "+OK Begin TLS negotiation now.\r\n"
+            }
+        }
+    }, 
+    "80": {
+        "http": {
+            "get": {
+                "body": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>403 Forbidden</title>\n</head><body>\n<h1>Forbidden</h1>\n<p>You don't have permission to access /\non this server.</p>\n<hr>\n<address>Apache/2.2.16 (Debian) Server at 78.47.58.250 Port 80</address>\n</body></html>\n", 
+                "title": "403 Forbidden", 
+                "status_code": 403, 
+                "status_line": "HTTP/1.1 403 Forbidden", 
+                "headers": {
+                    "content_length": "280", 
+                    "vary": "Accept-Encoding", 
+                    "content_type": "text/html; charset=iso-8859-1", 
+                    "server": "Apache/2.2.16 (Debian)"
+                }, 
+                "body_sha256": "ivCkB4DsYJnIDMHwH7318DAI5m1pRmNmY6rPZ7IHhWg=", 
+                "metadata": {
+                    "product": "httpd", 
+                    "version": "2.2.16", 
+                    "description": "Apache httpd 2.2.16", 
+                    "manufacturer": "Apache"
+                }
+            }
+        }
+    }, 
+    "993": {
+        "imaps": {
+            "tls": {
+                "tls": {
+                    "cipher_suite": {
+                        "id": "0x0005", 
+                        "name": "TLS_RSA_WITH_RC4_128_SHA"
+                    }, 
+                    "version": "TLSv1.0", 
+                    "ocsp_stapling": false, 
+                    "certificate": {
+                        "parsed": {
+                            "fingerprint_sha1": "8c909704e2da3e855b089fd905c19a5fa722de78", 
+                            "subject_dn": "C=HU, ST=Buda, L=Budapest, O=IMAP MB Partners Zrt., OU=imap-mb.com, CN=mail.imap-mb.com, emailAddress=postmaster@imap-mb.com", 
+                            "issuer": {
+                                "province": [
+                                    "Buda"
+                                ], 
+                                "locality": [
+                                    "Budapest"
+                                ], 
+                                "country": [
+                                    "HU"
+                                ], 
+                                "organizational_unit": [
+                                    "imap-mb.com"
+                                ], 
+                                "common_name": [
+                                    "imap-mb.com"
+                                ], 
+                                "organization": [
+                                    "IMAP MB Partners Zrt."
+                                ]
+                            }, 
+                            "signature": {
+                                "self_signed": false, 
+                                "valid": false, 
+                                "value": "tDkxm/7TcANuUu2CB5p1a9aCAZTkq+JEwUAIICftE4CMiUYMk57+OMtVoQQHFifserfkayw1BDZXdmMrrrMFh+sgFLCq0w14s6u3ZNG6AcWccHlMemyqbgg+9ydUpZQYM3SqP+s5KQEg/MiYNtgA/y11XIy5UpLiX3EDBbyEdAE=", 
+                                "signature_algorithm": {
+                                    "oid": "1.2.840.113549.1.1.4", 
+                                    "name": "MD5WithRSA"
+                                }
+                            }, 
+                            "validity": {
+                                "start": "2013-02-16T11:17:58Z", 
+                                "end": "2023-02-14T11:17:58Z"
+                            }, 
+                            "issuer_dn": "C=HU, ST=Buda, L=Budapest, O=IMAP MB Partners Zrt., OU=imap-mb.com, CN=imap-mb.com, emailAddress=postmaster@imap-mb.com", 
+                            "fingerprint_sha256": "66a0c9539363e2514925ad108ef7e9e36a823d99cce1b4bccb07e22d7e505313", 
+                            "version": 2, 
+                            "extensions": {
+                                "certificate_policies": []
+                            }, 
+                            "signature_algorithm": {
+                                "oid": "1.2.840.113549.1.1.4", 
+                                "name": "MD5WithRSA"
+                            }, 
+                            "serial_number": "0", 
+                            "fingerprint_md5": "959f2a8ecf771bea55212be8c5ba7faf", 
+                            "subject_key_info": {
+                                "key_algorithm": {
+                                    "oid": "", 
+                                    "name": "RSA"
+                                }, 
+                                "rsa_public_key": {
+                                    "length": 1024, 
+                                    "modulus": "ps8uUQj0qXdbtbmHCBwAveWZwWCgmTwFSq8bWGCigDUonS2Ncgw4vocjQTWHM7xjtvK40EpOizHUxN9TS0LMqKwHil927BV+M17fI1P6dESm9swWbjExzm1Czy/r5Yrsll9RiXHAYQBI6/v3WkHZRueWRS9ntOMk3d3pmvnU+RE=", 
+                                    "exponent": 65537
+                                }
+                            }, 
+                            "subject": {
+                                "province": [
+                                    "Buda"
+                                ], 
+                                "locality": [
+                                    "Budapest"
+                                ], 
+                                "country": [
+                                    "HU"
+                                ], 
+                                "organizational_unit": [
+                                    "imap-mb.com"
+                                ], 
+                                "common_name": [
+                                    "mail.imap-mb.com"
+                                ], 
+                                "organization": [
+                                    "IMAP MB Partners Zrt."
+                                ]
+                            }
+                        }
+                    }, 
+                    "validation": {
+                        "browser_trusted": false, 
+                        "browser_error": "x509: certificate signed by unknown authority"
+                    }
+                }, 
+                "banner": "* OK [CAPABILITY IMAP4rev1 LITERAL+ SASL-IR LOGIN-REFERRALS ID ENABLE AUTH=PLAIN] Dovecot ready.\r\n", 
+                "metadata": {}
+            }
+        }
+    }, 
+    "143": {
+        "imap": {
+            "starttls": {
+                "tls": {
+                    "cipher_suite": {
+                        "id": "0x0005", 
+                        "name": "TLS_RSA_WITH_RC4_128_SHA"
+                    }, 
+                    "version": "TLSv1.0", 
+                    "ocsp_stapling": false, 
+                    "certificate": {
+                        "parsed": {
+                            "fingerprint_sha1": "8c909704e2da3e855b089fd905c19a5fa722de78", 
+                            "subject_dn": "C=HU, ST=Buda, L=Budapest, O=IMAP MB Partners Zrt., OU=imap-mb.com, CN=mail.imap-mb.com, emailAddress=postmaster@imap-mb.com", 
+                            "issuer": {
+                                "province": [
+                                    "Buda"
+                                ], 
+                                "locality": [
+                                    "Budapest"
+                                ], 
+                                "country": [
+                                    "HU"
+                                ], 
+                                "organizational_unit": [
+                                    "imap-mb.com"
+                                ], 
+                                "common_name": [
+                                    "imap-mb.com"
+                                ], 
+                                "organization": [
+                                    "IMAP MB Partners Zrt."
+                                ]
+                            }, 
+                            "signature": {
+                                "self_signed": false, 
+                                "valid": false, 
+                                "value": "tDkxm/7TcANuUu2CB5p1a9aCAZTkq+JEwUAIICftE4CMiUYMk57+OMtVoQQHFifserfkayw1BDZXdmMrrrMFh+sgFLCq0w14s6u3ZNG6AcWccHlMemyqbgg+9ydUpZQYM3SqP+s5KQEg/MiYNtgA/y11XIy5UpLiX3EDBbyEdAE=", 
+                                "signature_algorithm": {
+                                    "oid": "1.2.840.113549.1.1.4", 
+                                    "name": "MD5WithRSA"
+                                }
+                            }, 
+                            "validity": {
+                                "start": "2013-02-16T11:17:58Z", 
+                                "end": "2023-02-14T11:17:58Z"
+                            }, 
+                            "issuer_dn": "C=HU, ST=Buda, L=Budapest, O=IMAP MB Partners Zrt., OU=imap-mb.com, CN=imap-mb.com, emailAddress=postmaster@imap-mb.com", 
+                            "fingerprint_sha256": "66a0c9539363e2514925ad108ef7e9e36a823d99cce1b4bccb07e22d7e505313", 
+                            "version": 2, 
+                            "extensions": {
+                                "certificate_policies": []
+                            }, 
+                            "signature_algorithm": {
+                                "oid": "1.2.840.113549.1.1.4", 
+                                "name": "MD5WithRSA"
+                            }, 
+                            "serial_number": "0", 
+                            "fingerprint_md5": "959f2a8ecf771bea55212be8c5ba7faf", 
+                            "subject_key_info": {
+                                "key_algorithm": {
+                                    "oid": "", 
+                                    "name": "RSA"
+                                }, 
+                                "rsa_public_key": {
+                                    "length": 1024, 
+                                    "modulus": "ps8uUQj0qXdbtbmHCBwAveWZwWCgmTwFSq8bWGCigDUonS2Ncgw4vocjQTWHM7xjtvK40EpOizHUxN9TS0LMqKwHil927BV+M17fI1P6dESm9swWbjExzm1Czy/r5Yrsll9RiXHAYQBI6/v3WkHZRueWRS9ntOMk3d3pmvnU+RE=", 
+                                    "exponent": 65537
+                                }
+                            }, 
+                            "subject": {
+                                "province": [
+                                    "Buda"
+                                ], 
+                                "locality": [
+                                    "Budapest"
+                                ], 
+                                "country": [
+                                    "HU"
+                                ], 
+                                "organizational_unit": [
+                                    "imap-mb.com"
+                                ], 
+                                "common_name": [
+                                    "mail.imap-mb.com"
+                                ], 
+                                "organization": [
+                                    "IMAP MB Partners Zrt."
+                                ]
+                            }
+                        }
+                    }, 
+                    "validation": {
+                        "browser_trusted": false, 
+                        "browser_error": "x509: certificate signed by unknown authority"
+                    }
+                }, 
+                "metadata": {
+                    "product": "Dovecot", 
+                    "description": "Dovecot"
+                }, 
+                "banner": "* OK [CAPABILITY IMAP4rev1 LITERAL+ SASL-IR LOGIN-REFERRALS ID ENABLE STARTTLS AUTH=PLAIN] Dovecot ready.\r\n", 
+                "starttls": "a001 OK Begin TLS negotiation now.\r\n"
+            }
+        }
+    }
+}
