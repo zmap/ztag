@@ -1,0 +1,10 @@
+{
+    "22": {
+        "ssh": {
+            "banner": {
+                "raw_banner": "SSH-1.99-Cisco-1.25\n", 
+                "metadata": {}
+            }
+        }
+    }
+}
