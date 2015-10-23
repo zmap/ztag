@@ -1,4 +1,4 @@
-from ztag.annotation import * 
+from ztag.annotation import *
 
 
 class RSAExportTag(Annotation):
@@ -8,19 +8,9 @@ class RSAExportTag(Annotation):
     port = None
 
     def process(self, obj, meta):
-        meta.tags.add("rsa-export")
-        return meta
-
-
-class DHETag(Annotation):
-
-    protocol = protocols.HTTPS
-    subprotocol = protocols.HTTPS.DHE
-    port = None
-
-    def process(self, obj, meta):
-        meta.tags.add("dhe")
-        return meta
+        if obj["support"]:
+            meta.tags.add("rsa-export")
+            return meta
 
 
 class DHEExportTag(Annotation):
@@ -30,5 +20,6 @@ class DHEExportTag(Annotation):
     port = None
 
     def process(self, obj, meta):
-        meta.tags.add("dhe-export")
-        return meta
+        if obj["support"]:
+            meta.tags.add("dhe-export")
+            return meta
