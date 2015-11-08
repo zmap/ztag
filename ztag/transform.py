@@ -145,7 +145,7 @@ class ZMapTransform(Transform):
     def transform(self, obj):
         out = super(ZMapTransform, self).transform(obj)
         out.transformed['ip_address'] = obj['saddr']
-        out.transformed['timestamp'] = obj['timestamp-str']
+        out.transformed['timestamp'] = obj['timestamp_str']
         return out
 
     @classmethod

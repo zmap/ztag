@@ -44,8 +44,6 @@ class DNSTransform(ZMapTransform):
                     errors_present = True
                     break
             if not errors_present:
-                out["authorities"] = authorities 
-        out['ip_address'] = obj['saddr']
-        out['timestamp'] = obj['timestamp-str']
+                out["authorities"] = authorities
         zout.transformed = out
         return zout
