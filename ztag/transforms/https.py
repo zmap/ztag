@@ -364,7 +364,7 @@ class DHETransform(ZGrabTransform):
         error_component = wrapped['error_component'].resolve()
         if error_component is not None and error_component == 'connect':
             raise errors.IgnoreObject("Error connecting")
-        dh = wrapped['server_key_exchange']['dh_params']
+        dh = wrapped['data']['tls']['server_key_exchange']['dh_params']
         dh_prime_value = dh['prime']['value'].resolve()
         dh_prime_length = dh['prime']['length'].resolve()
         dh_generator_value = dh['generator']['value'].resolve()
@@ -385,7 +385,7 @@ class DHETransform(ZGrabTransform):
         if dh_generator_length is not None:
             out['dh_params']['generator']['length'] = dh_generator_length
 
-        out["support"] = True if len(out) > 0 else False
+        out["support"] = bool(out)
 
         zout.transformed = out
         return zout
@@ -408,7 +408,7 @@ class DHEExportTransform(ZGrabTransform):
         error_component = wrapped['error_component'].resolve()
         if error_component is not None and error_component == 'connect':
             raise errors.IgnoreObject("Error connecting")
-        dh = wrapped['server_key_exchange']['dh_params']
+        dh = wrapped['data']['tls']['server_key_exchange']['dh_params']
         dh_prime_value = dh['prime']['value'].resolve()
         dh_prime_length = dh['prime']['length'].resolve()
         dh_generator_value = dh['generator']['value'].resolve()
@@ -429,7 +429,7 @@ class DHEExportTransform(ZGrabTransform):
         if dh_generator_length is not None:
             out['dh_params']['generator']['length'] = dh_generator_length
 
-        out["support"] = True if len(out) > 0 else False
+        out["support"] = bool(out)
 
         zout.transformed = out
         return zout
@@ -452,7 +452,7 @@ class ECDHETransform(ZGrabTransform):
         error_component = wrapped['error_component'].resolve()
         if error_component is not None and error_component == 'connect':
             raise errors.IgnoreObject("Error connecting")
-        ecdh = wrapped['server_key_exchange']['ecdh_params']['curve_id']
+        ecdh = wrapped['data']['tls']['server_key_exchange']['ecdh_params']['curve_id']
 
         ecdh_name = ecdh['name'].resolve()
         ecdh_id = ecdh['id'].resolve()
@@ -465,7 +465,7 @@ class ECDHETransform(ZGrabTransform):
         if ecdh_id is not None:
             out['ecdh_params']['curve_id']['id'] = ecdh_id
 
-        out["support"] = True if len(out) > 0 else False
+        out["support"] = bool(out)
 
 
         zout.transformed = out
@@ -489,7 +489,7 @@ class RSAExportTransform(ZGrabTransform):
         error_component = wrapped['error_component'].resolve()
         if error_component is not None and error_component == 'connect':
             raise errors.IgnoreObject("Error connecting")
-        rsa = wrapped['server_key_exchange']['rsa_params']
+        rsa = wrapped['data']['tls']['server_key_exchange']['rsa_params']
         rsa_exponent = rsa['exponent'].resolve()
         rsa_modulus = rsa['modulus'].resolve()
         rsa_length = rsa['length'].resolve()
@@ -503,7 +503,7 @@ class RSAExportTransform(ZGrabTransform):
         if rsa_length is not None:
             out['rsa_params']['length'] = rsa_length
 
-        out["support"] = True if len(out) > 0 else False
+        out["support"] = bool(out)
 
         zout.transformed = out
         return zout
