@@ -385,7 +385,7 @@ class DHETransform(ZGrabTransform):
         if dh_generator_length is not None:
             out['dh_params']['generator']['length'] = dh_generator_length
 
-        out["support"] = True if len(out) > 0 else False
+        out["support"] = bool(out)
 
         zout.transformed = out
         return zout
@@ -429,7 +429,7 @@ class DHEExportTransform(ZGrabTransform):
         if dh_generator_length is not None:
             out['dh_params']['generator']['length'] = dh_generator_length
 
-        out["support"] = True if len(out) > 0 else False
+        out["support"] = bool(out)
 
         zout.transformed = out
         return zout
@@ -465,7 +465,7 @@ class ECDHETransform(ZGrabTransform):
         if ecdh_id is not None:
             out['ecdh_params']['curve_id']['id'] = ecdh_id
 
-        out["support"] = True if len(out) > 0 else False
+        out["support"] = bool(out)
 
 
         zout.transformed = out
@@ -503,7 +503,7 @@ class RSAExportTransform(ZGrabTransform):
         if rsa_length is not None:
             out['rsa_params']['length'] = rsa_length
 
-        out["support"] = True if len(out) > 0 else False
+        out["support"] = bool(out)
 
         zout.transformed = out
         return zout
