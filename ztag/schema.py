@@ -368,7 +368,7 @@ ztag_dns_answer = SubRecord({
     "type":String()
 })
 
-ztag_dns_open_resolver = SubRecord({
+ztag_dns_lookup = SubRecord({
     "support":Boolean(),
     "errors":Boolean(),
     "resolves_correctly":Boolean(),
@@ -543,7 +543,7 @@ host = Record({
             }),
             Port(53):SubRecord({
                 "dns":SubRecord({
-                    "open":ztag_dns_open_resolver
+                    "lookup":ztag_dns_lookup
                 })
             }),
             "tags":ListOf(AnalyzedString(es_include_raw=True)),
