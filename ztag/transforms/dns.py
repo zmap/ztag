@@ -37,7 +37,7 @@ class DNSTransform(ZMapTransform):
             raise errors.IgnoreObject("Not a DNS resposne")
         zout = ZMapTransformOutput()
         out = dict()
-        out["supports"] = True
+        out["support"] = True
         errors_present = False
 
         if obj["dns_parse_err"] == True:
