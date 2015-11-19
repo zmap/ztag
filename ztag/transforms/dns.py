@@ -66,7 +66,7 @@ class DNSTransform(ZMapTransform):
         out["resolves_correctly"] = False
 
         for answer in out["answers"]:
-            if answer["type"] == "A" and answer["response"] == CORRECT_RESPONSE:
+            if answer["type"] == "A" and answer["response"] == self.CORRECT_RESPONSE:
                 out["resolves_correctly"] = True
                 break
 
