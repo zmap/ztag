@@ -356,12 +356,26 @@ ztag_modbus = SubRecord({
     "metadata":local_metadata
 })
 
+ztag_dns_question = SubRecord({
+    "name":String(),
+    "type":String()
+})
+
+
+ztag_dns_answer = SubRecord({
+    "name":String(),
+    "response":AnalyzedString(es_include_raw=True),
+    "type":String()
+})
+
 ztag_dns_open_resolver = SubRecord({
     "support":Boolean(),
-    "recursive_resolver":Boolean(),
-    "iterative_resolver":Boolean(),
-    "answers":ListOf(String()),
-    "authorities":ListOf(String()),
+    "errors":Boolean(),
+    "resolves_correctly":Boolean(),
+    "answers":ListOf(ztag_dns_answer),
+    "authorities":ListOf(ztag_dns_answer),
+    "additionals":ListOf(ztag_dns_answer),
+    "questions":ListOf(ztag_dns_question),
     "metadata":local_metadata
 })
 
@@ -529,7 +543,7 @@ host = Record({
             }),
             Port(53):SubRecord({
                 "dns":SubRecord({
-                    "open_resolver":ztag_dns_open_resolver
+                    "open":ztag_dns_open_resolver
                 })
             }),
             "tags":ListOf(AnalyzedString(es_include_raw=True)),
