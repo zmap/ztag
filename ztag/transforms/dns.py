@@ -3,10 +3,12 @@ from ztag import protocols, errors
 
 class DNSTransform(ZMapTransform):
 
-    CORRECT_RESPONSE = "192.150.186.1"
+    name = "dns/lookup"
     port = None
     protocol = protocols.DNS
     subprotocol = protocols.DNS.LOOKUP
+
+    CORRECT_RESPONSE = "192.150.186.1"
 
     def __init__(self, *args, **kwargs):
         super(DNSTransform, self).__init__(*args, **kwargs)
