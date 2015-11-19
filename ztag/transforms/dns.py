@@ -1,14 +1,12 @@
 from ztag.transform import ZMapTransform, ZMapTransformOutput
 from ztag import protocols, errors
 
-CORRECT_RESPONSE = "192.150.186.1"
-
 class DNSTransform(ZMapTransform):
 
-    name = "dns/open"
+    CORRECT_RESPONSE = "192.150.186.1"
     port = None
     protocol = protocols.DNS
-    subprotocol = protocols.DNS.OPEN_RESOLVER
+    subprotocol = protocols.DNS.LOOKUP
 
     def __init__(self, *args, **kwargs):
         super(DNSTransform, self).__init__(*args, **kwargs)
@@ -51,14 +49,18 @@ class DNSTransform(ZMapTransform):
             q["type"] = question["qtype_str"]
             out["questions"].append(q)
 
-        for field in ("answers", "authorities", "additionals"):
-            (response_errors, responses) = self._transform_responses(obj["dns_%s" % field])
+        response_types = (("answers", "dns_answers"), ("authorities", "dns_authorities"),\
+            ("additionals", "dns_additionals"))
+
+        for out_field, obj_field in response_types:
+            (response_errors, responses) = self._transform_responses(obj[obj_field])
             if response_errors:
                 errors_present = True
-            out[field] = responses
+            out[out_field] = responses
 
         out["errors"] = errors_present
-	out["open_resolver"] = bool(len(out["answers"] + out["additionals"] + out["authorities"]))
+        out["open_resolver"] = bool(len(out["answers"]) + len(out["additionals"]) + \
+            len(out["authorities"]))
         out["resolves_correctly"] = False
 
         for answer in out["answers"]:
