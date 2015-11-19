@@ -14,6 +14,16 @@ class JSONEncoder(Encoder):
         return json.dumps(obj, sort_keys=True)
 
 
+class LocalJSONEncoder(Encoder):
+
+    def encode(self, zobj):
+        obj = zobj.transformed or dict()
+        if zobj.metadata is not None:
+            obj['local_metadata'] = zobj.metadata.local_metadata.to_dict()
+        return json.dumps(obj, sort_keys=True)
+
+
+
 class HexEncoder(Encoder):
 
     def encode(self, obj):
