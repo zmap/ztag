@@ -5,7 +5,7 @@ CORRECT_RESPONSE = "192.150.186.1"
 
 class DNSTransform(ZMapTransform):
 
-    name = "dns/open_resolver"
+    name = "dns/open"
     port = None
     protocol = protocols.DNS
     subprotocol = protocols.DNS.OPEN_RESOLVER
