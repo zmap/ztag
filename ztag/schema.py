@@ -371,6 +371,7 @@ ztag_dns_answer = SubRecord({
 ztag_dns_lookup = SubRecord({
     "support":Boolean(),
     "errors":Boolean(),
+    "open_resolver":Boolean(),
     "resolves_correctly":Boolean(),
     "answers":ListOf(ztag_dns_answer),
     "authorities":ListOf(ztag_dns_answer),
@@ -406,6 +407,7 @@ ztag_schemas = [
     ("ztag_modbus", ztag_modbus),
     ("ztag_extended_random", ztag_extended_random),
     ("ztag_ssh_banner", ztag_ssh_banner),
+    ("ztag_dns_lookup", ztag_dns_lookup),
 ]
 for (name, schema) in ztag_schemas:
     x = Record({

@@ -1,49 +1,74 @@
 from ztag.transform import ZMapTransform, ZMapTransformOutput
 from ztag import protocols, errors
 
-
 class DNSTransform(ZMapTransform):
 
-    name = "dns/open_resolver"
+    name = "dns/lookup"
     port = None
     protocol = protocols.DNS
-    subprotocol = protocols.DNS.OPEN_RESOLVER
+    subprotocol = protocols.DNS.LOOKUP
+
+    CORRECT_RESPONSE = "192.150.186.1"
 
     def __init__(self, *args, **kwargs):
         super(DNSTransform, self).__init__(*args, **kwargs)
+
+    def _transform_responses(self, responses):
+        error = False
+        ret = []
+
+        for response in responses:
+            if response["rdata_is_parsed"] == 1:
+                r = dict()
+                r["name"] = response["name"]
+                r["type"] = response["type_str"]
+                r["response"] = response["rdata"]
+                ret.append(r)
+            else:
+                error = True
+
+        return (error, ret)
 
     def _transform_object(self, obj):
         classification = obj['classification']
         if classification != "dns":
             raise errors.IgnoreObject(classification)
-        if int(obj['success']) != 1 or int(obj['app_success']) != 1:
+        if int(obj['success']) != 1:
             raise errors.IgnoreObject("Not a DNS resposne")
         zout = ZMapTransformOutput()
         out = dict()
         out["support"] = True
-        out["recursive_resolver"] = bool(len(obj["dns_answers"]))
-        out["iterative_resolver"] = bool(len(obj["dns_authorities"]))
-        if out["recursive_resolver"]:
-            answers = []
-            errors_present = False
-            for answer in obj["dns_answers"]:
-                if answer["rdata_is_parsed"] == 1:
-                    answers.append(answer["rdata"])
-                else:
-                    errors_present = True
-                    break
-            if not errors_present:
-                out["answers"] = answers
-        if out["iterative_resolver"]:
-            authorities = []
-            errors_present = False
-            for authority in obj["dns_authorities"]:
-                 if authority["rdata_is_parsed"] == 1:
-                    authorities.append(authority["rdata"])
-                 else:
-                    errors_present = True
-                    break
-            if not errors_present:
-                out["authorities"] = authorities
+        errors_present = False
+
+        if obj["dns_parse_err"] == True:
+            errors_present = True
+
+        out["questions"] = []
+
+        for question in obj["dns_questions"]:
+            q = dict()
+            q["name"] = question["name"]
+            q["type"] = question["qtype_str"]
+            out["questions"].append(q)
+
+        response_types = (("answers", "dns_answers"), ("authorities", "dns_authorities"),\
+            ("additionals", "dns_additionals"))
+
+        for out_field, obj_field in response_types:
+            (response_errors, responses) = self._transform_responses(obj[obj_field])
+            if response_errors:
+                errors_present = True
+            out[out_field] = responses
+
+        out["errors"] = errors_present
+        out["open_resolver"] = bool(len(out["answers"]) + len(out["additionals"]) + \
+            len(out["authorities"]))
+        out["resolves_correctly"] = False
+
+        for answer in out["answers"]:
+            if answer["type"] == "A" and answer["response"] == self.CORRECT_RESPONSE:
+                out["resolves_correctly"] = True
+                break
+
         zout.transformed = out
         return zout
