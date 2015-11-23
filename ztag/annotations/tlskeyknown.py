@@ -1,9 +1,17 @@
 from ztag.annotation import *
 
-class TlsKeyKnownTag(Annotation):
+class TLSKnownKey(Annotation):
+
     protocol = protocols.HTTPS
     subprotocol = protocols.HTTPS.TLS
     port = None
+
+    tests = {
+        "known_key":{
+            "tags":["known-private-key", ]
+        }
+    }
+
 
     FINGERPRINTS = set(['007fdaa8c08e250b5587ae9a49345a5c41e971cf3a52242670fc8bfb2e6d75ab',
                         '02980519c55e5dfb06656a7ea8ef7342553b6c95e4f9c5ea242b0f14398e4f90',
@@ -162,6 +170,6 @@ class TlsKeyKnownTag(Annotation):
     def process(self, obj, meta):
         s = obj["certificate"]["parsed"]
         if s["fingerprint_sha256"] in self.FINGERPRINTS:
-            meta.tags.add("tls private key known")
+            meta.tags.add("known-private-key")
             return meta
         return None

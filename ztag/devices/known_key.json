@@ -1,0 +1,165 @@
+{
+    "443": {
+        "https": {
+            "tls": {
+                "server_key_exchange": {
+                    "dh_params": {
+                        "prime": {
+                            "length": 1024, 
+                            "value": "sQuPlqCA4B3ekt5erl1U7FLJn7z7BqPGmmqdylLSO2Fgc+KGdaI9GJg47x4u5lLAE+y0rqkGESMkl1w81JuDv6zL3X2QxL1wmEiOnCGac3JO/9b65WRHOPqjGk/1W8zAoVGvXw3ItL1FvzffNlwaZeaM/adtTacI3x+yvC5KQ3E="
+                        }, 
+                        "generator": {
+                            "length": 1024, 
+                            "value": "pNHL1cP9NBJnZaRC77mZBfgQTdJYrFB/1kBs/xQmbTEmb+oeXEFWS3d+aQ9VBPITFgIXtLAbiGpekVR/nidJ9Nf719O5qS7hkJ0NImP4CnamokwIegkfUx2/CgFptqKK1mKk0Y5zr6Mtd51ZGNCLyIWPTc75fCokhV5u6yKzsuU="
+                        }
+                    }
+                }, 
+                "certificate": {
+                    "parsed": {
+                        "fingerprint_sha1": "eb54c44a32a64497d8926ff87ba708f96fb0bff3", 
+                        "subject_dn": "C=US, ST=CA, L=San Jose, O=Ubiquiti Networks Inc., OU=Technical Support, CN=UBNT, emailAddress=support@ubnt.com", 
+                        "issuer": {
+                            "province": [
+                                "CA"
+                            ], 
+                            "locality": [
+                                "San Jose"
+                            ], 
+                            "country": [
+                                "US"
+                            ], 
+                            "organizational_unit": [
+                                "Technical Support"
+                            ], 
+                            "common_name": [
+                                "UBNT"
+                            ], 
+                            "organization": [
+                                "Ubiquiti Networks Inc."
+                            ]
+                        }, 
+                        "signature": {
+                            "self_signed": true, 
+                            "valid": true, 
+                            "value": "AFoxgToVbTCVjQORR6oj4rTALtQBzdUha2lePHEnEBz1h9QoGRfCPew2/e6TB48LMGUOKDVsJZ7YJBaFZSnaR98wCYQzLLS0+vAkQLnuHvAcM8PhBnAua/6g0KqBb88bcGdDATKg2ryMqJHzy7GXMATyxnfoiZcs0x/PA/H8Nvo=", 
+                            "signature_algorithm": {
+                                "oid": "1.2.840.113549.1.1.5", 
+                                "name": "SHA1WithRSA"
+                            }
+                        }, 
+                        "validity": {
+                            "start": "2011-06-02T08:35:02Z", 
+                            "end": "2020-01-01T08:35:02Z"
+                        }, 
+                        "issuer_dn": "C=US, ST=CA, L=San Jose, O=Ubiquiti Networks Inc., OU=Technical Support, CN=UBNT, emailAddress=support@ubnt.com", 
+                        "fingerprint_sha256": "e4d09f84810efa9ad8541b7a820f094408ef760744ffe44d397f88d28b441995", 
+                        "version": 2, 
+                        "extensions": {
+                            "certificate_policies": []
+                        }, 
+                        "signature_algorithm": {
+                            "oid": "1.2.840.113549.1.1.5", 
+                            "name": "SHA1WithRSA"
+                        }, 
+                        "serial_number": "13408895465235657399", 
+                        "fingerprint_md5": "6863bbff05014b31193ac2d5f0c75dc6", 
+                        "subject_key_info": {
+                            "key_algorithm": {
+                                "oid": "", 
+                                "name": "RSA"
+                            }, 
+                            "rsa_public_key": {
+                                "length": 1024, 
+                                "modulus": "vgmfFDr37uWKyXayJhcAewyFHJSOvX/1oaVtCixkzH94vBHu3NnmKsvhntgXppw1qtrFwTqlSNyvvJk3WX6IPCzTu+dgbeMZ+U4YTEw6/V41b6NQuVDAjov6oO7ElsW6Tu3Y8RgFNolUwtwn63V0HL6aTMjlzv5HRJanrxAH6xU=", 
+                                "exponent": 65537
+                            }
+                        }, 
+                        "subject": {
+                            "province": [
+                                "CA"
+                            ], 
+                            "locality": [
+                                "San Jose"
+                            ], 
+                            "country": [
+                                "US"
+                            ], 
+                            "organizational_unit": [
+                                "Technical Support"
+                            ], 
+                            "common_name": [
+                                "UBNT"
+                            ], 
+                            "organization": [
+                                "Ubiquiti Networks Inc."
+                            ]
+                        }
+                    }
+                }, 
+                "cipher_suite": {
+                    "id": "0x0039", 
+                    "name": "TLS_DHE_RSA_WITH_AES_256_CBC_SHA"
+                }, 
+                "version": "TLSv1.0", 
+                "ocsp_stapling": false, 
+                "signature": {
+                    "valid": true
+                }, 
+                "validation": {
+                    "browser_trusted": false, 
+                    "browser_error": "x509: certificate signed by unknown authority"
+                }, 
+                "metadata": {}
+            }, 
+            "dhe_export": {
+                "support": false, 
+                "metadata": {}
+            }, 
+            "dhe": {
+                "support": true, 
+                "dh_params": {
+                    "prime": {
+                        "length": 1024, 
+                        "value": "sQuPlqCA4B3ekt5erl1U7FLJn7z7BqPGmmqdylLSO2Fgc+KGdaI9GJg47x4u5lLAE+y0rqkGESMkl1w81JuDv6zL3X2QxL1wmEiOnCGac3JO/9b65WRHOPqjGk/1W8zAoVGvXw3ItL1FvzffNlwaZeaM/adtTacI3x+yvC5KQ3E="
+                    }, 
+                    "generator": {
+                        "length": 1024, 
+                        "value": "pNHL1cP9NBJnZaRC77mZBfgQTdJYrFB/1kBs/xQmbTEmb+oeXEFWS3d+aQ9VBPITFgIXtLAbiGpekVR/nidJ9Nf719O5qS7hkJ0NImP4CnamokwIegkfUx2/CgFptqKK1mKk0Y5zr6Mtd51ZGNCLyIWPTc75fCokhV5u6yKzsuU="
+                    }
+                }, 
+                "metadata": {}
+            }, 
+            "ssl_3": {
+                "support": true, 
+                "metadata": {}
+            }, 
+            "heartbleed": {
+                "heartbeat_enabled": false, 
+                "heartbleed_vulnerable": false, 
+                "metadata": {}
+            }, 
+            "rsa_export": {
+                "support": false, 
+                "metadata": {}
+            }
+        }
+    }, 
+    "80": {
+        "http": {
+            "get": {
+                "headers": {
+                    "content_length": "0", 
+                    "location": "https://186.250.78.108/", 
+                    "server": "lighttpd/1.4.31"
+                }, 
+                "metadata": {
+                    "product": "lighttpd", 
+                    "version": "1.4.31", 
+                    "description": "lighttpd 1.4.31"
+                }, 
+                "status_line": "HTTP/1.1 302 Found", 
+                "status_code": 302
+            }
+        }
+    }
+}
