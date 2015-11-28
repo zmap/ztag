@@ -1,0 +1,25 @@
+{
+    "25": {
+        "smtp": {
+            "starttls": {
+                "ehlo": "250-mx.mtcenter.ru Hello CLIENT_HOSTNAME [CLIENT_IP], pleased to meet you\r\n250-ENHANCEDSTATUSCODES\r\n250-PIPELINING\r\n250-8BITMIME\r\n250-SIZE\r\n250-DSN\r\n250-ETRN\r\n250-XXXXXXXXA\r\n250 XXXB\r\n", 
+                "metadata": {}, 
+                "banner": "220 **********************************************************************************\r\n", 
+                "starttls": "500 5.5.1 Command unrecognized: \"XXXXXXXX\"\r\n"
+            }
+        }
+    }, 
+    "21": {
+        "ftp": {
+            "banner": {
+                "banner": "220 ProFTPD 1.3.3e Server (MTC) [194.190.225.8]\r\n", 
+                "metadata": {
+                    "product": "ProFTPD", 
+                    "version": "1.3.3", 
+                    "description": "ProFTPD 1.3.3 e", 
+                    "revision": "e"
+                }
+            }
+        }
+    }
+}

@@ -1,4 +1,4 @@
-from ztag.annotation import * 
+from ztag.annotation import *
 
 
 class RaritanHTTPS(TLSTag):
@@ -14,5 +14,5 @@ class RaritanHTTPS(TLSTag):
             meta.tags.add("embedded")
             meta.tags.add("data center")
             return meta
-                
+
 
