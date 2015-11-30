@@ -1,0 +1,14 @@
+{
+    "47808": {
+        "bacnet": {
+            "device_id": {
+                "application_software_revision": "PRG:zone_temp",
+                "description": "Device Description",
+                "firmware_revision": "BOOT(id=0,ver=0.01:001,crc=0x0000) MAIN(id=3,ver=6.00:082,crc=0xE1FE) ",
+                "instance_number": 2,
+                "model_name": "LGR25",
+                "object_name": "device2"
+            }
+        }
+    }
+}

@@ -1,3 +1,4 @@
+from bacnet import BACNetTransform
 from cwmp import CWMPTransform
 from dns import DNSTransform
 from ftp import FTPTransform
