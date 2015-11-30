@@ -548,6 +548,11 @@ host = Record({
                     "lookup":ztag_dns_lookup
                 })
             }),
+            Port(47808):SubRecord({
+                "bacnet":SubRecord({
+                    "device_id":ztag_bacnet
+                })
+            }),
             "tags":ListOf(AnalyzedString(es_include_raw=True)),
             "metadata":zdb_metadata,
             "location":zdb_location,
