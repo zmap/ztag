@@ -356,6 +356,21 @@ ztag_modbus = SubRecord({
     "metadata":local_metadata
 })
 
+ztag_bacnet = SubRecord({
+    "instance_number": Integer(),
+    "vendor": SubRecord({
+        "id": Integer(),
+        "reported_name": AnalyzedString(es_include_raw=True),
+        "official_name": AnalyzedString(es_include_raw=True),
+    }),
+    "firmware_revision": String(),
+    "application_software_revision": String(),
+    "object_name": AnalyzedString(es_include_raw=True),
+    "model_name": AnalyzedString(es_include_raw=True),
+    "description": AnalyzedString(es_include_raw=True),
+    "location": AnalyzedString(es_include_raw=True),
+})
+
 ztag_dns_question = SubRecord({
     "name":String(),
     "type":String()
@@ -408,6 +423,7 @@ ztag_schemas = [
     ("ztag_extended_random", ztag_extended_random),
     ("ztag_ssh_banner", ztag_ssh_banner),
     ("ztag_dns_lookup", ztag_dns_lookup),
+    ("ztag_bacnet", ztag_bacnet),
 ]
 for (name, schema) in ztag_schemas:
     x = Record({
