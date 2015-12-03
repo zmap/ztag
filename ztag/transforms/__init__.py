@@ -24,3 +24,4 @@ from smtp import SMTPStartTLSTransform
 from smtp import SMTPSTransform
 from ssh import SSHBannerTransform
 from upnp import UPnPTransform
+from fox import NiagaraFoxTransform
