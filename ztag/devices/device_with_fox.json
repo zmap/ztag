@@ -1,0 +1,194 @@
+{
+    "443": {
+        "https": {
+            "tls": {
+                "server_key_exchange": {
+                    "dh_params": {
+                        "prime": {
+                            "length": 1024,
+                            "value": "9Ij9WE5J280gtJ3kkQc2azNsOA1FHQ98iLMcfFstjvbzySPAQ/ClWxiNjrtVjLhdONM0/XwXV0OjHRhs3jMhLLUq/zzhsSlAGBGNfISnCnLWhsQDGcgHKXrKlQzZlp+r0ApQmwJG0wg9ZqRdQZ+cfL2JSyIZJrqrol7DVekveMc="
+                        },
+                        "generator": {
+                            "length": 8,
+                            "value": "Ag=="
+                        }
+                    }
+                },
+                "certificate": {
+                    "parsed": {
+                        "fingerprint_sha1": "6b09333db4225663e2d3c96473f2237d968a8989",
+                        "subject_dn": "CN=NiagaraAX, OU=, O=Tridium, L=, ST=, C=US",
+                        "issuer": {
+                            "province": [
+                                ""
+                            ],
+                            "locality": [
+                                ""
+                            ],
+                            "country": [
+                                "US"
+                            ],
+                            "organizational_unit": [
+                                ""
+                            ],
+                            "common_name": [
+                                "NiagaraAX"
+                            ],
+                            "organization": [
+                                "Tridium"
+                            ]
+                        },
+                        "signature": {
+                            "self_signed": true,
+                            "valid": false,
+                            "value": "cwp7Bukue41Rpg5eZvsiZskLpeRve9Y6ioeNvzWn2bEymC4emEpL7Zi5u9fT6sFn6qOB0/o52wnD9yA0rElFA1to3dlpr7mEW6LAkT6VZkrB9nycJmUw0/pIiebZVwg4g5u+ePCcNZ5skRix96jN0TzQvEYOrAzt/dIofkjr66Y=",
+                            "signature_algorithm": {
+                                "oid": "1.2.840.113549.1.1.11",
+                                "name": "SHA256WithRSA"
+                            }
+                        },
+                        "serial_number": "22700026170351391963908202946",
+                        "validity": {
+                            "start": "2015-02-06T01:35:30Z",
+                            "end": "2016-02-06T01:35:30Z"
+                        },
+                        "issuer_dn": "CN=NiagaraAX, OU=, O=Tridium, L=, ST=, C=US",
+                        "fingerprint_sha256": "480770be5978ba67d01191ff71fec2c48316cab48c5dbd9286329b51dfb582c4",
+                        "version": 3,
+                        "extensions": {
+                            "subject_key_id": "aDp1amCimNziMvs1+1dypEloCUc=",
+                            "key_usage": {
+                                "key_encipherment": true,
+                                "digital_signature": true,
+                                "value": 5
+                            },
+                            "certificate_policies": [],
+                            "subject_alt_name": {
+                                "email_addresses": [
+                                    ""
+                                ]
+                            },
+                            "extended_key_usage": [
+                                1,
+                                2
+                            ]
+                        },
+                        "signature_algorithm": {
+                            "oid": "1.2.840.113549.1.1.11",
+                            "name": "SHA256WithRSA"
+                        },
+                        "unknown_extensions": [
+                            {
+                                "critical": false,
+                                "id": "2.5.29.18",
+                                "value": "MCWgIwYIKwYBBAGgIwIMF1FueC1OUE02LTAwMDAtMTJDNy04QjAw"
+                            }
+                        ],
+                        "fingerprint_md5": "6fd201f4399b39af639d95a58f35e442",
+                        "subject_key_info": {
+                            "key_algorithm": {
+                                "oid": "",
+                                "name": "RSA"
+                            },
+                            "rsa_public_key": {
+                                "length": 1024,
+                                "modulus": "iDCt+SjDb48kacro/X8uOrE+cisU/uMJFre2SvhK0ETW8n1Lq2rVTmifa9/rmc7dVzMNW/PJ8eJgvvA/Q3je4TzxePKkI/DL3EMr/e8pW7pNCYLluL2nDRRSoEs03UfbY/wDKK7gbVJllpJ2e5e93eoWwjtyrGQevjM7wvw6S0E=",
+                                "exponent": 65537
+                            }
+                        },
+                        "subject": {
+                            "province": [
+                                ""
+                            ],
+                            "locality": [
+                                ""
+                            ],
+                            "country": [
+                                "US"
+                            ],
+                            "organizational_unit": [
+                                ""
+                            ],
+                            "common_name": [
+                                "NiagaraAX"
+                            ],
+                            "organization": [
+                                "Tridium"
+                            ]
+                        }
+                    }
+                },
+                "cipher_suite": {
+                    "id": "0x0039",
+                    "name": "TLS_DHE_RSA_WITH_AES_256_CBC_SHA"
+                },
+                "version": "TLSv1.0",
+                "ocsp_stapling": false,
+                "signature": {
+                    "valid": true
+                },
+                "validation": {
+                    "browser_trusted": false,
+                    "browser_error": "x509: certificate signed by unknown authority (possibly because of \"x509: invalid signature: parent certificate cannot sign this kind of certificate\" while trying to verify candidate authority certificate \"NiagaraAX\")"
+                },
+                "metadata": {}
+            },
+            "dhe_export": {
+                "support": false,
+                "metadata": {}
+            },
+            "dhe": {
+                "support": true,
+                "dh_params": {
+                    "prime": {
+                        "length": 1024,
+                        "value": "9Ij9WE5J280gtJ3kkQc2azNsOA1FHQ98iLMcfFstjvbzySPAQ/ClWxiNjrtVjLhdONM0/XwXV0OjHRhs3jMhLLUq/zzhsSlAGBGNfISnCnLWhsQDGcgHKXrKlQzZlp+r0ApQmwJG0wg9ZqRdQZ+cfL2JSyIZJrqrol7DVekveMc="
+                    },
+                    "generator": {
+                        "length": 8,
+                        "value": "Ag=="
+                    }
+                },
+                "metadata": {}
+            },
+            "ssl_3": {
+                "support": true,
+                "metadata": {}
+            },
+            "heartbleed": {
+                "heartbeat_enabled": false,
+                "heartbleed_vulnerable": false,
+                "metadata": {}
+            },
+            "rsa_export": {
+                "support": false,
+                "metadata": {}
+            }
+        }
+    },
+    "1911": {
+        "fox": {
+            "device_id": {
+                "vm_name": "Java HotSpot(TM) Client VM",
+                "os_name": "QNX",
+                "vm_version": "1.5.0_34-b28",
+                "app_name": "Station",
+                "language": "en",
+                "brand_id": "WebsOpen",
+                "auth_agent_type": "fox",
+                "app_version": "3.7.106.3",
+                "hostname": "10.32.32.114",
+                "time_zone": "America/New_York",
+                "os_version": "6.4.1",
+                "version": "1.0.1",
+                "vm_uuid": "11e55d24-e078-d5cc-0000-000000009cc2",
+                "sys_info": "bog 61[<bog version=\"1.0\">",
+                "host_id": "Qnx-NPM6-0000-12C7-8B00",
+                "station_name": "PhysicalAcoustics",
+                "host_address": "10.32.32.114",
+                "id": 61,
+                "metadata": {}
+            }
+        }
+    }
+}
