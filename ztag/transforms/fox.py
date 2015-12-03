@@ -1,4 +1,5 @@
 from ztag.transform import *
+from ztag import protocols, errors
 
 class NiagaraFoxTransform(ZGrabTransform):
 
