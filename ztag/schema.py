@@ -421,6 +421,10 @@ ztag_fox = SubRecord({
     "auth_agent_type": String()
 })
 
+ztag_dnp3 = SubRecord({
+    "support":Boolean(),
+    "raw_response":Binary()
+})
 
 ztag_schemas = [
     ("ztag_https", ztag_tls),
@@ -446,7 +450,8 @@ ztag_schemas = [
     ("ztag_ssh_banner", ztag_ssh_banner),
     ("ztag_dns_lookup", ztag_dns_lookup),
     ("ztag_bacnet", ztag_bacnet),
-    ("ztag_fox", ztag_fox)
+    ("ztag_fox", ztag_fox),
+    ("ztag_dnp3", ztag_dnp3)
 ]
 for (name, schema) in ztag_schemas:
     x = Record({
@@ -596,6 +601,11 @@ host = Record({
                 "fox":SubRecord({
                     "device_id":ztag_fox
                 })
+            }),
+            Port(110):SubRecord({
+                "dnp3":SubRecord({
+                    "status":ztag_dnp3,
+                }
             }),
             "tags":ListOf(AnalyzedString(es_include_raw=True)),
             "metadata":zdb_metadata,

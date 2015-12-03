@@ -25,3 +25,4 @@ from smtp import SMTPSTransform
 from ssh import SSHBannerTransform
 from upnp import UPnPTransform
 from fox import NiagaraFoxTransform
+from dnp3 import DNP3Transform
