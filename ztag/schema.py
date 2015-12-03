@@ -400,6 +400,28 @@ ztag_tls_support = SubRecord({
     "metadata":local_metadata
 })
 
+ztag_fox = SubRecord({
+    "version": AnalyzedString(es_include_raw=True),
+    "id": Integer(),
+    "hostname": AnalyzedString(es_include_raw=True)
+    "host_address": AnalyzedString(es_include_raw=True),
+    "app_name": AnalyzedString(es_include_raw=True),
+    "app_version": AnalyzedString(es_include_raw=True),
+    "vm_name": AnalyzedString(es_include_raw=True),
+    "vm_version":AnalyzedString(es_include_raw=True),
+    "os_name": AnalyzedString(es_include_raw=True),
+    "os_version": AnalyzedString(es_include_raw=True),
+    "station_name":AnalyzedString(es_include_raw=True),
+    "language": AnalyzedString(es_include_raw=True),
+    "time_zone": AnalyzedString(es_include_raw=True),
+    "host_id": AnalyzedString(es_include_raw=True),
+    "vm_uuid": AnalyzedString(es_include_raw=True),
+    "brand_id": AnalyzedString(es_include_raw=True),
+    "sys_info": AnalyzedString(es_include_raw=True),
+    "auth_agent_type": String()
+})
+
+
 ztag_schemas = [
     ("ztag_https", ztag_tls),
     ("ztag_heartbleed", ztag_heartbleed),
@@ -424,6 +446,7 @@ ztag_schemas = [
     ("ztag_ssh_banner", ztag_ssh_banner),
     ("ztag_dns_lookup", ztag_dns_lookup),
     ("ztag_bacnet", ztag_bacnet),
+    ("ztag_fox", ztag_fox)
 ]
 for (name, schema) in ztag_schemas:
     x = Record({
@@ -567,6 +590,11 @@ host = Record({
             Port(47808):SubRecord({
                 "bacnet":SubRecord({
                     "device_id":ztag_bacnet
+                })
+            }),
+            Port(1911):SubRecord({
+                "fox":SubRecord({
+                    "device_id":ztag_fox
                 })
             }),
             "tags":ListOf(AnalyzedString(es_include_raw=True)),

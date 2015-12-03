@@ -23,6 +23,7 @@ PROTOCOLS = [
     (protocols.SMTP, protocols.SMTP.STARTTLS, {"device_with_smtp":{"tags":["smtp",]}}),
     (protocols.MODBUS, protocols.MODBUS.DEVICE_ID, {"schneider_nf3000":{"tags":["modbus",]}}),
     (protocols.BACNET, protocols.BACNET.DEVICE_ID, {"device_with_bacnet":{"tags":["bacnet",]}}),
+    (protocols.FOX, protocols.FOX.DEVICE_ID, {"device_with_fox":{"tags":["fox",]}}),
     #(protocols.SMTPS, protocols.SMTPS.TLS, {"device_with_smtps":{"tags":["smtps",]}}),
 ]
 
