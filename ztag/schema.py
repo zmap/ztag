@@ -403,7 +403,7 @@ ztag_tls_support = SubRecord({
 ztag_fox = SubRecord({
     "version": AnalyzedString(es_include_raw=True),
     "id": Integer(),
-    "hostname": AnalyzedString(es_include_raw=True)
+    "hostname": AnalyzedString(es_include_raw=True),
     "host_address": AnalyzedString(es_include_raw=True),
     "app_name": AnalyzedString(es_include_raw=True),
     "app_version": AnalyzedString(es_include_raw=True),
