@@ -81,7 +81,8 @@ class GlobalMetadata(MetadataBase):
             self.device_type = other.device_type
 
     def to_dict(self, with_description=True):
-        out = super(GlobalMetadata, self).to_dict(with_description=with_description)
+        out = super(GlobalMetadata, self)\
+                .to_dict(with_description=with_description)
         if self.os is not None:
             out['os'] = self.os
         if self.os_version is not None:
@@ -130,20 +131,28 @@ class Type(object):
     POWER_CONTROLLER = "power controller"
     POWER_MONITOR = "power monitor"
     PRINT_SERVER = "print server"
+
     SCADA_CONTROLLER = "scada controller"
     SCADA_GATEWAY = "scada gateway"
     SCADA_PROCESSOR = "scada processor"
+    SCADA_ROUTER = "scada router"
+    SCADA_FRONTEND = "scada frontend"
+    SCADA_SERVER = "scada server"
+
     SOHO_ROUTER = "home router"
     SOLAR_PANEL = "solar panel"
     STORAGE = "storage"
     TEMPERATURE_MONITOR = "temperature monitor"
     THERMOSTAT = "thermostat"
-    TV_BOX = "set-top Box"
+    TV_BOX = "set-top box"
     UPS = "ups"
     USB_HUB = "usb"
     VOIP = "voip"
     WATER_FLOW_CONTROLLER = "water flow controller"
     WIFI = "wifi"
+    HVAC = "hvac"
+    ACCESS_CONTROL = "access control"
+    POWER_MONITOR = "power monitor"
 
 
 class Manufacturer(object):
