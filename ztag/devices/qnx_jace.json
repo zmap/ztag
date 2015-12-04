@@ -1,0 +1,25 @@
+{
+    "1911": {
+        "fox": {
+            "device_id": {
+                "vm_name": "J9",
+                "os_name": "QNX",
+                "vm_version": "2.3",
+                "app_name": "Station",
+                "language": "en",
+                "brand_id": "W",
+                "app_version": "3.5.406.1",
+                "hostname": "192.168.1.126",
+                "time_zone": "America/New_York",
+                "os_version": "6.3.2",
+                "version": "1.0.1",
+                "vm_uuid": "11e57bf9-2222-1400-0000-0000000088d3",
+                "host_id": "Qnx-JVLN-0000-00F7-4A35",
+                "station_name": "PSEG_40Cragwood",
+                "host_address": "192.168.1.126",
+                "id": 22,
+                "metadata": {}
+            }
+        }
+    }
+}
