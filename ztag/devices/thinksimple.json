@@ -1,0 +1,44 @@
+{
+    "1911": {
+        "fox": {
+            "device_id": {
+                "vm_name": "J9",
+                "os_name": "QNX",
+                "vm_version": "2.3",
+                "app_name": "Station",
+                "language": "en",
+                "brand_id": "ThinkSimple",
+                "app_version": "3.5.34",
+                "hostname": "192.168.1.135",
+                "time_zone": "Europe/Berlin",
+                "os_version": "6.3.2",
+                "version": "1.0",
+                "vm_uuid": "11e2f381-b9b5-8cf0-0000-00000000b510",
+                "sys_info": "bog 61[<bog version=\"1.0",
+                "host_id": "Qnx-NPM2-0000-139B-4290",
+                "station_name": "HM348029",
+                "host_address": "192.168.1.135",
+                "id": 193,
+                "metadata": {}
+            }
+        }
+    },
+    "80": {
+        "http": {
+            "get": {
+                "body": "<html><body><h2>Error: Authorization Required</h2>\r\n<p>Authentication was requested</p></body></html>\r\n\r\n",
+                "body_sha256": "e8R+ENQYD2p/dZQCB/mQ+LTUTUkHFwbuzvJcqHJJSU0=",
+                "status_code": 401,
+                "status_line": "HTTP/1.0 401 Authorization Required",
+                "headers": {
+                    "www_authenticate": "Basic realm=\"DCS-932L\"",
+                    "content_type": "text/html",
+                    "cache_control": "no-cache",
+                    "pragma": "no-cache",
+                    "server": "alphapd"
+                },
+                "metadata": {}
+            }
+        }
+    }
+}

@@ -1,0 +1,42 @@
+{
+    "1911": {
+        "fox": {
+            "device_id": {
+                "vm_name": "J9",
+                "os_name": "QNX",
+                "vm_version": "2.3",
+                "app_name": "Station",
+                "language": "en",
+                "brand_id": "vykon",
+                "app_version": "3.5.39", 
+                "hostname": "173.200.52.115",
+                "time_zone": "CST6CDT",
+                "os_version": "6.3.2",
+                "version": "1.0",
+                "vm_uuid": "11e4c2bb-8e9b-8e9c-0000-0000000090b1",
+                "host_id": "Qnx-NPM6-0000-1405-4B97",
+                "station_name": "FPMOB_NM1",
+                "host_address": "173.200.52.115",
+                "id": 561618,
+                "metadata": {}
+            }
+        }
+    },
+    "80": {
+        "http": {
+            "get": {
+                "body": "<html>\n<body>\n<h1>302: Moved Temporarily</h1>\nThe above error occurred while processing your request.\n</body></html>",
+                "body_sha256": "0LcDyTpmtOSvhhalrQdkF7pBSj4drk9YxS1mlSWI5vo=",
+                "status_code": 302,
+                "status_line": "HTTP/1.1 302 Moved Temporarily",
+                "headers": {
+                    "content_length": "116",
+                    "location": "http://173.200.52.115/login",
+                    "content_type": "text/html; charset=UTF-8",
+                    "server": "Niagara Web Server/3.5.39"
+                },
+                "metadata": {}
+            }
+        }
+    }
+}

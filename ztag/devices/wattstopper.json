@@ -1,0 +1,64 @@
+{
+    "47808": {
+        "bacnet": {
+            "device_id": {
+                "vendor": {
+                    "reported_name": "Tridium",
+                    "id": 36,
+                    "official_name": "Tridium Inc."
+                },
+                "description": "Wattstopper Segment Manager",
+                "firmware_revision": "3.7.106.5",
+                "instance_number": 74802,
+                "object_name": "SM2_NordstromCalgary_861234",
+                "application_software_revision": "Tridium 3.7.106.6",
+                "model_name": "NiagaraAX Station",
+                "metadata": {}
+            }
+        }
+    },
+    "1911": {
+        "fox": {
+            "device_id": {
+                "vm_name": "Java HotSpot(TM) Client VM",
+                "os_name": "QNX",
+                "vm_version": "1.5.0_34-b28",
+                "app_name": "Station",
+                "language": "en",
+                "brand_id": "wattstopper",
+                "auth_agent_type": "fox",
+                "app_version": "3.7.106.5",
+                "hostname": "192.168.5.120",
+                "time_zone": "Canada/Mountain",
+                "os_version": "6.4.1",
+                "version": "1.0.1",
+                "vm_uuid": "11e56852-cdbb-d536-0000-0000000091f4",
+                "sys_info": "bog 61[<bog version=\"1.0\">",
+                "host_id": "Qnx-NPM3-0000-16A3-8D4E",
+                "station_name": "SM2_NordstromCalgary",
+                "host_address": "192.168.5.120",
+                "id": 30,
+                "metadata": {}
+            }
+        }
+    },
+    "80": {
+        "http": {
+            "get": {
+                "body": "<html>\n<body>\n<h1>302: Moved Temporarily</h1>\nThe above error occurred while processing your request.\n</body></html>",
+                "body_sha256": "0LcDyTpmtOSvhhalrQdkF7pBSj4drk9YxS1mlSWI5vo=",
+                "status_code": 302,
+                "status_line": "HTTP/1.1 302 Moved Temporarily",
+                "headers": {
+                    "content_length": "116",
+                    "expires": "Thu, 01 Jan 1970 00:00:00 GMT",
+                    "server": "Niagara Web Server/3.7.106.14",
+                    "location": "http://75.158.57.59/login",
+                    "content_type": "text/html; charset=UTF-8",
+                    "cache_control": "private, must-revalidate"
+                },
+                "metadata": {}
+            }
+        }
+    }
+}
