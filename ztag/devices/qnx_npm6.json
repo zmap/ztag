@@ -1,0 +1,25 @@
+{
+    "1911": {
+        "fox": {
+            "device_id": {
+                "vm_name": "J9",
+                "os_name": "QNX",
+                "vm_version": "2.3",
+                "app_name": "Station",
+                "language": "en",
+                "brand_id": "FacExp",
+                "app_version": "3.3.22",
+                "hostname": "10.10.10.250",
+                "time_zone": "America/Los_Angeles",
+                "os_version": "6.3.2",
+                "version": "1.0",
+                "vm_uuid": "11e5781f-9315-b0d2-0000-00000000933e",
+                "host_id": "Qnx-NPM6-0000-1370-39DF",
+                "station_name": "NinerWineEstates",
+                "host_address": "10.10.10.250",
+                "id": 93,
+                "metadata": {}
+            }
+        }
+    }
+}

@@ -285,6 +285,8 @@ class OperatingSystem(object):
     WINDOWS_SERVER = "Windows Server"
     UCLINUX = "uClinux"
     TIMOS = "TiMOS"
+    # RTOS's
+    QNX = "QNX"
 
 class Annotation(object):
 
