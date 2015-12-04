@@ -24,6 +24,7 @@ PROTOCOLS = [
     (protocols.MODBUS, protocols.MODBUS.DEVICE_ID, {"schneider_nf3000":{"tags":["modbus",]}}),
     (protocols.BACNET, protocols.BACNET.DEVICE_ID, {"device_with_bacnet":{"tags":["bacnet",]}}),
     (protocols.FOX, protocols.FOX.DEVICE_ID, {"device_with_fox":{"tags":["fox",]}}),
+    (protocols.DNP3, protocols.DNP3.STATUS, {"device_with_dnp3": {"tags":["dnp3",]}}),
     #(protocols.SMTPS, protocols.SMTPS.TLS, {"device_with_smtps":{"tags":["smtps",]}}),
 ]
 
