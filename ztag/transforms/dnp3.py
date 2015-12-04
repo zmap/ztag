@@ -12,11 +12,11 @@ class DNP3Transform(ZGrabTransform):
         zout = ZMapTransformOutput()
         wrapped = Transformable(obj)
         dnp3 = wrapped['data']['dnp3']
-        if not fox['is_dnp3'].resolve():
+        if not dnp3['is_dnp3'].resolve():
             raise errors.IgnoreObject()
         out = {
             "support": True,
-            "raw_response": dnp3["raw_response"],
+            "raw_response": dnp3["raw_response"].resolve(),
         }
         zout.transformed = out
         return zout
