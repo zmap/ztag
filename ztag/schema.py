@@ -602,7 +602,7 @@ host = Record({
                     "device_id":ztag_fox
                 })
             }),
-            Port(2000):SubRecord({
+            Port(20000):SubRecord({
                 "dnp3":SubRecord({
                     "status":ztag_dnp3,
                 }
