@@ -20,4 +20,3 @@ class DNP3Transform(ZGrabTransform):
         }
         zout.transformed = out
         return zout
-
