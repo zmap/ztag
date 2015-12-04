@@ -4,7 +4,7 @@ from ztag import protocols, errors
 class DNP3Transform(ZGrabTransform):
 
     name = "dnp3/status"
-    port = 2000
+    port = 20000
     protocol = protocols.DNP3
     subprotocol = protocols.DNP3.STATUS
 
