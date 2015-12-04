@@ -3,7 +3,7 @@ from ztag.annotation import *
 
 class FoxBrand(Annotation):
 
-    port = 20000
+    port = 1911
     protocol = protocols.FOX
     subprotocol = protocols.FOX.DEVICE_ID
 
@@ -33,31 +33,31 @@ class FoxBrand(Annotation):
         "thinksimple": (Manufacturer.THINK_SIMPLE, Type.SCADA_CONTROLLER),
     }
 
-    _tests = {
+    tests = {
         "vykon": {
             "global_metadata": {
                 "manufacturer": Manufacturer.VYKON,
-                "type": Type.SCADA_CONTROLLER,
+                "device_type": Type.SCADA_CONTROLLER,
             },
         },
         "wattstopper": {
             "global_metadata": {
                 "manufacturer": Manufacturer.WATTSTOPPER,
-                "type": Type.LIGHT_CONTROLLER,
+                "device_type": Type.LIGHT_CONTROLLER,
             },
         },
         "thinksimple": {
             "global_metadata": {
                 "manufacturer": Manufacturer.THINK_SIMPLE,
-                "type": Type.SCADA_CONTROLLER,
+                "device_type": Type.SCADA_CONTROLLER,
             },
         },
     }
 
 
     def process(self, obj, meta):
-        vendor = obj["vendor_id"].lower().strip()
-        v = _vendors[vendor]
-        meta.global_metadata.manufacturer = v[1]
-        meta.global_metadata.device_type = v[2]
+        vendor = obj["brand_id"].lower().strip()
+        m, dt = self._vendors[vendor]
+        meta.global_metadata.manufacturer = m
+        meta.global_metadata.device_type = dt
         return meta
