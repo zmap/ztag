@@ -605,7 +605,7 @@ host = Record({
             Port(20000):SubRecord({
                 "dnp3":SubRecord({
                     "status":ztag_dnp3,
-                }
+                })
             }),
             "tags":ListOf(AnalyzedString(es_include_raw=True)),
             "metadata":zdb_metadata,
