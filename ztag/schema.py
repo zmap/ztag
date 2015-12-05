@@ -426,6 +426,24 @@ ztag_dnp3 = SubRecord({
     "raw_response":Binary()
 })
 
+ztag_s7 = SubRecord({
+    "support":Boolean(),
+    "system":AnalyzedString(es_include_raw=True),
+    "module":AnalyzedString(es_include_raw=True),
+    "plant_id":AnalyzedString(es_include_raw=True),
+    "copyright":AnalyzedString(es_include_raw=True),
+    "serial_number":AnalyzedString(es_include_raw=True),
+    "reserved_for_os":AnalyzedString(es_include_raw=True),
+    "module_type":AnalyzedString(es_include_raw=True),
+    "memory_serial_number":AnalyzedString(es_include_raw=True),
+    "cpu_profile":AnalyzedString(es_include_raw=True),
+    "oem_id":AnalyzedString(es_include_raw=True),
+    "location":AnalyzedString(es_include_raw=True),
+    "module_id":AnalyzedString(es_include_raw=True),
+    "hardware":AnalyzedString(es_include_raw=True),
+    "firmware":AnalyzedString(es_include_raw=True),
+})
+
 ztag_schemas = [
     ("ztag_https", ztag_tls),
     ("ztag_heartbleed", ztag_heartbleed),
@@ -451,7 +469,8 @@ ztag_schemas = [
     ("ztag_dns_lookup", ztag_dns_lookup),
     ("ztag_bacnet", ztag_bacnet),
     ("ztag_fox", ztag_fox),
-    ("ztag_dnp3", ztag_dnp3)
+    ("ztag_dnp3", ztag_dnp3),
+    ("ztag_s7", ztag_s7),
 ]
 for (name, schema) in ztag_schemas:
     x = Record({
