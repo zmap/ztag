@@ -14,15 +14,10 @@ class S7Transform(ZGrabTransform):
         zout = ZMapTransformOutput()
         wrapped = Transformable(obj)
         s = wrapped['data']['s7']
-        if not s['is_dnp3'].resolve() or not s.resolve():
+        if not s['is_s7'].resolve() or not s.resolve():
             raise errors.IgnoreObject()
-        s = s.resolve()
-        out = {
-            "support": True,
-        }
-        for key, value in s.iteritems():
-            if key == "is_dnp3":
-                continue
-            out[key] = value
+        out = s.resolve()
+        out['support'] = True
+        del out['is_s7']
         zout.transformed = out
         return zout
