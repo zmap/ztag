@@ -576,6 +576,11 @@ host = Record({
                   "banner":ztag_telnet
                 })
             }),
+            Port(102):SubRecord({
+                "s7":SubRecord({
+                    "szl":ztag_s7
+                })
+            }),
             Port(110):SubRecord({
                 "pop3":SubRecord({
                   "starttls":ztag_mail_starttls

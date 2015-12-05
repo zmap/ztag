@@ -5,7 +5,7 @@ from ztag import protocols, errors
 class S7Transform(ZGrabTransform):
 
     name = "s7/status"
-    port = 20000
+    port = 102
     protocol = protocols.S7
     subprotocol = protocols.S7.SZL
 
