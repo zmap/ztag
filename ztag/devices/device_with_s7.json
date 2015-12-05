@@ -1,0 +1,16 @@
+{
+    "102": {
+        "s7": {
+            "szl": {
+                "copyright": "Original Siemens Equipment",
+                "ip_address": "83.216.125.44",
+                "module": "CPU 313C",
+                "module_id": "6ES7 313-5BG04-0AB0 ",
+                "module_type": "CPU 313C",
+                "serial_number": "S C-B2UN49522011",
+                "support": true,
+                "system": "C162_11"
+            }
+        }
+    }
+}

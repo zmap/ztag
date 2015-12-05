@@ -1,0 +1,10 @@
+{
+    "20000": {
+          "dnp3": {
+              "status": {
+                  "support": true,
+                  "raw_response": "AG=="
+              }
+          }
+    }
+}
