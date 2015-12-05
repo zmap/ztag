@@ -20,6 +20,7 @@ from modbus import ModbusTransform
 from ntp import NTPTransform
 from pop3 import POP3StartTLSTransform
 from pop3 import POP3STransform
+from s7 import S7Transform
 from smtp import SMTPStartTLSTransform
 from smtp import SMTPSTransform
 from ssh import SSHBannerTransform
