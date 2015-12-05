@@ -7,7 +7,7 @@ class S7Transform(ZGrabTransform):
     name = "s7/status"
     port = 102
     protocol = protocols.S7
-    subprotocol = protocols.S7.STATUS
+    subprotocol = protocols.S7.SZL
 
 
     def _transform_object(self, obj):
