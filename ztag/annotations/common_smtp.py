@@ -1,4 +1,4 @@
-from ztag.annotation import * 
+from ztag.annotation import *
 
 
 class CommonSMTP(Annotation):
