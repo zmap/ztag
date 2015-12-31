@@ -39,3 +39,4 @@ class TelnetTransform(ZGrabTransform):
         zout = ZMapTransformOutput()
         zout.transformed = out
         return zout
+
