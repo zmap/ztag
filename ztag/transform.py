@@ -152,6 +152,7 @@ class ZMapTransform(Transform):
     def clean_banner(cls, banner):
         b1 = cls._hostname_regex.sub("CLIENT_HOSTNAME", banner)
         b2 = cls._ip_regex.sub("CLIENT_IP", b1)
+        b2 = b2.lstrip().rstrip()
         return b2
 
     @classmethod

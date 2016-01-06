@@ -334,8 +334,17 @@ ztag_ftp = SubRecord({
     "metadata":local_metadata
 })
 
+telnet_caps_list = ListOf(SubRecord({
+    "name":String(),
+    "value":Integer()
+}))
+
 ztag_telnet = SubRecord({
     "banner":AnalyzedString(es_include_raw=True),
+    "will":caps_list,
+    "wont":caps_list,
+    "do":caps_list,
+    "dont":caps_list,
     "metadata":local_metadata
 })
 
@@ -571,7 +580,7 @@ host = Record({
                     "banner":ztag_telnet
                 })
             }),
-            Port(20):SubRecord({
+            Port(21):SubRecord({
                 "ftp":SubRecord({
                   "banner":ztag_telnet
                 })
