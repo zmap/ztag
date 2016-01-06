@@ -24,6 +24,7 @@ from s7 import S7Transform
 from smtp import SMTPStartTLSTransform
 from smtp import SMTPSTransform
 from ssh import SSHBannerTransform
+from telnet import TelnetTransform
 from upnp import UPnPTransform
 from fox import NiagaraFoxTransform
 from dnp3 import DNP3Transform

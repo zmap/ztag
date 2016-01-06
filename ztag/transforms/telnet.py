@@ -15,19 +15,20 @@ class TelnetTransform(ZGrabTransform):
         data = Transformable(obj)
         out = dict()
 
-        banner = out['data']['banner'].resolve()
+        t = data['data']['telnet']
+        banner = t['banner'].resolve()
         if banner:
             out['banner'] = self.clean_banner(banner)
-        will = out['data']['will'].resolve()
+        will = t['will'].resolve()
         if will:
             out['will'] = will
-        wont = out['data']['wont'].resolve()
+        wont = t['wont'].resolve()
         if wont:
             out['wont'] = wont
-        do = out['data']['do'].resolve()
+        do = t['do'].resolve()
         if do:
             out['do'] = do
-        dont = out['data']['dont'].resolve()
+        dont = t['dont'].resolve()
         if dont:
             out['dont'] = dont
 
@@ -39,4 +40,3 @@ class TelnetTransform(ZGrabTransform):
         zout = ZMapTransformOutput()
         zout.transformed = out
         return zout
-
