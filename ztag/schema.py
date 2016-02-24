@@ -202,6 +202,13 @@ ztag_tls = SubRecord({
     "metadata":local_metadata
 })
 
+ztag_sslv2 = SubRecord({
+    "support": Boolean(),
+    "extra_clear": Boolean(),
+    "export": Boolean(),
+    "certificate": zgrab_certificate,
+})
+
 ztag_heartbleed = SubRecord({
     "heartbeat_enabled":Boolean(),
     "heartbleed_vulnerable":Boolean(),
@@ -467,6 +474,7 @@ ztag_schemas = [
     ("ztag_dh_export", ztag_dh_export),
     ("ztag_rsa_export", ztag_rsa_export),
     ("ztag_ecdh", ztag_ecdh),
+    ("ztag_sslv2", ztag_sslv2),
     ("ztag_sslv3", ztag_tls_support),
     ("ztag_tls1", ztag_tls_support),
     ("ztag_tls2", ztag_tls_support),
@@ -555,6 +563,7 @@ host = Record({
                     "dhe": ztag_dh,
                     "export_rsa": ztag_rsa_export,
                     "export_dhe": ztag_dh_export,
+                    "sslv2": ztag_sslv2,
                     "tls_1_1": ztag_tls_support,
                     "tls_1_2": ztag_tls_support,
                     "tls_1_3": ztag_tls_support,
@@ -573,7 +582,8 @@ host = Record({
             Port(25):SubRecord({
                 "smtp":SubRecord({
                     "starttls": ztag_smtp_starttls,
-                })
+                    "sslv2": ztag_sslv2,
+                }),
             }),
             Port(23):SubRecord({
                 "telnet":SubRecord({
@@ -592,22 +602,32 @@ host = Record({
             }),
             Port(110):SubRecord({
                 "pop3":SubRecord({
-                  "starttls":ztag_mail_starttls
+                    "starttls":ztag_mail_starttls,
+                    "sslv2": ztag_sslv2,
                 })
             }),
             Port(143):SubRecord({
                 "imap":SubRecord({
-                    "starttls":ztag_mail_starttls
+                    "starttls":ztag_mail_starttls,
+                    "sslv2": ztag_sslv2,
                 })
             }),
             Port(993):SubRecord({
                 "imaps":SubRecord({
-                    "tls":ztag_mail_tls
+                    "tls":ztag_mail_tls,
+                    "sslv2": ztag_sslv2,
                 })
             }),
             Port(995):SubRecord({
                 "pop3s":SubRecord({
-                    "tls":ztag_mail_tls
+                    "tls":ztag_mail_tls,
+                    "sslv2": ztag_sslv2,
+                })
+            }),
+            Port(587):SubRecord({
+                "smtp":SubRecord({
+                    "starttls": ztag_smtp_starttls,
+                    "sslv2": ztag_sslv2,
                 })
             }),
             Port(502):SubRecord({

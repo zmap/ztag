@@ -136,7 +136,15 @@ class ZMapTransform(Transform):
         return self.port is None or self.port == port
 
     def check_protocol(self, protocol):
-        return self.protocol is None or self.protocol.value == protocol.value
+        try:
+            for p in self.protocol:
+                if p.value == protocol.value:
+                    return True
+        except TypeError:
+            return self.protocol is None or \
+                    self.protocol.value == protocol.value
+        else:
+            return False
 
     def check_subprotocol(self, subprotocol):
         return self.subprotocol is None or \
