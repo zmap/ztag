@@ -568,7 +568,7 @@ host = Record({
                     "dhe": ztag_dh,
                     "export_rsa": ztag_rsa_export,
                     "export_dhe": ztag_dh_export,
-                    "sslv2": ztag_sslv2,
+                    "ssl_2": ztag_sslv2,
                     "tls_1_1": ztag_tls_support,
                     "tls_1_2": ztag_tls_support,
                     "tls_1_3": ztag_tls_support,
@@ -587,7 +587,7 @@ host = Record({
             Port(25):SubRecord({
                 "smtp":SubRecord({
                     "starttls": ztag_smtp_starttls,
-                    "sslv2": ztag_sslv2,
+                    "ssl_2": ztag_sslv2,
                 }),
             }),
             Port(23):SubRecord({
@@ -608,31 +608,31 @@ host = Record({
             Port(110):SubRecord({
                 "pop3":SubRecord({
                     "starttls":ztag_mail_starttls,
-                    "sslv2": ztag_sslv2,
+                    "ssl_2": ztag_sslv2,
                 })
             }),
             Port(143):SubRecord({
                 "imap":SubRecord({
                     "starttls":ztag_mail_starttls,
-                    "sslv2": ztag_sslv2,
+                    "ssl_2": ztag_sslv2,
                 })
             }),
             Port(993):SubRecord({
                 "imaps":SubRecord({
                     "tls":ztag_mail_tls,
-                    "sslv2": ztag_sslv2,
+                    "ssl_2": ztag_sslv2,
                 })
             }),
             Port(995):SubRecord({
                 "pop3s":SubRecord({
                     "tls":ztag_mail_tls,
-                    "sslv2": ztag_sslv2,
+                    "ssl_2": ztag_sslv2,
                 })
             }),
             Port(587):SubRecord({
                 "smtp":SubRecord({
                     "starttls": ztag_smtp_starttls,
-                    "sslv2": ztag_sslv2,
+                    "ssl_2": ztag_sslv2,
                 })
             }),
             Port(502):SubRecord({
