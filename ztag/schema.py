@@ -207,7 +207,10 @@ ztag_sslv2 = SubRecord({
     "extra_clear": Boolean(),
     "export": Boolean(),
     "certificate": zgrab_certificate,
-    "ciphers": ListOf(String()),
+    "ciphers": ListOf(SubRecord({
+        "name": String(),
+        "id": Integer(),
+    })),
     "metadata": local_metadata,
 })
 
