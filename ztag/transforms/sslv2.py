@@ -40,8 +40,9 @@ class SSLv2Transform(ZGrabTransform):
         if ciphers is not None:
             out['ciphers'] = ciphers
         if certificate is not None:
-            del certificate['raw']
-            out['certificate'] = certificate
+            out['certificate'] = {
+                'parsed': certificate['parsed']
+            }
             certificates = [certificate]
         else:
             certificates = list()
