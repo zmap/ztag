@@ -207,6 +207,7 @@ ztag_sslv2 = SubRecord({
     "extra_clear": Boolean(),
     "export": Boolean(),
     "certificate": zgrab_certificate,
+    "metadata": local_metadata,
 })
 
 ztag_heartbleed = SubRecord({
@@ -592,7 +593,7 @@ host = Record({
             }),
             Port(21):SubRecord({
                 "ftp":SubRecord({
-                  "banner":ztag_telnet
+                  "banner":ztag_ftp,
                 })
             }),
             Port(102):SubRecord({
