@@ -27,8 +27,7 @@ class SSLv2Transform(ZGrabTransform):
         wrapped = Transformable(obj['data'])
         ciphers = wrapped['sslv2']['server_hello']['ciphers'].resolve()
         certificate = wrapped['sslv2']['server_hello']['certificate'].resolve()
-        sslv2_support = bool(wrapped['sslv2']['server_verify']
-                ['valid'].resolve())
+        sslv2_support = bool(wrapped['sslv2']['server_verify'].resolve())
         sslv2_export = bool(wrapped['sslv2_export']['server_verify'].resolve())
         sslv2_extra_clear = bool(wrapped['sslv2_extra_clear']['server_verify']
                 ['extra_clear'].resolve())
