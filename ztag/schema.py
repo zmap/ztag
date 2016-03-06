@@ -1,4 +1,8 @@
-from zschema import *
+from zschema.leaves import *
+from zschema.compounds import *
+
+import zschema.registry
+
 from ztag.annotation import Annotation
 
 __local_metadata = {}
@@ -488,12 +492,25 @@ for (name, schema) in ztag_schemas:
         "tags":ListOf(String()),
         "metadata": SubRecord({}, allow_unknown=True),
     }, extends=schema)
-    register_schema("%s" % name, x)
+    zschema.registry.register_schema("%s" % name, x)
 
 
 ztag_hackingteam = SubRecord({
     "consistent":Boolean(),
     "response":AnalyzedString(es_include_raw=True),
+})
+
+ztag_lookup_spf = SubRecord({
+    "raw":AnalyzedString(es_include_raw=True),
+})
+
+ztag_lookup_dmarc = SubRecord({
+    "raw":AnalyzedString(es_include_raw=True),
+    "p":String(),
+})
+
+ztag_lookup_axfr = SubRecord({
+    "raw":AnalyzedString(es_include_raw=True),
 })
 
 zdb_location = SubRecord({
@@ -540,7 +557,7 @@ certificate = Record({
     "valid_apple": Boolean(),
 })
 
-register_schema("certificate", certificate)
+zschema.registry.register_schema("certificate", certificate)
 
 cryptkey = Record({
 
@@ -656,6 +673,92 @@ host = Record({
             "protocols":ListOf(String())
 })
 
+domain = Record({
+            Port(443):SubRecord({
+                "https":SubRecord({
+                    "tls":ztag_tls,
+                    "heartbleed":ztag_heartbleed,
+                    "dhe": ztag_dh,
+                    "export_rsa": ztag_rsa_export,
+                    "export_dhe": ztag_dh_export,
+                    "tls_1_1": ztag_tls_support,
+                    "tls_1_2": ztag_tls_support,
+                    "tls_1_3": ztag_tls_support,
+                    "ecdhe": ztag_ecdh,
+                    "open_proxy":ztag_open_proxy,
+                    "extended_random":ztag_extended_random,
+                })
+            }),
+            Port(80):SubRecord({
+                "http":SubRecord({
+                    "get":ztag_http,
+                    "hackingteam":ztag_hackingteam, #TODO: zakir add private tag to schema
+                    "open_proxy":ztag_open_proxy
+                }),
+            }),
+            Port(25):SubRecord({
+                "smtp":SubRecord({
+                    "starttls": ztag_smtp_starttls,
+                })
+            }),
+            Port(23):SubRecord({
+                "telnet":SubRecord({
+                    "banner":ztag_telnet
+                })
+            }),
+            Port(21):SubRecord({
+                "ftp":SubRecord({
+                  "banner":ztag_telnet
+                })
+            }),
+            Port(102):SubRecord({
+                "s7":SubRecord({
+                    "szl":ztag_s7
+                })
+            }),
+            Port(110):SubRecord({
+                "pop3":SubRecord({
+                  "starttls":ztag_mail_starttls
+                })
+            }),
+            Port(143):SubRecord({
+                "imap":SubRecord({
+                    "starttls":ztag_mail_starttls
+                })
+            }),
+            Port(993):SubRecord({
+                "imaps":SubRecord({
+                    "tls":ztag_mail_tls
+                })
+            }),
+            Port(995):SubRecord({
+                "pop3s":SubRecord({
+                    "tls":ztag_mail_tls
+                })
+            }),
+            Port(0):SubRecord({
+                "lookup":SubRecord({
+                    "spf":ztag_lookup_spf,
+                    "dmarc":ztag_lookup_dmarc,
+                    "axfr":ztag_lookup_axfr,
+                })
+            }),
+
+            "tags":ListOf(AnalyzedString(es_include_raw=True)),
+            "metadata":zdb_metadata,
+            "location":zdb_location,
+            "__restricted_location":zdb_location,
+            "autonomous_system":zdb_as,
+            "notes":EnglishString(es_include_raw=True),
+            "domain":String(),
+            "alexa_rank":Integer(doc="Rank in the Alexa Top 1 Million. "
+                    "Null if not currently in the Top 1 Million sites."),
+            "updated_at":DateTime(),
+            "zdb_version":Integer(),
+            "protocols":ListOf(String())
+})
+
+
 DROP_KEYS = {'ip_address', 'metadata', 'tags', 'timestamp'}
 
-register_schema("host", host)
+zschema.registry.register_schema("host", host)
