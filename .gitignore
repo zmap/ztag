@@ -7,3 +7,4 @@ dist/*
 .project
 .pydevproject
 venv/*
+*.schema
