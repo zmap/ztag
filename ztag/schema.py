@@ -523,7 +523,7 @@ ztag_lookup_dmarc = SubRecord({
 })
 
 ztag_lookup_axfr = SubRecord({
-    "servers":ListOf(SubRecord{
+    "servers":ListOf(SubRecord({
         "ns":AnalyzedString(es_include_raw=True),
         "support":Boolean(),
         "error":AnalyzedString(es_include_raw=True),
@@ -536,8 +536,8 @@ ztag_lookup_axfr = SubRecord({
             "pretty_rdclass":String(),
             "pretty_rdtype":String(),
             "pretty_name":AnalyzedString(es_include_raw=True),
-        })
-    }),
+        })),
+    })),
     "support":Boolean()
 })
 
@@ -802,3 +802,4 @@ domain = Record({
 DROP_KEYS = {'ip_address', 'metadata', 'tags', 'timestamp'}
 
 zschema.registry.register_schema("host", host)
+zschema.registry.register_schema("domain", domain)
