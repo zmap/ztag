@@ -523,7 +523,22 @@ ztag_lookup_dmarc = SubRecord({
 })
 
 ztag_lookup_axfr = SubRecord({
-    "raw":AnalyzedString(es_include_raw=True),
+    "servers":ListOf(SubRecord{
+        "ns":AnalyzedString(es_include_raw=True),
+        "axfr":Boolean(),
+        "error":AnalyzedString(es_include_raw=True),
+        "records":ListOf(SubRecord({
+            "name":AnalyzedString(es_include_raw=True),
+            "ttl":Integer(),
+            "rdclass":Integer(),
+            "rdtype":Integer(),
+            "rdata":AnalyzedString(es_include_raw=True),
+            "pretty_rdclass":String(),
+            "pretty_rdtype":String(),
+            "pretty_name":AnalyzedString(es_include_raw=True),
+        })
+    }),
+    "support":Boolean()
 })
 
 zdb_location = SubRecord({
