@@ -525,7 +525,7 @@ ztag_lookup_dmarc = SubRecord({
 ztag_lookup_axfr = SubRecord({
     "servers":ListOf(SubRecord{
         "ns":AnalyzedString(es_include_raw=True),
-        "axfr":Boolean(),
+        "support":Boolean(),
         "error":AnalyzedString(es_include_raw=True),
         "records":ListOf(SubRecord({
             "name":AnalyzedString(es_include_raw=True),
