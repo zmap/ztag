@@ -8,7 +8,7 @@ class MRV1Server(Annotation):
     port = None
 
     def process(self, obj, meta):
-        s = d["headers"]["server"]    
+        s = obj["headers"]["server"]
         if s.startswith("Mrvl"):
             meta.local_metadata.product = "Mrvl"
             v = s.split("-")[1].replace("_", ".")

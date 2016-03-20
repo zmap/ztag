@@ -6,8 +6,8 @@ class Cougar(Annotation):
       subprotocol = protocols.HTTP.GET
       port = None
 
-      def process(self, obj, meta):
-          server = d["headers"]["server"]    
+      def process(self, d, meta):
+          server = d["headers"]["server"]
           if server[:6] == "Cougar":
               meta.local_metadata.product = "Cougar"
               if "/" in server:

@@ -6,7 +6,7 @@ class Debut(Annotation):
     subprotocol = protocols.HTTP.GET
     port = None
 
-    def process(self, d):  
+    def process(self, d, meta):
         s = d["headers"]["server"]
         if "debut" in s:
             meta.local_metadata.product = "debut"

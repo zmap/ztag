@@ -11,13 +11,13 @@ class CherokeeServer(Annotation):
     version_re = re.compile('(/[A-Za-z0-9_.(]+)')
     os_re = re.compile('\(([A-Za-z0-9_]+)\)')
 
-    def process(self, obj, meta):	
-        server = obj["http_headers"]["server"]	
+    def process(self, obj, meta):
+        server = obj["headers"]["server"]
         if "cherokee" in server.lower():
             meta.local_metadata.manufacturer = Manufacturer.CHEROKEE
             meta.local_metadata.product = "HTTP Server"
 
-            version = self.version_re.search(server) 
+            version = self.version_re.search(server)
             if version and version.group(1):
                 meta.local_metadata.version = version
             os = self.os_re.search(server)

@@ -7,7 +7,7 @@ class MiniHTTPD(Annotation):
     port = None
 
     def process(self, obj, meta):
-        server = d["headers"]["server"]    
+        server = obj["headers"]["server"]
         meta = self.simple_banner_version(server.split(" ", 1)[0], "mini_httpd", meta)
         if meta and " " in server:
             meta.local_metadata.revision = server.split(" ", 1)[1]
