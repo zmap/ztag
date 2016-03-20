@@ -86,7 +86,9 @@ def main():
         sys.stderr.write("ERROR: port (-p/--port) required\n")
         sys.exit(1)
     if not args.protocol:
+        proto_string = ", ".join(protocols.Protocol._by_pretty_name.keys() )
         sys.stderr.write("ERROR: protocol (-P/--protocol) required\n")
+        sys.stderr.write("Registered Protocols: %s\n" % proto_string)
         sys.exit(1)
     if not args.subprotocol:
         sys.stderr.write("ERROR: subprotocol (-S/--subprotocol) required\n")
