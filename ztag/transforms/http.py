@@ -77,7 +77,7 @@ class OpenProxyTransform(ZGrabTransform):
         if error_component is not None and error_component == 'connect':
             raise errors.IgnoreObject("connection error")
 
-        if connect_response is not None:
+        if connect_response:
             status_line = connect_response['status_line'].resolve()
             status_code = connect_response['status_code'].resolve()
             body = connect_response['body'].resolve()
@@ -94,26 +94,26 @@ class OpenProxyTransform(ZGrabTransform):
             if headers is not None:
                 out['connect']['headers'] = headers
 
-        if get_response is not None:
+        if get_response:
             status_line = get_response['status_line'].resolve()
             status_code = get_response['status_code'].resolve()
             body = get_response['body'].resolve()
             headers = get_response['headers'].resolve()
             body_sha256 = get_response['body_sha256'].resolve()
             out['get'] = dict()
-            if body:
-                random_present = "Uh2Qn8Y7NPRm6h3xqEXUq4EhtW7Po4gy" in body
-            else:
-                random_present = False
-            out['get']['random_present'] = random_present
+            #if body:
+            #    random_present = "Uh2Qn8Y7NPRm6h3xqEXUq4EhtW7Po4gy" in body
+            #else:
+            #    random_present = False
+            #out['get']['random_present'] = random_present
 
-            if status_line is not None:
+            if status_line:
                 out['get']['status_line'] = status_line
-            if status_code is not None:
+            if status_code:
                 out['get']['status_code'] = status_code
-            if body is not None:
+            if body:
                 out['get']['body'] = body
-            if headers is not None:
+            if headers:
                 out['get']['headers'] = headers
             if body_sha256:
                 out['get']['body_sha256'] = body_sha256
