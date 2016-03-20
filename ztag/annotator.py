@@ -36,7 +36,7 @@ class Annotator(Transform):
                 if self.logger is not None:
                     error = "%s: %s %s" % (tag.__class__.__name__,
                             type(e).__name__, str(e))
-                    self.logger.error(error)
+                    self.logger.warn(error)
                 if self.debug:
                     raise e
         return zobj
