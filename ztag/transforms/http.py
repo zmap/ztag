@@ -45,6 +45,13 @@ class HTTPTransform(ZGrabTransform):
                         title = title[0:1024]
                     out['title'] = title
             if headers is not None:
+                if "set_cookie" in headers:
+                    del headers["set_cookie"]
+                for k, v, in headers.iteritems():
+                    if v:
+                        headers[k] = v[0]
+                    else:
+                        del headers[k]
                 out['headers'] = headers
             if body_sha256:
                 out['body_sha256'] = body_sha256
