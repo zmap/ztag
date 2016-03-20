@@ -282,6 +282,7 @@ zgrab_http_headers = SubRecord({
     "proxy_authenticate":AnalyzedString(es_include_raw=True),
     "public_key_pins":AnalyzedString(es_include_raw=True),
     "refresh":AnalyzedString(es_include_raw=True),
+    "referer":AnalyzedString(es_include_raw=True),
     "retry_after":AnalyzedString(es_include_raw=True),
     "server":AnalyzedString(es_include_raw=True),
     "set_cookie":AnalyzedString(es_include_raw=True),
