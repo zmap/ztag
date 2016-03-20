@@ -539,6 +539,7 @@ ztag_lookup_axfr = SubRecord({
             "pretty_name":AnalyzedString(es_include_raw=True),
         })),
     })),
+    "truncated":Boolean(),
     "support":Boolean()
 })
 
