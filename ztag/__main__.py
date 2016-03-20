@@ -56,7 +56,7 @@ def main():
     parser.add_argument('-I', '--incoming', type=subclass_of(Incoming),
                         default=None)
     parser.add_argument('-D', '--decoder', type=subclass_of(Decoder),
-                        default=None)
+                        default=JSONDecoder)
     parser.add_argument('-X', '--transform', type=subclass_of(Transform),
                         default=None)
     parser.add_argument('-E', '--encoder', type=subclass_of(Encoder),
@@ -91,16 +91,13 @@ def main():
     if not args.subprotocol:
         sys.stderr.write("ERROR: subprotocol (-S/--subprotocol) required\n")
         sys.exit(1)
-    if not args.scan_id:
-        sys.stderr.write("ERROR: scanid (-s/--scan-id) required\n")
-        sys.exit(1)
 
     metadata = dict()
 
     port = args.port
     protocol = args.protocol
     subprotocol = args.subprotocol
-    scan_id = args.scan_id
+    scan_id = args.scan_id or 0
 
     logger = Logger(args.log_file, log_level=args.log_level)
 
