@@ -34,7 +34,9 @@ class Annotator(Transform):
                     zobj.metadata.merge(meta)
             except Exception as e:
                 if self.logger is not None:
-                    self.logger.error(str(e))
+                    error = "%s: %s %s" % (tag.__class__.__name__,
+                            type(e).__name__, str(e))
+                    self.logger.error(error)
                 if self.debug:
                     raise e
         return zobj
