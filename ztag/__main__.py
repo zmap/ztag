@@ -91,7 +91,9 @@ def main():
         sys.stderr.write("Registered Protocols: %s\n" % proto_string)
         sys.exit(1)
     if not args.subprotocol:
+        subproto_string = ", ".join(protocols.Subprotocol._by_pretty_name.keys() )
         sys.stderr.write("ERROR: subprotocol (-S/--subprotocol) required\n")
+        sys.stderr.write("Registered SubProtocols: %s\n" % subproto_string)
         sys.exit(1)
 
     metadata = dict()
