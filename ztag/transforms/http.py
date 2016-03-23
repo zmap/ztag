@@ -48,7 +48,12 @@ class HTTPTransform(ZGrabTransform):
                 if "set_cookie" in headers:
                     del headers["set_cookie"]
                 for k, v, in headers.iteritems():
-                    if v:
+                    if k == "unknown":
+                        for d in v:
+                            if len(d["value"]) < 1:
+                                continue
+                            d["value"] = d["value"][0]
+                    elif v:
                         headers[k] = v[0]
                     else:
                         del headers[k]
