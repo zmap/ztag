@@ -427,6 +427,7 @@ ztag_tls_support = SubRecord({
 })
 
 ztag_fox = SubRecord({
+    "is_fox":Boolean(),
     "version": AnalyzedString(es_include_raw=True),
     "id": Integer(),
     "hostname": AnalyzedString(es_include_raw=True),

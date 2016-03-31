@@ -36,6 +36,7 @@ class NiagaraFoxTransform(ZGrabTransform):
         auth_agent_type = fox['auth_agent_type'].resolve()
 
         out = dict()
+        out["is_fox"] = True
         if instance_number:
             out["instance_number"] = instance_number
         if version:
