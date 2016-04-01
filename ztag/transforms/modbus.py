@@ -21,10 +21,11 @@ class ModbusTransform(ZGrabTransform):
             raise errors.IgnoreObject()
 
         out = dict()
+        out["support"] = True
         function_code = modbus['function_code'].resolve()
-        mei_response = modbus['mei_response']
         if function_code:
             out['function_code'] = function_code
+        mei_response = modbus['mei_response']
         if mei_response:
             conformity_level = mei_response['conformity_level'].resolve()
             objects = mei_response['objects']
@@ -61,9 +62,6 @@ class ModbusTransform(ZGrabTransform):
             if user_application_name:
                     out['mei_response']['objects']['user_application_name'] = \
                         user_application_name
-
-        if len(out) == 0:
-            raise errors.IgnoreObject("Empty output dict")
 
         zout.transformed = out
         return zout

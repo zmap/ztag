@@ -366,6 +366,7 @@ ztag_telnet = SubRecord({
 })
 
 ztag_modbus = SubRecord({
+    "support":Boolean(),
     "function_code":Integer(),
     "mei_response":SubRecord({
       "conformity_level":Integer(),
