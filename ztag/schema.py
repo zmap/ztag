@@ -357,6 +357,7 @@ telnet_caps_list = ListOf(SubRecord({
 }))
 
 ztag_telnet = SubRecord({
+    "support":Boolean(),
     "banner":AnalyzedString(es_include_raw=True),
     "will":telnet_caps_list,
     "wont":telnet_caps_list,

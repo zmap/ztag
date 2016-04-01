@@ -14,6 +14,7 @@ class TelnetTransform(ZGrabTransform):
 
         data = Transformable(obj)
         out = dict()
+        out["support"] = True
 
         t = data['data']['telnet']
         banner = t['banner'].resolve()
