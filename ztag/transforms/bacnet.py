@@ -892,6 +892,7 @@ class BACNetTransform(ZGrabTransform):
         description = bacnet['description'].resolve()
 
         out = dict()
+        out["support"] = True
         if instance_number:
             out['instance_number'] = instance_number
         if vendor_id or vendor_name:
@@ -912,8 +913,5 @@ class BACNetTransform(ZGrabTransform):
             out['model_name'] = model_name.strip()
         if description:
             out['description'] = description
-
-        if not bool(out):
-            raise errors.IgnoreObject("Empty output dict")
         zout.transformed = out
         return zout
