@@ -357,6 +357,7 @@ telnet_caps_list = ListOf(SubRecord({
 }))
 
 ztag_telnet = SubRecord({
+    "support":Boolean(),
     "banner":AnalyzedString(es_include_raw=True),
     "will":telnet_caps_list,
     "wont":telnet_caps_list,
@@ -366,6 +367,7 @@ ztag_telnet = SubRecord({
 })
 
 ztag_modbus = SubRecord({
+    "support":Boolean(),
     "function_code":Integer(),
     "mei_response":SubRecord({
       "conformity_level":Integer(),
@@ -383,6 +385,7 @@ ztag_modbus = SubRecord({
 })
 
 ztag_bacnet = SubRecord({
+    "support":Boolean(),
     "instance_number": Integer(),
     "vendor": SubRecord({
         "id": Integer(),
@@ -427,6 +430,7 @@ ztag_tls_support = SubRecord({
 })
 
 ztag_fox = SubRecord({
+    "support":Boolean(),
     "version": AnalyzedString(es_include_raw=True),
     "id": Integer(),
     "hostname": AnalyzedString(es_include_raw=True),
