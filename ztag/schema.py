@@ -145,8 +145,8 @@ zgrab_parsed_certificate = SubRecord({
             "ip_addresses":ListOf(String()),
         }),
         "crl_distribution_points":ListOf(String()),
-        "authority_key_id":Binary(),
-        "subject_key_id":Binary(),
+        "authority_key_id":Binary(), # TODO: this should be a string.
+        "subject_key_id":Binary(),   # TODO: this should be a string.
         "extended_key_usage":ListOf(Integer()),
         "certificate_policies":ListOf(AnalyzedString(es_include_raw=True)),
         "authority_info_access":SubRecord({
