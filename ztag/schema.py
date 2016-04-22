@@ -586,9 +586,32 @@ certificate = Record({
     "metadata":zdb_metadata,
     "parents":ListOf(String()),
     "validation_timestamp":DateTime(),
-    "valid_nss": Boolean(),
-    "valid_microsoft": Boolean(),
-    "valid_apple": Boolean(),
+    # validation from when we first validated the certificate
+    "valid_nss": Boolean(doc="was certificate valid when originally seen by zgrab?"),
+    "valid_microsoft": Boolean(doc="reserved"),
+    "valid_apple": Boolean(doc="reserved"),
+    # was this ever valid in the various root stores
+    "was_valid_nss":Boolean("did this certificate ever chain up to NSS root store"),
+    "was_valid_microsoft":Boolean("reserved"),
+    "was_valid_apple":Boolean("reserved"),
+    # is this certificate currently valid?
+    "current_valid_nss":Boolean("does this certificate currently chain up to NSS root store"),
+    "current_valid_microsoft":Boolean("reserved"),
+    "current_valid_apple":Boolean("reserved"),
+    # is this a root in the various root stores
+    "in_nss":Boolean("reserved"),
+    "in_microsoft":Boolean("reserved"),
+    "in_apple":Boolean("reserved"),
+    #
+    "current_in_nss":Boolean("is this certificate currently in nss root store"),
+    "current_in_microsoft":Boolean("reserved"),
+    "current_in_apple":Boolean("reserved"),
+    #
+    "was_in_nss":Boolean("was this certificate ever in NSS root store"),
+    "was_in_microsoft":Boolean("reserved"),
+    "was_in_apple":Boolean("reserved"),
+    #
+    "revoked":Boolean("reserved")
 })
 
 zschema.registry.register_schema("certificate", certificate)
