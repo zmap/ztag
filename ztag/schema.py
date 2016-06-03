@@ -173,6 +173,10 @@ zgrab_parsed_certificate = SubRecord({
     "fingerprint_sha256":String(),
 })
 
+
+zschema.registry.register_schema("zgrab_parsed_certificate",
+        zgrab_parsed_certificate)
+
 zgrab_certificate = SubRecord({
     "parsed":zgrab_parsed_certificate
 })
@@ -578,6 +582,60 @@ for key in Annotation.GLOBAL_METADATA_KEYS:
     __metadata[key] = AnalyzedString(es_include_raw=True)
 zdb_metadata = SubRecord(__metadata)
 
+CTServerStatus = SubRecord({
+        "index":Signed64BitInteger(),
+        "ct_timestamp":Signed64BitInteger(),
+        "pull_timestamp":Signed64BitInteger(),
+        "push_timestamp":Signed64BitInteger(),
+})
+
+CTStatus = SubRecord({
+
+    "censys_dev":CTServerStatus,
+    "censys":CTServerStatus,
+
+    "google_aviator":CTServerStatus,
+    "google_pilot":CTServerStatus,
+    "google_rocketeer":CTServerStatus,
+    "google_submariner":CTServerStatus,
+    "google_testtube":CTServerStatus,
+
+    "digicert_ct1":CTServerStatus,
+    "inzenpe_com_ct":CTServerStatus,
+    "inzenpe_eus_ct":CTServerStatus,
+    "symantec_ws_ct":CTServerStatus,
+    "symantec_ws_vega":CTServerStatus,
+    "wosign_ctlog":CTServerStatus,
+    "wosign_ct":CTServerStatus,
+    "cnnic_ctserver":CTServerStatus,
+    "gdca_ct":CTServerStatus,
+    "startssl_ct":CTServerStatus,
+    "certly_log":CTServerStatus,
+
+})
+
+CertificateAudit = SubRecord({
+
+    "nss":SubRecord({
+
+        "current_in":Boolean(),
+        "was_in":Boolean(),
+        "owner_name":AnalyzedString(es_include_raw=True),
+        "parent_name":AnalyzedString(es_include_raw=True),
+        "certificate_name":AnalyzedString(es_include_raw=True),
+        "certificate_policy":AnalyzedString(es_include_raw=True),
+        "certification_practice_statement":AnalyzedString(es_include_raw=True),
+        "cp_same_as_parent":AnalyzedString(es_include_raw=True),
+        "audit_same_as_parent":AnalyzedString(es_include_raw=True),
+        "standard_audit":AnalyzedString(es_include_raw=True),
+        "br_audit":AnalyzedString(es_include_raw=True),
+        "auditor":AnalyzedString(es_include_raw=True),
+        "standard_audit_statement_timestamp":DateTime(),
+        "management_assertions_by":AnalyzedString(es_include_raw=True),
+     })
+
+})
+
 certificate = Record({
     "updated_at":DateTime(),
     "parsed":zgrab_parsed_certificate,
@@ -611,7 +669,12 @@ certificate = Record({
     "was_in_microsoft":Boolean("reserved"),
     "was_in_apple":Boolean("reserved"),
     #
-    "revoked":Boolean("reserved")
+    "revoked":Boolean("reserved"),
+    #
+    "ct":CTStatus,
+    "seen_in_scan":Boolean(),
+    "source":String(),
+    "audit":CertificateAudit,
 })
 
 zschema.registry.register_schema("certificate", certificate)
