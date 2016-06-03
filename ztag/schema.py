@@ -650,24 +650,24 @@ certificate = Record({
     "valid_apple": Boolean(doc="reserved"),
     # was this ever valid in the various root stores
     "was_valid_nss":Boolean("did this certificate ever chain up to NSS root store"),
-    "was_valid_microsoft":Boolean("reserved"),
-    "was_valid_apple":Boolean("reserved"),
+    "was_valid_microsoft":Boolean(doc="reserved"),
+    "was_valid_apple":Boolean(doc="reserved"),
     # is this certificate currently valid?
-    "current_valid_nss":Boolean("does this certificate currently chain up to NSS root store"),
-    "current_valid_microsoft":Boolean("reserved"),
-    "current_valid_apple":Boolean("reserved"),
+    "current_valid_nss":Boolean(doc="does this certificate currently chain up to NSS root store"),
+    "current_valid_microsoft":Boolean(doc="reserved"),
+    "current_valid_apple":Boolean(doc="reserved"),
     # is this a root in the various root stores
-    "in_nss":Boolean("reserved"),
-    "in_microsoft":Boolean("reserved"),
-    "in_apple":Boolean("reserved"),
+    "in_nss":Boolean(doc="reserved"),
+    "in_microsoft":Boolean(doc="reserved"),
+    "in_apple":Boolean(doc="reserved"),
     #
-    "current_in_nss":Boolean("is this certificate currently in nss root store"),
-    "current_in_microsoft":Boolean("reserved"),
-    "current_in_apple":Boolean("reserved"),
+    "current_in_nss":Boolean(doc="is this certificate currently in nss root store"),
+    "current_in_microsoft":Boolean(doc="reserved"),
+    "current_in_apple":Boolean(doc="reserved"),
     #
-    "was_in_nss":Boolean("was this certificate ever in NSS root store"),
-    "was_in_microsoft":Boolean("reserved"),
-    "was_in_apple":Boolean("reserved"),
+    "was_in_nss":Boolean(doc="was this certificate ever in NSS root store"),
+    "was_in_microsoft":Boolean(doc="reserved"),
+    "was_in_apple":Boolean(doc="reserved"),
     #
     "revoked":Boolean("reserved"),
     #
