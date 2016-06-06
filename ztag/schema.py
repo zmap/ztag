@@ -583,10 +583,10 @@ for key in Annotation.GLOBAL_METADATA_KEYS:
 zdb_metadata = SubRecord(__metadata)
 
 CTServerStatus = SubRecord({
-        "index":Signed64BitInteger(),
-        "ct_timestamp":Signed64BitInteger(),
-        "pull_timestamp":Signed64BitInteger(),
-        "push_timestamp":Signed64BitInteger(),
+    "index":Signed64BitInteger(),
+    "added_to_ct_at":DateTime(),
+    "ct_to_censys_at":DateTime(),
+    "censys_to_ct_at":DateTime(),
 })
 
 CTStatus = SubRecord({
