@@ -157,6 +157,14 @@ zgrab_parsed_certificate = SubRecord({
             "critical":Boolean(),
             "permitted_names":ListOf(AnalyzedString(es_include_raw=True)),
         }),
+        "signed_certificate_timestamps":ListOf(SubRecord({
+            "version":Integer(),
+            "log_id":Binary(es_index=True),
+            "timestamp":DateTime(),
+            "extensions":Binary(),
+            "signature":Binary()
+        })),
+        "ct_poison":Boolean()
     }),
     "unknown_extensions":ListOf(unknown_extension),
     "signature":SubRecord({
@@ -675,6 +683,7 @@ certificate = Record({
     "seen_in_scan":Boolean(),
     "source":String(),
     "audit":CertificateAudit,
+    "precert":Boolean(),
 })
 
 zschema.registry.register_schema("certificate", certificate)
