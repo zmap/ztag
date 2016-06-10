@@ -20,6 +20,7 @@ zgrab_subj_issuer = SubRecord({
     "organization":ListOf(AnalyzedString(es_include_raw=True)),
     "organizational_unit":ListOf(AnalyzedString(es_include_raw=True)),
     "postal_code":ListOf(String()),
+    "domain_component":ListOf(AnalyzedString(es_include_raw=True)),
 })
 
 unknown_extension = SubRecord({
@@ -30,12 +31,12 @@ unknown_extension = SubRecord({
 
 ztag_dh_params = SubRecord({
     "prime":SubRecord({
-        "value":IndexedBinary(),
-        "length":Integer(),
+        #"value":IndexedBinary(),
+        #"length":Integer(),
     }),
     "generator":SubRecord({
-        "value":IndexedBinary(),
-        "length":Integer(),
+        #"value":IndexedBinary(),
+        #"length":Integer(),
     }),
 })
 
@@ -52,8 +53,8 @@ ztag_dh = SubRecord({
 })
 ztag_rsa_params = SubRecord({
    "exponent":Long(),
-   "modulus":IndexedBinary(),
-   "length":Integer(),
+   #"modulus":IndexedBinary(),
+   #"length":Integer(),
 })
 
 ztag_rsa_export = SubRecord({
@@ -156,10 +157,17 @@ zgrab_parsed_certificate = SubRecord({
         "name_constraints":SubRecord({
             "critical":Boolean(),
             "permitted_names":ListOf(AnalyzedString(es_include_raw=True)),
+            "permitted_email_addresses":ListOf(AnalyzedString(es_include_raw=True)),
+            "permitted_ip_addresses":ListOf(String()),
+            "permitted_directory_names":ListOf(zgrab_subj_issuer),
+            "excluded_names":ListOf(AnalyzedString(es_include_raw=True)),
+            "excluded_email_addresses":ListOf(AnalyzedString(es_include_raw=True)),
+            "excluded_ip_addresses":ListOf(AnalyzedString()),
+            "excluded_directory_names":ListOf(zgrab_subj_issuer)
         }),
         "signed_certificate_timestamps":ListOf(SubRecord({
             "version":Integer(),
-            "log_id":Binary(es_index=True),
+            "log_id":Binary(es_index="not_analyzed"),
             "timestamp":DateTime(),
             "extensions":Binary(),
             "signature":Binary()
@@ -294,7 +302,7 @@ zgrab_http_headers = SubRecord({
     "proxy_authenticate":AnalyzedString(es_include_raw=True),
     "public_key_pins":AnalyzedString(es_include_raw=True),
     "refresh":AnalyzedString(es_include_raw=True),
-    "referer":AnalyzedString(es_include_raw=True),
+    #"referer":AnalyzedString(es_include_raw=True),
     "retry_after":AnalyzedString(es_include_raw=True),
     "server":AnalyzedString(es_include_raw=True),
     "set_cookie":AnalyzedString(es_include_raw=True),
@@ -728,11 +736,11 @@ host = Record({
                     "banner":ztag_telnet
                 })
             }),
-            Port(21):SubRecord({
-                "ftp":SubRecord({
-                  "banner":ztag_ftp,
-                })
-            }),
+#            Port(21):SubRecord({
+#                "ftp":SubRecord({
+#                  "banner":ztag_ftp,
+#                })
+#            }),
             Port(102):SubRecord({
                 "s7":SubRecord({
                     "szl":ztag_s7
