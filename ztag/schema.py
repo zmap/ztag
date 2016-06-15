@@ -617,8 +617,8 @@ CTStatus = SubRecord({
     "google_testtube":CTServerStatus,
 
     "digicert_ct1":CTServerStatus,
-    "inzenpe_com_ct":CTServerStatus,
-    "inzenpe_eus_ct":CTServerStatus,
+    "izenpe_com_ct":CTServerStatus,
+    "izenpe_eus_ct":CTServerStatus,
     "symantec_ws_ct":CTServerStatus,
     "symantec_ws_vega":CTServerStatus,
     "wosign_ctlog":CTServerStatus,
