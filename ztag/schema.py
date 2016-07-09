@@ -187,6 +187,7 @@ zgrab_parsed_certificate = SubRecord({
     "fingerprint_md5":String(),
     "fingerprint_sha1":String(),
     "fingerprint_sha256":String(),
+    "spki_fingerprint":String(),
 })
 
 
