@@ -636,9 +636,7 @@ CTStatus = SubRecord({
 })
 
 CertificateAudit = SubRecord({
-
     "nss":SubRecord({
-
         "current_in":Boolean(),
         "was_in":Boolean(),
         "owner_name":AnalyzedString(es_include_raw=True),
@@ -654,7 +652,15 @@ CertificateAudit = SubRecord({
         "standard_audit_statement_timestamp":DateTime(),
         "management_assertions_by":AnalyzedString(es_include_raw=True),
      })
+})
 
+ztag_certificate_validation = Record({
+    "valid":Boolean(),
+    "was_valid":Boolean(),
+    "trusted_path":Boolean(),
+    "was_trusted_path":Boolean(),
+    "blacklisted":Boolean(),
+    "type":Enum(["leaf","intermediate","root"]),
 })
 
 certificate = Record({
@@ -665,33 +671,25 @@ certificate = Record({
     "metadata":zdb_metadata,
     "parents":ListOf(String()),
     "validation_timestamp":DateTime(),
-    # validation from when we first validated the certificate
-    "valid_nss": Boolean(doc="was certificate valid when originally seen by zgrab?"),
-    "valid_microsoft": Boolean(doc="reserved"),
-    "valid_apple": Boolean(doc="reserved"),
-    # was this ever valid in the various root stores
-    "was_valid_nss":Boolean("did this certificate ever chain up to NSS root store"),
-    "was_valid_microsoft":Boolean(doc="reserved"),
-    "was_valid_apple":Boolean(doc="reserved"),
-    # is this certificate currently valid?
-    "current_valid_nss":Boolean(doc="does this certificate currently chain up to NSS root store"),
-    "current_valid_microsoft":Boolean(doc="reserved"),
-    "current_valid_apple":Boolean(doc="reserved"),
-    # is this a root in the various root stores
-    "in_nss":Boolean(doc="reserved"),
-    "in_microsoft":Boolean(doc="reserved"),
-    "in_apple":Boolean(doc="reserved"),
-    #
-    "current_in_nss":Boolean(doc="is this certificate currently in nss root store"),
-    "current_in_microsoft":Boolean(doc="reserved"),
-    "current_in_apple":Boolean(doc="reserved"),
-    #
-    "was_in_nss":Boolean(doc="was this certificate ever in NSS root store"),
-    "was_in_microsoft":Boolean(doc="reserved"),
-    "was_in_apple":Boolean(doc="reserved"),
-    #
+    ## DEPRECATED validation
+    "valid_nss": Boolean(deprecated=True),
+    "was_valid_nss":Boolean(deprecated=True),
+    "current_valid_nss":Boolean(deprecated=True),
+    "in_nss":Boolean(deprecated=True),
+    "current_in_nss":Boolean(deprecated=True),
+    "was_in_nss":Boolean(deprecated=True),
+    ## new style validation
+    "validation":SubRecord({
+        "nss":ztag_certificate_validation,
+        "apple":ztag_certificate_validation,
+        "microsoft":ztag_certificate_validation,
+        "java":ztag_certificate_validation,
+        "android":ztag_certificate_validation,
+        "google_ct_primary":ztag_certificate_validation,
+        "google_ct_submariner":ztag_certificate_validation,
+    })
+
     "revoked":Boolean("reserved"),
-    #
     "ct":CTStatus,
     "seen_in_scan":Boolean(),
     "source":String(),
