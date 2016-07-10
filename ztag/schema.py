@@ -95,6 +95,7 @@ zgrab_parsed_certificate = SubRecord({
         "oid":String(),
     }),
     "subject_key_info":SubRecord({
+        "fingerprint_sha256":String(),
         "key_algorithm":SubRecord({
             "name":String(doc="Name of public key type, e.g., RSA or ECDSA. "\
                               "More information is available the named SubRecord"\
@@ -190,7 +191,6 @@ zgrab_parsed_certificate = SubRecord({
     "fingerprint_md5":String(),
     "fingerprint_sha1":String(),
     "fingerprint_sha256":String(),
-    "spki_fingerprint":String(),
 })
 
 
