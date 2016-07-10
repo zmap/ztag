@@ -87,7 +87,8 @@ zgrab_parsed_certificate = SubRecord({
                                "Negative values are allowed."),
     "validity":SubRecord({
         "start":DateTime(doc="Timestamp of when certificate is first valid. Timezone is UTC."),
-        "end":DateTime(doc="Timestamp of when certificate expires. Timezone is UTC.")
+        "end":DateTime(doc="Timestamp of when certificate expires. Timezone is UTC."),
+        "length":Integer(),
     }),
     "signature_algorithm":SubRecord({
         "name":String(),
@@ -121,6 +122,8 @@ zgrab_parsed_certificate = SubRecord({
             "p":IndexedBinary(),
             "x":IndexedBinary(),
             "y":IndexedBinary(),
+            "pub":Binary(),
+            "asn1_oid":String(),
         })
     }),
     "extensions":SubRecord({
@@ -194,8 +197,30 @@ zgrab_parsed_certificate = SubRecord({
 zschema.registry.register_schema("zgrab_parsed_certificate",
         zgrab_parsed_certificate)
 
+
+zgrab_certificate_trust = SubRecord({
+    "type":String(doc="root, intermediate, or leaf certificate"),
+    "trusted_path":Bool(doc="Does certificate chain up to browser root store"),
+    "valid":Bool(doc="is this certificate currently valid in this browser"),
+    "was_valid":Bool(doc="was this certificate ever valid in this browser")
+})
+
 zgrab_certificate = SubRecord({
-    "parsed":zgrab_parsed_certificate
+    "parsed":zgrab_parsed_certificate,
+    "validation":SubRecord({
+        "nss":zgrab_certificate_trust,
+        "apple":zgrab_certificate_trust,
+        "microsoft":zgrab_certificate_trust,
+        "android":zgrab_certificate_trust,
+        "java":zgrab_certificate_trust,
+    }),
+})
+
+
+zgrab_server_certificate_valid = SubRecord({
+    "complete_chain":Boolean(doc="does server provide a chain up to a root"),
+    "valid":Boolean(doc="is this certificate currently valid in this browser"),
+    "error":AnalyzedString(es_include_raw=True)
 })
 
 ztag_tls = SubRecord({
@@ -209,9 +234,14 @@ ztag_tls = SubRecord({
     "certificate":zgrab_certificate,
     "chain":ListOf(zgrab_certificate),
     "validation":SubRecord({
-        "browser_trusted":Boolean(),
-        "browser_error":AnalyzedString(es_include_raw=True),
         "matches_domain":Boolean(),
+        "stores":SubRecord({
+            "nss":zgrab_server_certificate_valid,
+            "microsoft":zgrab_server_certificate_valid,
+            "apple":zgrab_server_certificate_valid,
+            "java":zgrab_server_certificate_valid,
+            "android":zgrab_server_certificate_valid,
+        })
     }),
     "server_key_exchange":SubRecord({
         "ecdh_params":ztag_ecdh_params,
