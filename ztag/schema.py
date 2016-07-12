@@ -193,7 +193,8 @@ zgrab_parsed_certificate = SubRecord({
     "fingerprint_sha256":String(),
     "spki_subject_fingerprint":String(),
     "tbs_fingerprint":String(),
-    "names":ListOf(AnalyzedString(es_include_raw=True))
+    "names":ListOf(AnalyzedString(es_include_raw=True)),
+    "validation_level":String(),
 })
 
 
