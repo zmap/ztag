@@ -160,3 +160,35 @@ class RedisQueue(Outgoing):
 
     def cleanup(self):
         return self.push(noretry=True)
+
+
+class Kafka(Outgoing):
+
+    def __init__(self, logger=None, destination=None, *args, **kwargs):
+
+        if destination == "full_ipv4":
+            topic = "ipv4"
+        elif destination == "alexa_top1mil":
+            topic = "domain"
+        else:
+            raise Exception("invalid destination: %s" % destination)
+
+        host = os.environ.get('KAFKA_BOOTSTRAP_HOST', 'localhost')
+        port = os.environ.get('KAFKA_BOOTSTRAP_PORT', '9092')
+        full = ":".join((host, port))
+
+        self.main_producer = KafkaProducer(bootstrap_servers=full)
+        self.cert_producer = KafkaProducer(bootstrap_servers=full)
+
+    def take(self, pbout):
+        certificates = pbout.certificates
+        for certificate in pbout.certificates:
+            self.cert_producer.send("certificates", certificate)
+        self.main_producer.send("topic", pbout.transformed)
+
+    def cleanup(self):
+        if self.main_producer:
+            self.main_producer.flush()
+        if self.main_consumer:
+            self.cert_producer.flush()
+
