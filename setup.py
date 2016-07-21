@@ -25,7 +25,8 @@ setup(
     "redis",
     "protobuf==3.0.0a3",
     "python-dateutil",
-    "zsearch_definitions"
+    "zsearch_definitions",
+    "kafka-python"
   ],
   package_data={"ztag":["devices/*",]},
   entry_points = {
