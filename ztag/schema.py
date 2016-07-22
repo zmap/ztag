@@ -591,7 +591,7 @@ ztag_lookup_axfr = SubRecord({
         "error":AnalyzedString(es_include_raw=True),
         "records":ListOf(SubRecord({
             "name":AnalyzedString(es_include_raw=True),
-            "ttl":Integer(),
+            #"ttl":Long(),
             "rdclass":Integer(),
             "rdtype":Integer(),
             "rdata":AnalyzedString(es_include_raw=True),
