@@ -7,6 +7,8 @@ from ztag.errors import IgnoreObject
 
 import redis
 
+from kafka import KafkaProducer
+
 
 class Stream(object):
 
@@ -166,9 +168,9 @@ class Kafka(Outgoing):
 
     def __init__(self, logger=None, destination=None, *args, **kwargs):
         if destination == "full_ipv4":
-            topic = "ipv4"
+            self.topic = "ipv4"
         elif destination == "alexa_top1mil":
-            topic = "domain"
+            self.topic = "domain"
         else:
             raise Exception("invalid destination: %s" % destination)
         host = os.environ.get('KAFKA_BOOTSTRAP_HOST', 'localhost:9092')
@@ -178,7 +180,7 @@ class Kafka(Outgoing):
     def take(self, pbout):
         for certificate in pbout.certificates:
             self.cert_producer.send("certificates", certificate)
-        self.main_producer.send("topic", pbout.transformed)
+        self.main_producer.send(self.topic, pbout.transformed)
 
     def cleanup(self):
         if self.main_producer:
