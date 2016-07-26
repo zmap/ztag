@@ -179,7 +179,7 @@ class Kafka(Outgoing):
 
     def take(self, pbout):
         for certificate in pbout.certificates:
-            self.cert_producer.send("certificates", certificate)
+            self.cert_producer.send("certificate", certificate)
         self.main_producer.send(self.topic, pbout.transformed)
 
     def cleanup(self):
