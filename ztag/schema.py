@@ -721,8 +721,7 @@ certificate = Record({
         "android":ztag_certificate_validation,
         "google_ct_primary":ztag_certificate_validation,
         "google_ct_submariner":ztag_certificate_validation,
-    })
-
+    }),
     "revoked":Boolean("reserved"),
     "ct":CTStatus,
     "seen_in_scan":Boolean(),
