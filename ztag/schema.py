@@ -204,9 +204,9 @@ zschema.registry.register_schema("zgrab_parsed_certificate",
 
 zgrab_certificate_trust = SubRecord({
     "type":String(doc="root, intermediate, or leaf certificate"),
-    "trusted_path":Bool(doc="Does certificate chain up to browser root store"),
-    "valid":Bool(doc="is this certificate currently valid in this browser"),
-    "was_valid":Bool(doc="was this certificate ever valid in this browser")
+    "trusted_path":Boolean(doc="Does certificate chain up to browser root store"),
+    "valid":Boolean(doc="is this certificate currently valid in this browser"),
+    "was_valid":Boolean(doc="was this certificate ever valid in this browser")
 })
 
 zgrab_certificate = SubRecord({
