@@ -185,6 +185,6 @@ class Kafka(Outgoing):
     def cleanup(self):
         if self.main_producer:
             self.main_producer.flush()
-        if self.main_consumer:
+        if self.cert_producer:
             self.cert_producer.flush()
 
