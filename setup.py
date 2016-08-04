@@ -26,7 +26,9 @@ setup(
     "protobuf==3.0.0a3",
     "python-dateutil",
     "zsearch_definitions",
-    "kafka-python"
+    "kafka-python",
+    "lz4tools",
+    "xxhash"
   ],
   package_data={"ztag":["devices/*",]},
   entry_points = {
