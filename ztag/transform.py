@@ -182,6 +182,6 @@ class ZGrabTransform(ZMapTransform):
         if "ip" in obj:
             out.transformed['ip_address'] = obj['ip']
         if "domain" in obj:
-            out.transformed['domain'] = domain
+            out.transformed['domain'] = obj['domain']
         out.transformed['timestamp'] = obj['timestamp']
         return out
