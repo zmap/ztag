@@ -6,9 +6,7 @@ import csv
 from ztag.errors import IgnoreObject
 
 import redis
-
-from kafka import KafkaProducer
-
+from confluent_kafka import Producer
 
 class Stream(object):
 
@@ -174,15 +172,19 @@ class Kafka(Outgoing):
         else:
             raise Exception("invalid destination: %s" % destination)
         host = os.environ.get('KAFKA_BOOTSTRAP_HOST', 'localhost:9092')
-        self.main_producer = KafkaProducer(bootstrap_servers=host,
-                                    compression_type="lz4")
-        self.cert_producer = KafkaProducer(bootstrap_servers=host,
-                                    compression_type="lz4")
+        self.main_producer = Producer({
+            "bootstrap.servers":host,
+            "compression.type":"lz4"
+        })
+        self.cert_producer = Producer({
+            "bootstrap.servers":host,
+            "compression.type":"lz4"
+        })
 
     def take(self, pbout):
         for certificate in pbout.certificates:
-            self.cert_producer.send("certificate", certificate)
-        self.main_producer.send(self.topic, pbout.transformed)
+            self.cert_producer.produce("certificate", certificate)
+        self.main_producer.produce(self.topic, pbout.transformed)
 
     def cleanup(self):
         if self.main_producer:
