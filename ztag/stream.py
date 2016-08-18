@@ -23,6 +23,8 @@ class Stream(object):
         skipped = 0
         handled = 0
         for obj in self.incoming:
+            if obj is None:
+                continue
             try:
                 out = obj
                 for transformer in self.transforms:
