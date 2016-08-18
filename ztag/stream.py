@@ -23,12 +23,12 @@ class Stream(object):
         skipped = 0
         handled = 0
         for obj in self.incoming:
-            if obj is None:
-                continue
             try:
                 out = obj
                 for transformer in self.transforms:
                     out = transformer.transform(out)
+                    if out is None:
+                        raise IgnoreObject()
                 self.outgoing.take(out)
                 handled += 1
             except IgnoreObject as e:
