@@ -179,9 +179,9 @@ class ZGrabTransform(ZMapTransform):
 
     def transform(self, obj):
         out = super(ZMapTransform, self).transform(obj)
-        out.transformed['ip_address'] = obj['ip']
-        out.transformed['timestamp'] = obj['timestamp']
-        domain = obj.get('domain', None)
-        if domain:
+        if "ip" in obj:
+            out.transformed['ip_address'] = obj['ip']
+        if "domain" in obj:
             out.transformed['domain'] = domain
+        out.transformed['timestamp'] = obj['timestamp']
         return out
