@@ -943,5 +943,5 @@ domain = Record({
 
 DROP_KEYS = {'ip_address', 'metadata', 'tags', 'timestamp'}
 
-zschema.registry.register_schema("host", domain)
-#zschema.registry.register_schema("domain", domain)
+zschema.registry.register_schema("host", host)
+zschema.registry.register_schema("domain", domain)
