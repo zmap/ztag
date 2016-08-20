@@ -928,9 +928,9 @@ domain = Record({
 
             "tags":ListOf(AnalyzedString(es_include_raw=True)),
             "metadata":zdb_metadata,
-            "location":zdb_location,
-            "__restricted_location":zdb_location,
-            "autonomous_system":zdb_as,
+            #"location":zdb_location,
+            #"__restricted_location":zdb_location,
+            #"autonomous_system":zdb_as,
             "notes":EnglishString(es_include_raw=True),
             "domain":String(),
             "alexa_rank":Integer(doc="Rank in the Alexa Top 1 Million. "
