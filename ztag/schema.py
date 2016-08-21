@@ -95,7 +95,7 @@ zgrab_parsed_certificate = SubRecord({
         "oid":String(),
     }),
     "subject_key_info":SubRecord({
-        "fingerprint_sha256":String(),
+        "fingerprint_sha256":HexString(),
         "key_algorithm":SubRecord({
             "name":String(doc="Name of public key type, e.g., RSA or ECDSA. "\
                               "More information is available the named SubRecord"\
@@ -188,12 +188,12 @@ zgrab_parsed_certificate = SubRecord({
         "valid":Boolean(),
         "self_signed":Boolean(),
     }),
-    "fingerprint_md5":String(),
-    "fingerprint_sha1":String(),
-    "fingerprint_sha256":String(),
-    "spki_subject_fingerprint":String(),
-    "tbs_fingerprint":String(),
-    #"names":ListOf(AnalyzedString(es_include_raw=True)), 
+    "fingerprint_md5":HexString(),
+    "fingerprint_sha1":HexString(),
+    "fingerprint_sha256":HexString(),
+    "spki_subject_fingerprint":HexString(),
+    "tbs_fingerprint":HexString(),
+    #"names":ListOf(AnalyzedString(es_include_raw=True)),
     # ^^ This is currently excluded because of a bug in ZGrab which caused many
     # certificates to have a null names array instead of an empty array, which
     # prevents those records from being uploaded to Google BigQuery. This needs
