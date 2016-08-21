@@ -31,12 +31,12 @@ unknown_extension = SubRecord({
 
 ztag_dh_params = SubRecord({
     "prime":SubRecord({
-        #"value":IndexedBinary(),
-        #"length":Integer(),
+        "value":IndexedBinary(),
+        "length":Integer(),
     }),
     "generator":SubRecord({
-        #"value":IndexedBinary(),
-        #"length":Integer(),
+        "value":IndexedBinary(),
+        "length":Integer(),
     }),
 })
 
@@ -53,8 +53,8 @@ ztag_dh = SubRecord({
 })
 ztag_rsa_params = SubRecord({
    "exponent":Long(),
-   #"modulus":IndexedBinary(),
-   #"length":Integer(),
+   "modulus":IndexedBinary(),
+   "length":Integer(),
 })
 
 ztag_rsa_export = SubRecord({
@@ -134,7 +134,7 @@ zgrab_parsed_certificate = SubRecord({
             "crl_sign":Boolean(),
             "content_commitment":Boolean(),
             "key_encipherment":Boolean(),
-            "value":Integer(), #we should document this. I don't know what this is.
+            "value":Integer(), # TODO: we should document this. I don't know what this is.
             "data_encipherment":Boolean(),
             "key_agreement":Boolean(),
             "decipher_only":Boolean(),
@@ -150,8 +150,8 @@ zgrab_parsed_certificate = SubRecord({
             "ip_addresses":ListOf(String()),
         }),
         "crl_distribution_points":ListOf(String()),
-        "authority_key_id":Binary(), # TODO: this should be a string.
-        "subject_key_id":Binary(),   # TODO: this should be a string.
+        "authority_key_id":Binary(), # TODO: this should be a string. It's in hex
+        "subject_key_id":Binary(),   # TODO: this should be a string. It's in hex
         "extended_key_usage":ListOf(Integer()),
         "certificate_policies":ListOf(AnalyzedString(es_include_raw=True)),
         "authority_info_access":SubRecord({
@@ -162,11 +162,11 @@ zgrab_parsed_certificate = SubRecord({
             "critical":Boolean(),
             "permitted_names":ListOf(AnalyzedString(es_include_raw=True)),
             "permitted_email_addresses":ListOf(AnalyzedString(es_include_raw=True)),
-            "permitted_ip_addresses":ListOf(String()),
+            "permitted_ip_addresses":ListOf(AnalyzedString(es_include_raw=True)),
             "permitted_directory_names":ListOf(zgrab_subj_issuer),
             "excluded_names":ListOf(AnalyzedString(es_include_raw=True)),
             "excluded_email_addresses":ListOf(AnalyzedString(es_include_raw=True)),
-            "excluded_ip_addresses":ListOf(AnalyzedString()),
+            "excluded_ip_addresses":ListOf(AnalyzedString(es_include_raw=True)),
             "excluded_directory_names":ListOf(zgrab_subj_issuer)
         }),
         "signed_certificate_timestamps":ListOf(SubRecord({
@@ -193,7 +193,12 @@ zgrab_parsed_certificate = SubRecord({
     "fingerprint_sha256":String(),
     "spki_subject_fingerprint":String(),
     "tbs_fingerprint":String(),
-    "names":ListOf(AnalyzedString(es_include_raw=True)),
+    #"names":ListOf(AnalyzedString(es_include_raw=True)), 
+    # ^^ This is currently excluded because of a bug in ZGrab which caused many
+    # certificates to have a null names array instead of an empty array, which
+    # prevents those records from being uploaded to Google BigQuery. This needs
+    # to remain out of the schema until we re-process all of those records in zdb.
+    # -- zakir / 2016-08-21
     "validation_level":String(),
 })
 
@@ -591,8 +596,6 @@ ztag_lookup_axfr = SubRecord({
         "error":AnalyzedString(es_include_raw=True),
         "records":ListOf(SubRecord({
             "name":AnalyzedString(es_include_raw=True),
-            #"ttl":Long(),
-            #"rdclass":Integer(),
             "type":String(),
             "data":AnalyzedString(es_include_raw=True),
         })),
@@ -702,7 +705,7 @@ certificate = Record({
     "metadata":zdb_metadata,
     "parents":ListOf(String()),
     "validation_timestamp":DateTime(),
-    ## DEPRECATED validation
+    ## TODO: DEPRECATED validation. These should be removed in the future:
     "valid_nss": Boolean(deprecated=True),
     "was_valid_nss":Boolean(deprecated=True),
     "current_valid_nss":Boolean(deprecated=True),
@@ -769,11 +772,11 @@ host = Record({
                     "banner":ztag_telnet
                 })
             }),
-#            Port(21):SubRecord({
-#                "ftp":SubRecord({
-#                  "banner":ztag_ftp,
-#                })
-#            }),
+            Port(21):SubRecord({ #TODO: we originally schema'ed FTP incorrectly. This will have to be commented out for elasticsearch.
+                "ftp":SubRecord({
+                  "banner":ztag_ftp,
+                })
+            }),
             Port(102):SubRecord({
                 "s7":SubRecord({
                     "szl":ztag_s7
@@ -847,9 +850,6 @@ host = Record({
             "notes":EnglishString(es_include_raw=True),
             "ip":IPv4Address(required=True),
             "ipint":Long(required=True, doc="Integer value of IP address in host order"),
-            "domain":String(),
-            "alexa_rank":Integer(doc="Rank in the Alexa Top 1 Million. "
-                    "Null if not currently in the Top 1 Million sites."),
             "updated_at":DateTime(),
             "zdb_version":Integer(),
             "protocols":ListOf(String())
@@ -865,57 +865,17 @@ domain = Record({
                     "export_dhe": ztag_dh_export,
                     "tls_1_1": ztag_tls_support,
                     "tls_1_2": ztag_tls_support,
-                    "tls_1_3": ztag_tls_support,
                     "ecdhe": ztag_ecdh,
-                    "open_proxy":ztag_open_proxy,
-                    "extended_random":ztag_extended_random,
                 })
             }),
             Port(80):SubRecord({
                 "http":SubRecord({
                     "get":ztag_http,
-                    "hackingteam":ztag_hackingteam, #TODO: zakir add private tag to schema
-                    "open_proxy":ztag_open_proxy
                 }),
             }),
             Port(25):SubRecord({
                 "smtp":SubRecord({
                     "starttls": ztag_smtp_starttls,
-                })
-            }),
-            Port(23):SubRecord({
-                "telnet":SubRecord({
-                    "banner":ztag_telnet
-                })
-            }),
-            Port(21):SubRecord({
-                "ftp":SubRecord({
-                  "banner":ztag_telnet
-                })
-            }),
-            Port(102):SubRecord({
-                "s7":SubRecord({
-                    "szl":ztag_s7
-                })
-            }),
-            Port(110):SubRecord({
-                "pop3":SubRecord({
-                  "starttls":ztag_mail_starttls
-                })
-            }),
-            Port(143):SubRecord({
-                "imap":SubRecord({
-                    "starttls":ztag_mail_starttls
-                })
-            }),
-            Port(993):SubRecord({
-                "imaps":SubRecord({
-                    "tls":ztag_mail_tls
-                })
-            }),
-            Port(995):SubRecord({
-                "pop3s":SubRecord({
-                    "tls":ztag_mail_tls
                 })
             }),
             Port(0):SubRecord({
@@ -928,8 +888,6 @@ domain = Record({
 
             "tags":ListOf(AnalyzedString(es_include_raw=True)),
             "metadata":zdb_metadata,
-            "location":zdb_location,
-            "__restricted_location":zdb_location,
             "autonomous_system":zdb_as,
             "notes":EnglishString(es_include_raw=True),
             "domain":String(),
