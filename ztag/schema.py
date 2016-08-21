@@ -124,7 +124,9 @@ zgrab_parsed_certificate = SubRecord({
             "x":IndexedBinary(),
             "y":IndexedBinary(),
             "pub":Binary(),
-            "asn1_oid":String(),
+            #"asn1_oid":String(), # TODO: this is currently commented out
+            # because for a bunch of certificates, this was encoded as [1, 2,
+            # 840, 113549, 1, 1, 12] not 1.2.840.113549.1.1.12
         })
     }),
     "extensions":SubRecord({
