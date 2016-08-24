@@ -160,7 +160,7 @@ zgrab_parsed_certificate = SubRecord({
                 "value":String(),
             })),
             "registered_ids":ListOf(String()),
-            "uniform_resource_identifiers":ListOf(String()),
+            "uniform_resource_identifiers":ListOf(AnalyzedString(es_include_raw=True)),
         }),
         "crl_distribution_points":ListOf(String()),
         "authority_key_id":Binary(), # TODO: this should be a string. It's in hex
