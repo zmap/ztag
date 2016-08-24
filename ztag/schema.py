@@ -152,12 +152,12 @@ zgrab_parsed_certificate = SubRecord({
             "ip_addresses":ListOf(String()),
             "directory_names":ListOf(zgrab_subj_issuer),
             "edi_party_names":ListOf(SubRecord({
-                "name_assigner":String(),
-                "party_name":String(),
+                "name_assigner":AnalyzedString(es_include_raw=True),
+                "party_name":AnalyzedString(es_include_raw=True),
             })),
             "other_names":ListOf(SubRecord({
                 "id":String(),
-                "value":String(),
+                "value":IndexedBinary(),
             })),
             "registered_ids":ListOf(String()),
             "uniform_resource_identifiers":ListOf(AnalyzedString(es_include_raw=True)),
