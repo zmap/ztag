@@ -690,7 +690,7 @@ CertificateAudit = SubRecord({
      })
 })
 
-ztag_certificate_validation = Record({
+ztag_certificate_validation = SubRecord({
     "valid":Boolean(),
     "was_valid":Boolean(),
     "trusted_path":Boolean(),
