@@ -150,6 +150,17 @@ zgrab_parsed_certificate = SubRecord({
             "dns_names":ListOf(AnalyzedString()),
             "email_addresses":ListOf(String()),
             "ip_addresses":ListOf(String()),
+            "directory_names":ListOf(zgrab_subj_issuer),
+            "edi_party_names":ListOf(SubRecord({
+                "name_assigner":String(),
+                "party_name":String(),
+            })),
+            "other_names":ListOf(SubRecord({
+                "id":String(),
+                "value":String(),
+            })),
+            "registered_ids":ListOf(String()),
+            "uniform_resource_identifiers":ListOf(String()),
         }),
         "crl_distribution_points":ListOf(String()),
         "authority_key_id":Binary(), # TODO: this should be a string. It's in hex
