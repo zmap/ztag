@@ -735,7 +735,7 @@ certificate = Record({
         "google_ct_primary":ztag_certificate_validation,
         "google_ct_submariner":ztag_certificate_validation,
     }),
-    "revoked":Boolean("reserved"),
+    "revoked":Boolean(doc="reserved"),
     "ct":CTStatus,
     "seen_in_scan":Boolean(),
     "source":String(),
