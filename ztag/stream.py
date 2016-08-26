@@ -5,10 +5,6 @@ import csv
 
 from ztag.errors import IgnoreObject
 
-import redis
-
-from kafka import KafkaProducer
-
 
 class Stream(object):
 
@@ -110,6 +106,7 @@ class RedisQueue(Outgoing):
 
     def __init__(self, logger=None, destination=None, *args, **kwargs):
         super(RedisQueue, self).__init__(*args, **kwargs)
+	import redis
         host = os.environ.get('ZTAG_REDIS_HOST', 'localhost')
         port = int(os.environ.get('ZTAG_REDIS_PORT', 6379))
         if destination == "full_ipv4":
@@ -169,6 +166,9 @@ class RedisQueue(Outgoing):
 class Kafka(Outgoing):
 
     def __init__(self, logger=None, destination=None, *args, **kwargs):
+
+	import confluent_kafka
+
         if destination == "full_ipv4":
             self.topic = "ipv4"
         elif destination == "alexa_top1mil":
@@ -176,15 +176,17 @@ class Kafka(Outgoing):
         else:
             raise Exception("invalid destination: %s" % destination)
         host = os.environ.get('KAFKA_BOOTSTRAP_HOST', 'localhost:9092')
-        self.main_producer = KafkaProducer(bootstrap_servers=host,
-                                    compression_type="lz4")
-        self.cert_producer = KafkaProducer(bootstrap_servers=host,
-                                    compression_type="lz4")
+        self.main_producer = confluent_kafka.Producer({
+                'bootstrap.servers': host 
+        })
+        self.cert_producer = confluent_kafka.Producer({
+                'bootstrap.servers': host 
+        })
 
     def take(self, pbout):
         for certificate in pbout.certificates:
-            self.cert_producer.send("certificate", certificate)
-        self.main_producer.send(self.topic, pbout.transformed)
+            self.cert_producer.produce("certificate", certificate)
+        self.main_producer.produce(self.topic, pbout.transformed)
 
     def cleanup(self):
         if self.main_producer:
