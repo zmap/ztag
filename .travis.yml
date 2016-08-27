@@ -1,16 +1,15 @@
 language: python
-
 os: linux
 sudo: required
 dist: trusty
 
-python:
-  - 2.7
-  - pypy
-
 before_install:
     - sudo apt-get update -qq
     - sudo apt-get install -qq libsnappy-dev
+
+python:
+  - 2.7
+  - pypy
 
 
 install:
@@ -19,8 +18,6 @@ install:
 script:
   - nosetests ztag
   - ztag -t
-
-sudo: false
 
 notifications:
   email:
