@@ -4,6 +4,11 @@ python:
   - 2.7
   - pypy
 
+before_install:
+    - sudo apt-get update -qq
+    - sudo apt-get install -qq libsnappy-dev
+
+
 install:
     - python setup.py install
 
@@ -15,6 +20,6 @@ sudo: false
 
 notifications:
   email:
-  - team@censys.io 
+  - team@censys.io
   slack:
     secure: gLiX4zUhlYMJ0l7kJlb5Wf5CmAynj+WQufThSBPP7XlLZddl6Vql72sJuqwl1ZV75xEsqP05QDulBMJc9AaED7BP53vhngHHgWLwjt026ne5sbA/s98U735jT/qwwFvKWBCYPZ5BQdTmJO3KCyuBJH+tQnptiolog9abksG1WZk=
