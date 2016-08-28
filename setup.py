@@ -27,7 +27,8 @@ setup(
     "python-dateutil",
     "zsearch_definitions",
     "kafka-python",
-    "python-snappy"
+    "lz4tools",
+    "xxhash"
   ],
   package_data={"ztag":["devices/*",]},
   entry_points = {

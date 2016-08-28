@@ -176,10 +176,8 @@ class Kafka(Outgoing):
         else:
             raise Exception("invalid destination: %s" % destination)
         host = os.environ.get('KAFKA_BOOTSTRAP_HOST', 'localhost:9092')
-        self.main_producer = KafkaProducer(bootstrap_servers=host,
-                                    compression_type="snappy")
-        self.cert_producer = KafkaProducer(bootstrap_servers=host,
-                                    compression_type="snappy")
+        self.main_producer = KafkaProducer(bootstrap_servers=host)
+        self.cert_producer = KafkaProducer(bootstrap_servers=host)
 
     def take(self, pbout):
         for certificate in pbout.certificates:
