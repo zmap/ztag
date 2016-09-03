@@ -206,6 +206,7 @@ zgrab_parsed_certificate = SubRecord({
     "fingerprint_sha256":HexString(),
     "spki_subject_fingerprint":HexString(),
     "tbs_fingerprint":HexString(),
+    "tbs_noct_fingerprint":HexString(),
     #"names":ListOf(AnalyzedString(es_include_raw=True)),
     # ^^ This is currently excluded because of a bug in ZGrab which caused many
     # certificates to have a null names array instead of an empty array, which
