@@ -1,5 +1,4 @@
 from ztag.transform import ZGrabTransform, ZMapTransformOutput
-import https
 from ztag.transform import Transformable
 from ztag import protocols, errors
 
@@ -27,7 +26,7 @@ class IMAPStartTLSTransform(ZGrabTransform):
 
         try:
             tls_handshake = obj['data']['tls']
-            out, certificates = https.HTTPSTransform.make_tls_obj(tls_handshake)
+            out, certificates = tlsutil.make_tls_obj(tls_handshake)
             zout.transformed['tls'] = out
             zout.certificates = certificates
 
@@ -67,7 +66,7 @@ class IMAPSTransform(ZGrabTransform):
 
         try:
             tls_handshake = obj['data']['tls']
-            out, certificates = https.HTTPSTransform.make_tls_obj(tls_handshake)
+            out, certificates = tlsutil.make_tls_obj(tls_handshake)
             zout.transformed['tls'] = out
             zout.certificates = certificates
         except (TypeError, KeyError, IndexError):

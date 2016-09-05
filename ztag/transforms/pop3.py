@@ -1,8 +1,7 @@
 from ztag.transform import ZGrabTransform, ZMapTransformOutput
-import https
 from ztag.transform import Transformable
-
 from ztag import protocols, errors
+import tlsutil
 
 
 class POP3StartTLSTransform(ZGrabTransform):
@@ -26,7 +25,7 @@ class POP3StartTLSTransform(ZGrabTransform):
         zout = ZMapTransformOutput()
         try:
             tls_handshake = obj['data']['tls']
-            out, certificates = https.HTTPSTransform.make_tls_obj(tls_handshake)
+            out, certificates = tlsutil.make_tls_obj(tls_handshake)
             zout.transformed['tls'] = out
             zout.certificates = certificates
         except (TypeError, KeyError, IndexError):
@@ -66,7 +65,7 @@ class POP3STransform(ZGrabTransform):
         zout = ZMapTransformOutput()
         try:
             tls_handshake = obj['data']['tls']
-            out, certificates = https.HTTPSTransform.make_tls_obj(tls_handshake)
+            out, certificates = tlsutil.make_tls_obj(tls_handshake)
             zout.transformed['tls'] = out
             zout.certificates = certificates
         except (TypeError, KeyError, IndexError):

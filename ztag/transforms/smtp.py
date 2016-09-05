@@ -1,7 +1,7 @@
 from ztag.transform import ZGrabTransform, ZMapTransformOutput
 from ztag import protocols, errors
 from ztag.transform import Transformable
-import https
+import tlsutil
 
 
 class SMTPStartTLSTransform(ZGrabTransform):
@@ -28,7 +28,7 @@ class SMTPStartTLSTransform(ZGrabTransform):
         zout = ZMapTransformOutput()
         try:
             tls_handshake = obj['data']['tls']
-            out, certificates  = https.HTTPSTransform.make_tls_obj(tls_handshake)
+            out, certificates  = tlsutil.make_tls_obj(tls_handshake)
             zout.transformed['tls'] = out
             zout.certificates = certificates
         except (KeyError, TypeError, IndexError):
@@ -61,7 +61,7 @@ class SMTPSTransform(ZGrabTransform):
         tls_handshake = obj['log'][1]['data']
         banner = obj['log'][2]['banner']
         ehlo = obj['log'][3]['response']
-        out = https.HTTPSTransform.make_tls_obj(tls_handshake)
+        out = tlsutil.make_tls_obj(tls_handshake)
         out['banner'] = self.clean_banner(banner)
         out['ehlo'] = self.clean_banner(ehlo)
         out['ip_address'] = obj['host']
