@@ -38,11 +38,11 @@ unknown_extension = SubRecord({
 ztag_dh_params = SubRecord({
     "prime":SubRecord({
         "value":IndexedBinary(),
-        "length":Signed16BitInteger(),
+        "length":Unsigned16BitInteger(),
     }),
     "generator":SubRecord({
         "value":IndexedBinary(),
-        "length":Signed16BitInteger(),
+        "length":Unsigned16BitInteger(),
     }),
 })
 
@@ -59,9 +59,9 @@ ztag_dh = SubRecord({
 })
 
 ztag_rsa_params = SubRecord({
-   "exponent":Signed64BitInteger(),
+   "exponent":Unsigned64BitInteger(),
    "modulus":IndexedBinary(),
-   "length":Signed16BitInteger(),
+   "length":Unsigned16BitInteger(),
 })
 
 ztag_rsa_export = SubRecord({
@@ -88,7 +88,7 @@ zgrab_parsed_certificate = SubRecord({
     "subject_dn":CensysString(),
     "issuer":zgrab_subj_issuer,
     "issuer_dn":CensysString(),
-    "version":Signed8BitInteger(),
+    "version":Unsigned8BitInteger(),
     "serial_number":String(doc="Serial number as an unsigned decimal integer. "\
                                "Stored as string to support >uint lengths. "\
                                "Negative values are allowed."),
@@ -112,9 +112,9 @@ zgrab_parsed_certificate = SubRecord({
                              "This field is reserved and not current populated.")
          }),
         "rsa_public_key":SubRecord({
-            "exponent":Signed64BitInteger(),
+            "exponent":Unsigned64BitInteger(),
             "modulus":IndexedBinary(),
-            "length":Signed16BitInteger(doc="Bit-length of modulus.")
+            "length":Unsigned16BitInteger(doc="Bit-length of modulus.")
          }),
         "dsa_public_key":SubRecord({
             "p":IndexedBinary(),
@@ -143,7 +143,7 @@ zgrab_parsed_certificate = SubRecord({
             "crl_sign":Boolean(),
             "content_commitment":Boolean(),
             "key_encipherment":Boolean(),
-            "value":Signed16BitInteger(), # TODO: we should document this. I don't know what this is.
+            "value":Unsigned16BitInteger(), # TODO: we should document this. I don't know what this is.
             "data_encipherment":Boolean(),
             "key_agreement":Boolean(),
             "decipher_only":Boolean(),
@@ -151,7 +151,7 @@ zgrab_parsed_certificate = SubRecord({
         }),
         "basic_constraints":SubRecord({
             "is_ca":Boolean(),
-            "max_path_len":Signed64BitInteger(),
+            "max_path_len":Signed32BitInteger(),
         }),
         "subject_alt_name":SubRecord({
             "dns_names":ListOf(FQDN()),
@@ -190,7 +190,7 @@ zgrab_parsed_certificate = SubRecord({
             "excluded_directory_names":ListOf(zgrab_subj_issuer)
         }),
         "signed_certificate_timestamps":ListOf(SubRecord({
-            "version":Signed8BitInteger(),
+            "version":Unsigned8BitInteger(),
             "log_id":IndexedBinary(),
             "timestamp":DateTime(),
             "extensions":Binary(),
@@ -389,7 +389,7 @@ zgrab_http_headers = SubRecord({
 })
 
 ztag_http = SubRecord({
-    "status_code":Signed16BitInteger(),
+    "status_code":Unsigned16BitInteger(),
     "status_line":CensysString(),
     "body":HTML(),
     "headers":zgrab_http_headers,
@@ -446,7 +446,7 @@ ztag_telnet = SubRecord({
 
 ztag_modbus = SubRecord({
     "support":Boolean(),
-    "function_code":Signed32BitInteger(),
+    "function_code":Unsigned16BitInteger(),
     "mei_response":SubRecord({
       "conformity_level":Signed32BitInteger(),
       "objects":SubRecord({
@@ -630,9 +630,9 @@ zdb_location = SubRecord({
 })
 
 zdb_as = SubRecord({
-    "asn":Integer(),
+    "asn":Unsigned32BitInteger(),
     "description":CensysString(),
-    "path":ListOf(Signed64BitInteger()),
+    "path":ListOf(Unsigned64BitInteger()),
     "rir":String(),
     "routed_prefix":FQDN(),
     "name":CensysString(),
@@ -859,7 +859,7 @@ ipv4_host = Record({
             "ip":IPv4Address(required=True),
             "ipint":Long(required=True, doc="Integer value of IP address in host order"),
             "updated_at":DateTime(),
-            "zdb_version":Signed32BitInteger(),
+            "zdb_version":Unsigned32BitInteger(),
             "protocols":ListOf(CensysString())
 })
 
