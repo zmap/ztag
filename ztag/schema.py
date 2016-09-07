@@ -6,8 +6,9 @@ import zschema.registry
 from ztag.annotation import Annotation
 
 
-class CensysString(object):
-    pass
+class CensysString(StringContainingFQDN):
+    "default type for any strings in Censys"
+    INCLUDE_RAW = True
 
 
 __local_metadata = {}
@@ -29,7 +30,7 @@ zgrab_subj_issuer = SubRecord({
 })
 
 unknown_extension = SubRecord({
-    "id":String(),
+    "id":String(),  # TODO: Should this be OID?
     "critical":Boolean(),
     "value":IndexedBinary(),
 })
@@ -37,11 +38,11 @@ unknown_extension = SubRecord({
 ztag_dh_params = SubRecord({
     "prime":SubRecord({
         "value":IndexedBinary(),
-        "length":Integer(),
+        "length":Signed16BitInteger(),
     }),
     "generator":SubRecord({
         "value":IndexedBinary(),
-        "length":Integer(),
+        "length":Signed16BitInteger(),
     }),
 })
 
@@ -58,9 +59,9 @@ ztag_dh = SubRecord({
 })
 
 ztag_rsa_params = SubRecord({
-   "exponent":Long(),
+   "exponent":Signed64BitInteger(),
    "modulus":IndexedBinary(),
-   "length":Integer(),
+   "length":Signed16BitInteger(),
 })
 
 ztag_rsa_export = SubRecord({
@@ -72,7 +73,7 @@ ztag_rsa_export = SubRecord({
 ztag_ecdh_params = SubRecord({
     "curve_id":SubRecord({
         "name":String(),
-        "id":Integer(),
+        "id":Integer(), #TODO: should this be OID
     })
 })
 
@@ -87,14 +88,14 @@ zgrab_parsed_certificate = SubRecord({
     "subject_dn":CensysString(),
     "issuer":zgrab_subj_issuer,
     "issuer_dn":CensysString(),
-    "version":Integer(),
+    "version":Signed8BitInteger(),
     "serial_number":String(doc="Serial number as an unsigned decimal integer. "\
                                "Stored as string to support >uint lengths. "\
                                "Negative values are allowed."),
     "validity":SubRecord({
         "start":DateTime(doc="Timestamp of when certificate is first valid. Timezone is UTC."),
         "end":DateTime(doc="Timestamp of when certificate expires. Timezone is UTC."),
-        "length":Integer(),
+        "length":Signed32BitInteger(),
     }),
     "signature_algorithm":SubRecord({
         "name":String(),
@@ -111,9 +112,9 @@ zgrab_parsed_certificate = SubRecord({
                              "This field is reserved and not current populated.")
          }),
         "rsa_public_key":SubRecord({
-            "exponent":Long(),
+            "exponent":Signed64BitInteger(),
             "modulus":IndexedBinary(),
-            "length":Integer(doc="Bit-length of modulus.")
+            "length":Signed16BitInteger(doc="Bit-length of modulus.")
          }),
         "dsa_public_key":SubRecord({
             "p":IndexedBinary(),
@@ -142,7 +143,7 @@ zgrab_parsed_certificate = SubRecord({
             "crl_sign":Boolean(),
             "content_commitment":Boolean(),
             "key_encipherment":Boolean(),
-            "value":Integer(), # TODO: we should document this. I don't know what this is.
+            "value":Signed16BitInteger(), # TODO: we should document this. I don't know what this is.
             "data_encipherment":Boolean(),
             "key_agreement":Boolean(),
             "decipher_only":Boolean(),
@@ -150,7 +151,7 @@ zgrab_parsed_certificate = SubRecord({
         }),
         "basic_constraints":SubRecord({
             "is_ca":Boolean(),
-            "max_path_len":Integer(),
+            "max_path_len":Signed64BitInteger(),
         }),
         "subject_alt_name":SubRecord({
             "dns_names":ListOf(FQDN()),
@@ -158,11 +159,11 @@ zgrab_parsed_certificate = SubRecord({
             "ip_addresses":ListOf(IPAddress()),
             "directory_names":ListOf(zgrab_subj_issuer),
             "edi_party_names":ListOf(SubRecord({
-                "name_assigner":CensysString()
+                "name_assigner":CensysString(),
                 "party_name":CensysString(),
             })),
             "other_names":ListOf(SubRecord({
-                "id":String(),
+                "id":String(), # TODO: should this be OID?
                 "value":IndexedBinary(),
             })),
             "registered_ids":ListOf(String()),
@@ -171,7 +172,7 @@ zgrab_parsed_certificate = SubRecord({
         "crl_distribution_points":ListOf(String()),
         "authority_key_id":HexString(),
         "subject_key_id":HexString(),
-        "extended_key_usage":ListOf(Integer()),
+        "extended_key_usage":ListOf(Integer()), # TODO: what sized integer should this be?
         "certificate_policies":ListOf(CensysString()),
         "authority_info_access":SubRecord({
             "ocsp_urls":ListOf(URL()),
@@ -189,7 +190,7 @@ zgrab_parsed_certificate = SubRecord({
             "excluded_directory_names":ListOf(zgrab_subj_issuer)
         }),
         "signed_certificate_timestamps":ListOf(SubRecord({
-            "version":Integer(),
+            "version":Signed8BitInteger(),
             "log_id":IndexedBinary(),
             "timestamp":DateTime(),
             "extensions":Binary(),
@@ -219,11 +220,11 @@ zgrab_parsed_certificate = SubRecord({
     # prevents those records from being uploaded to Google BigQuery. This needs
     # to remain out of the schema until we re-process all of those records in zdb.
     # -- zakir / 2016-08-21
-    "validation_level":String(),
+    "validation_level":Enum(),
 })
 
 zgrab_certificate_trust = SubRecord({
-    "type":String(doc="root, intermediate, or leaf certificate"),
+    "type":Enum(doc="root, intermediate, or leaf certificate"),
     "trusted_path":Boolean(doc="Does certificate chain up to browser root store"),
     "valid":Boolean(doc="is this certificate currently valid in this browser"),
     "was_valid":Boolean(doc="was this certificate ever valid in this browser")
@@ -250,8 +251,8 @@ zgrab_server_certificate_valid = SubRecord({
 ztag_tls = SubRecord({
     "version":String(),
     "cipher_suite":SubRecord({
-        "id":String(),
-        "name":String(),
+        "id":String(), #TODO: should this be OID
+        "name":CensysString(), #TODO: does this meet our needs?
     }),
     "ocsp_stapling":Boolean(),
     "secure_renegotiation":Boolean(),
@@ -275,8 +276,8 @@ ztag_tls = SubRecord({
     "signature":SubRecord({
         "valid":Boolean(),
         "signature_error":CensyString(),
-        "signature_algorithm":String(), # prefer sig_and_hash, then fall back to proto-defined
-        "hash_algorithm":String(), # prefer sig_and_hash, then fall back to proto-defined
+        "signature_algorithm":CensysString(), # prefer sig_and_hash, then fall back to proto-defined | TODO: does this meet our needs?
+        "hash_algorithm":CensysString(), # prefer sig_and_hash, then fall back to proto-defined | TODO: does this meet our needs?
     }),
     "metadata":local_metadata
 })
@@ -288,7 +289,7 @@ ztag_sslv2 = SubRecord({
     "certificate": zgrab_certificate,
     "ciphers": ListOf(SubRecord({
         "name": String(),
-        "id": Integer(),
+        "id": Signed32BitInteger(),
     })),
     "metadata": local_metadata,
 })
@@ -352,7 +353,7 @@ zgrab_http_headers = SubRecord({
     "etag":CensysString(),
     "expires":CensysString(),
     "last_modified":CensysString(),
-    "link":,CensysString(),
+    "link":CensysString(),
     "location":CensysString(),
     "p3p":CensysString(),
     "pragma":CensysString(),
@@ -388,7 +389,7 @@ zgrab_http_headers = SubRecord({
 })
 
 ztag_http = SubRecord({
-    "status_code":Integer(),
+    "status_code":Signed16BitInteger(),
     "status_line":CensysString(),
     "body":HTML(),
     "headers":zgrab_http_headers,
@@ -397,29 +398,29 @@ ztag_http = SubRecord({
     "metadata":local_metadata
 })
 
-ztag_open_proxy = SubRecord({
-    "connect":SubRecord({
-      "status_code":Integer(),
-      "status_line":CensysString(),
-      "body":CensysString(),
-      "headers":zgrab_http_headers
-    }),
-    "get":SubRecord({
-      "status_code":Integer(),
-      "status_line":CensysString(),
-      "body":CensysString(),
-      "headers":zgrab_http_headers,
-      "random_present":Boolean(),
-      "body_sha256":HexString()
-    }),
-    "metadata":local_metadata
-})
+#ztag_open_proxy = SubRecord({
+#    "connect":SubRecord({
+#      "status_code":Integer(),
+#      "status_line":CensysString(),
+#      "body":CensysString(),
+#      "headers":zgrab_http_headers
+#    }),
+#    "get":SubRecord({
+#      "status_code":Integer(),
+#      "status_line":CensysString(),
+#      "body":CensysString(),
+#      "headers":zgrab_http_headers,
+#      "random_present":Boolean(),
+#      "body_sha256":HexString()
+#    }),
+#    "metadata":local_metadata
+#})
 
 ztag_ssh_banner = SubRecord({
-    "raw_banner": CensysString(),
-    "protocol_version": String(),
-    "software_version": String(),
-    "comment": String(),
+    "raw_banner":CensysString(),
+    "protocol_version":String(),
+    "software_version":String(),
+    "comment":CensysString(),
     "metadata":local_metadata
 })
 
@@ -445,14 +446,14 @@ ztag_telnet = SubRecord({
 
 ztag_modbus = SubRecord({
     "support":Boolean(),
-    "function_code":Integer(),
+    "function_code":Signed32BitInteger(),
     "mei_response":SubRecord({
-      "conformity_level":Integer(),
+      "conformity_level":Signed32BitInteger(),
       "objects":SubRecord({
         "vendor":CensysString(),
         "product_code":CensysString(),
         "revision":CensysString(),
-        "vendor_url":FQDN(),
+        "vendor_url":URL(),
         "product_name":CensysString(),
         "model_name":CensysString(),
         "user_application_name":CensysString(),
@@ -463,9 +464,9 @@ ztag_modbus = SubRecord({
 
 ztag_bacnet = SubRecord({
     "support":Boolean(),
-    "instance_number": Integer(),
+    "instance_number": Signed32BitInteger(),
     "vendor": SubRecord({
-        "id": Integer(),
+        "id": Signed32BitInteger(),
         "reported_name":CensysString(),
         "official_name":CensysString(),
     }),
@@ -478,14 +479,14 @@ ztag_bacnet = SubRecord({
 })
 
 ztag_dns_question = SubRecord({
-    "name":String(),
+    "name":String(), # TODO: should this be FQDN?
     "type":String()
 })
 
 
 ztag_dns_answer = SubRecord({
     "name":String(),
-    "response":CensysString(),
+    "response":CensysString(), #TODO: not 100% sure what we should do here
     "type":String()
 })
 
@@ -519,7 +520,7 @@ ztag_fox = SubRecord({
     "os_name":CensysString(),
     "os_version":CensysString(),
     "station_name":CensysString(),
-    "language":,CensysString(),
+    "language":CensysString(),
     "time_zone":CensysString(),
     "host_id":CensysString(),
     "vm_uuid":CensysString(),
@@ -570,7 +571,7 @@ ztag_schemas = [
     ("ztag_tls1", ztag_tls_support),
     ("ztag_tls2", ztag_tls_support),
     ("ztag_tls3", ztag_tls_support),
-    ("ztag_open_proxy", ztag_open_proxy),
+    #("ztag_open_proxy", ztag_open_proxy),
     ("ztag_modbus", ztag_modbus),
     ("ztag_extended_random", ztag_extended_random),
     ("ztag_ssh_banner", ztag_ssh_banner),
@@ -590,29 +591,24 @@ for (name, schema) in ztag_schemas:
     zschema.registry.register_schema("%s" % name, x)
 
 
-ztag_hackingteam = SubRecord({
-    "consistent":Boolean(),
-    "response":AnalyzedString(es_include_raw=True),
-})
-
 ztag_lookup_spf = SubRecord({
-    "raw":AnalyzedString(es_include_raw=True),
+    "raw":CensysString(),
 })
 
 ztag_lookup_dmarc = SubRecord({
-    "raw":AnalyzedString(es_include_raw=True),
+    "raw":CensysString(),
     "p":String(),
 })
 
 ztag_lookup_axfr = SubRecord({
     "servers":ListOf(SubRecord({
-        "name":AnalyzedString(es_include_raw=True),
+        "name":FQDN(),
         "support":Boolean(),
-        "error":AnalyzedString(es_include_raw=True),
+        "error":CensysString(),
         "records":ListOf(SubRecord({
-            "name":AnalyzedString(es_include_raw=True),
+            "name":FQDN(),
             "type":String(),
-            "data":AnalyzedString(es_include_raw=True),
+            "data":CensysString(),
         })),
     })),
     "truncated":Boolean(),
@@ -623,10 +619,10 @@ zdb_location = SubRecord({
     "continent":String(),
     "country":CensysString(),
     "country_code":String(),
-    "city":String(),
+    "city":CensysString(),
     "postal_code":String(),
-    "timezone":String(),
-    "province":CensysString()
+    "timezone":CensysString(),
+    "province":CensysString(),
     "latitude":Double(),
     "longitude":Double(),
     "registered_country":CensysString(),
@@ -636,9 +632,9 @@ zdb_location = SubRecord({
 zdb_as = SubRecord({
     "asn":Integer(),
     "description":CensysString(),
-    "path":ListOf(Integer()),
+    "path":ListOf(Signed64BitInteger()),
     "rir":String(),
-    "routed_prefix":String(),
+    "routed_prefix":FQDN(),
     "name":CensysString(),
     "country_code":String(),
     "organization":CensysString(),
@@ -752,7 +748,7 @@ cryptkey = Record({
 })
 
 
-host = Record({
+ipv4_host = Record({
             Port(443):SubRecord({
                 "https":SubRecord({
                     "tls":ztag_tls,
@@ -763,17 +759,14 @@ host = Record({
                     "ssl_2": ztag_sslv2,
                     "tls_1_1": ztag_tls_support,
                     "tls_1_2": ztag_tls_support,
-                    "tls_1_3": ztag_tls_support,
+                    #"tls_1_3": ztag_tls_support,
                     "ecdhe": ztag_ecdh,
-                    "open_proxy":ztag_open_proxy,
-                    "extended_random":ztag_extended_random,
+                    #"extended_random":ztag_extended_random,
                 })
             }),
             Port(80):SubRecord({
                 "http":SubRecord({
                     "get":ztag_http,
-                    "hackingteam":ztag_hackingteam, #TODO: zakir add private tag to schema
-                    "open_proxy":ztag_open_proxy
                 }),
             }),
             Port(25):SubRecord({
@@ -787,7 +780,7 @@ host = Record({
                     "banner":ztag_telnet
                 })
             }),
-            Port(21):SubRecord({ #TODO: we originally schema'ed FTP incorrectly. This will have to be commented out for elasticsearch.
+            Port(21):SubRecord({
                 "ftp":SubRecord({
                   "banner":ztag_ftp,
                 })
@@ -857,17 +850,17 @@ host = Record({
                     "status":ztag_dnp3,
                 })
             }),
-            "tags":ListOf(AnalyzedString(es_include_raw=True)),
+            "tags":ListOf(CensysString()),
             "metadata":zdb_metadata,
             "location":zdb_location,
             "__restricted_location":zdb_location,
             "autonomous_system":zdb_as,
-            "notes":EnglishString(es_include_raw=True),
+            "notes":CensysString(),
             "ip":IPv4Address(required=True),
             "ipint":Long(required=True, doc="Integer value of IP address in host order"),
             "updated_at":DateTime(),
-            "zdb_version":Integer(),
-            "protocols":ListOf(String())
+            "zdb_version":Signed32BitInteger(),
+            "protocols":ListOf(CensysString())
 })
 
 website = Record({
@@ -915,5 +908,5 @@ website = Record({
 
 DROP_KEYS = {'ip_address', 'metadata', 'tags', 'timestamp'}
 
-zschema.registry.register_schema("host", host)
+zschema.registry.register_schema("ipv4host", host)
 zschema.registry.register_schema("website", website)
