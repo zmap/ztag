@@ -214,7 +214,7 @@ zgrab_parsed_certificate = SubRecord({
     "spki_subject_fingerprint":HexString(),
     "tbs_fingerprint":HexString(),
     "tbs_noct_fingerprint":HexString(),
-    #"names":ListOf(FQDN()),
+    "names":ListOf(FQDN()),
     # ^^ TODO This is currently excluded because of a bug in ZGrab which caused many
     # certificates to have a null names array instead of an empty array, which
     # prevents those records from being uploaded to Google BigQuery. This needs
