@@ -98,7 +98,7 @@ zgrab_parsed_certificate = SubRecord({
     }),
     "signature_algorithm":SubRecord({
         "name":String(),
-        "oid":String(),
+        "oid":OID(),
     }),
     "subject_key_info":SubRecord({
         "fingerprint_sha256":HexString(),
@@ -106,7 +106,7 @@ zgrab_parsed_certificate = SubRecord({
             "name":String(doc="Name of public key type, e.g., RSA or ECDSA. "\
                               "More information is available the named SubRecord"\
                               " (e.g., rsa_public_key)."),
-            "oid":String(doc="OID of the public key on the certificate. "\
+            "oid":OID(doc="OID of the public key on the certificate. "\
                              "This is helpful when an unknown type is present. "\
                              "This field is reserved and not current populated.")
          }),
@@ -212,6 +212,7 @@ zgrab_parsed_certificate = SubRecord({
     "fingerprint_sha256":HexString(),
     "spki_subject_fingerprint":HexString(),
     "tbs_fingerprint":HexString(),
+    "tbs_noct_fingerprint":HexString(),
     #"names":ListOf(FQDN()),
     # ^^ TODO This is currently excluded because of a bug in ZGrab which caused many
     # certificates to have a null names array instead of an empty array, which
