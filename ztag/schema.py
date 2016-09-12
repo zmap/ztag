@@ -35,6 +35,23 @@ unknown_extension = SubRecord({
     "value":IndexedBinary(),
 })
 
+alternate_name = SubRecord({
+    "dns_names":ListOf(AnalyzedString()),
+    "email_addresses":ListOf(String()),
+    "ip_addresses":ListOf(String()),
+    "directory_names":ListOf(zgrab_subj_issuer),
+    "edi_party_names":ListOf(SubRecord({
+        "name_assigner":AnalyzedString(es_include_raw=True),
+        "party_name":AnalyzedString(es_include_raw=True),
+    })),
+    "other_names":ListOf(SubRecord({
+        "id":String(),
+        "value":IndexedBinary(),
+    })),
+    "registered_ids":ListOf(String()),
+    "uniform_resource_identifiers":ListOf(AnalyzedString(es_include_raw=True)),
+})
+
 ztag_dh_params = SubRecord({
     "prime":SubRecord({
         "value":IndexedBinary(),
@@ -153,22 +170,8 @@ zgrab_parsed_certificate = SubRecord({
             "is_ca":Boolean(),
             "max_path_len":Signed32BitInteger(),
         }),
-        "subject_alt_name":SubRecord({
-            "dns_names":ListOf(FQDN()),
-            "email_addresses":ListOf(EmailAddress()),
-            "ip_addresses":ListOf(IPAddress()),
-            "directory_names":ListOf(zgrab_subj_issuer),
-            "edi_party_names":ListOf(SubRecord({
-                "name_assigner":CensysString(),
-                "party_name":CensysString(),
-            })),
-            "other_names":ListOf(SubRecord({
-                "id":String(), # TODO: should this be OID?
-                "value":IndexedBinary(),
-            })),
-            "registered_ids":ListOf(String()),
-            "uniform_resource_identifiers":ListOf(URI()),
-        }),
+        "subject_alt_name":alternate_name,
+        "issuer_alt_name":alternate_name,
         "crl_distribution_points":ListOf(String()),
         "authority_key_id":HexString(),
         "subject_key_id":HexString(),
