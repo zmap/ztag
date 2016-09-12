@@ -6,7 +6,7 @@ import zschema.registry
 from ztag.annotation import Annotation
 
 
-class CensysString(StringContainingFQDN):
+class CensysString(WhitespaceAnalyzedString):
     "default type for any strings in Censys"
     INCLUDE_RAW = True
 
@@ -360,7 +360,7 @@ zgrab_http_headers = SubRecord({
     "proxy_authenticate":CensysString(),
     "public_key_pins":CensysString(),
     "refresh":CensysString(),
-    #"referer":AnalyzedString(es_include_raw=True), // TODO: Why is this commented out?
+    #"referer":CensysString(), // TODO: Why is this commented out?
     "retry_after":CensysString(),
     "server":CensysString(),
     "set_cookie":CensysString(),
@@ -643,7 +643,7 @@ zdb_as = SubRecord({
 
 __metadata = {}
 for key in Annotation.GLOBAL_METADATA_KEYS:
-    __metadata[key] = AnalyzedString(es_include_raw=True)
+    __metadata[key] = CensysString()
 zdb_metadata = SubRecord(__metadata)
 
 CTServerStatus = SubRecord({
@@ -712,7 +712,7 @@ certificate = Record({
     "updated_at":DateTime(),
     "parsed":zgrab_parsed_certificate,
     "raw":Binary(),
-    "tags":ListOf(AnalyzedString(es_include_raw=True)),
+    "tags":ListOf(CensysString()),
     "metadata":zdb_metadata,
     "parents":ListOf(String()),
     "validation_timestamp":DateTime(),
