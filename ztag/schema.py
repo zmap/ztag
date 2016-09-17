@@ -654,6 +654,7 @@ CTServerStatus = SubRecord({
     "added_to_ct_at":DateTime(),
     "ct_to_censys_at":DateTime(),
     "censys_to_ct_at":DateTime(),
+    "sct":Binary()
 })
 
 CTStatus = SubRecord({
