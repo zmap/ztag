@@ -667,6 +667,8 @@ CTStatus = SubRecord({
     "google_rocketeer":CTServerStatus,
     "google_submariner":CTServerStatus,
     "google_testtube":CTServerStatus,
+    "google_skydiver":CTServerStatus,
+    "google_icarus":CTServerStatus,
 
     "digicert_ct1":CTServerStatus,
     "izenpe_com_ct":CTServerStatus,
