@@ -258,8 +258,8 @@ zgrab_server_certificate_valid = SubRecord({
 ztag_tls = SubRecord({
     "version":String(),
     "cipher_suite":SubRecord({
-        "id":String(), #TODO: should this be OID
-        "name":CensysString(), #TODO: does this meet our needs?
+        "id":String(),
+        "name":CensysString(),
     }),
     "ocsp_stapling":Boolean(),
     "secure_renegotiation":Boolean(),
