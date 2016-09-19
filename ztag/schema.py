@@ -66,13 +66,15 @@ ztag_dh_params = SubRecord({
 ztag_dh_export = SubRecord({
     "dh_params":ztag_dh_params,
     "support": Boolean(),
-    "metadata":local_metadata
+    "metadata":local_metadata,
+    "timestamp":DateTime(),
 })
 
 ztag_dh = SubRecord({
     "dh_params":ztag_dh_params,
     "support": Boolean(),
-    "metadata":local_metadata
+    "metadata":local_metadata,
+    "timestamp":DateTime(),
 })
 
 ztag_rsa_params = SubRecord({
@@ -84,7 +86,8 @@ ztag_rsa_params = SubRecord({
 ztag_rsa_export = SubRecord({
     "rsa_params":ztag_rsa_params,
     "support": Boolean(),
-    "metadata":local_metadata
+    "metadata":local_metadata,
+    "timestamp":DateTime(),
 })
 
 ztag_ecdh_params = SubRecord({
@@ -97,7 +100,8 @@ ztag_ecdh_params = SubRecord({
 ztag_ecdh = SubRecord({
     "ecdh_params":ztag_ecdh_params,
     "support": Boolean(),
-    "metadata":local_metadata
+    "metadata":local_metadata,
+    "timestamp":DateTime(),
 })
 
 zgrab_parsed_certificate = SubRecord({
@@ -282,7 +286,8 @@ ztag_tls = SubRecord({
         "signature_algorithm":CensysString(), # prefer sig_and_hash, then fall back to proto-defined | TODO: does this meet our needs?
         "hash_algorithm":CensysString(), # prefer sig_and_hash, then fall back to proto-defined | TODO: does this meet our needs?
     }),
-    "metadata":local_metadata
+    "metadata":local_metadata,
+    "timestamp":DateTime(),
 })
 
 ztag_sslv2 = SubRecord({
@@ -295,17 +300,20 @@ ztag_sslv2 = SubRecord({
         "id": Signed32BitInteger(),
     })),
     "metadata": local_metadata,
+    "timestamp":DateTime(),
 })
 
 ztag_heartbleed = SubRecord({
     "heartbeat_enabled":Boolean(),
     "heartbleed_vulnerable":Boolean(),
-    "metadata":local_metadata
+    "metadata":local_metadata,
+    "timestamp":DateTime(),
 })
 
 ztag_extended_random = SubRecord({
     "extended_random_support": Boolean(),
-    "metadata":local_metadata
+    "metadata":local_metadata,
+    "timestamp":DateTime(),
 })
 
 ztag_smtp_starttls = SubRecord({
@@ -313,20 +321,23 @@ ztag_smtp_starttls = SubRecord({
     "ehlo": CensysString(),
     "starttls": CensysString(),
     "tls": ztag_tls,
-    "metadata":local_metadata
+    "metadata":local_metadata,
+    "timestamp":DateTime(),
 })
 
 ztag_mail_starttls = SubRecord({
     "banner": CensysString(),
     "starttls": CensysString(),
     "tls": ztag_tls,
-    "metadata":local_metadata
+    "metadata":local_metadata,
+    "timestamp":DateTime(),
 })
 
 ztag_mail_tls = SubRecord({
     "tls":ztag_tls,
     "banner": CensysString(),
-    "metadata":local_metadata
+    "metadata":local_metadata,
+    "timestamp":DateTime(),
 })
 
 zgrab_unknown_http_header = SubRecord({
@@ -398,7 +409,8 @@ ztag_http = SubRecord({
     "headers":zgrab_http_headers,
     "body_sha256":HexString(),
     "title":CensysString(),
-    "metadata":local_metadata
+    "metadata":local_metadata,
+    "timestamp":DateTime(),
 })
 
 #ztag_open_proxy = SubRecord({
@@ -424,12 +436,14 @@ ztag_ssh_banner = SubRecord({
     "protocol_version":String(),
     "software_version":String(),
     "comment":CensysString(),
-    "metadata":local_metadata
+    "metadata":local_metadata,
+    "timestamp":DateTime(),
 })
 
 ztag_ftp = SubRecord({
     "banner":CensysString(),
-    "metadata":local_metadata
+    "metadata":local_metadata,
+    "timestamp":DateTime(),
 })
 
 telnet_caps_list = ListOf(SubRecord({
@@ -444,7 +458,8 @@ ztag_telnet = SubRecord({
     "wont":telnet_caps_list,
     "do":telnet_caps_list,
     "dont":telnet_caps_list,
-    "metadata":local_metadata
+    "metadata":local_metadata,
+    "timestamp":DateTime(),
 })
 
 ztag_modbus = SubRecord({
@@ -462,7 +477,8 @@ ztag_modbus = SubRecord({
         "user_application_name":CensysString(),
       })
     }),
-    "metadata":local_metadata
+    "metadata":local_metadata,
+    "timestamp":DateTime(),
 })
 
 ztag_bacnet = SubRecord({
@@ -479,6 +495,8 @@ ztag_bacnet = SubRecord({
     "model_name":CensysString(),
     "description":CensysString(),
     "location":CensysString(),
+    "metadata":local_metadata,
+    "timestamp":DateTime(),
 })
 
 ztag_dns_question = SubRecord({
@@ -502,12 +520,14 @@ ztag_dns_lookup = SubRecord({
     "authorities":ListOf(ztag_dns_answer),
     "additionals":ListOf(ztag_dns_answer),
     "questions":ListOf(ztag_dns_question),
-    "metadata":local_metadata
+    "metadata":local_metadata,
+    "timestamp":DateTime(),
 })
 
 ztag_tls_support = SubRecord({
     "support": Boolean(),
-    "metadata":local_metadata
+    "metadata":local_metadata,
+    "timestamp":DateTime(),
 })
 
 ztag_fox = SubRecord({
@@ -529,12 +549,16 @@ ztag_fox = SubRecord({
     "vm_uuid":CensysString(),
     "brand_id":CensysString(),
     "sys_info":CensysString(),
-    "auth_agent_type":String()
+    "auth_agent_type":String(),
+    "metadata":local_metadata,
+    "timestamp":DateTime(),
 })
 
 ztag_dnp3 = SubRecord({
     "support":Boolean(),
-    "raw_response":Binary()
+    "raw_response":Binary(),
+    "metadata":local_metadata,
+    "timestamp":DateTime(),
 })
 
 ztag_s7 = SubRecord({
@@ -553,6 +577,9 @@ ztag_s7 = SubRecord({
     "module_id":CensysString(),
     "hardware":CensysString(),
     "firmware":CensysString(),
+    "metadata":local_metadata,
+    "timestamp":DateTime(),
+
 })
 
 ztag_schemas = [
