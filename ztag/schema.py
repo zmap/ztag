@@ -78,7 +78,7 @@ ztag_dh = SubRecord({
 })
 
 ztag_rsa_params = SubRecord({
-   "exponent":Unsigned64BitInteger(),
+   "exponent":Unsigned32BitInteger(),
    "modulus":IndexedBinary(),
    "length":Unsigned16BitInteger(),
 })
@@ -133,7 +133,7 @@ zgrab_parsed_certificate = SubRecord({
                              "This field is reserved and not current populated.")
          }),
         "rsa_public_key":SubRecord({
-            "exponent":Unsigned64BitInteger(),
+            "exponent":Unsigned32BitInteger(),
             "modulus":IndexedBinary(),
             "length":Unsigned16BitInteger(doc="Bit-length of modulus.")
          }),
@@ -662,7 +662,7 @@ zdb_location = SubRecord({
 zdb_as = SubRecord({
     "asn":Unsigned32BitInteger(),
     "description":CensysString(),
-    "path":ListOf(Unsigned64BitInteger()),
+    "path":ListOf(Unsigned32BitInteger()),
     "rir":String(),
     "routed_prefix":FQDN(),
     "name":CensysString(),
