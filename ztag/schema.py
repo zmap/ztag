@@ -297,7 +297,7 @@ ztag_sslv2 = SubRecord({
     "certificate": zgrab_certificate,
     "ciphers": ListOf(SubRecord({
         "name": String(),
-        "id": Signed32BitInteger(),
+        "id": Unsigned32BitInteger(),
     })),
     "metadata": local_metadata,
     "timestamp":DateTime(),
