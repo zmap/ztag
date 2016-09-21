@@ -30,7 +30,7 @@ zgrab_subj_issuer = SubRecord({
 })
 
 unknown_extension = SubRecord({
-    "id":String(),  # TODO: Should this be OID?
+    "id":OID(),
     "critical":Boolean(),
     "value":IndexedBinary(),
 })
@@ -93,7 +93,7 @@ ztag_rsa_export = SubRecord({
 ztag_ecdh_params = SubRecord({
     "curve_id":SubRecord({
         "name":String(),
-        "id":Integer(), #TODO: should this be OID
+        "id":Unsigned16BitInteger(),
     })
 })
 
@@ -179,7 +179,7 @@ zgrab_parsed_certificate = SubRecord({
         "crl_distribution_points":ListOf(String()),
         "authority_key_id":HexString(),
         "subject_key_id":HexString(),
-        "extended_key_usage":ListOf(Integer()), # TODO: what sized integer should this be?
+        "extended_key_usage":ListOf(Signed32BitInteger()), # TODO: what sized integer should this be?
         "certificate_policies":ListOf(CensysString()),
         "authority_info_access":SubRecord({
             "ocsp_urls":ListOf(URL()),
@@ -188,12 +188,12 @@ zgrab_parsed_certificate = SubRecord({
         "name_constraints":SubRecord({
             "critical":Boolean(),
             "permitted_names":ListOf(FQDN()),
-            "permitted_email_addresses":ListOf(Email()),
+            "permitted_email_addresses":ListOf(CensysString()),
             "permitted_ip_addresses":ListOf(IPAddress()),
             "permitted_directory_names":ListOf(zgrab_subj_issuer),
             "excluded_names":ListOf(FQDN()),
-            "excluded_email_addresses":ListOf(Email()),
-            "excluded_ip_addresses":ListOf(IPAddress()),
+            "excluded_email_addresses":ListOf(CensysString()),
+            "excluded_ip_addresses":ListOf(CensysString()),
             "excluded_directory_names":ListOf(zgrab_subj_issuer)
         }),
         "signed_certificate_timestamps":ListOf(SubRecord({
@@ -211,7 +211,7 @@ zgrab_parsed_certificate = SubRecord({
             "name":String(),
             "oid":OID(),
         }),
-        "value":Binary(),
+        "value":IndexedBinary(),
         "valid":Boolean(),
         "self_signed":Boolean(),
     }),
@@ -282,7 +282,7 @@ ztag_tls = SubRecord({
     }),
     "signature":SubRecord({
         "valid":Boolean(),
-        "signature_error":CensyString(),
+        "signature_error":CensysString(),
         "signature_algorithm":CensysString(), # prefer sig_and_hash, then fall back to proto-defined | TODO: does this meet our needs?
         "hash_algorithm":CensysString(), # prefer sig_and_hash, then fall back to proto-defined | TODO: does this meet our needs?
     }),
@@ -448,7 +448,7 @@ ztag_ftp = SubRecord({
 
 telnet_caps_list = ListOf(SubRecord({
     "name":String(),
-    "value":Integer()
+    "value":Unsigned32BitInteger()
 }))
 
 ztag_telnet = SubRecord({
@@ -500,14 +500,14 @@ ztag_bacnet = SubRecord({
 })
 
 ztag_dns_question = SubRecord({
-    "name":String(), # TODO: should this be FQDN?
+    "name":String(),
     "type":String()
 })
 
 
 ztag_dns_answer = SubRecord({
     "name":String(),
-    "response":CensysString(), #TODO: not 100% sure what we should do here
+    "response":CensysString(),
     "type":String()
 })
 
@@ -533,7 +533,7 @@ ztag_tls_support = SubRecord({
 ztag_fox = SubRecord({
     "support":Boolean(),
     "version":CensysString(),
-    "id":Integer(),
+    "id":Signed32BitInteger(),
     "hostname":CensysString(),
     "host_address":CensysString(),
     "app_name":CensysString(),
@@ -579,7 +579,6 @@ ztag_s7 = SubRecord({
     "firmware":CensysString(),
     "metadata":local_metadata,
     "timestamp":DateTime(),
-
 })
 
 ztag_schemas = [
@@ -614,7 +613,7 @@ ztag_schemas = [
 for (name, schema) in ztag_schemas:
     x = Record({
         "ip_address":IPv4Address(required=True),
-        "timestamp":DateTime(required=True),
+        #"timestamp":DateTime(required=True),
         "tags":ListOf(String()),
         "metadata": SubRecord({}, allow_unknown=True),
     }, extends=schema)
@@ -941,5 +940,5 @@ website = Record({
 
 DROP_KEYS = {'ip_address', 'metadata', 'tags', 'timestamp'}
 
-zschema.registry.register_schema("ipv4host", host)
+zschema.registry.register_schema("ipv4host", ipv4_host)
 zschema.registry.register_schema("website", website)
