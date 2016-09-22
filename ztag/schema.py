@@ -189,7 +189,7 @@ zgrab_parsed_certificate = SubRecord({
             "critical":Boolean(),
             "permitted_names":ListOf(FQDN()),
             "permitted_email_addresses":ListOf(CensysString()),
-            "permitted_ip_addresses":ListOf(IPAddress()),
+            "permitted_ip_addresses":ListOf(CensysString()),
             "permitted_directory_names":ListOf(zgrab_subj_issuer),
             "excluded_names":ListOf(FQDN()),
             "excluded_email_addresses":ListOf(CensysString()),
