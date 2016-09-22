@@ -116,7 +116,7 @@ zgrab_parsed_certificate = SubRecord({
     "validity":SubRecord({
         "start":DateTime(doc="Timestamp of when certificate is first valid. Timezone is UTC."),
         "end":DateTime(doc="Timestamp of when certificate expires. Timezone is UTC."),
-        "length":Signed32BitInteger(),
+        "length":Signed64BitInteger(),
     }),
     "signature_algorithm":SubRecord({
         "name":String(),
