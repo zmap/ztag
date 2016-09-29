@@ -882,6 +882,12 @@ ipv4_host = Record({
                     "status":ztag_dnp3,
                 })
             }),
+            Port(7547):SubRecord({
+                "cwmp":SubRecord({
+                    "get":ztag_http,
+                })
+            }),
+
             "tags":ListOf(CensysString()),
             "metadata":zdb_metadata,
             "location":zdb_location,
