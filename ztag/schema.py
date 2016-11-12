@@ -680,7 +680,7 @@ CTServerStatus = SubRecord({
     "added_to_ct_at":DateTime(),
     "ct_to_censys_at":DateTime(),
     "censys_to_ct_at":DateTime(),
-    "sct":Binary()
+    "sct":Binary(),
 })
 
 CTStatus = SubRecord({
@@ -696,6 +696,9 @@ CTStatus = SubRecord({
     "google_skydiver":CTServerStatus,
     "google_icarus":CTServerStatus,
 
+    "comodo_dodo":CTServerStatus,
+    "comodo_mammoth":CTServerStatus,
+
     "digicert_ct1":CTServerStatus,
     "izenpe_com_ct":CTServerStatus,
     "izenpe_eus_ct":CTServerStatus,
@@ -705,11 +708,12 @@ CTStatus = SubRecord({
     "wosign_ct":CTServerStatus,
     "cnnic_ctserver":CTServerStatus,
     "gdca_ct":CTServerStatus,
+    "gdca_ctlog":CTServerStatus,
     "startssl_ct":CTServerStatus,
     "certly_log":CTServerStatus,
     "venafi_api_ctlog":CTServerStatus,
     "symantec_ws_deneb":CTServerStatus,
-    "nordu_ct_plausible":CTServerStatus
+    "nordu_ct_plausible":CTServerStatus,
 })
 
 CertificateAudit = SubRecord({
