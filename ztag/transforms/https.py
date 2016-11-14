@@ -47,6 +47,16 @@ class HTTPSTransform(ZGrabTransform):
         if version is not None:
             out['version'] = version
 
+        session_ticket_len = wrapped['session_ticket']['length'].resolve()
+        session_ticket_hint = wrapped['session_ticket']['lifetime_hint'].resolve()
+
+        if session_ticket_len is not None or session_ticket_hint is not None:
+            out['session_ticket'] = dict()
+        if session_ticket_len is not None:
+            out['session_ticket']['length'] = session_ticket_len
+        if session_ticket_hint is not None:
+            out['session_ticket']['lifetime_hint'] = session_ticket_hint
+
         cipher_id = cipher_suite['hex'].resolve()
         cipher_name = cipher_suite['name'].resolve()
         ocsp_stapling = hello['ocsp_stapling'].resolve()
