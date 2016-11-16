@@ -886,11 +886,11 @@ ipv4_host = Record({
                     "status":ztag_dnp3,
                 })
             }),
-            Port(7547):SubRecord({
-                "cwmp":SubRecord({
-                    "get":ztag_http,
-                })
-            }),
+            #Port(7547):SubRecord({			# This is commented out such that BigQuery loads will work.
+            #    "cwmp":SubRecord({			# CWMP scanner is currently producing lists here instead of strings
+            #        "get":ztag_http,
+            #    })
+            #}),
 
             "tags":ListOf(CensysString()),
             "metadata":zdb_metadata,
