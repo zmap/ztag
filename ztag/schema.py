@@ -695,6 +695,7 @@ CTStatus = SubRecord({
     "google_testtube":CTServerStatus,
     "google_skydiver":CTServerStatus,
     "google_icarus":CTServerStatus,
+    "google_daedalus":CTServerStatus,
 
     "comodo_dodo":CTServerStatus,
     "comodo_mammoth":CTServerStatus,
@@ -886,8 +887,8 @@ ipv4_host = Record({
                     "status":ztag_dnp3,
                 })
             }),
-            #Port(7547):SubRecord({			# This is commented out such that BigQuery loads will work.
-            #    "cwmp":SubRecord({			# CWMP scanner is currently producing lists here instead of strings
+            #Port(7547):SubRecord({         # This is commented out such that BigQuery loads will work.
+            #    "cwmp":SubRecord({         # CWMP scanner is currently producing lists here instead of strings
             #        "get":ztag_http,
             #    })
             #}),
