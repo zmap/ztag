@@ -47,12 +47,13 @@ class HTTPSTransform(ZGrabTransform):
         if version is not None:
             out['version'] = version
 
-        if "scts" in hello and hello["scts"]:
+        scts = hello["scts"].resolve()
+        if scts:
             out["scts"] = [{
                     "log_id":sct["parsed"]["log_id"],
                     "timestamp":sct["parsed"]["timestamp"],
-                    "signature":sct["parsed"]["signature"]
-                } for sct in hello["scts"]]
+                    "signature":sct["parsed"]["signature"],
+                } for sct in scts]
 
 
         cipher_id = cipher_suite['hex'].resolve()
