@@ -104,6 +104,13 @@ ztag_ecdh = SubRecord({
     "timestamp":DateTime(),
 })
 
+ztag_sct = SubRecord({
+    "version":Unsigned16BitInteger(),
+    "log_id":IndexedBinary(),
+    "timestamp":Signed64BitInteger(),
+    "signature":Binary(),
+})
+
 zgrab_parsed_certificate = SubRecord({
     "subject":zgrab_subj_issuer,
     "subject_dn":CensysString(),
@@ -222,11 +229,6 @@ zgrab_parsed_certificate = SubRecord({
     "tbs_fingerprint":HexString(),
     "tbs_noct_fingerprint":HexString(),
     "names":ListOf(FQDN()),
-    # ^^ TODO This is currently excluded because of a bug in ZGrab which caused many
-    # certificates to have a null names array instead of an empty array, which
-    # prevents those records from being uploaded to Google BigQuery. This needs
-    # to remain out of the schema until we re-process all of those records in zdb.
-    # -- zakir / 2016-08-21
     "validation_level":Enum(),
 })
 
@@ -265,6 +267,7 @@ ztag_tls = SubRecord({
     "secure_renegotiation":Boolean(),
     "certificate":zgrab_certificate,
     "chain":ListOf(zgrab_certificate),
+    "scts":ListOf(ztag_sct),
     "validation":SubRecord({
         "matches_domain":Boolean(),
         "stores":SubRecord({
