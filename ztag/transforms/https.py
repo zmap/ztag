@@ -50,7 +50,7 @@ class HTTPSTransform(ZGrabTransform):
         if "scts" in hello and hello["scts"]:
             out["scts"] = [{
                     "log_id":sct["parsed"]["log_id"],
-                    "timestamp":sct["parsed"]["timestamp"],
+                    "timestamp":sct["parsed"]["timestamp"]/1000,
                     "signature":sct["parsed"]["signature"]
                 } for sct in hello["scts"]]
 
