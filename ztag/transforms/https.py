@@ -47,7 +47,7 @@ class HTTPSTransform(ZGrabTransform):
         if version is not None:
             out['version'] = version
 
-        if hello["scts"]:
+        if "scts" in hello and hello["scts"]:
             out["scts"] = [{
                     "log_id":sct["parsed"]["log_id"],
                     "timestamp":sct["parsed"]["timestamp"],
