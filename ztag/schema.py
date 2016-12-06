@@ -105,10 +105,11 @@ ztag_ecdh = SubRecord({
 })
 
 ztag_sct = SubRecord({
-    "version":Unsigned16BitInteger(),
+    "version":Unsigned8BitInteger(),
     "log_id":IndexedBinary(),
-    "timestamp":Signed64BitInteger(),
+    "timestamp":DateTime(),
     "signature":Binary(),
+    "extensions":Binary(),
 })
 
 zgrab_parsed_certificate = SubRecord({
@@ -203,13 +204,7 @@ zgrab_parsed_certificate = SubRecord({
             "excluded_ip_addresses":ListOf(CensysString()),
             "excluded_directory_names":ListOf(zgrab_subj_issuer)
         }),
-        "signed_certificate_timestamps":ListOf(SubRecord({
-            "version":Unsigned8BitInteger(),
-            "log_id":IndexedBinary(),
-            "timestamp":DateTime(),
-            "extensions":Binary(),
-            "signature":Binary()
-        })),
+        "signed_certificate_timestamps":ListOf(ztag_sct),
         "ct_poison":Boolean()
     }),
     "unknown_extensions":ListOf(unknown_extension),
