@@ -52,7 +52,7 @@ class HTTPSTransform(ZGrabTransform):
             out["scts"] = [{
                     "log_id":sct["parsed"]["log_id"],
                     "timestamp":sct["parsed"]["timestamp"]/1000,
-                    "signature":sct["parsed"]["signature"]
+                    "signature":sct["parsed"]["signature"],
                     "version":sct["parsed"]["version"]
                 } for sct in scts]
 
