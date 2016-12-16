@@ -160,6 +160,8 @@ zgrab_parsed_certificate = SubRecord({
             "x":IndexedBinary(),
             "y":IndexedBinary(),
             "pub":Binary(),
+            "curve":Enum(),
+            "length":Unsigned16BitInteger(),
             #"asn1_oid":OID(), # TODO: this is currently commented out
             # because for a bunch of certificates, this was encoded as [1, 2,
             # 840, 113549, 1, 1, 12] not 1.2.840.113549.1.1.12
@@ -225,6 +227,7 @@ zgrab_parsed_certificate = SubRecord({
     "tbs_noct_fingerprint":HexString(),
     "names":ListOf(FQDN()),
     "validation_level":Enum(),
+    "redacted":Boolean(),
 })
 
 zgrab_certificate_trust = SubRecord({
