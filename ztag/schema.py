@@ -266,6 +266,10 @@ ztag_tls = SubRecord({
     "certificate":zgrab_certificate,
     "chain":ListOf(zgrab_certificate),
     "scts":ListOf(ztag_sct),
+    "session_ticket":SubRecord({
+        "length":Unsigned32BitInteger(),
+        "lifetime_hint":Unsigned32BitInteger(),
+    }),
     "validation":SubRecord({
         "matches_domain":Boolean(),
         "stores":SubRecord({
