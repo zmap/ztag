@@ -104,6 +104,14 @@ ztag_ecdh = SubRecord({
     "timestamp":DateTime(),
 })
 
+ztag_sct = SubRecord({
+    "version":Unsigned8BitInteger(),
+    "log_id":IndexedBinary(),
+    "timestamp":DateTime(),
+    "signature":Binary(),
+    "extensions":Binary(),
+})
+
 zgrab_parsed_certificate = SubRecord({
     "subject":zgrab_subj_issuer,
     "subject_dn":CensysString(),
@@ -152,6 +160,8 @@ zgrab_parsed_certificate = SubRecord({
             "x":IndexedBinary(),
             "y":IndexedBinary(),
             "pub":Binary(),
+            "curve":Enum(),
+            "length":Unsigned16BitInteger(),
             #"asn1_oid":OID(), # TODO: this is currently commented out
             # because for a bunch of certificates, this was encoded as [1, 2,
             # 840, 113549, 1, 1, 12] not 1.2.840.113549.1.1.12
@@ -196,13 +206,7 @@ zgrab_parsed_certificate = SubRecord({
             "excluded_ip_addresses":ListOf(CensysString()),
             "excluded_directory_names":ListOf(zgrab_subj_issuer)
         }),
-        "signed_certificate_timestamps":ListOf(SubRecord({
-            "version":Unsigned8BitInteger(),
-            "log_id":IndexedBinary(),
-            "timestamp":DateTime(),
-            "extensions":Binary(),
-            "signature":Binary()
-        })),
+        "signed_certificate_timestamps":ListOf(ztag_sct),
         "ct_poison":Boolean()
     }),
     "unknown_extensions":ListOf(unknown_extension),
@@ -222,12 +226,8 @@ zgrab_parsed_certificate = SubRecord({
     "tbs_fingerprint":HexString(),
     "tbs_noct_fingerprint":HexString(),
     "names":ListOf(FQDN()),
-    # ^^ TODO This is currently excluded because of a bug in ZGrab which caused many
-    # certificates to have a null names array instead of an empty array, which
-    # prevents those records from being uploaded to Google BigQuery. This needs
-    # to remain out of the schema until we re-process all of those records in zdb.
-    # -- zakir / 2016-08-21
     "validation_level":Enum(),
+    "redacted":Boolean(),
 })
 
 zgrab_certificate_trust = SubRecord({
@@ -265,6 +265,7 @@ ztag_tls = SubRecord({
     "secure_renegotiation":Boolean(),
     "certificate":zgrab_certificate,
     "chain":ListOf(zgrab_certificate),
+    "scts":ListOf(ztag_sct),
     "validation":SubRecord({
         "matches_domain":Boolean(),
         "stores":SubRecord({
@@ -695,6 +696,7 @@ CTStatus = SubRecord({
     "google_testtube":CTServerStatus,
     "google_skydiver":CTServerStatus,
     "google_icarus":CTServerStatus,
+    "google_daedalus":CTServerStatus,
 
     "comodo_dodo":CTServerStatus,
     "comodo_mammoth":CTServerStatus,
@@ -886,11 +888,11 @@ ipv4_host = Record({
                     "status":ztag_dnp3,
                 })
             }),
-            Port(7547):SubRecord({
-                "cwmp":SubRecord({
-                    "get":ztag_http,
-                })
-            }),
+            #Port(7547):SubRecord({         # This is commented out such that BigQuery loads will work.
+            #    "cwmp":SubRecord({         # CWMP scanner is currently producing lists here instead of strings
+            #        "get":ztag_http,
+            #    })
+            #}),
 
             "tags":ListOf(CensysString()),
             "metadata":zdb_metadata,

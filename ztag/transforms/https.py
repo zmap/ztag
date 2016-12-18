@@ -57,6 +57,15 @@ class HTTPSTransform(ZGrabTransform):
         if session_ticket_hint is not None:
             out['session_ticket']['lifetime_hint'] = session_ticket_hint
 
+        scts = hello["scts"].resolve()
+        if scts:
+            out["scts"] = [{
+                    "log_id":sct["parsed"]["log_id"],
+                    "timestamp":sct["parsed"]["timestamp"]/1000,
+                    "signature":sct["parsed"]["signature"],
+                    "version":sct["parsed"]["version"]
+                } for sct in scts]
+
         cipher_id = cipher_suite['hex'].resolve()
         cipher_name = cipher_suite['name'].resolve()
         ocsp_stapling = hello['ocsp_stapling'].resolve()
