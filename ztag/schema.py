@@ -272,6 +272,7 @@ ztag_tls = SubRecord({
     }),
     "validation":SubRecord({
         "matches_domain":Boolean(),
+        "browser_trusted":Boolean(),
         "stores":SubRecord({
             "nss":zgrab_server_certificate_valid,
             "microsoft":zgrab_server_certificate_valid,
