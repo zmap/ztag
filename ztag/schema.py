@@ -273,13 +273,13 @@ ztag_tls = SubRecord({
     "validation":SubRecord({
         "matches_domain":Boolean(),
         "browser_trusted":Boolean(),
-        "stores":SubRecord({
-            "nss":zgrab_server_certificate_valid,
-            "microsoft":zgrab_server_certificate_valid,
-            "apple":zgrab_server_certificate_valid,
-            "java":zgrab_server_certificate_valid,
-            "android":zgrab_server_certificate_valid,
-        })
+        #"stores":SubRecord({
+        #    "nss":zgrab_server_certificate_valid,
+        #    "microsoft":zgrab_server_certificate_valid,
+        #    "apple":zgrab_server_certificate_valid,
+        #    "java":zgrab_server_certificate_valid,
+        #    "android":zgrab_server_certificate_valid,
+        #})
     }),
     "server_key_exchange":SubRecord({
         "ecdh_params":ztag_ecdh_params,
