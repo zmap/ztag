@@ -36,7 +36,7 @@ class Annotator(Transform):
                 if self.logger is not None:
                     error = "%s: %s %s" % (tag.__class__.__name__,
                             type(e).__name__, str(e))
-                    self.logger.warn(error)
+                    self.logger.debug(error)
                 if self.debug:
                     raise e
         return zobj
@@ -110,4 +110,3 @@ class AnnotationTesting(object):
         print "tests passing: %i/%i" % (have_tests - failures, have_tests)
         print "\n"
         return 1 if failures or Annotation._annotation_annotations_fail else 0
-
