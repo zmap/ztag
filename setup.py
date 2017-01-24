@@ -26,7 +26,7 @@ setup(
     "protobuf==3.0.0a3",
     "python-dateutil",
     "zsearch_definitions",
-    "kafka-python==1.3.1",
+    "kafka-python==1.3.2",
     "lz4tools",
     "xxhash"
   ],
