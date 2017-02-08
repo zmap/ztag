@@ -650,7 +650,7 @@ ztag_lookup_axfr = SubRecord({
     "support":Boolean()
 })
 
-zdb_location = SubRecord({
+_zdb_location_fields = {
     "continent":String(),
     "country":CensysString(),
     "country_code":String(),
@@ -662,7 +662,10 @@ zdb_location = SubRecord({
     "longitude":Double(),
     "registered_country":CensysString(),
     "registered_country_code":String(),
-})
+}
+
+zdb_location = SubRecord(_zdb_location_fields)
+zdb_restricted_location = SubRecord(_zdb_location_fields, exclude=["bigquery",])
 
 zdb_as = SubRecord({
     "asn":Unsigned32BitInteger(),
@@ -902,14 +905,14 @@ ipv4_host = Record({
             "tags":ListOf(CensysString()),
             "metadata":zdb_metadata,
             "location":zdb_location,
-            "__restricted_location":zdb_location,
+            "__restricted_location":zdb_restricted_location,
             "autonomous_system":zdb_as,
             "notes":CensysString(),
             "ip":IPv4Address(required=True),
             "ipint":Long(required=True, doc="Integer value of IP address in host order"),
             "updated_at":DateTime(),
             "zdb_version":Unsigned32BitInteger(),
-            "protocols":ListOf(CensysString())
+            "protocols":ListOf(CensysString(exclude=["bigquery"]))
 })
 
 website = Record({
