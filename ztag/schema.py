@@ -36,20 +36,20 @@ unknown_extension = SubRecord({
 })
 
 alternate_name = SubRecord({
-    "dns_names":ListOf(AnalyzedString()),
-    "email_addresses":ListOf(String()),
-    "ip_addresses":ListOf(String()),
+    "dns_names":ListOf(FQDN()),
+    "email_addresses":ListOf(EmailAddress()),
+    "ip_addresses":ListOf(IPAddress()),
     "directory_names":ListOf(zgrab_subj_issuer),
     "edi_party_names":ListOf(SubRecord({
-        "name_assigner":AnalyzedString(es_include_raw=True),
-        "party_name":AnalyzedString(es_include_raw=True),
+        "name_assigner":CensysString,
+        "party_name":CensysString,
     })),
     "other_names":ListOf(SubRecord({
         "id":String(),
         "value":IndexedBinary(),
     })),
     "registered_ids":ListOf(String()),
-    "uniform_resource_identifiers":ListOf(AnalyzedString(es_include_raw=True)),
+    "uniform_resource_identifiers":ListOf(URI()),
 })
 
 ztag_dh_params = SubRecord({
@@ -65,14 +65,14 @@ ztag_dh_params = SubRecord({
 
 ztag_dh_export = SubRecord({
     "dh_params":ztag_dh_params,
-    "support": Boolean(),
+    "support":Boolean(),
     "metadata":local_metadata,
     "timestamp":DateTime(),
 })
 
 ztag_dh = SubRecord({
     "dh_params":ztag_dh_params,
-    "support": Boolean(),
+    "support":Boolean(),
     "metadata":local_metadata,
     "timestamp":DateTime(),
 })
@@ -85,7 +85,7 @@ ztag_rsa_params = SubRecord({
 
 ztag_rsa_export = SubRecord({
     "rsa_params":ztag_rsa_params,
-    "support": Boolean(),
+    "support":Boolean(),
     "metadata":local_metadata,
     "timestamp":DateTime(),
 })
@@ -99,7 +99,7 @@ ztag_ecdh_params = SubRecord({
 
 ztag_ecdh = SubRecord({
     "ecdh_params":ztag_ecdh_params,
-    "support": Boolean(),
+    "support":Boolean(),
     "metadata":local_metadata,
     "timestamp":DateTime(),
 })
@@ -134,8 +134,8 @@ zgrab_parsed_certificate = SubRecord({
         "fingerprint_sha256":HexString(),
         "key_algorithm":SubRecord({
             "name":String(doc="Name of public key type, e.g., RSA or ECDSA. "\
-                              "More information is available the named SubRecord"\
-                              " (e.g., rsa_public_key)."),
+                              "More information is available the named SubRecord "\
+                              "(e.g., rsa_public_key)."),
             "oid":OID(doc="OID of the public key on the certificate. "\
                              "This is helpful when an unknown type is present. "\
                              "This field is reserved and not current populated.")
@@ -186,7 +186,7 @@ zgrab_parsed_certificate = SubRecord({
         }),
         "subject_alt_name":alternate_name,
         "issuer_alt_name":alternate_name,
-        "crl_distribution_points":ListOf(String()),
+        "crl_distribution_points":ListOf(URI()),
         "authority_key_id":HexString(),
         "subject_key_id":HexString(),
         "extended_key_usage":ListOf(Signed32BitInteger()), # TODO: what sized integer should this be?
@@ -199,11 +199,11 @@ zgrab_parsed_certificate = SubRecord({
             "critical":Boolean(),
             "permitted_names":ListOf(FQDN()),
             "permitted_email_addresses":ListOf(CensysString()),
-            "permitted_ip_addresses":ListOf(CensysString()),
+            "permitted_ip_addresses":ListOf(IPAddress()),
             "permitted_directory_names":ListOf(zgrab_subj_issuer),
             "excluded_names":ListOf(FQDN()),
             "excluded_email_addresses":ListOf(CensysString()),
-            "excluded_ip_addresses":ListOf(CensysString()),
+            "excluded_ip_addresses":ListOf(IPAddress()),
             "excluded_directory_names":ListOf(zgrab_subj_issuer)
         }),
         "signed_certificate_timestamps":ListOf(ztag_sct),
