@@ -36,8 +36,8 @@ unknown_extension = SubRecord({
 })
 
 edi_party_name = SubRecord({
-    "name_assigner":CensysString,
-    "party_name":CensysString,
+    "name_assigner":CensysString(),
+    "party_name":CensysString(),
 })
 
 alternate_name = SubRecord({
@@ -184,12 +184,12 @@ zgrab_parsed_certificate = SubRecord({
     }),
     "extensions":SubRecord({
         "key_usage":SubRecord({
+            "value":Unsigned16BitInteger("Integer value of the bitmask in the extension"),
             "digital_signature":Boolean(),
             "certificate_sign":Boolean(),
             "crl_sign":Boolean(),
             "content_commitment":Boolean(),
             "key_encipherment":Boolean(),
-            "value":Unsigned16BitInteger(), # TODO: we should document this. I don't know what this is.
             "data_encipherment":Boolean(),
             "key_agreement":Boolean(),
             "decipher_only":Boolean(),
@@ -204,7 +204,15 @@ zgrab_parsed_certificate = SubRecord({
         "crl_distribution_points":ListOf(URL()),
         "authority_key_id":HexString(),
         "subject_key_id":HexString(),
-        "extended_key_usage":ListOf(Signed32BitInteger()), # TODO: what sized integer should this be?
+        "extended_key_usage":SubRecord({
+            "value":ListOf(Signed32BitInteger()), # TODO: what sized integer should this be?
+            "server_auth":Boolean(doc="TLS WWW server authentication"),
+            "client_auth":Boolean(doc="TLS WWW client authentication"),
+            "code_signing":Boolean(doc="Signing of downloadable executable code"),
+            "email_protection":Boolean(doc="Email protection"),
+            "time_stamping":Boolean(doc="Binding the hash of an object to a time"),
+            "ocsp_signing":Boolean(doc="Signing OCSP responses")
+        }),
         "certificate_policies":ListOf(certificate_policy),
         "authority_info_access":SubRecord({
             "ocsp_urls":ListOf(URL()),
@@ -236,7 +244,7 @@ zgrab_parsed_certificate = SubRecord({
             "excluded_names":ListOf(FQDN()),
             "excluded_email_addresses":ListOf(CensysString()),
             "excluded_ip_addresses":ListOf(expanded_cidr),
-            "excluded_directory_names":ListOf(zgrab_subj_issuer)
+            "excluded_directory_names":ListOf(zgrab_subj_issuer),
             "excluded_registered_ids":ListOf(OID()),
             "excluded_edi_party_names":ListOf(edi_party_name),
 
@@ -945,7 +953,7 @@ ipv4_host = Record({
             "autonomous_system":zdb_as,
             "notes":CensysString(),
             "ip":IPv4Address(required=True),
-            "ipint":Long(required=True, doc="Integer value of IP address in host order"),
+            "ipint":Unsigned32BitInteger(required=True, doc="Integer value of IP address in host order"),
             "updated_at":DateTime(),
             "zdb_version":Unsigned32BitInteger(),
             "protocols":ListOf(CensysString(exclude=["bigquery"]))
@@ -986,10 +994,10 @@ website = Record({
             "metadata":zdb_metadata,
             "notes":EnglishString(es_include_raw=True),
             "domain":String(),
-            "alexa_rank":Integer(doc="Rank in the Alexa Top 1 Million. "
+            "alexa_rank":Unsigned32BitInteger(doc="Rank in the Alexa Top 1 Million. "
                     "Null if not currently in the Top 1 Million sites."),
             "updated_at":DateTime(),
-            "zdb_version":Integer(),
+            "zdb_version":Unsigned32BitInteger(),
             "protocols":ListOf(String())
 })
 
