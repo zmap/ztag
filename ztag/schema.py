@@ -123,7 +123,7 @@ expanded_cidr = SubRecord({
 })
 
 certificate_policy = SubRecord({
-    "oid":OID(),
+    "id":OID(),
     "name":String()
 })
 
