@@ -744,6 +744,7 @@ CTStatus = SubRecord({
     "izenpe_eus_ct":CTServerStatus,
     "symantec_ws_ct":CTServerStatus,
     "symantec_ws_vega":CTServerStatus,
+    "symantec_ws_sirius":CTServerStatus,
     "wosign_ctlog":CTServerStatus,
     "wosign_ct":CTServerStatus,
     "cnnic_ctserver":CTServerStatus,
