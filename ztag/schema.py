@@ -946,7 +946,7 @@ website = Record({
                 })
             }),
 
-            "tags":CensysString(),
+            "tags":ListOf(CensysString()),
             "metadata":zdb_metadata,
             "notes":EnglishString(es_include_raw=True),
             "domain":String(),
