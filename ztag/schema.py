@@ -35,20 +35,22 @@ unknown_extension = SubRecord({
     "value":IndexedBinary(),
 })
 
+edi_party_name = SubRecord({
+    "name_assigner":CensysString,
+    "party_name":CensysString,
+})
+
 alternate_name = SubRecord({
     "dns_names":ListOf(FQDN()),
     "email_addresses":ListOf(EmailAddress()),
     "ip_addresses":ListOf(IPAddress()),
     "directory_names":ListOf(zgrab_subj_issuer),
-    "edi_party_names":ListOf(SubRecord({
-        "name_assigner":CensysString,
-        "party_name":CensysString,
-    })),
+    "edi_party_names":ListOf(edi_party_name),
     "other_names":ListOf(SubRecord({
         "id":String(),
         "value":IndexedBinary(),
     })),
-    "registered_ids":ListOf(String()),
+    "registered_ids":ListOf(OID()),
     "uniform_resource_identifiers":ListOf(URI()),
 })
 
@@ -107,9 +109,17 @@ ztag_ecdh = SubRecord({
 ztag_sct = SubRecord({
     "version":Unsigned8BitInteger(),
     "log_id":IndexedBinary(),
+    "log_name":String(),
     "timestamp":DateTime(),
     "signature":Binary(),
     "extensions":Binary(),
+})
+
+expanded_cidr = SubRecord({
+    "cidr":String(),
+    "begin":IPAddress(),
+    "end":IPAddress(),
+    "mask":IPAddress(),
 })
 
 zgrab_parsed_certificate = SubRecord({
@@ -118,7 +128,7 @@ zgrab_parsed_certificate = SubRecord({
     "issuer":zgrab_subj_issuer,
     "issuer_dn":CensysString(),
     "version":Unsigned8BitInteger(),
-    "serial_number":String(doc="Serial number as an unsigned decimal integer. "\
+    "serial_number":String(doc="Serial number as an signed decimal integer. "\
                                "Stored as string to support >uint lengths. "\
                                "Negative values are allowed."),
     "validity":SubRecord({
@@ -186,7 +196,7 @@ zgrab_parsed_certificate = SubRecord({
         }),
         "subject_alt_name":alternate_name,
         "issuer_alt_name":alternate_name,
-        "crl_distribution_points":ListOf(URI()),
+        "crl_distribution_points":ListOf(URL()),
         "authority_key_id":HexString(),
         "subject_key_id":HexString(),
         "extended_key_usage":ListOf(Signed32BitInteger()), # TODO: what sized integer should this be?
@@ -198,13 +208,33 @@ zgrab_parsed_certificate = SubRecord({
         "name_constraints":SubRecord({
             "critical":Boolean(),
             "permitted_names":ListOf(FQDN()),
+            # We do not schema email addresses as an EmailAddress per
+            # rfc5280#section-4.2.1.10 documnetation:
+            # A name constraint for Internet mail addresses MAY specify a
+            # particular mailbox, all addresses at a particular host, or all
+            # mailboxes in a domain.  To indicate a particular mailbox, the
+            # constraint is the complete mail address.  For example,
+            # "root@example.com" indicates the root mailbox on the host
+            # "example.com".  To indicate all Internet mail addresses on a
+            # particular host, the constraint is specified as the host name.  For
+            # example, the constraint "example.com" is satisfied by any mail
+            # address at the host "example.com".  To specify any address within a
+            # domain, the constraint is specified with a leading period (as with
+            # URIs).  For example, ".example.com" indicates all the Internet mail
+            # addresses in the domain "example.com", but not Internet mail
+            # addresses on the host "example.com".
             "permitted_email_addresses":ListOf(CensysString()),
-            "permitted_ip_addresses":ListOf(IPAddress()),
+            "permitted_ip_addresses":ListOf(expanded_cidr),
             "permitted_directory_names":ListOf(zgrab_subj_issuer),
+            "permitted_registered_ids":ListOf(OID()),
+            "permitted_edi_party_names":ListOf(edi_party_name),
             "excluded_names":ListOf(FQDN()),
             "excluded_email_addresses":ListOf(CensysString()),
-            "excluded_ip_addresses":ListOf(IPAddress()),
+            "excluded_ip_addresses":ListOf(expanded_cidr),
             "excluded_directory_names":ListOf(zgrab_subj_issuer)
+            "excluded_registered_ids":ListOf(OID()),
+            "excluded_edi_party_names":ListOf(edi_party_name),
+
         }),
         "signed_certificate_timestamps":ListOf(ztag_sct),
         "ct_poison":Boolean()
