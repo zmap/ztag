@@ -47,7 +47,7 @@ alternate_name = SubRecord({
     "directory_names":ListOf(zgrab_subj_issuer),
     "edi_party_names":ListOf(edi_party_name),
     "other_names":ListOf(SubRecord({
-        "id":String(),
+        "id":String(), # XXX is this an OID?
         "value":IndexedBinary(),
     })),
     "registered_ids":ListOf(OID()),
@@ -120,6 +120,11 @@ expanded_cidr = SubRecord({
     "begin":IPAddress(),
     "end":IPAddress(),
     "mask":IPAddress(),
+})
+
+certificate_policy = SubRecord({
+    "oid":OID(),
+    "name":String()
 })
 
 zgrab_parsed_certificate = SubRecord({
@@ -200,7 +205,7 @@ zgrab_parsed_certificate = SubRecord({
         "authority_key_id":HexString(),
         "subject_key_id":HexString(),
         "extended_key_usage":ListOf(Signed32BitInteger()), # TODO: what sized integer should this be?
-        "certificate_policies":ListOf(CensysString()),
+        "certificate_policies":ListOf(certificate_policy),
         "authority_info_access":SubRecord({
             "ocsp_urls":ListOf(URL()),
             "issuer_urls":ListOf(URL())
