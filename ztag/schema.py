@@ -775,8 +775,10 @@ CTStatus = SubRecord({
     "startssl_ct":CTServerStatus,
     "certly_log":CTServerStatus,
     "venafi_api_ctlog":CTServerStatus,
+    "venafi_api_ctlog_gen2":CTServerStatus,
     "symantec_ws_deneb":CTServerStatus,
     "nordu_ct_plausible":CTServerStatus,
+    "certificatetransparency_cn_ct":CTServerStatus
 })
 
 CertificateAudit = SubRecord({
