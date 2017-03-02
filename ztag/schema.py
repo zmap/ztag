@@ -47,7 +47,7 @@ alternate_name = SubRecord({
     "directory_names":ListOf(zgrab_subj_issuer),
     "edi_party_names":ListOf(edi_party_name),
     "other_names":ListOf(SubRecord({
-        "id":String(), # XXX is this an OID?
+        "id":OID(),
         "value":IndexedBinary(),
     })),
     "registered_ids":ListOf(OID()),
@@ -205,13 +205,14 @@ zgrab_parsed_certificate = SubRecord({
         "authority_key_id":HexString(),
         "subject_key_id":HexString(),
         "extended_key_usage":SubRecord({
-            "value":ListOf(Signed32BitInteger()), # TODO: what sized integer should this be?
-            "server_auth":Boolean(doc="TLS WWW server authentication"),
-            "client_auth":Boolean(doc="TLS WWW client authentication"),
-            "code_signing":Boolean(doc="Signing of downloadable executable code"),
-            "email_protection":Boolean(doc="Email protection"),
-            "time_stamping":Boolean(doc="Binding the hash of an object to a time"),
-            "ocsp_signing":Boolean(doc="Signing OCSP responses")
+            "value":ListOf(Signed32BitInteger()), # TODO: remove after reparse
+            #"server_auth":Boolean(doc="TLS WWW server authentication"),
+            #"client_auth":Boolean(doc="TLS WWW client authentication"),
+            #"code_signing":Boolean(doc="Signing of downloadable executable code"),
+            #"email_protection":Boolean(doc="Email protection"),
+            #"time_stamping":Boolean(doc="Binding the hash of an object to a time"),
+            #"ocsp_signing":Boolean(doc="Signing OCSP responses"),
+            #"unknown":ListOf(OID)
         }),
         "certificate_policies":ListOf(certificate_policy),
         "authority_info_access":SubRecord({
