@@ -120,12 +120,12 @@ expanded_cidr = SubRecord({
     "begin":IPAddress(),
     "end":IPAddress(),
     "mask":IPAddress(),
-})
+}, exclude=["bigquery",]) # XXX
 
 certificate_policy = SubRecord({
     "id":OID(),
     "name":String()
-})
+}, exclude=["bigquery",]) # XXX
 
 zgrab_parsed_certificate = SubRecord({
     "subject":zgrab_subj_issuer,
@@ -213,7 +213,7 @@ zgrab_parsed_certificate = SubRecord({
             #"time_stamping":Boolean(doc="Binding the hash of an object to a time"),
             #"ocsp_signing":Boolean(doc="Signing OCSP responses"),
             #"unknown":ListOf(OID)
-        }),
+        }, exclude=["bigquery",]), # XXX
         "certificate_policies":ListOf(certificate_policy),
         "authority_info_access":SubRecord({
             "ocsp_urls":ListOf(URL()),
