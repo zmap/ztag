@@ -8,6 +8,15 @@ vulnerabilities) and transforming records. ZTag is used extensively within
 Censys (https://www.censys.io) to produce the data present in the search
 engine. However, it can also be run independently with ZMap and ZGrab.
 
+## Installation
+
+ZTag follows the standard Python setup.py flow.
+
+```
+python setup.py build
+python setup.py install
+```
+
 ## Basic Usage
 
 ZTag consumes the JSON output from [ZGrab](https://github.com/zmap/zgrab)
