@@ -1,0 +1,16 @@
+{
+  "7547": {
+    "cwmp": {
+      "get": {
+      "headers": {
+        "content_length": "0",
+        "www_authenticate": "Basic realm=\"Grandstream CWMP\"",
+        "server": "Grandstream CWMP/1.0"
+      },
+      "status_code": 401,
+      "status_line": "401 Unauthorized",
+      "metadata": {}
+      }
+    }
+  }
+}
