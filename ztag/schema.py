@@ -278,6 +278,7 @@ zgrab_parsed_certificate = SubRecord({
     "tbs_fingerprint":HexString(),
     "tbs_noct_fingerprint":HexString(),
     "names":ListOf(FQDN()),
+    "__expanded_names":ListOf(String()),
     "validation_level":Enum(),
     "redacted":Boolean(),
 })
