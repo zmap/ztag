@@ -35,21 +35,23 @@ unknown_extension = SubRecord({
     "value":IndexedBinary(),
 })
 
+edi_party_name = SubRecord({
+    "name_assigner":CensysString(),
+    "party_name":CensysString(),
+})
+
 alternate_name = SubRecord({
-    "dns_names":ListOf(AnalyzedString()),
-    "email_addresses":ListOf(String()),
-    "ip_addresses":ListOf(String()),
+    "dns_names":ListOf(FQDN()),
+    "email_addresses":ListOf(EmailAddress()),
+    "ip_addresses":ListOf(IPAddress()),
     "directory_names":ListOf(zgrab_subj_issuer),
-    "edi_party_names":ListOf(SubRecord({
-        "name_assigner":AnalyzedString(es_include_raw=True),
-        "party_name":AnalyzedString(es_include_raw=True),
-    })),
+    "edi_party_names":ListOf(edi_party_name),
     "other_names":ListOf(SubRecord({
-        "id":String(),
+        "id":OID(),
         "value":IndexedBinary(),
     })),
-    "registered_ids":ListOf(String()),
-    "uniform_resource_identifiers":ListOf(AnalyzedString(es_include_raw=True)),
+    "registered_ids":ListOf(OID()),
+    "uniform_resource_identifiers":ListOf(URI()),
 })
 
 ztag_dh_params = SubRecord({
@@ -65,14 +67,14 @@ ztag_dh_params = SubRecord({
 
 ztag_dh_export = SubRecord({
     "dh_params":ztag_dh_params,
-    "support": Boolean(),
+    "support":Boolean(),
     "metadata":local_metadata,
     "timestamp":DateTime(),
 })
 
 ztag_dh = SubRecord({
     "dh_params":ztag_dh_params,
-    "support": Boolean(),
+    "support":Boolean(),
     "metadata":local_metadata,
     "timestamp":DateTime(),
 })
@@ -85,7 +87,7 @@ ztag_rsa_params = SubRecord({
 
 ztag_rsa_export = SubRecord({
     "rsa_params":ztag_rsa_params,
-    "support": Boolean(),
+    "support":Boolean(),
     "metadata":local_metadata,
     "timestamp":DateTime(),
 })
@@ -99,7 +101,7 @@ ztag_ecdh_params = SubRecord({
 
 ztag_ecdh = SubRecord({
     "ecdh_params":ztag_ecdh_params,
-    "support": Boolean(),
+    "support":Boolean(),
     "metadata":local_metadata,
     "timestamp":DateTime(),
 })
@@ -107,10 +109,31 @@ ztag_ecdh = SubRecord({
 ztag_sct = SubRecord({
     "version":Unsigned8BitInteger(),
     "log_id":IndexedBinary(),
+    "log_name":String(),
     "timestamp":DateTime(),
     "signature":Binary(),
     "extensions":Binary(),
 })
+
+expanded_cidr = SubRecord({
+    "cidr":String(),
+    "begin":IPAddress(),
+    "end":IPAddress(),
+    "mask":IPAddress(),
+}, exclude=["bigquery",]) # XXX
+
+certificate_policy = SubRecord({
+    "id":OID(),
+    "name":String(),
+    "cps":ListOf(URL()),
+    "user_notice":SubRecord({
+        "explit_text":EnglishString(),
+        "notice_reference":ListOf(SubRecord({
+            "organization":CensysString(),
+            "notice_numbers":ListOf(Signed32BitInteger())
+        }))
+    })
+}, exclude=["bigquery",]) # XXX
 
 zgrab_parsed_certificate = SubRecord({
     "subject":zgrab_subj_issuer,
@@ -118,7 +141,7 @@ zgrab_parsed_certificate = SubRecord({
     "issuer":zgrab_subj_issuer,
     "issuer_dn":CensysString(),
     "version":Unsigned8BitInteger(),
-    "serial_number":String(doc="Serial number as an unsigned decimal integer. "\
+    "serial_number":String(doc="Serial number as an signed decimal integer. "\
                                "Stored as string to support >uint lengths. "\
                                "Negative values are allowed."),
     "validity":SubRecord({
@@ -134,8 +157,8 @@ zgrab_parsed_certificate = SubRecord({
         "fingerprint_sha256":HexString(),
         "key_algorithm":SubRecord({
             "name":String(doc="Name of public key type, e.g., RSA or ECDSA. "\
-                              "More information is available the named SubRecord"\
-                              " (e.g., rsa_public_key)."),
+                              "More information is available the named SubRecord "\
+                              "(e.g., rsa_public_key)."),
             "oid":OID(doc="OID of the public key on the certificate. "\
                              "This is helpful when an unknown type is present. "\
                              "This field is reserved and not current populated.")
@@ -169,12 +192,12 @@ zgrab_parsed_certificate = SubRecord({
     }),
     "extensions":SubRecord({
         "key_usage":SubRecord({
+            "value":Unsigned16BitInteger("Integer value of the bitmask in the extension"),
             "digital_signature":Boolean(),
             "certificate_sign":Boolean(),
             "crl_sign":Boolean(),
             "content_commitment":Boolean(),
             "key_encipherment":Boolean(),
-            "value":Unsigned16BitInteger(), # TODO: we should document this. I don't know what this is.
             "data_encipherment":Boolean(),
             "key_agreement":Boolean(),
             "decipher_only":Boolean(),
@@ -186,11 +209,20 @@ zgrab_parsed_certificate = SubRecord({
         }),
         "subject_alt_name":alternate_name,
         "issuer_alt_name":alternate_name,
-        "crl_distribution_points":ListOf(String()),
+        "crl_distribution_points":ListOf(URL()),
         "authority_key_id":HexString(),
         "subject_key_id":HexString(),
-        "extended_key_usage":ListOf(Signed32BitInteger()), # TODO: what sized integer should this be?
-        "certificate_policies":ListOf(CensysString()),
+        "extended_key_usage":SubRecord({
+            "value":ListOf(Signed32BitInteger()), # TODO: remove after reparse
+            #"server_auth":Boolean(doc="TLS WWW server authentication"),
+            #"client_auth":Boolean(doc="TLS WWW client authentication"),
+            #"code_signing":Boolean(doc="Signing of downloadable executable code"),
+            #"email_protection":Boolean(doc="Email protection"),
+            #"time_stamping":Boolean(doc="Binding the hash of an object to a time"),
+            #"ocsp_signing":Boolean(doc="Signing OCSP responses"),
+            #"unknown":ListOf(OID)
+        }, exclude=["bigquery",]), # XXX
+        "certificate_policies":ListOf(certificate_policy),
         "authority_info_access":SubRecord({
             "ocsp_urls":ListOf(URL()),
             "issuer_urls":ListOf(URL())
@@ -198,13 +230,33 @@ zgrab_parsed_certificate = SubRecord({
         "name_constraints":SubRecord({
             "critical":Boolean(),
             "permitted_names":ListOf(FQDN()),
+            # We do not schema email addresses as an EmailAddress per
+            # rfc5280#section-4.2.1.10 documnetation:
+            # A name constraint for Internet mail addresses MAY specify a
+            # particular mailbox, all addresses at a particular host, or all
+            # mailboxes in a domain.  To indicate a particular mailbox, the
+            # constraint is the complete mail address.  For example,
+            # "root@example.com" indicates the root mailbox on the host
+            # "example.com".  To indicate all Internet mail addresses on a
+            # particular host, the constraint is specified as the host name.  For
+            # example, the constraint "example.com" is satisfied by any mail
+            # address at the host "example.com".  To specify any address within a
+            # domain, the constraint is specified with a leading period (as with
+            # URIs).  For example, ".example.com" indicates all the Internet mail
+            # addresses in the domain "example.com", but not Internet mail
+            # addresses on the host "example.com".
             "permitted_email_addresses":ListOf(CensysString()),
-            "permitted_ip_addresses":ListOf(CensysString()),
+            "permitted_ip_addresses":ListOf(expanded_cidr),
             "permitted_directory_names":ListOf(zgrab_subj_issuer),
+            "permitted_registered_ids":ListOf(OID()),
+            "permitted_edi_party_names":ListOf(edi_party_name),
             "excluded_names":ListOf(FQDN()),
             "excluded_email_addresses":ListOf(CensysString()),
-            "excluded_ip_addresses":ListOf(CensysString()),
-            "excluded_directory_names":ListOf(zgrab_subj_issuer)
+            "excluded_ip_addresses":ListOf(expanded_cidr),
+            "excluded_directory_names":ListOf(zgrab_subj_issuer),
+            "excluded_registered_ids":ListOf(OID()),
+            "excluded_edi_party_names":ListOf(edi_party_name),
+
         }),
         "signed_certificate_timestamps":ListOf(ztag_sct),
         "ct_poison":Boolean()
@@ -226,6 +278,7 @@ zgrab_parsed_certificate = SubRecord({
     "tbs_fingerprint":HexString(),
     "tbs_noct_fingerprint":HexString(),
     "names":ListOf(FQDN()),
+    "__expanded_names":ListOf(String()),
     "validation_level":Enum(),
     "redacted":Boolean(),
 })
@@ -289,8 +342,8 @@ ztag_tls = SubRecord({
     "signature":SubRecord({
         "valid":Boolean(),
         "signature_error":CensysString(),
-        "signature_algorithm":CensysString(), # prefer sig_and_hash, then fall back to proto-defined | TODO: does this meet our needs?
-        "hash_algorithm":CensysString(), # prefer sig_and_hash, then fall back to proto-defined | TODO: does this meet our needs?
+        "signature_algorithm":String(),
+        "hash_algorithm":String(),
     }),
     "metadata":local_metadata,
     "timestamp":DateTime(),
@@ -644,6 +697,7 @@ ztag_lookup_axfr = SubRecord({
             "name":FQDN(),
             "type":String(),
             "data":CensysString(),
+            "ttl":Unsigned32BitInteger()
         })),
     })),
     "truncated":Boolean(),
@@ -714,6 +768,7 @@ CTStatus = SubRecord({
     "izenpe_eus_ct":CTServerStatus,
     "symantec_ws_ct":CTServerStatus,
     "symantec_ws_vega":CTServerStatus,
+    "symantec_ws_sirius":CTServerStatus,
     "wosign_ctlog":CTServerStatus,
     "wosign_ct":CTServerStatus,
     "cnnic_ctserver":CTServerStatus,
@@ -722,8 +777,10 @@ CTStatus = SubRecord({
     "startssl_ct":CTServerStatus,
     "certly_log":CTServerStatus,
     "venafi_api_ctlog":CTServerStatus,
+    "venafi_api_ctlog_gen2":CTServerStatus,
     "symantec_ws_deneb":CTServerStatus,
     "nordu_ct_plausible":CTServerStatus,
+    "certificatetransparency_cn_ct":CTServerStatus
 })
 
 CertificateAudit = SubRecord({
@@ -802,7 +859,7 @@ ipv4_host = Record({
                     "dhe": ztag_dh,
                     "rsa_export": ztag_rsa_export,
                     "dhe_export": ztag_dh_export,
-                    "ssl_2": ztag_sslv2,
+                    #"ssl_2": ztag_sslv2, # XXX
                     "tls_1_1": ztag_tls_support,
                     "tls_1_2": ztag_tls_support,
                     #"tls_1_3": ztag_tls_support,
@@ -818,7 +875,7 @@ ipv4_host = Record({
             Port(25):SubRecord({
                 "smtp":SubRecord({
                     "starttls": ztag_smtp_starttls,
-                    "ssl_2": ztag_sslv2,
+                    #"ssl_2": ztag_sslv2, # XXX
                 }),
             }),
             Port(23):SubRecord({
@@ -839,31 +896,31 @@ ipv4_host = Record({
             Port(110):SubRecord({
                 "pop3":SubRecord({
                     "starttls":ztag_mail_starttls,
-                    "ssl_2": ztag_sslv2,
+                    #"ssl_2": ztag_sslv2, # XXX
                 })
             }),
             Port(143):SubRecord({
                 "imap":SubRecord({
                     "starttls":ztag_mail_starttls,
-                    "ssl_2": ztag_sslv2,
+                    #"ssl_2": ztag_sslv2, # XXX
                 })
             }),
             Port(993):SubRecord({
                 "imaps":SubRecord({
                     "tls":ztag_mail_tls,
-                    "ssl_2": ztag_sslv2,
+                    #"ssl_2": ztag_sslv2, # XXX
                 })
             }),
             Port(995):SubRecord({
                 "pop3s":SubRecord({
                     "tls":ztag_mail_tls,
-                    "ssl_2": ztag_sslv2,
+                    #"ssl_2": ztag_sslv2, # XXX
                 })
             }),
             Port(587):SubRecord({
                 "smtp":SubRecord({
                     "starttls": ztag_smtp_starttls,
-                    "ssl_2": ztag_sslv2,
+                    #"ssl_2": ztag_sslv2,  # XXX
                 })
             }),
             Port(502):SubRecord({
@@ -909,7 +966,7 @@ ipv4_host = Record({
             "autonomous_system":zdb_as,
             "notes":CensysString(),
             "ip":IPv4Address(required=True),
-            "ipint":Long(required=True, doc="Integer value of IP address in host order"),
+            "ipint":Unsigned32BitInteger(required=True, doc="Integer value of IP address in host order"),
             "updated_at":DateTime(),
             "zdb_version":Unsigned32BitInteger(),
             "protocols":ListOf(CensysString(exclude=["bigquery"]))
@@ -946,14 +1003,14 @@ website = Record({
                 })
             }),
 
-            "tags":CensysString(),
+            "tags":ListOf(CensysString()),
             "metadata":zdb_metadata,
             "notes":EnglishString(es_include_raw=True),
             "domain":String(),
-            "alexa_rank":Integer(doc="Rank in the Alexa Top 1 Million. "
+            "alexa_rank":Unsigned32BitInteger(doc="Rank in the Alexa Top 1 Million. "
                     "Null if not currently in the Top 1 Million sites."),
             "updated_at":DateTime(),
-            "zdb_version":Integer(),
+            "zdb_version":Unsigned32BitInteger(),
             "protocols":ListOf(String())
 })
 
