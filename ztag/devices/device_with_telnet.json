@@ -1,0 +1,21 @@
+{
+  "23": {
+    "telnet": {
+      "banner": {
+        "will": [
+          {
+            "name": "Suppress Go Ahead",
+            "value": 3
+          },
+          {
+            "name": "Echo",
+            "value": 1
+          }
+        ],
+        "support": true,
+        "banner": "User Access Verification\r\nUsername:",
+        "metadata": {}
+      }
+    }
+  }
+}

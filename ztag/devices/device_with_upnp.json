@@ -1,0 +1,17 @@
+{
+  "1900": {
+    "upnp": {
+      "discovery": {
+        "usn": "uuid:8307ebec-be80-0300-0000-1880f5a64c64::urn:schemas-upnp-org:device:WANConnectionDevice:1",
+        "x-user-agent": null,
+        "agent": null,
+        "server": "System/1.0 UPnP/1.0 IGD/1.0",
+        "ext": "",
+        "location": "http://192.168.1.1:80/UPnP/IGD.xml",
+        "cache-control": null,
+        "st": "urn:schemas-upnp-org:device:WANConnectionDevice:1",
+        "metadata": {}
+      }
+    }
+  }
+}

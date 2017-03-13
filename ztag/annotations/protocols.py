@@ -13,8 +13,9 @@ PROTOCOLS = [
     (protocols.FTP, protocols.FTP.BANNER, {"device_with_ftp":{"tags":["ftp",]}}),
     (protocols.HTTPS, protocols.HTTPS.TLS, {"device_with_https":{"tags":["https",]}}),
     (protocols.DNS, protocols.DNS.OPEN_RESOLVER, {"device_with_dns":{"tags":["dns",]}}),
-    #(protocols.UPNP, protocols.UPNP.DISCOVERY, {"device_with_upnp":{"tags":["upnp",]}}),
+    (protocols.UPNP, protocols.UPNP.DISCOVERY, {"device_with_upnp":{"tags":["upnp",]}}),
     (protocols.SSH, protocols.SSH.BANNER, {"device_with_ssh":{"tags":["ssh",]}}),
+    (protocols.TELNET, protocols.TELNET.BANNER, {"device_with_telnet":{"tags":["telnet",]}}),
     #(protocols.NTP, protocols.NTP.TIME, {"device_with_ntp":{"tags":["ntp",]}}),
     (protocols.IMAP, protocols.IMAP.STARTTLS, {"device_with_imap":{"tags":["imap",]}}),
     (protocols.IMAPS, protocols.IMAPS.TLS, {"device_with_imaps":{"tags":["imaps",]}}),
@@ -26,7 +27,7 @@ PROTOCOLS = [
     (protocols.FOX, protocols.FOX.DEVICE_ID, {"device_with_fox":{"tags":["fox",]}}),
     (protocols.DNP3, protocols.DNP3.STATUS, {"device_with_dnp3": {"tags":["dnp3",]}}),
     (protocols.S7, protocols.S7.SZL, {"device_with_s7": {"tags":["s7",]}}),
-    #(protocols.SMTPS, protocols.SMTPS.TLS, {"device_with_smtps":{"tags":["smtps",]}}),
+    (protocols.CWMP, protocols.CWMP.GET, {"device_with_cwmp": {"tags":["cwmp",]}}),
 ]
 
 for proto, subproto, tests in PROTOCOLS:
