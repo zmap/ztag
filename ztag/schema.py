@@ -868,13 +868,20 @@ ztag_certificate_validation = SubRecord({
 })
 
 certificate = Record({
-    "updated_at":DateTime(),
     "parsed":zgrab_parsed_certificate,
     "raw":Binary(),
     "tags":ListOf(CensysString()),
-    "metadata":zdb_metadata,
+    "metadata":SubRecord({
+        "updated_at":DateTime(),
+        "post_processed":Boolean(),
+        "post_process_timestamp":DateTime(),
+        "seen_in_scan":Boolean(),
+        "source":String(),
+        "parse_version":16BitUnsignedInteger(),
+        "parse_error":CensysString(),
+        "parse_status":String(),
+    }),
     "parents":ListOf(String()),
-    "validation_timestamp":DateTime(),
     ## TODO: DEPRECATED validation. These should be removed in the future:
     "valid_nss": Boolean(deprecated=True),
     "was_valid_nss":Boolean(deprecated=True),
@@ -892,20 +899,12 @@ certificate = Record({
         "google_ct_primary":ztag_certificate_validation,
         "google_ct_submariner":ztag_certificate_validation,
     }),
-    "revoked":Boolean(doc="reserved"),
     "ct":CTStatus,
-    "seen_in_scan":Boolean(),
-    "source":String(),
     "audit":CertificateAudit,
     "precert":Boolean(),
 })
 
 zschema.registry.register_schema("certificate", certificate)
-
-cryptkey = Record({
-
-})
-
 
 ipv4_host = Record({
             Port(443):SubRecord({
