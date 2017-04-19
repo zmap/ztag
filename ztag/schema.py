@@ -877,7 +877,7 @@ certificate = Record({
         "post_process_timestamp":DateTime(),
         "seen_in_scan":Boolean(),
         "source":String(),
-        "parse_version":16BitUnsignedInteger(),
+        "parse_version":Unsigned16BitInteger(),
         "parse_error":CensysString(),
         "parse_status":String(),
     }),
