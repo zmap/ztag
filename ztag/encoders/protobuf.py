@@ -16,7 +16,8 @@ def simple_strip(s):
 class ProtobufObjectEncoder(Encoder):
 
     import zsearch_definitions.anonstore_pb2
-    from zsearch_definitions.hoststore import ProtocolAtom, Metadatum, Record
+    from zsearch_definitions.common_pb2 import Metadatum
+    from zsearch_definitions.hoststore_pb2 import ProtocolAtom, Record
 
     DROP_KEYS = {'ip_address', 'timestamp', 'domain'}
 
