@@ -1,5 +1,21 @@
 language: python
 
+matrix:
+  include:
+    - os: linux
+      compiler: gcc
+      addons: &gcc49
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-4.9', 'gcc-4.9', 'gfortran-4.9']
+      env: CXX_COMPILER='g++-4.9' C_COMPILER='gcc-4.9' Fortran_COMPILER='gfortran-4.9' BUILD_TYPE='Release'
+
+    - os: linux
+      compiler: gcc
+      addons: *gcc49
+      env: CXX_COMPILER='g++-4.9' C_COMPILER='gcc-4.9' Fortran_COMPILER='gfortran-4.9' BUILD_TYPE='Debug'
+
+
 python:
   - 2.7
   - pypy
@@ -15,6 +31,6 @@ sudo: false
 
 notifications:
   email:
-  - team@censys.io 
+  - team@censys.io
   slack:
     secure: gLiX4zUhlYMJ0l7kJlb5Wf5CmAynj+WQufThSBPP7XlLZddl6Vql72sJuqwl1ZV75xEsqP05QDulBMJc9AaED7BP53vhngHHgWLwjt026ne5sbA/s98U735jT/qwwFvKWBCYPZ5BQdTmJO3KCyuBJH+tQnptiolog9abksG1WZk=
