@@ -889,6 +889,8 @@ certificate = Record({
     "in_nss":Boolean(deprecated=True),
     "current_in_nss":Boolean(deprecated=True),
     "was_in_nss":Boolean(deprecated=True),
+    "seen_in_scan":Boolean(deprecated=True),
+    "source":String(deprecated=True),
     ## new style validation
     "validation":SubRecord({
         "nss":ztag_certificate_validation,
@@ -901,7 +903,7 @@ certificate = Record({
     }),
     "ct":CTStatus,
     "audit":CertificateAudit,
-    "precert":Boolean(),
+    "precert":Boolean()
 })
 
 zschema.registry.register_schema("certificate", certificate)
