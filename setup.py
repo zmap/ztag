@@ -23,7 +23,7 @@ setup(
   zip_safe=False,
   install_requires = [
     "redis",
-    "protobuf==3.2.0",
+    "protobuf==3.0.0",
     "python-dateutil",
     "zsearch_definitions",
     "kafka-python==1.3.2",
