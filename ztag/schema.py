@@ -818,13 +818,18 @@ CTStatus = SubRecord({
 
     "comodo_dodo":CTServerStatus,
     "comodo_mammoth":CTServerStatus,
+    "comodo_sabre":CTServerStatus,
 
     "digicert_ct1":CTServerStatus,
+    "digicert_ct2":CTServerStatus,
+
     "izenpe_com_ct":CTServerStatus,
     "izenpe_eus_ct":CTServerStatus,
+
     "symantec_ws_ct":CTServerStatus,
     "symantec_ws_vega":CTServerStatus,
     "symantec_ws_sirius":CTServerStatus,
+
     "wosign_ctlog":CTServerStatus,
     "wosign_ct":CTServerStatus,
     "cnnic_ctserver":CTServerStatus,
@@ -832,11 +837,15 @@ CTStatus = SubRecord({
     "gdca_ctlog":CTServerStatus,
     "startssl_ct":CTServerStatus,
     "certly_log":CTServerStatus,
+
     "venafi_api_ctlog":CTServerStatus,
     "venafi_api_ctlog_gen2":CTServerStatus,
+
     "symantec_ws_deneb":CTServerStatus,
     "nordu_ct_plausible":CTServerStatus,
-    "certificatetransparency_cn_ct":CTServerStatus
+    "certificatetransparency_cn_ct":CTServerStatus,
+    "sheca_ct":CTServerStatus
+
 })
 
 CertificateAudit = SubRecord({
