@@ -214,13 +214,69 @@ zgrab_parsed_certificate = SubRecord({
         "subject_key_id":HexString(),
         "extended_key_usage":SubRecord({
             "value":ListOf(Signed32BitInteger()), # TODO: remove after reparse
-            #"server_auth":Boolean(doc="TLS WWW server authentication"),
-            #"client_auth":Boolean(doc="TLS WWW client authentication"),
-            #"code_signing":Boolean(doc="Signing of downloadable executable code"),
-            #"email_protection":Boolean(doc="Email protection"),
-            #"time_stamping":Boolean(doc="Binding the hash of an object to a time"),
-            #"ocsp_signing":Boolean(doc="Signing OCSP responses"),
-            #"unknown":ListOf(OID)
+            "apple_ichat_signing": Boolean(),
+            "microsoft_lifetime_signing": Boolean(),
+            "microsoft_oem_whql_crypto": Boolean(),
+            "microsoft_system_health": Boolean(),
+            "ipsec_end_system": Boolean(),
+            "microsoft_key_recovery_3": Boolean(),
+            "microsoft_key_recovery_21": Boolean(),
+            "microsoft_license_server": Boolean(),
+            "apple_code_signing_development": Boolean(),
+            "apple_crypto_tier0_qos": Boolean(),
+            "microsoft_qualified_subordinate": Boolean(),
+            "microsoft_sgc_serialized": Boolean(),
+            "microsoft_licenses": Boolean(),
+            "dvcs": Boolean(),
+            "eap_over_lan": Boolean(),
+            "apple_crypto_qos": Boolean(),
+            "microsoft_timestamp_signing": Boolean(),
+            "microsoft_nt5_crypto": Boolean(),
+            "microsoft_drm": Boolean(),
+            "apple_software_update_signing": Boolean(),
+            "apple_crypto_development_env": Boolean(),
+            "apple_crypto_tier1_qos": Boolean(),
+            "apple_crypto_tier3_qos": Boolean(),
+            "microsoft_drm_individualization": Boolean(),
+            "sbgp_cert_aa_service_auth": Boolean(),
+            "ocsp_signing": Boolean(),
+            "netscape_server_gated_crypto": Boolean(),
+            "code_signing": Boolean(),
+            "apple_crypto_production_env": Boolean(),
+            "microsoft_document_signing": Boolean(),
+            "server_auth": Boolean(),
+            "client_auth": Boolean(),
+            "apple_ichat_encryption": Boolean(),
+            "apple_crypto_maintenance_env": Boolean(),
+            "microsoft_enrollment_agent": Boolean(),
+            "microsoft_ca_exchange": Boolean(),
+            "time_stamping": Boolean(),
+            "apple_crypto_test_env": Boolean(),
+            "microsoft_kernel_mode_code_signing": Boolean(),
+            "email_protection": Boolean(),
+            "microsoft_cert_trust_list_signing": Boolean(),
+            "microsoft_embedded_nt_crypto": Boolean(),
+            "microsoft_efs_recovery": Boolean(),
+            "microsoft_smartcard_logon": Boolean(),
+            "ipsec_tunnel": Boolean(),
+            "any": Boolean(),
+            "apple_code_signing": Boolean(),
+            "apple_system_identity": Boolean(),
+            "apple_crypto_env": Boolean(),
+            "microsoft_server_gated_crypto": Boolean(),
+            "apple_code_signing_third_party": Boolean(),
+            "microsoft_whql_crypto": Boolean(),
+            "apple_resource_signing": Boolean(),
+            "apple_crypto_tier2_qos": Boolean(),
+            "microsoft_mobile_device_software": Boolean(),
+            "microsoft_encrypted_file_system": Boolean(),
+            "eap_over_ppp": Boolean(),
+            "ipsec_user": Boolean(),
+            "microsoft_smart_display": Boolean(),
+            "microsoft_csp_signature": Boolean(),
+            "microsoft_root_list_signer": Boolean(),
+            "microsoft_system_health_loophole": Boolean(),
+            "unknown":ListOf(OID())
         }, exclude=["bigquery",]), # XXX
         "certificate_policies":ListOf(certificate_policy),
         "authority_info_access":SubRecord({
@@ -762,13 +818,18 @@ CTStatus = SubRecord({
 
     "comodo_dodo":CTServerStatus,
     "comodo_mammoth":CTServerStatus,
+    "comodo_sabre":CTServerStatus,
 
     "digicert_ct1":CTServerStatus,
+    "digicert_ct2":CTServerStatus,
+
     "izenpe_com_ct":CTServerStatus,
     "izenpe_eus_ct":CTServerStatus,
+
     "symantec_ws_ct":CTServerStatus,
     "symantec_ws_vega":CTServerStatus,
     "symantec_ws_sirius":CTServerStatus,
+
     "wosign_ctlog":CTServerStatus,
     "wosign_ct":CTServerStatus,
     "cnnic_ctserver":CTServerStatus,
@@ -776,11 +837,15 @@ CTStatus = SubRecord({
     "gdca_ctlog":CTServerStatus,
     "startssl_ct":CTServerStatus,
     "certly_log":CTServerStatus,
+
     "venafi_api_ctlog":CTServerStatus,
     "venafi_api_ctlog_gen2":CTServerStatus,
+
     "symantec_ws_deneb":CTServerStatus,
     "nordu_ct_plausible":CTServerStatus,
-    "certificatetransparency_cn_ct":CTServerStatus
+    "certificatetransparency_cn_ct":CTServerStatus,
+    "sheca_ct":CTServerStatus
+
 })
 
 CertificateAudit = SubRecord({
@@ -812,13 +877,20 @@ ztag_certificate_validation = SubRecord({
 })
 
 certificate = Record({
-    "updated_at":DateTime(),
     "parsed":zgrab_parsed_certificate,
     "raw":Binary(),
     "tags":ListOf(CensysString()),
-    "metadata":zdb_metadata,
+    "metadata":SubRecord({
+        "updated_at":DateTime(),
+        "post_processed":Boolean(),
+        "post_process_timestamp":DateTime(),
+        "seen_in_scan":Boolean(),
+        "source":String(),
+        "parse_version":Unsigned16BitInteger(),
+        "parse_error":CensysString(),
+        "parse_status":String(),
+    }),
     "parents":ListOf(String()),
-    "validation_timestamp":DateTime(),
     ## TODO: DEPRECATED validation. These should be removed in the future:
     "valid_nss": Boolean(deprecated=True),
     "was_valid_nss":Boolean(deprecated=True),
@@ -826,6 +898,8 @@ certificate = Record({
     "in_nss":Boolean(deprecated=True),
     "current_in_nss":Boolean(deprecated=True),
     "was_in_nss":Boolean(deprecated=True),
+    "seen_in_scan":Boolean(deprecated=True),
+    "source":String(deprecated=True),
     ## new style validation
     "validation":SubRecord({
         "nss":ztag_certificate_validation,
@@ -836,20 +910,12 @@ certificate = Record({
         "google_ct_primary":ztag_certificate_validation,
         "google_ct_submariner":ztag_certificate_validation,
     }),
-    "revoked":Boolean(doc="reserved"),
     "ct":CTStatus,
-    "seen_in_scan":Boolean(),
-    "source":String(),
     "audit":CertificateAudit,
-    "precert":Boolean(),
+    "precert":Boolean()
 })
 
 zschema.registry.register_schema("certificate", certificate)
-
-cryptkey = Record({
-
-})
-
 
 ipv4_host = Record({
             Port(443):SubRecord({

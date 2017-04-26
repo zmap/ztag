@@ -52,6 +52,19 @@ class ProtobufObjectEncoder(Encoder):
         out.transformed = record.protobuf
 
         out.certificates = []
+        # The chain may be helpful in validating this certificate later on
+        # if some of the parents haven't been previously been by the cert
+        # daemon. Therefore, pass along all raw certificates in the chain.
+        # If chains were guaranteed to be presented in a rasonable order, we
+        # could just pass up [n+1:], but people get this wrong all the time,
+        # so we might as well just pass up the entire chain along with every
+        # certificate. We will not store this to disk inside of zdb.
+        if len(zout.certificates) > 1:
+            presented_chain = [base64.b64decode(c["raw"]) for c in
+                    zout.certificates[1:]]
+        else:
+            presented_chain = []
+
         for cert_dict in zout.certificates:
             ar = self.zsearch_definitions.anonstore_pb2.AnonymousRecord()
             c = ar.certificate
@@ -63,11 +76,9 @@ class ProtobufObjectEncoder(Encoder):
             if valid_nss is not None:
                 c.valid_nss = valid_nss
                 c.validation_timestamp = record.timestamp
-            parents_sha256 = cert_dict.get("parents", None)
-            if parents_sha256 is not None:
-                c.parents.extend([
-                    sha_value.decode("hex") for sha_value in parents_sha256
-                ])
+            c.parents.extend([p.decode("hex") for p in cert_dict.get("parents",
+                [])])
+            c.presented_chain.extend(presented_chain)
             ar.sha256fp = c.sha256fp
             ar.scan_id = self.scan_id
             out.certificates.append(ar)
