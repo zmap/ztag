@@ -844,7 +844,8 @@ CTStatus = SubRecord({
     "symantec_ws_deneb":CTServerStatus,
     "nordu_ct_plausible":CTServerStatus,
     "certificatetransparency_cn_ct":CTServerStatus,
-    "sheca_ct":CTServerStatus
+    "sheca_ct":CTServerStatus,
+    "letsencrypt_ct_clicky":CTServerStatus,
 
 })
 
