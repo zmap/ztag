@@ -346,10 +346,10 @@ root_store_status = SubRecord({
     "had_trusted_path":Boolean(doc="True if now or at some point in the past there existed a path from the certificate to the root store."),
     "blacklisted":Boolean(doc="True if the certificate is explicitly blacklisted by some method than OneCRL / CRLSet. For example, a set of certificates revoked by Cloudflare are blacklisted by SPKI hash in Chrome."),
     "whitelisted":Boolean(doc="True if the certificate is explicitly whitelisted, e.g. the set of trusted WoSign certificates Apple uses."),
-    "type":Boolean(doc="Indicates if the certificate is a root, intermediate, or leaf."),
-    "paths":ListOf(ListOf(IndexedBinary())),
+    "type":Enum(doc="Indicates if the certificate is a root, intermediate, or leaf."),
+    "paths":ListOf(ListOf(HexString())),
     "in_revocation_set":Boolean(doc="True if the certificate is in the revocation set (e.g. OneCRL) associated with this root store."),
-    "parents":ListOf(IndexedBinary()),
+    "parents":ListOf(HexString()),
 })
 
 zgrab_certificate = SubRecord({
