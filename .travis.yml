@@ -1,7 +1,6 @@
+sudo: required
+dist: trusty
 language: python
-
-compiler:
-  - clang
 
 python:
   - 2.7
@@ -13,8 +12,6 @@ install:
 script:
   - nosetests ztag
   - ztag -t
-
-sudo: false
 
 notifications:
   email:
