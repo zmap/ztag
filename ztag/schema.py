@@ -1095,6 +1095,11 @@ Lints = SubRecord({
     "e_rsa_no_public_key":LintBool(),
     "e_sub_cert_certificate_policies_missing":LintBool(),
     "e_sub_cert_key_usage_crl_sign_bit_set":LintBool(),
+    "e_subject_common_name_max_length":LintBool(),
+    "e_subject_locality_name_max_length":LintBool(),
+    "e_subject_organization_name_max_length":LintBool(),
+    "e_subject_organizational_unit_name_max_length":LintBool(),
+    "e_subject_state_name_max_length":LintBool(),
 })
 
 ZLint = SubRecord({
