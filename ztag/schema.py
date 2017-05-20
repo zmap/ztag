@@ -869,12 +869,19 @@ CertificateAudit = SubRecord({
 })
 
 ztag_certificate_validation = SubRecord({
-    "valid":Boolean(),
-    "was_valid":Boolean(),
-    "trusted_path":Boolean(),
-    "was_trusted_path":Boolean(),
-    "blacklisted":Boolean(),
-    "type":Enum(["leaf","intermediate","root"]),
+    "valid":Boolean(doc="((has_trusted_path && !revoked && !blacklisted) || whitelisted) && !expired"),
+    "was_valid":Boolean(doc="True if the certificate is valid now or was ever valid in the past."),
+    "trusted_path":Boolean(doc="True if there exists a path from the certificate to the root store."),
+    "had_trusted_path":Boolean(doc="True if now or at some point in the past there existed a path "
+                                   "from the certificate to the root store."),
+    "blacklisted":Boolean(doc="True if the certificate is explicitly blacklisted by some method than OneCRL/CRLSet. "
+                              "For example, a set of certificates revoked by Cloudflare are blacklisted by SPKI hash in Chrome."),
+    "whitelisted":Boolean(doc="True if the certificate is explicitly whitelisted, "
+                              "e.g. the set of trusted WoSign certificates Apple uses."),
+    "type":Enum(["leaf","intermediate","root","unknown"], doc="Indicates if the certificate is a root, intermediate, or leaf."),
+    "paths":ListOf(ListOf(HexString())),
+    "in_revocation_set":Boolean(doc="True if the certificate is in the revocation set (e.g. OneCRL) associated with this root store."),
+    "parents":ListOf(HexString()),
 })
 
 class LintBool(String):
