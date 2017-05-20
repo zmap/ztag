@@ -339,27 +339,21 @@ zgrab_parsed_certificate = SubRecord({
     "redacted":Boolean(),
 })
 
-root_store_status = SubRecord({
-    "valid":Boolean(doc="((has_trusted_path && !revoked && !blacklisted) || whitelisted) && !expired"),
-    "was_valid":Boolean(doc="True if the certificate is valid now or was ever valid in the past."),
-    "trusted_path":Boolean(doc="True if there exists a path from the certificate to the root store."),
-    "had_trusted_path":Boolean(doc="True if now or at some point in the past there existed a path from the certificate to the root store."),
-    "blacklisted":Boolean(doc="True if the certificate is explicitly blacklisted by some method than OneCRL / CRLSet. For example, a set of certificates revoked by Cloudflare are blacklisted by SPKI hash in Chrome."),
-    "whitelisted":Boolean(doc="True if the certificate is explicitly whitelisted, e.g. the set of trusted WoSign certificates Apple uses."),
-    "type":Enum(doc="Indicates if the certificate is a root, intermediate, or leaf."),
-    "paths":ListOf(ListOf(HexString())),
-    "in_revocation_set":Boolean(doc="True if the certificate is in the revocation set (e.g. OneCRL) associated with this root store."),
-    "parents":ListOf(HexString()),
+zgrab_certificate_trust = SubRecord({
+    "type":Enum(doc="root, intermediate, or leaf certificate"),
+    "trusted_path":Boolean(doc="Does certificate chain up to browser root store"),
+    "valid":Boolean(doc="is this certificate currently valid in this browser"),
+    "was_valid":Boolean(doc="was this certificate ever valid in this browser")
 })
 
 zgrab_certificate = SubRecord({
     "parsed":zgrab_parsed_certificate,
     "validation":SubRecord({
-        "nss":root_store_status,
-        "apple":root_store_status,
-        "microsoft":root_store_status,
-        "android":root_store_status,
-        "java":root_store_status,
+        "nss":zgrab_certificate_trust,
+        "apple":zgrab_certificate_trust,
+        "microsoft":zgrab_certificate_trust,
+        "android":zgrab_certificate_trust,
+        "java":zgrab_certificate_trust,
     }),
 })
 
