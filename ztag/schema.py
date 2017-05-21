@@ -1314,7 +1314,8 @@ website = Record({
                     "Null if not currently in the Top 1 Million sites."),
             "updated_at":DateTime(),
             "zdb_version":Unsigned32BitInteger(),
-            "protocols":ListOf(String())
+            "protocols":ListOf(String()),
+            "ports":ListOf(Unsigned16BitInteger())
 })
 
 
