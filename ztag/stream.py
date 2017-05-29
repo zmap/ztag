@@ -1,4 +1,5 @@
 import time
+import multiprocessing
 import sys
 import os
 import csv
@@ -165,6 +166,30 @@ class RedisQueue(Outgoing):
     def cleanup(self):
         return self.push(noretry=True)
 
+class _KafkaWorkerProcess(multiprocessing.Process):
+
+    def __init__(self, q, topic, producer_kwargs):
+        super(_KafkaWorkerProcess, self).__init__()
+        self.queue = q
+        self.topic = topic
+        self.main_producer = KafkaProducer(**producer_kwargs)
+        self.cert_producer = KafkaProducer(**producer_kwargs)
+
+    def run(self):
+        while True:
+            pbout = self.queue.get()
+
+            # Use `None` as an end-of-queue sentinal
+            if pbout is None:
+                break
+            for certificate in pbout.certificates:
+                self.cert_producer.send("certificate", certificate)
+            self.main_producer.send(self.topic, pbout.transformed)
+        if self.main_producer:
+            self.main_producer.flush()
+        if self.cert_producer:
+            self.cert_producer.flush()
+
 
 class Kafka(Outgoing):
 
@@ -175,18 +200,33 @@ class Kafka(Outgoing):
             self.topic = "domain"
         else:
             raise Exception("invalid destination: %s" % destination)
+        self.queue = multiprocessing.Queue()
+        self.processes = list()
+
         host = os.environ.get('KAFKA_BOOTSTRAP_HOST', 'localhost:9092')
-        self.main_producer = KafkaProducer(bootstrap_servers=host)
-        self.cert_producer = KafkaProducer(bootstrap_servers=host)
+        process_count = int(os.environ.get('ZTAG_KAFKA_PROCESSES', 2))
+        producer_kwargs = {
+            "bootstrap_servers": host,
+        }
+        for pnum in xrange(0, process_count):
+            p = _KafkaWorkerProcess(
+                    self.queue, self.topic, producer_kwargs
+            )
+            p.start()
+            self.processes.append(p)
 
     def take(self, pbout):
-        for certificate in pbout.certificates:
-            self.cert_producer.send("certificate", certificate)
-        self.main_producer.send(self.topic, pbout.transformed)
+        self.queue.put(pbout)
 
     def cleanup(self):
-        if self.main_producer:
-            self.main_producer.flush()
-        if self.cert_producer:
-            self.cert_producer.flush()
-
+        # Trigger end of the queue. The queue object doesn't have a concept of
+        # closed, so we need to be able to distinguish "empty" from "done".
+        #
+        # Send one sentinal value (`None`) for each worker. This guarantees all
+        # workers will stop, since each worker will process exactly one sentinal
+        # value. The sentinals are guaranteed to be the last item on the queue,
+        # since this is the only producer.
+        for p in self.processes:
+            self.queue.put(None)
+        for p in self.processes:
+            p.join()
