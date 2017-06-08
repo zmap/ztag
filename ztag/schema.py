@@ -850,7 +850,7 @@ CTStatus = SubRecord({
 })
 
 CertificateAudit = SubRecord({
-    "nss":SubRecord({
+    "ccadb":SubRecord({
         "current_in":Boolean(),
         "was_in":Boolean(),
         "owner_name":CensysString(),
@@ -865,6 +865,7 @@ CertificateAudit = SubRecord({
         "auditor":CensysString(),
         "standard_audit_statement_timestamp":DateTime(),
         "management_assertions_by":CensysString(),
+        "comments":EnglishString(es_include_raw=True),
      })
 })
 
@@ -1118,8 +1119,9 @@ certificate = Record({
     "tags":ListOf(CensysString()),
     "metadata":SubRecord({
         "updated_at":DateTime(),
+        "added_at":DateTime(),
         "post_processed":Boolean(),
-        "post_process_timestamp":DateTime(),
+        "post_processed_at":DateTime(),
         "seen_in_scan":Boolean(),
         "source":String(),
         "parse_version":Unsigned16BitInteger(),
