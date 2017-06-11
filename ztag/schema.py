@@ -859,8 +859,8 @@ CertificateAudit = SubRecord({
         "certificate_name":CensysString(),
         "certificate_policy":CensysString(),
         "certification_practice_statement":CensysString(),
-        "cp_same_as_parent":CensysString(),
-        "audit_same_as_parent":CensysString(),
+        "cp_same_as_parent":CensysString(), # TODO: Boolean
+        "audit_same_as_parent":CensysString(), # TODO: Boolean
         "standard_audit":CensysString(),
         "br_audit":CensysString(),
         "auditor":CensysString(),
@@ -881,7 +881,7 @@ ztag_certificate_validation = SubRecord({
     "whitelisted":Boolean(doc="True if the certificate is explicitly whitelisted, "
                               "e.g. the set of trusted WoSign certificates Apple uses."),
     "type":Enum(["leaf","intermediate","root","unknown"], doc="Indicates if the certificate is a root, intermediate, or leaf."),
-    "paths":NestedListOf(HexString(), "chain"),
+    "paths":NestedListOf(HexString(), "path"),
     "in_revocation_set":Boolean(doc="True if the certificate is in the revocation set (e.g. OneCRL) associated with this root store."),
     "parents":ListOf(HexString()),
 })
