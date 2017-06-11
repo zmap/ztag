@@ -880,7 +880,7 @@ ztag_certificate_validation = SubRecord({
     "whitelisted":Boolean(doc="True if the certificate is explicitly whitelisted, "
                               "e.g. the set of trusted WoSign certificates Apple uses."),
     "type":Enum(["leaf","intermediate","root","unknown"], doc="Indicates if the certificate is a root, intermediate, or leaf."),
-    "paths":ListOf(ListOf(HexString())),
+    "paths":NestedListOf(HexString(), "chain"),
     "in_revocation_set":Boolean(doc="True if the certificate is in the revocation set (e.g. OneCRL) associated with this root store."),
     "parents":ListOf(HexString()),
 })
@@ -888,7 +888,6 @@ ztag_certificate_validation = SubRecord({
 class LintBool(String):
 
     ES_TYPE = "boolean"
-
 
 Lints = SubRecord({
     # Lints can have any of the following outputs:
