@@ -1104,6 +1104,10 @@ Lints = SubRecord({
     "e_subject_state_name_max_length":LintBool(),
     "w_multiple_subject_rdn":LintBool(),
     "w_multiple_issuer_rdn":LintBool(),
+    "w_issuer_dn_trailing_whitespace":LintBool(),
+    "w_issuer_dn_leading_whitespace":LintBool(),
+    "w_subject_dn_trailing_whitespace":LintBool(),
+    "w_subject_dn_leading_whitespace":LintBool(),
 })
 
 ZLint = SubRecord({
@@ -1131,24 +1135,14 @@ certificate = Record({
         "parse_status":String(),
     }),
     "parents":ListOf(String()),
-    ## TODO: DEPRECATED validation. These should be removed in the future:
-    "valid_nss": Boolean(deprecated=True),
-    "was_valid_nss":Boolean(deprecated=True),
-    "current_valid_nss":Boolean(deprecated=True),
-    "in_nss":Boolean(deprecated=True),
-    "current_in_nss":Boolean(deprecated=True),
-    "was_in_nss":Boolean(deprecated=True),
-    "seen_in_scan":Boolean(deprecated=True),
-    "source":String(deprecated=True),
-    ## new style validation
     "validation":SubRecord({
         "nss":ztag_certificate_validation,
         "apple":ztag_certificate_validation,
         "microsoft":ztag_certificate_validation,
-        "java":ztag_certificate_validation,
-        "android":ztag_certificate_validation,
+        #"java":ztag_certificate_validation,
+        #"android":ztag_certificate_validation,
         "google_ct_primary":ztag_certificate_validation,
-        "google_ct_submariner":ztag_certificate_validation,
+        #"google_ct_submariner":ztag_certificate_validation,
     }),
     "ct":CTStatus,
     "audit":CertificateAudit,
