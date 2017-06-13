@@ -1104,6 +1104,10 @@ Lints = SubRecord({
     "e_subject_state_name_max_length":LintBool(),
     "w_multiple_subject_rdn":LintBool(),
     "w_multiple_issuer_rdn":LintBool(),
+    "w_issuer_dn_trailing_whitespace":LintBool(),
+    "w_issuer_dn_leading_whitespace":LintBool(),
+    "w_subject_dn_trailing_whitespace":LintBool(),
+    "w_subject_dn_leading_whitespace":LintBool(),
 })
 
 ZLint = SubRecord({
