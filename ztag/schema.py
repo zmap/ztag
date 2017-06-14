@@ -698,7 +698,7 @@ ztag_s7 = SubRecord({
 })
 
 ztag_smb = SubRecord({
-    "smbv1":Boolean(),
+    "smbv1_support":Boolean(),
 })
 
 ztag_schemas = [
@@ -1213,7 +1213,7 @@ ipv4_host = Record({
             }),
             Port(445):SubRecord({
                 "smb":SubRecord({
-                    "smbv1":ztag_smb
+                    "smbv1_support":ztag_smb
                 })
             }),
             Port(993):SubRecord({

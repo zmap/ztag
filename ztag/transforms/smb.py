@@ -11,10 +11,10 @@ class SMBTransform(ZGrabTransform):
         zout = ZMapTransformOutput()
         wrapped = Transformable(obj)
         smb = wrapped['data']['smb']
-        if not smb['smbv1'].resolve():
+        if not smb['smbv1_support'].resolve():
             raise errors.IgnoreObject()
         out = {
-            "smbv1": smb['smbv1'].resolve()
+            "smbv1": smb['smbv1_support'].resolve()
         }
         zout.transformed = out
         return zout
