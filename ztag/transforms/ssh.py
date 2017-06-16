@@ -27,7 +27,7 @@ class SSHBannerTransform(ZGrabTransform):
             software_version = grab['data']['xssh']['server_id']['software'].resolve()
             if software_version is not None:
                 transformed['software_version'] = software_version
-            comment = grab['data']['xssh']['server_id']['software'].resolve()
+            comment = grab['data']['xssh']['server_id']['comment'].resolve()
             if comment is not None:
                 transformed['comment'] = comment
 
