@@ -80,10 +80,10 @@ ztag_dh = SubRecord({
 })
 
 ztag_rsa_params = SubRecord({
-   "exponent":Unsigned32BitInteger(),
-   "modulus":IndexedBinary(),
-   "length":Unsigned16BitInteger(),
-})
+    "exponent":Unsigned32BitInteger(),
+    "modulus":IndexedBinary(),
+    "length":Unsigned16BitInteger(doc="Bit-length of modulus.")
+ })
 
 ztag_rsa_export = SubRecord({
     "rsa_params":ztag_rsa_params,
@@ -104,6 +104,31 @@ ztag_ecdh = SubRecord({
     "support":Boolean(),
     "metadata":local_metadata,
     "timestamp":DateTime(),
+})
+
+ztag_dsa_params = SubRecord({
+    "p":IndexedBinary(),
+    "q":IndexedBinary(),
+    "g":IndexedBinary(),
+    "y":IndexedBinary(),
+})
+
+ztag_ecdsa_public_key = SubRecord({
+    "pub":IndexedBinary(),
+    "b":IndexedBinary(),
+    "gx":IndexedBinary(),
+    "gy":IndexedBinary(),
+    "n":IndexedBinary(),
+    "p":IndexedBinary(),
+    "x":IndexedBinary(),
+    "y":IndexedBinary(),
+    "curve":Enum(),
+    "length":Unsigned16BitInteger(),
+    "asn1_oid":OID(),
+})
+
+ztag_ed25519_public_key = SubRecord({
+    "public_bytes":IndexedBinary(),
 })
 
 ztag_sct = SubRecord({
@@ -163,17 +188,8 @@ zgrab_parsed_certificate = SubRecord({
                              "This is helpful when an unknown type is present. "\
                              "This field is reserved and not current populated.")
          }),
-        "rsa_public_key":SubRecord({
-            "exponent":Unsigned32BitInteger(),
-            "modulus":IndexedBinary(),
-            "length":Unsigned16BitInteger(doc="Bit-length of modulus.")
-         }),
-        "dsa_public_key":SubRecord({
-            "p":IndexedBinary(),
-            "q":IndexedBinary(),
-            "g":IndexedBinary(),
-            "y":IndexedBinary(),
-        }),
+        "rsa_public_key":ztag_rsa_params,
+        "dsa_public_key":ztag_dsa_params,
         "ecdsa_public_key":SubRecord({
             "b":IndexedBinary(),
             "gx":IndexedBinary(),
