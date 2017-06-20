@@ -277,8 +277,8 @@ zgrab_parsed_certificate = SubRecord({
             "microsoft_csp_signature": Boolean(),
             "microsoft_root_list_signer": Boolean(),
             "microsoft_system_health_loophole": Boolean(),
-            "unknown":ListOf(OID())
-        }, exclude=["bigquery",]), # XXX
+            #"unknown":ListOf(OID()) # TODO
+        }, exclude=["bigquery",]), # TODO
         "certificate_policies":ListOf(certificate_policy),
         "authority_info_access":SubRecord({
             "ocsp_urls":ListOf(URL()),
@@ -852,8 +852,8 @@ CTStatus = SubRecord({
 
 CertificateAudit = SubRecord({
     "ccadb":SubRecord({
-        "current_in":Boolean(),
-        "was_in":Boolean(),
+        "current_in_intermediates":Boolean(),
+        "was_in_intermediates":Boolean(),
         "owner_name":CensysString(),
         "parent_name":CensysString(),
         "certificate_name":CensysString(),
@@ -867,6 +867,18 @@ CertificateAudit = SubRecord({
         "standard_audit_statement_timestamp":DateTime(),
         "management_assertions_by":CensysString(),
         "comments":EnglishString(es_include_raw=True),
+        "ev_policy_oids":CensysString(),
+        "approval_bug":CensysString(),
+        "first_nss_release":CensysString(),
+        "first_firefox_release":CensysString(),
+        "ev_audit":CensysString(),
+        "current_in_roots":Boolean(),
+        "was_in_roots":Boolean(),
+        "test_website_valid":CensysString(),
+        "mozilla_applied_constraints":CensysString(),
+        "company_website":CensysString(),
+        "geographic_focus":CensysString(),
+        "standard_audit_type":CensysString(),
      })
 })
 
