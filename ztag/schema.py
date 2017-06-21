@@ -122,7 +122,7 @@ ztag_ecdsa_public_key = SubRecord({
     "p":IndexedBinary(),
     "x":IndexedBinary(),
     "y":IndexedBinary(),
-    "curve":Enum(),
+    "curve":Enum(["P-224", "P-256", "P-384", "P-521"]),
     "length":Unsigned16BitInteger(),
     "asn1_oid":OID(),
 })
@@ -199,7 +199,7 @@ zgrab_parsed_certificate = SubRecord({
             "x":IndexedBinary(),
             "y":IndexedBinary(),
             "pub":Binary(),
-            "curve":Enum(),
+            "curve":Enum(["P-224", "P-256", "P-384", "P-521"]),
             "length":Unsigned16BitInteger(),
             #"asn1_oid":OID(), # TODO: this is currently commented out
             # because for a bunch of certificates, this was encoded as [1, 2,
