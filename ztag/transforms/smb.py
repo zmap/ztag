@@ -6,7 +6,7 @@ class SMBTransform(ZGrabTransform):
     name="smb/status"
     port = 445
     protocol = protocols.SMB
-    subprotocol = protocols.SMB.V1
+    subprotocol = protocols.SMB.BANNER
     def _transform_object(self, obj):
         zout = ZMapTransformOutput()
         wrapped = Transformable(obj)
