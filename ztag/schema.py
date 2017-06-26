@@ -114,7 +114,7 @@ ztag_dsa_params = SubRecord({
     "y":IndexedBinary(),
 })
 
-ztag_ecdsa_public_key = SubRecord({
+ztag_ssh_ecdsa_public_key = SubRecord({
     "pub":IndexedBinary(),
     "b":IndexedBinary(),
     "gx":IndexedBinary(),
@@ -628,7 +628,7 @@ ztag_ssh_banner = SubRecord({
             "fingerprint_sha256":HexString(),
             "rsa_public_key":ztag_rsa_params,
             "dsa_public_key":ztag_dsa_params,
-            "ecdsa_public_key":ztag_ecdsa_public_key,
+            "ecdsa_public_key":ztag_ssh_ecdsa_public_key,
             "ed25519_public_key":ztag_ed25519_public_key,
             "certkey_public_key":SubRecord({
                 "nonce":IndexedBinary(),
@@ -638,7 +638,7 @@ ztag_ssh_banner = SubRecord({
                     "algorithm":CensysString(),
                     "rsa_public_key":ztag_rsa_params,
                     "dsa_public_key":ztag_dsa_params,
-                    "ecdsa_public_key":ztag_ecdsa_public_key,
+                    "ecdsa_public_key":ztag_ssh_ecdsa_public_key,
                     "ed25519_public_key":ztag_ed25519_public_key,
                 }),
                 "serial":CensysString(),
@@ -660,7 +660,7 @@ ztag_ssh_banner = SubRecord({
                     "algorithm":CensysString(),
                     "rsa_public_key":ztag_rsa_params,
                     "dsa_public_key":ztag_dsa_params,
-                    "ecdsa_public_key":ztag_ecdsa_public_key,
+                    "ecdsa_public_key":ztag_ssh_ecdsa_public_key,
                     "ed25519_public_key":ztag_ed25519_public_key,
                 }),
                 "signature":ztag_xssh_signature,
