@@ -1,7 +1,9 @@
 {
     "445": {
         "smb": {
-            "smbv1_support": true
+	    "banner": {
+            	"smbv1_support": true
+	   }
         }
     }
 }

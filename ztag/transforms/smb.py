@@ -14,7 +14,7 @@ class SMBTransform(ZGrabTransform):
         if not smb['smbv1_support'].resolve():
             raise errors.IgnoreObject()
         out = {
-            "smbv1": smb['smbv1_support'].resolve()
+            "smbv1_support": smb['smbv1_support'].resolve()
         }
         zout.transformed = out
         return zout
