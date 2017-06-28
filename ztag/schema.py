@@ -1213,7 +1213,7 @@ ipv4_host = Record({
             }),
             Port(445):SubRecord({
                 "smb":SubRecord({
-                    "smbv1_support":ztag_smb
+                    "banner":ztag_smb
                 })
             }),
             Port(993):SubRecord({
