@@ -828,6 +828,10 @@ ztag_s7 = SubRecord({
     "timestamp":DateTime(),
 })
 
+ztag_smb = SubRecord({
+    "smbv1_support":Boolean(),
+})
+
 ztag_schemas = [
     ("ztag_https", ztag_tls),
     ("ztag_heartbleed", ztag_heartbleed),
@@ -856,6 +860,7 @@ ztag_schemas = [
     ("ztag_fox", ztag_fox),
     ("ztag_dnp3", ztag_dnp3),
     ("ztag_s7", ztag_s7),
+    ("ztag_smb", ztag_smb),
 ]
 for (name, schema) in ztag_schemas:
     x = Record({
@@ -1347,6 +1352,11 @@ ipv4_host = Record({
                 "imap":SubRecord({
                     "starttls":ztag_mail_starttls,
                     #"ssl_2": ztag_sslv2, # XXX
+                })
+            }),
+            Port(445):SubRecord({
+                "smb":SubRecord({
+                    "banner":ztag_smb
                 })
             }),
             Port(993):SubRecord({

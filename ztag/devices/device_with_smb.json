@@ -1,0 +1,9 @@
+{
+    "445": {
+        "smb": {
+	    "banner": {
+            	"smbv1_support": true
+	   }
+        }
+    }
+}
