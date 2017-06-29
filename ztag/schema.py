@@ -667,18 +667,18 @@ ztag_ssh_banner = SubRecord({
                 "parse_error":String(),
                 "extensions":SubRecord({
                     "known":SubRecord({
-                        "permit-X11-forwarding":CensysString(),
-                        "permit-agent-forwarding":CensysString(),
-                        "permit-port-forwarding":CensysString(),
-                        "permit-pty":CensysString(),
-                        "permit-user-rc":CensysString(),
+                        "permit_X11_forwarding":CensysString(),
+                        "permit_agent_forwarding":CensysString(),
+                        "permit_port_forwarding":CensysString(),
+                        "permit_pty":CensysString(),
+                        "permit_user_rc":CensysString(),
                     }),
                     "unknown":ListOf(CensysString()),
                 }),
                 "critical_options":SubRecord({
                     "known":SubRecord({
-                        "force-command":CensysString(),
-                        "source-address":CensysString(),
+                        "force_command":CensysString(),
+                        "source_address":CensysString(),
                     }),
                     "unknown":ListOf(CensysString()),
                 })
