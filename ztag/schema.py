@@ -563,7 +563,7 @@ ztag_http = SubRecord({
 #    "metadata":local_metadata
 #})
 
-ztag_xssh_signature = SubRecord({
+ztag_ssh_signature = SubRecord({
     "parsed":SubRecord({
         "algorithm":CensysString(),
         "value":IndexedBinary(),
@@ -621,7 +621,7 @@ ztag_ssh_banner = SubRecord({
             "prime":IndexedBinary(),
             "generator":IndexedBinary(),
         }),
-        "server_signature":ztag_xssh_signature,
+        "server_signature":ztag_ssh_signature,
         "server_host_key":SubRecord({
             "raw":IndexedBinary(),
             "algorithm":CensysString(),
@@ -663,22 +663,22 @@ ztag_ssh_banner = SubRecord({
                     "ecdsa_public_key":ztag_ssh_ecdsa_public_key,
                     "ed25519_public_key":ztag_ed25519_public_key,
                 }),
-                "signature":ztag_xssh_signature,
+                "signature":ztag_ssh_signature,
                 "parse_error":String(),
                 "extensions":SubRecord({
                     "known":SubRecord({
-                        "permit-X11-forwarding":CensysString(),
-                        "permit-agent-forwarding":CensysString(),
-                        "permit-port-forwarding":CensysString(),
-                        "permit-pty":CensysString(),
-                        "permit-user-rc":CensysString(),
+                        "permit_X11_forwarding":CensysString(),
+                        "permit_agent_forwarding":CensysString(),
+                        "permit_port_forwarding":CensysString(),
+                        "permit_pty":CensysString(),
+                        "permit_user_rc":CensysString(),
                     }),
                     "unknown":ListOf(CensysString()),
                 }),
                 "critical_options":SubRecord({
                     "known":SubRecord({
-                        "force-command":CensysString(),
-                        "source-address":CensysString(),
+                        "force_command":CensysString(),
+                        "source_address":CensysString(),
                     }),
                     "unknown":ListOf(CensysString()),
                 })
