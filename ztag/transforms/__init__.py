@@ -29,3 +29,4 @@ from upnp import UPnPTransform
 from fox import NiagaraFoxTransform
 from dnp3 import DNP3Transform
 from sslv2 import SSLv2Transform
+from smb import SMBTransform
