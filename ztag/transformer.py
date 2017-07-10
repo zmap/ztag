@@ -9,7 +9,7 @@ from ztag.transforms import *
 class ZMapTransformer(object):
 
     @classmethod
-    def find_transform(cls, port, protocol, subprotocol, scan_id):
+    def find_transform(cls, port, protocol, subprotocol, scan_id, *args, **kwargs):
         if port is None or protocol is None or subprotocol is None or\
                 scan_id is None:
             raise Exception
@@ -17,7 +17,7 @@ class ZMapTransformer(object):
         ztransforms = list()
 
         for klass in ZMapTransform.iter():
-            t = klass(port, protocol, subprotocol, scan_id)
+            t = klass(port, protocol, subprotocol, scan_id, *args, **kwargs)
             if t.check_port(port) and t.check_protocol(protocol) and\
                     t.check_subprotocol(subprotocol):
                 ztransforms.append(t)
