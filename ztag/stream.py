@@ -132,7 +132,6 @@ class RedisQueue(Outgoing):
         self.records = []
         self.certificates = []
 
-
     def push(self, noretry=False):
         if self.queued == 0:
             return
@@ -189,4 +188,3 @@ class Kafka(Outgoing):
             self.main_producer.flush()
         if self.cert_producer:
             self.cert_producer.flush()
-

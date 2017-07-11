@@ -16,11 +16,13 @@ from ztag.classargs import subclass_of
 
 from datetime import datetime
 
+
 def non_negative(s):
     x = int(s)
     if x < 0:
         raise argparse.ArgumentTypeError
     return x
+
 
 def uint16(s):
     x = int(s)
@@ -28,11 +30,13 @@ def uint16(s):
         raise argparse.ArgumentTypeError
     return x
 
+
 def zsearch_protocol(s):
     try:
         return protocols.Protocol.from_pretty_name(s)
     except KeyError as e:
         raise argparse.ArgumentTypeError(e)
+
 
 def zsearch_subprotocol(s):
     try:
@@ -71,6 +75,7 @@ def main():
                         choices=range(0, Logger.TRACE + 1))
     parser.add_argument('-m', '--metadata-file', type=argparse.FileType('w'),
                         default=sys.stderr)
+    parser.add_argument('--strip-domain-prefix', type=str, default=None)
     parser.add_argument('-d', '--debug', action='store_true')
     parser.add_argument('-t', '--tests', action='store_true')
     parser.add_argument('--safe-import', action='store_true')
@@ -86,12 +91,13 @@ def main():
         sys.stderr.write("ERROR: port (-p/--port) required\n")
         sys.exit(1)
     if not args.protocol:
-        proto_string = ", ".join(protocols.Protocol._by_pretty_name.keys() )
+        proto_string = ", ".join(protocols.Protocol._by_pretty_name.keys())
         sys.stderr.write("ERROR: protocol (-P/--protocol) required\n")
         sys.stderr.write("Registered Protocols: %s\n" % proto_string)
         sys.exit(1)
     if not args.subprotocol:
-        subproto_string = ", ".join(protocols.Subprotocol._by_pretty_name.keys() )
+        subproto_string = ", ".join(
+            protocols.Subprotocol._by_pretty_name.keys())
         sys.stderr.write("ERROR: subprotocol (-S/--subprotocol) required\n")
         sys.stderr.write("Registered SubProtocols: %s\n" % subproto_string)
         sys.exit(1)
@@ -102,14 +108,23 @@ def main():
     protocol = args.protocol
     subprotocol = args.subprotocol
     scan_id = args.scan_id or 0
+    transform_kwargs = dict()
+    transform_args = list()
 
     logger = Logger(args.log_file, log_level=args.log_level)
 
+    if args.strip_domain_prefix:
+        if not args.strip_domain_prefix.endswith("."):
+            args.strip_domain_prefix += "."
+        logger.info("stripping prefix %s" % args.strip_domain_prefix)
+        transform_kwargs['strip_domain_prefix'] = args.strip_domain_prefix
+
     if args.transform is not None:
-        transform = args.transform(port, protocol, subprotocol, scan_id)
+        transform = args.transform(port, protocol, subprotocol, scan_id,
+                                   *transform_args, **transform_kwargs)
     else:
         transform = ZMapTransformer.find_transform(port, protocol, subprotocol,
-                                                   scan_id)
+                                                   scan_id, *transform_args, **transform_kwargs)
     if args.incoming is not None:
         incoming = args.incoming(input_file=args.input_file)
     elif transform.incoming is not None:
