@@ -1437,12 +1437,27 @@ website = Record({
                     "tls_1_1": ztag_tls_support,
                     "tls_1_2": ztag_tls_support,
                     "ecdhe": ztag_ecdh,
+                }),
+                "https_www":SubRecord({
+                    "tls":ztag_tls,
+                    "heartbleed":ztag_heartbleed,
+                    "dhe": ztag_dh,
+                    "export_rsa": ztag_rsa_export,
+                    "export_dhe": ztag_dh_export,
+                    "tls_1_1": ztag_tls_support,
+                    "tls_1_2": ztag_tls_support,
+                    "ecdhe": ztag_ecdh,
                 })
+
             }),
             Port(80):SubRecord({
                 "http":SubRecord({
                     "get":ztag_http,
                 }),
+                "http_www":SubRecord({
+                    "get":ztag_http,
+                }),
+
             }),
             Port(25):SubRecord({
                 "smtp":SubRecord({
