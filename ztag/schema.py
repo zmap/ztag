@@ -545,6 +545,11 @@ ztag_http = SubRecord({
     "timestamp":DateTime(),
 })
 
+golang_crypto_param = SubRecord({
+    "value":IndexedBinary(),
+    "length":Unsigned32BitInteger()
+})
+
 #ztag_open_proxy = SubRecord({
 #    "connect":SubRecord({
 #      "status_code":Integer(),
@@ -614,12 +619,12 @@ ztag_ssh_banner = SubRecord({
         }),
     }),
     "dh_key_exchange": SubRecord({
-        "parameters": SubRecord({
-            "client_public":IndexedBinary(),
-            "client_private":IndexedBinary(),
-            "server_public":IndexedBinary(),
-            "prime":IndexedBinary(),
-            "generator":IndexedBinary(),
+        "params": SubRecord({
+            "prime": golang_crypto_param,
+            "generator": golang_crypto_param,
+            "client_public": golang_crypto_param,
+            "client_private": golang_crypto_param,
+            "server_public": golang_crypto_param,
         }),
         "server_signature":ztag_ssh_signature,
         "server_host_key":SubRecord({
