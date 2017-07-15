@@ -32,7 +32,6 @@ zgrab_subj_issuer = SubRecord({
     "jurisdiction_country":ListOf(CensysString()),
     "jurisdiction_locality":ListOf(CensysString()),
     "jurisdiction_province":ListOf(CensysString()),
-
 })
 
 unknown_extension = SubRecord({
