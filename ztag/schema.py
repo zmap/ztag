@@ -28,6 +28,10 @@ zgrab_subj_issuer = SubRecord({
     "postal_code":ListOf(String()),
     "domain_component":ListOf(CensysString()),
     "email_address":ListOf(CensysString()),
+    # EV Fields
+    "jurisdiction_country":ListOf(CensysString()),
+    "jurisdiction_locality":ListOf(CensysString()),
+    "jurisdiction_province":ListOf(CensysString()),
 })
 
 unknown_extension = SubRecord({
