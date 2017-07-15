@@ -1012,18 +1012,18 @@ CertificateAudit = SubRecord({
         "standard_audit_statement_timestamp":DateTime(),
         "management_assertions_by":CensysString(),
         "comments":EnglishString(es_include_raw=True),
-        "ev_policy_oids":CensysString(),
-        "approval_bug":CensysString(),
-        "first_nss_release":CensysString(),
-        "first_firefox_release":CensysString(),
-        "ev_audit":CensysString(),
+        #"ev_policy_oids":CensysString(), # TODO
+        #"approval_bug":CensysString(), # TODO
+        #"first_nss_release":CensysString(), # TODO
+        #"first_firefox_release":CensysString(), # TODO
+        #"ev_audit":CensysString(),
         "current_in_roots":Boolean(),
         "was_in_roots":Boolean(),
-        "test_website_valid":CensysString(),
-        "mozilla_applied_constraints":CensysString(),
-        "company_website":CensysString(),
-        "geographic_focus":CensysString(),
-        "standard_audit_type":CensysString(),
+        #"test_website_valid":CensysString(), # TODO
+        #"mozilla_applied_constraints":CensysString(), #TODO
+        #"company_website":CensysString(), # TODO
+        #"geographic_focus":CensysString(), # TODO
+        #"standard_audit_type":CensysString(), # TODO
      })
 })
 
