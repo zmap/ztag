@@ -22,13 +22,12 @@ setup(
   include_package_data=True,
   zip_safe=False,
   install_requires = [
-    "redis",
-    "protobuf==3.0.0a3",
-    "python-dateutil",
-    "zsearch_definitions",
+    "redis>=2.10.5,<2.11",
+    "python-dateutil>=2.6.0,<2.7",
+    "zsearch_definitions>=0.1.13,<0.2",
     "kafka-python==1.3.2",
-    "lz4tools",
-    "xxhash"
+    "lz4tools>=1.3.1.2,<1.4",
+    "xxhash>=1.0.1,<1.1",
   ],
   package_data={"ztag":["devices/*",]},
   entry_points = {

@@ -112,6 +112,7 @@ class ZMapTransformOutput(object):
         ]
         return '\n'.join(parts)
 
+
 class ZMapTransform(Transform):
 
     name = None
@@ -125,10 +126,10 @@ class ZMapTransform(Transform):
     _ip_regex = re.compile(r"141\.212\.12[1-2]\.[0-9]+")
 
     def __init__(self, port=None, protocol=None, subprotocol=None,
-                 scan_id=None):
+                 scan_id=None, *args, **kwargs):
         super(ZMapTransform, self).__init__(port=port, protocol=protocol,
                                             subprotocol=subprotocol,
-                                            scan_id=scan_id)
+                                            scan_id=scan_id, *args, **kwargs)
         if not self.name:
             raise Exception
 
@@ -142,13 +143,13 @@ class ZMapTransform(Transform):
                     return True
         except TypeError:
             return self.protocol is None or \
-                    self.protocol.value == protocol.value
+                self.protocol.value == protocol.value
         else:
             return False
 
     def check_subprotocol(self, subprotocol):
         return self.subprotocol is None or \
-                self.subprotocol.value == subprotocol.value
+            self.subprotocol.value == subprotocol.value
 
     def transform(self, obj):
         out = super(ZMapTransform, self).transform(obj)
@@ -177,11 +178,19 @@ class ZMapTransform(Transform):
 
 class ZGrabTransform(ZMapTransform):
 
+    def __init__(self, *args, **kwargs):
+        self.strip_domain_prefix = kwargs.get('strip_domain_prefix', '')
+        super(ZGrabTransform, self).__init__(*args, **kwargs)
+
     def transform(self, obj):
         out = super(ZMapTransform, self).transform(obj)
         if "ip" in obj:
             out.transformed['ip_address'] = obj['ip']
         if "domain" in obj:
-            out.transformed['domain'] = obj['domain']
+            domain = obj['domain']
+            if self.strip_domain_prefix:
+                if domain.startswith(self.strip_domain_prefix):
+                    domain = domain[len(self.strip_domain_prefix):]
+            out.transformed['domain'] = domain
         out.transformed['timestamp'] = obj['timestamp']
         return out

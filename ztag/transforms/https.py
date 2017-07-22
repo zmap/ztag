@@ -101,7 +101,8 @@ class HTTPSTransform(ZGrabTransform):
         browser_error = validation['browser_error'].resolve()
         matches_domain = validation['matches_domain'].resolve()
 
-        if browser_trusted or browser_error or matches_domain is not None:
+        if browser_trusted is not None or browser_error is not None \
+                or matches_domain is not None:
             out['validation'] = dict()
         if browser_trusted is not None:
             out['validation']['browser_trusted'] = browser_trusted
@@ -178,6 +179,14 @@ class HTTPSTransform(ZGrabTransform):
             raise errors.IgnoreObject("Empty output dict")
 
         return out, certificates
+
+
+class HTTPSWWWTransform(ZGrabTransform):
+
+    name = "https/www"
+    port = None
+    protocol = protocols.HTTPS_WWW
+    subprotocol = protocols.HTTPS.TLS
 
 
 class HeartbleedTransform(ZGrabTransform):

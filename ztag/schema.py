@@ -27,6 +27,11 @@ zgrab_subj_issuer = SubRecord({
     "organizational_unit":ListOf(CensysString()),
     "postal_code":ListOf(String()),
     "domain_component":ListOf(CensysString()),
+    "email_address":ListOf(CensysString()),
+    # EV Fields
+    "jurisdiction_country":ListOf(CensysString()),
+    "jurisdiction_locality":ListOf(CensysString()),
+    "jurisdiction_province":ListOf(CensysString()),
 })
 
 unknown_extension = SubRecord({
@@ -80,10 +85,10 @@ ztag_dh = SubRecord({
 })
 
 ztag_rsa_params = SubRecord({
-   "exponent":Unsigned32BitInteger(),
-   "modulus":IndexedBinary(),
-   "length":Unsigned16BitInteger(),
-})
+    "exponent":Unsigned32BitInteger(),
+    "modulus":IndexedBinary(),
+    "length":Unsigned16BitInteger(doc="Bit-length of modulus.")
+ })
 
 ztag_rsa_export = SubRecord({
     "rsa_params":ztag_rsa_params,
@@ -104,6 +109,31 @@ ztag_ecdh = SubRecord({
     "support":Boolean(),
     "metadata":local_metadata,
     "timestamp":DateTime(),
+})
+
+ztag_dsa_params = SubRecord({
+    "p":IndexedBinary(),
+    "q":IndexedBinary(),
+    "g":IndexedBinary(),
+    "y":IndexedBinary(),
+})
+
+ztag_ssh_ecdsa_public_key = SubRecord({
+    "pub":IndexedBinary(),
+    "b":IndexedBinary(),
+    "gx":IndexedBinary(),
+    "gy":IndexedBinary(),
+    "n":IndexedBinary(),
+    "p":IndexedBinary(),
+    "x":IndexedBinary(),
+    "y":IndexedBinary(),
+    "curve":Enum(["P-224", "P-256", "P-384", "P-521"]),
+    "length":Unsigned16BitInteger(),
+    "asn1_oid":OID(),
+})
+
+ztag_ed25519_public_key = SubRecord({
+    "public_bytes":IndexedBinary(),
 })
 
 ztag_sct = SubRecord({
@@ -163,17 +193,8 @@ zgrab_parsed_certificate = SubRecord({
                              "This is helpful when an unknown type is present. "\
                              "This field is reserved and not current populated.")
          }),
-        "rsa_public_key":SubRecord({
-            "exponent":Unsigned32BitInteger(),
-            "modulus":IndexedBinary(),
-            "length":Unsigned16BitInteger(doc="Bit-length of modulus.")
-         }),
-        "dsa_public_key":SubRecord({
-            "p":IndexedBinary(),
-            "q":IndexedBinary(),
-            "g":IndexedBinary(),
-            "y":IndexedBinary(),
-        }),
+        "rsa_public_key":ztag_rsa_params,
+        "dsa_public_key":ztag_dsa_params,
         "ecdsa_public_key":SubRecord({
             "b":IndexedBinary(),
             "gx":IndexedBinary(),
@@ -183,7 +204,7 @@ zgrab_parsed_certificate = SubRecord({
             "x":IndexedBinary(),
             "y":IndexedBinary(),
             "pub":Binary(),
-            "curve":Enum(),
+            "curve":Enum(["P-224", "P-256", "P-384", "P-521"]),
             "length":Unsigned16BitInteger(),
             #"asn1_oid":OID(), # TODO: this is currently commented out
             # because for a bunch of certificates, this was encoded as [1, 2,
@@ -214,14 +235,70 @@ zgrab_parsed_certificate = SubRecord({
         "subject_key_id":HexString(),
         "extended_key_usage":SubRecord({
             "value":ListOf(Signed32BitInteger()), # TODO: remove after reparse
-            #"server_auth":Boolean(doc="TLS WWW server authentication"),
-            #"client_auth":Boolean(doc="TLS WWW client authentication"),
-            #"code_signing":Boolean(doc="Signing of downloadable executable code"),
-            #"email_protection":Boolean(doc="Email protection"),
-            #"time_stamping":Boolean(doc="Binding the hash of an object to a time"),
-            #"ocsp_signing":Boolean(doc="Signing OCSP responses"),
-            #"unknown":ListOf(OID)
-        }, exclude=["bigquery",]), # XXX
+            "apple_ichat_signing": Boolean(),
+            "microsoft_lifetime_signing": Boolean(),
+            "microsoft_oem_whql_crypto": Boolean(),
+            "microsoft_system_health": Boolean(),
+            "ipsec_end_system": Boolean(),
+            "microsoft_key_recovery_3": Boolean(),
+            "microsoft_key_recovery_21": Boolean(),
+            "microsoft_license_server": Boolean(),
+            "apple_code_signing_development": Boolean(),
+            "apple_crypto_tier0_qos": Boolean(),
+            "microsoft_qualified_subordinate": Boolean(),
+            "microsoft_sgc_serialized": Boolean(),
+            "microsoft_licenses": Boolean(),
+            "dvcs": Boolean(),
+            "eap_over_lan": Boolean(),
+            "apple_crypto_qos": Boolean(),
+            "microsoft_timestamp_signing": Boolean(),
+            "microsoft_nt5_crypto": Boolean(),
+            "microsoft_drm": Boolean(),
+            "apple_software_update_signing": Boolean(),
+            "apple_crypto_development_env": Boolean(),
+            "apple_crypto_tier1_qos": Boolean(),
+            "apple_crypto_tier3_qos": Boolean(),
+            "microsoft_drm_individualization": Boolean(),
+            "sbgp_cert_aa_service_auth": Boolean(),
+            "ocsp_signing": Boolean(),
+            "netscape_server_gated_crypto": Boolean(),
+            "code_signing": Boolean(),
+            "apple_crypto_production_env": Boolean(),
+            "microsoft_document_signing": Boolean(),
+            "server_auth": Boolean(),
+            "client_auth": Boolean(),
+            "apple_ichat_encryption": Boolean(),
+            "apple_crypto_maintenance_env": Boolean(),
+            "microsoft_enrollment_agent": Boolean(),
+            "microsoft_ca_exchange": Boolean(),
+            "time_stamping": Boolean(),
+            "apple_crypto_test_env": Boolean(),
+            "microsoft_kernel_mode_code_signing": Boolean(),
+            "email_protection": Boolean(),
+            "microsoft_cert_trust_list_signing": Boolean(),
+            "microsoft_embedded_nt_crypto": Boolean(),
+            "microsoft_efs_recovery": Boolean(),
+            "microsoft_smartcard_logon": Boolean(),
+            "ipsec_tunnel": Boolean(),
+            "any": Boolean(),
+            "apple_code_signing": Boolean(),
+            "apple_system_identity": Boolean(),
+            "apple_crypto_env": Boolean(),
+            "microsoft_server_gated_crypto": Boolean(),
+            "apple_code_signing_third_party": Boolean(),
+            "microsoft_whql_crypto": Boolean(),
+            "apple_resource_signing": Boolean(),
+            "apple_crypto_tier2_qos": Boolean(),
+            "microsoft_mobile_device_software": Boolean(),
+            "microsoft_encrypted_file_system": Boolean(),
+            "eap_over_ppp": Boolean(),
+            "ipsec_user": Boolean(),
+            "microsoft_smart_display": Boolean(),
+            "microsoft_csp_signature": Boolean(),
+            "microsoft_root_list_signer": Boolean(),
+            "microsoft_system_health_loophole": Boolean(),
+            #"unknown":ListOf(OID()) # TODO
+        }, exclude=["bigquery",]), # TODO
         "certificate_policies":ListOf(certificate_policy),
         "authority_info_access":SubRecord({
             "ocsp_urls":ListOf(URL()),
@@ -472,6 +549,11 @@ ztag_http = SubRecord({
     "timestamp":DateTime(),
 })
 
+golang_crypto_param = SubRecord({
+    "value":IndexedBinary(),
+    "length":Unsigned32BitInteger()
+})
+
 #ztag_open_proxy = SubRecord({
 #    "connect":SubRecord({
 #      "status_code":Integer(),
@@ -490,13 +572,128 @@ ztag_http = SubRecord({
 #    "metadata":local_metadata
 #})
 
+ztag_ssh_signature = SubRecord({
+    "parsed":SubRecord({
+        "algorithm":CensysString(),
+        "value":IndexedBinary(),
+    }),
+    "raw":IndexedBinary(),
+})
+
 ztag_ssh_banner = SubRecord({
-    "raw_banner":CensysString(),
     "protocol_version":String(),
     "software_version":String(),
     "comment":CensysString(),
     "metadata":local_metadata,
     "timestamp":DateTime(),
+    "server_id":SubRecord({
+        "raw":CensysString(),
+        "version":String(),
+        "software":CensysString(),
+        "comment":CensysString(),
+    }),
+    "server_key_exchange":SubRecord({
+        "cookie": Binary(),
+        "kex_algorithms":ListOf(CensysString()),
+        "host_key_algorithms":ListOf(CensysString()),
+        "client_to_server_ciphers":ListOf(CensysString()),
+        "server_to_client_ciphers":ListOf(CensysString()),
+        "client_to_server_macs":ListOf(CensysString()),
+        "server_to_client_macs":ListOf(CensysString()),
+        "client_to_server_compression":ListOf(CensysString()),
+        "server_to_client_compression":ListOf(CensysString()),
+        "client_to_server_languages":ListOf(CensysString()),
+        "server_to_client_languages":ListOf(CensysString()),
+        "first_kex_follows":Boolean(),
+        "reserved":Unsigned32BitInteger(),
+    }),
+    "userauth":ListOf(CensysString()),
+    "algorithm_selection":SubRecord({
+        "dh_kex_algorithm":CensysString(),
+        "host_key_algorithm":CensysString(),
+        "client_to_server_alg_group": SubRecord({
+            "cipher":CensysString(),
+            "mac":CensysString(),
+            "compression":CensysString(),
+        }),
+        "server_to_client_alg_group": SubRecord({
+            "cipher":CensysString(),
+            "mac":CensysString(),
+            "compression":CensysString(),
+        }),
+    }),
+    "dh_key_exchange": SubRecord({
+        "params": SubRecord({
+            "prime": golang_crypto_param,
+            "generator": golang_crypto_param,
+            "client_public": golang_crypto_param,
+            "client_private": golang_crypto_param,
+            "server_public": golang_crypto_param,
+        }),
+        "server_signature":ztag_ssh_signature,
+        "server_host_key":SubRecord({
+            "raw":IndexedBinary(),
+            "algorithm":CensysString(),
+            "fingerprint_sha256":HexString(),
+            "rsa_public_key":ztag_rsa_params,
+            "dsa_public_key":ztag_dsa_params,
+            "ecdsa_public_key":ztag_ssh_ecdsa_public_key,
+            "ed25519_public_key":ztag_ed25519_public_key,
+            "certkey_public_key":SubRecord({
+                "nonce":IndexedBinary(),
+                "key":SubRecord({
+                    "raw":IndexedBinary(),
+                    "fingerprint_sha256":HexString(),
+                    "algorithm":CensysString(),
+                    "rsa_public_key":ztag_rsa_params,
+                    "dsa_public_key":ztag_dsa_params,
+                    "ecdsa_public_key":ztag_ssh_ecdsa_public_key,
+                    "ed25519_public_key":ztag_ed25519_public_key,
+                }),
+                "serial":CensysString(),
+                "cert_type":SubRecord({
+                    "id":Unsigned32BitInteger(),
+                    "name":CensysString(),
+                }),
+                "key_id":CensysString(),
+                "valid_principals":ListOf(CensysString()),
+                "validity":SubRecord({
+                    "valid_after":DateTime(doc="Timestamp of when certificate is first valid. Timezone is UTC."),
+                    "valid_before":DateTime(doc="Timestamp of when certificate expires. Timezone is UTC."),
+                    "length":Signed64BitInteger(),
+                }),
+                "reserved":IndexedBinary(),
+                "signature_key":SubRecord({
+                    "raw":IndexedBinary(),
+                    "fingerprint_sha256":HexString(),
+                    "algorithm":CensysString(),
+                    "rsa_public_key":ztag_rsa_params,
+                    "dsa_public_key":ztag_dsa_params,
+                    "ecdsa_public_key":ztag_ssh_ecdsa_public_key,
+                    "ed25519_public_key":ztag_ed25519_public_key,
+                }),
+                "signature":ztag_ssh_signature,
+                "parse_error":String(),
+                "extensions":SubRecord({
+                    "known":SubRecord({
+                        "permit_X11_forwarding":CensysString(),
+                        "permit_agent_forwarding":CensysString(),
+                        "permit_port_forwarding":CensysString(),
+                        "permit_pty":CensysString(),
+                        "permit_user_rc":CensysString(),
+                    }),
+                    "unknown":ListOf(CensysString()),
+                }),
+                "critical_options":SubRecord({
+                    "known":SubRecord({
+                        "force_command":CensysString(),
+                        "source_address":CensysString(),
+                    }),
+                    "unknown":ListOf(CensysString()),
+                })
+            })
+        }),
+    }),
 })
 
 ztag_ftp = SubRecord({
@@ -640,6 +837,10 @@ ztag_s7 = SubRecord({
     "timestamp":DateTime(),
 })
 
+ztag_smb = SubRecord({
+    "smbv1_support":Boolean(),
+})
+
 ztag_schemas = [
     ("ztag_https", ztag_tls),
     ("ztag_heartbleed", ztag_heartbleed),
@@ -668,6 +869,7 @@ ztag_schemas = [
     ("ztag_fox", ztag_fox),
     ("ztag_dnp3", ztag_dnp3),
     ("ztag_s7", ztag_s7),
+    ("ztag_smb", ztag_smb),
 ]
 for (name, schema) in ztag_schemas:
     x = Record({
@@ -762,13 +964,18 @@ CTStatus = SubRecord({
 
     "comodo_dodo":CTServerStatus,
     "comodo_mammoth":CTServerStatus,
+    "comodo_sabre":CTServerStatus,
 
     "digicert_ct1":CTServerStatus,
+    "digicert_ct2":CTServerStatus,
+
     "izenpe_com_ct":CTServerStatus,
     "izenpe_eus_ct":CTServerStatus,
+
     "symantec_ws_ct":CTServerStatus,
     "symantec_ws_vega":CTServerStatus,
     "symantec_ws_sirius":CTServerStatus,
+
     "wosign_ctlog":CTServerStatus,
     "wosign_ct":CTServerStatus,
     "cnnic_ctserver":CTServerStatus,
@@ -776,80 +983,331 @@ CTStatus = SubRecord({
     "gdca_ctlog":CTServerStatus,
     "startssl_ct":CTServerStatus,
     "certly_log":CTServerStatus,
+
     "venafi_api_ctlog":CTServerStatus,
     "venafi_api_ctlog_gen2":CTServerStatus,
+
     "symantec_ws_deneb":CTServerStatus,
     "nordu_ct_plausible":CTServerStatus,
-    "certificatetransparency_cn_ct":CTServerStatus
+    "certificatetransparency_cn_ct":CTServerStatus,
+    "sheca_ct":CTServerStatus,
+    "letsencrypt_ct_clicky":CTServerStatus,
+
 })
 
 CertificateAudit = SubRecord({
-    "nss":SubRecord({
-        "current_in":Boolean(),
-        "was_in":Boolean(),
+    "ccadb":SubRecord({
+        "current_in_intermediates":Boolean(),
+        "was_in_intermediates":Boolean(),
         "owner_name":CensysString(),
         "parent_name":CensysString(),
         "certificate_name":CensysString(),
         "certificate_policy":CensysString(),
         "certification_practice_statement":CensysString(),
-        "cp_same_as_parent":CensysString(),
-        "audit_same_as_parent":CensysString(),
+        "cp_same_as_parent":CensysString(), # TODO: Boolean
+        "audit_same_as_parent":CensysString(), # TODO: Boolean
         "standard_audit":CensysString(),
         "br_audit":CensysString(),
         "auditor":CensysString(),
         "standard_audit_statement_timestamp":DateTime(),
         "management_assertions_by":CensysString(),
+        "comments":EnglishString(es_include_raw=True),
+        #"ev_policy_oids":CensysString(), # TODO
+        #"approval_bug":CensysString(), # TODO
+        #"first_nss_release":CensysString(), # TODO
+        #"first_firefox_release":CensysString(), # TODO
+        #"ev_audit":CensysString(),
+        "current_in_roots":Boolean(),
+        "was_in_roots":Boolean(),
+        #"test_website_valid":CensysString(), # TODO
+        #"mozilla_applied_constraints":CensysString(), #TODO
+        #"company_website":CensysString(), # TODO
+        #"geographic_focus":CensysString(), # TODO
+        #"standard_audit_type":CensysString(), # TODO
      })
 })
 
 ztag_certificate_validation = SubRecord({
-    "valid":Boolean(),
-    "was_valid":Boolean(),
-    "trusted_path":Boolean(),
-    "was_trusted_path":Boolean(),
-    "blacklisted":Boolean(),
-    "type":Enum(["leaf","intermediate","root"]),
+    "valid":Boolean(doc="((has_trusted_path && !revoked && !blacklisted) || whitelisted) && !expired"),
+    "was_valid":Boolean(doc="True if the certificate is valid now or was ever valid in the past."),
+    "trusted_path":Boolean(doc="True if there exists a path from the certificate to the root store."),
+    "had_trusted_path":Boolean(doc="True if now or at some point in the past there existed a path "
+                                   "from the certificate to the root store."),
+    "blacklisted":Boolean(doc="True if the certificate is explicitly blacklisted by some method than OneCRL/CRLSet. "
+                              "For example, a set of certificates revoked by Cloudflare are blacklisted by SPKI hash in Chrome."),
+    "whitelisted":Boolean(doc="True if the certificate is explicitly whitelisted, "
+                              "e.g. the set of trusted WoSign certificates Apple uses."),
+    "type":Enum(["leaf","intermediate","root","unknown"], doc="Indicates if the certificate is a root, intermediate, or leaf."),
+    "paths":NestedListOf(HexString(), "path"),
+    "in_revocation_set":Boolean(doc="True if the certificate is in the revocation set (e.g. OneCRL) associated with this root store."),
+    "parents":ListOf(HexString()),
+})
+
+class LintBool(String):
+
+    ES_TYPE = "boolean"
+
+Lints = SubRecord({
+    # Lints can have any of the following outputs:
+    #   - RESERVED [should never happen]
+    #   - NA [not applicable]
+    #   - NE [not applicable]
+    #   - PASS [test success]
+    #   - INFO [failed for info]
+    #   - WARN [failed for warn]
+    #   - FAIL [failed for error]
+    #   - FATAL [test could not complete because cert is broken]
+    #   - UNKNOWN [should never occur]
+    # We don't want to store a string for every lint in elasticsearch because
+    # our index size would explode. Instead we map these to a string:
+    # {
+    #     (reserved, unknown, ne, na, pass) -> null,
+    #     (notice, warning, fail, fatal) -> true
+    # }
+    # For BigQuery, we have more options, so we allow some more information:
+    # {
+    #     all map to original value
+    # }
+    # This is horrible to schema, so define a custom type
+    "e_basic_constraints_not_critical":LintBool(),
+    "e_ian_bare_wildcard":LintBool(),
+    "e_ian_wildcard_not_first":LintBool(),
+    "e_san_bare_wildcard":LintBool(),
+    "e_san_wildcard_not_first":LintBool(),
+    "e_ca_country_name_invalid":LintBool(),
+    "e_ca_country_name_missing":LintBool(),
+    "e_ca_crl_sign_not_set":LintBool(),
+    "n_ca_digital_signature_not_set":LintBool(),
+    "e_ca_key_cert_sign_not_set":LintBool(),
+    "e_ca_key_usage_missing":LintBool(),
+    "e_ca_key_usage_not_critical":LintBool(),
+    "e_ca_organization_name_missing":LintBool(),
+    "e_ca_subject_field_empty":LintBool(),
+    "e_cert_contains_unique_identifier":LintBool(),
+    "e_cert_extensions_version_not_3":LintBool(),
+    "e_cab_dv_conflicts_with_locality":LintBool(),
+    "e_cab_dv_conflicts_with_org":LintBool(),
+    "e_cab_dv_conflicts_with_postal":LintBool(),
+    "e_cab_dv_conflicts_with_province":LintBool(),
+    "e_cab_dv_conflicts_with_street":LintBool(),
+    "e_cert_policy_iv_requires_country":LintBool(),
+    "e_cert_policy_iv_requires_province_or_locality":LintBool(),
+    "e_cert_policy_ov_requires_country":LintBool(),
+    "e_cert_policy_ov_requires_province_or_locality":LintBool(),
+    "e_cab_ov_requires_org":LintBool(),
+    "e_cab_iv_requires_personal_name":LintBool(),
+    "e_cert_unique_identifier_version_not_2_or_3":LintBool(),
+    "e_dh_params_missing":LintBool(),
+    "e_distribution_point_incomplete":LintBool(),
+    "w_distribution_point_missing_ldap_or_uri":LintBool(),
+    "e_dsa_improper_modulus_or_divisor_size":LintBool(),
+    "e_dsa_shorter_than_2048_bits":LintBool(),
+    "e_ec_improper_curves":LintBool(),
+    "w_eku_critical_improperly":LintBool(),
+    "e_ev_business_category_missing":LintBool(),
+    "e_ev_country_name_missing":LintBool(),
+    "e_ev_locality_name_missing":LintBool(),
+    "e_ev_organization_name_missing":LintBool(),
+    "e_ev_serial_number_missing":LintBool(),
+    "e_ev_valid_time_too_long":LintBool(),
+    "w_ext_aia_access_location_missing":LintBool(),
+    "e_ext_aia_marked_critical":LintBool(),
+    "e_ext_authority_key_identifier_critical":LintBool(),
+    "e_ext_authority_key_identifier_missing":LintBool(),
+    "e_ext_authority_key_identifier_no_key_identifier":LintBool(),
+    "w_ext_cert_policy_contains_noticeref":LintBool(),
+    "e_ext_cert_policy_disallowed_any_policy_qualifier":LintBool(),
+    "e_ext_cert_policy_duplicate":LintBool(),
+    "e_ext_cert_policy_explicit_text_ia5_string":LintBool(),
+    "w_ext_cert_policy_explicit_text_includes_control":LintBool(),
+    "w_ext_cert_policy_explicit_text_not_nfc":LintBool(),
+    "w_ext_cert_policy_explicit_text_not_utf8":LintBool(),
+    "e_ext_cert_policy_explicit_text_too_long":LintBool(),
+    "w_ext_crl_distribution_marked_critical":LintBool(),
+    "e_ext_duplicate_extension":LintBool(),
+    "e_ext_freshest_crl_marked_critical":LintBool(),
+    "w_ext_ian_critical":LintBool(),
+    "e_ext_ian_dns_not_ia5_string":LintBool(),
+    "e_ext_ian_empty_name":LintBool(),
+    "e_ext_ian_no_entries":LintBool(),
+    "e_ext_ian_rfc822_format_invalid":LintBool(),
+    "e_ext_ian_space_dns_name":LintBool(),
+    "e_ext_ian_uri_format_invalid":LintBool(),
+    "e_ext_ian_uri_host_not_fqdn_or_ip":LintBool(),
+    "e_ext_ian_uri_not_ia5":LintBool(),
+    "e_ext_ian_uri_relative":LintBool(),
+    "e_ext_key_usage_cert_sign_without_ca":LintBool(),
+    "w_ext_key_usage_not_critical":LintBool(),
+    "e_ext_key_usage_without_bits":LintBool(),
+    "e_ext_name_constraints_not_critical":LintBool(),
+    "e_ext_name_constraints_not_in_ca":LintBool(),
+    "e_ext_policy_constraints_empty":LintBool(),
+    "e_ext_policy_constraints_not_critical":LintBool(),
+    "e_ext_policy_map_any_policy":LintBool(),
+    "w_ext_policy_map_not_critical":LintBool(),
+    "w_ext_policy_map_not_in_cert_policy":LintBool(),
+    "e_ext_san_contains_reserved_ip":LintBool(),
+    "w_ext_san_critical_with_subject_dn":LintBool(),
+    "e_ext_san_directory_name_present":LintBool(),
+    "e_ext_san_dns_not_ia5_string":LintBool(),
+    "e_ext_san_dnsname_not_fqdn":LintBool(),
+    "e_ext_san_edi_party_name_present":LintBool(),
+    "e_ext_san_empty_name":LintBool(),
+    "e_ext_san_missing":LintBool(),
+    "e_ext_san_no_entries":LintBool(),
+    "e_ext_san_not_critical_without_subject":LintBool(),
+    "e_ext_san_other_name_present":LintBool(),
+    "e_ext_san_registered_id_present":LintBool(),
+    "e_ext_san_rfc822_format_invalid":LintBool(),
+    "e_ext_san_rfc822_name_present":LintBool(),
+    "e_ext_san_space_dns_name":LintBool(),
+    "e_ext_san_uniform_resource_identifier_present":LintBool(),
+    "e_ext_san_uri_format_invalid":LintBool(),
+    "e_ext_san_uri_host_not_fqdn_or_ip":LintBool(),
+    "e_ext_san_uri_not_ia5":LintBool(),
+    "e_ext_san_uri_relative":LintBool(),
+    "e_ext_subject_directory_attr_critical":LintBool(),
+    "e_ext_subject_key_identifier_critical":LintBool(),
+    "e_ext_subject_key_identifier_missing_ca":LintBool(),
+    "w_ext_subject_key_identifier_missing_sub_cert":LintBool(),
+    "e_generalized_time_does_not_include_seconds":LintBool(),
+    "e_generalized_time_includes_fraction_seconds":LintBool(),
+    "e_generalized_time_not_in_zulu":LintBool(),
+    "w_gtld_under_consideration":LintBool(),
+    "e_ian_dns_name_includes_null_char":LintBool(),
+    "e_ian_dns_name_starts_with_period":LintBool(),
+    "w_ian_iana_pub_suffix_empty":LintBool(),
+    "e_inhibit_any_policy_not_critical":LintBool(),
+    "e_invalid_certificate_version":LintBool(),
+    "e_issuer_field_empty":LintBool(),
+    "e_name_constraint_empty":LintBool(),
+    "e_name_constraint_maximum_not_absent":LintBool(),
+    "e_name_constraint_minimum_non_zero":LintBool(),
+    "w_name_constraint_on_edi_party_name":LintBool(),
+    "w_name_constraint_on_registered_id":LintBool(),
+    "w_name_constraint_on_x400":LintBool(),
+    "e_old_root_ca_rsa_mod_less_than_2048_bits":LintBool(),
+    "e_old_sub_ca_rsa_mod_less_than_1024_bits":LintBool(),
+    "e_old_sub_cert_rsa_mod_less_than_1024_bits":LintBool(),
+    "e_path_len_constraint_improperly_included":LintBool(),
+    "e_path_len_constraint_zero_or_less":LintBool(),
+    "e_public_key_type_not_allowed":LintBool(),
+    "w_root_ca_basic_constraints_path_len_constraint_field_present":LintBool(),
+    "w_root_ca_contains_cert_policy":LintBool(),
+    "e_root_ca_extended_key_usage_present":LintBool(),
+    "e_rsa_exp_negative":LintBool(),
+    "w_rsa_mod_factors_smaller_than_752":LintBool(),
+    "e_rsa_mod_less_than_2048_bits":LintBool(),
+    "w_rsa_mod_not_odd":LintBool(),
+    "w_rsa_public_exponent_not_in_range":LintBool(),
+    "e_rsa_public_exponent_not_odd":LintBool(),
+    "e_rsa_public_exponent_too_small":LintBool(),
+    "e_san_dns_name_includes_null_char":LintBool(),
+    "e_san_dns_name_starts_with_period":LintBool(),
+    "w_san_iana_pub_suffix_empty":LintBool(),
+    "e_serial_number_longer_than_20_octets":LintBool(),
+    "e_serial_number_not_positive":LintBool(),
+    "w_sub_ca_aia_does_not_contain_issuing_ca_url":LintBool(),
+    "e_sub_ca_aia_does_not_contain_ocsp_url":LintBool(),
+    "e_sub_ca_aia_missing":LintBool(),
+    "w_sub_ca_certificate_policies_marked_critical":LintBool(),
+    "e_sub_ca_certificate_policies_missing":LintBool(),
+    "e_sub_ca_crl_distribution_points_does_not_contain_url":LintBool(),
+    "e_sub_ca_crl_distribution_points_marked_critical":LintBool(),
+    "e_sub_ca_crl_distribution_points_missing":LintBool(),
+    "w_sub_ca_eku_critical":LintBool(),
+    "w_sub_ca_name_constraints_not_critical":LintBool(),
+    "e_sub_ca_no_dns_name_constraints":LintBool(),
+    "e_sub_ca_no_ip_name_constraints":LintBool(),
+    "e_sub_cert_aia_does_not_contain_issuing_ca_url":LintBool(),
+    "e_sub_cert_aia_does_not_contain_ocsp_url":LintBool(),
+    "e_sub_cert_aia_missing":LintBool(),
+    "e_sub_cert_cert_policy_empty":LintBool(),
+    "w_sub_cert_certificate_policies_marked_critical":LintBool(),
+    "e_sub_cert_crl_distribution_points_does_not_contain_url":LintBool(),
+    "e_sub_cert_crl_distribution_points_marked_critical":LintBool(),
+    "w_sub_cert_eku_extra_values":LintBool(),
+    "e_sub_cert_eku_missing":LintBool(),
+    "e_sub_cert_eku_server_auth_client_auth_missing":LintBool(),
+    "e_sub_cert_key_usage_cert_sign_bit_set":LintBool(),
+    "e_sub_cert_or_sub_ca_using_sha1":LintBool(),
+    "w_sub_cert_sha1_expiration_too_long":LintBool(),
+    "e_subject_common_name_disallowed":LintBool(),
+    "n_subject_common_name_included":LintBool(),
+    "e_subject_common_name_not_from_san":LintBool(),
+    "e_subject_contains_noninformational_value":LintBool(),
+    "e_subject_contains_reserved_ip":LintBool(),
+    "e_subject_country_not_iso":LintBool(),
+    "e_subject_empty_without_san":LintBool(),
+    "e_subject_info_access_marked_critical":LintBool(),
+    "e_subject_locality_without_org":LintBool(),
+    "e_subject_not_dn":LintBool(),
+    "e_subject_org_without_country":LintBool(),
+    "e_subject_org_without_locality_or_province":LintBool(),
+    "e_subject_postal_without_org":LintBool(),
+    "e_subject_province_without_org":LintBool(),
+    "e_subject_street_without_org":LintBool(),
+    "e_utc_time_does_not_include_seconds":LintBool(),
+    "e_utc_time_not_in_zulu":LintBool(),
+    "e_validity_time_not_positive":LintBool(),
+    "e_wrong_time_format_pre2050":LintBool(),
+    "e_rsa_no_public_key":LintBool(),
+    "e_sub_cert_certificate_policies_missing":LintBool(),
+    "e_sub_cert_key_usage_crl_sign_bit_set":LintBool(),
+    "e_subject_common_name_max_length":LintBool(),
+    "e_subject_locality_name_max_length":LintBool(),
+    "e_subject_organization_name_max_length":LintBool(),
+    "e_subject_organizational_unit_name_max_length":LintBool(),
+    "e_subject_state_name_max_length":LintBool(),
+    "w_multiple_subject_rdn":LintBool(),
+    "w_multiple_issuer_rdn":LintBool(),
+    "w_issuer_dn_trailing_whitespace":LintBool(),
+    "w_issuer_dn_leading_whitespace":LintBool(),
+    "w_subject_dn_trailing_whitespace":LintBool(),
+    "w_subject_dn_leading_whitespace":LintBool(),
+})
+
+ZLint = SubRecord({
+    "version":Unsigned16BitInteger(),
+    "notices_present":Boolean(),
+    "warnings_present":Boolean(),
+    "errors_present":Boolean(),
+    "fatals_present":Boolean(),
+    "lints":Lints,
 })
 
 certificate = Record({
-    "updated_at":DateTime(),
     "parsed":zgrab_parsed_certificate,
     "raw":Binary(),
     "tags":ListOf(CensysString()),
-    "metadata":zdb_metadata,
+    "metadata":SubRecord({
+        "updated_at":DateTime(),
+        "added_at":DateTime(),
+        "post_processed":Boolean(),
+        "post_processed_at":DateTime(),
+        "seen_in_scan":Boolean(),
+        "source":String(),
+        "parse_version":Unsigned16BitInteger(),
+        "parse_error":CensysString(),
+        "parse_status":String(),
+    }),
     "parents":ListOf(String()),
-    "validation_timestamp":DateTime(),
-    ## TODO: DEPRECATED validation. These should be removed in the future:
-    "valid_nss": Boolean(deprecated=True),
-    "was_valid_nss":Boolean(deprecated=True),
-    "current_valid_nss":Boolean(deprecated=True),
-    "in_nss":Boolean(deprecated=True),
-    "current_in_nss":Boolean(deprecated=True),
-    "was_in_nss":Boolean(deprecated=True),
-    ## new style validation
     "validation":SubRecord({
         "nss":ztag_certificate_validation,
         "apple":ztag_certificate_validation,
         "microsoft":ztag_certificate_validation,
-        "java":ztag_certificate_validation,
-        "android":ztag_certificate_validation,
+        #"java":ztag_certificate_validation,
+        #"android":ztag_certificate_validation,
         "google_ct_primary":ztag_certificate_validation,
-        "google_ct_submariner":ztag_certificate_validation,
+        #"google_ct_submariner":ztag_certificate_validation,
     }),
-    "revoked":Boolean(doc="reserved"),
     "ct":CTStatus,
-    "seen_in_scan":Boolean(),
-    "source":String(),
     "audit":CertificateAudit,
-    "precert":Boolean(),
+    "zlint":ZLint,
+    "precert":Boolean()
 })
 
 zschema.registry.register_schema("certificate", certificate)
-
-cryptkey = Record({
-
-})
-
 
 ipv4_host = Record({
             Port(443):SubRecord({
@@ -903,6 +1361,11 @@ ipv4_host = Record({
                 "imap":SubRecord({
                     "starttls":ztag_mail_starttls,
                     #"ssl_2": ztag_sslv2, # XXX
+                })
+            }),
+            Port(445):SubRecord({
+                "smb":SubRecord({
+                    "banner":ztag_smb
                 })
             }),
             Port(993):SubRecord({
@@ -978,15 +1441,21 @@ website = Record({
                     "tls":ztag_tls,
                     "heartbleed":ztag_heartbleed,
                     "dhe": ztag_dh,
-                    "export_rsa": ztag_rsa_export,
-                    "export_dhe": ztag_dh_export,
+                    "export_rsa": ztag_rsa_export, # wrong name. should be rsa_export
+                    "export_dhe": ztag_dh_export,  # wrong name. should be dhe_export
                     "tls_1_1": ztag_tls_support,
                     "tls_1_2": ztag_tls_support,
                     "ecdhe": ztag_ecdh,
+                }),
+                "https_www":SubRecord({
+                    "tls":ztag_tls,
                 })
             }),
             Port(80):SubRecord({
                 "http":SubRecord({
+                    "get":ztag_http,
+                }),
+                "http_www":SubRecord({
                     "get":ztag_http,
                 }),
             }),
@@ -1011,7 +1480,8 @@ website = Record({
                     "Null if not currently in the Top 1 Million sites."),
             "updated_at":DateTime(),
             "zdb_version":Unsigned32BitInteger(),
-            "protocols":ListOf(String())
+            "protocols":ListOf(String()),
+            "ports":ListOf(Unsigned16BitInteger())
 })
 
 

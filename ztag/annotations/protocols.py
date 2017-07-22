@@ -28,6 +28,7 @@ PROTOCOLS = [
     (protocols.DNP3, protocols.DNP3.STATUS, {"device_with_dnp3": {"tags":["dnp3",]}}),
     (protocols.S7, protocols.S7.SZL, {"device_with_s7": {"tags":["s7",]}}),
     (protocols.CWMP, protocols.CWMP.GET, {"device_with_cwmp": {"tags":["cwmp",]}}),
+    (protocols.SMB, protocols.SMB.BANNER, {"device_with_smb": {"tags":["smb",]}}),
 ]
 
 for proto, subproto, tests in PROTOCOLS:
