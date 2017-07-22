@@ -181,7 +181,7 @@ class HTTPSTransform(ZGrabTransform):
         return out, certificates
 
 
-class HTTPSWWWTransform(ZGrabTransform):
+class HTTPSWWWTransform(HTTPSTransform):
 
     name = "https/www"
     port = None
