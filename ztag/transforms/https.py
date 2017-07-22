@@ -181,6 +181,14 @@ class HTTPSTransform(ZGrabTransform):
         return out, certificates
 
 
+class HTTPSWWWTransform(ZGrabTransform):
+
+    name = "https/www"
+    port = None
+    protocol = protocols.HTTPS_WWW
+    subprotocol = protocols.HTTPS.TLS
+
+
 class HeartbleedTransform(ZGrabTransform):
 
     name = "https/heartbleed"

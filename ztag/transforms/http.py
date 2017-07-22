@@ -68,6 +68,15 @@ class HTTPTransform(ZGrabTransform):
         return zout
 
 
+class HTTPWWWTransform(ZGrabTransform):
+
+    name = "http/www"
+    port = None
+    protocol = protocols.HTTP_WWW
+    subprotocol = protocols.HTTP.GET
+
+
+
 class OpenProxyTransform(ZGrabTransform):
 
     name = "http/openproxy"
