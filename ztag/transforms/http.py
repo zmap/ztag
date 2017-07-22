@@ -68,7 +68,7 @@ class HTTPTransform(ZGrabTransform):
         return zout
 
 
-class HTTPWWWTransform(ZGrabTransform):
+class HTTPWWWTransform(HTTPTransform):
 
     name = "http/www"
     port = None
