@@ -572,126 +572,115 @@ golang_crypto_param = SubRecord({
 #    "metadata":local_metadata
 #})
 
-ztag_ssh_signature = SubRecord({
-    "parsed":SubRecord({
-        "algorithm":CensysString(),
-        "value":IndexedBinary(),
-    }),
-    "raw":IndexedBinary(),
-})
-
-ztag_ssh_banner = SubRecord({
-    "protocol_version":String(),
-    "software_version":String(),
-    "comment":CensysString(),
+ztag_ssh_v2 = SubRecord({
     "metadata":local_metadata,
     "timestamp":DateTime(),
-    "server_id":SubRecord({
+    "banner":SubRecord({
         "raw":CensysString(),
         "version":String(),
         "software":CensysString(),
         "comment":CensysString(),
     }),
-    "server_key_exchange":SubRecord({
-        "cookie": Binary(),
-        "kex_algorithms":ListOf(CensysString()),
-        "host_key_algorithms":ListOf(CensysString()),
-        "client_to_server_ciphers":ListOf(CensysString()),
-        "server_to_client_ciphers":ListOf(CensysString()),
-        "client_to_server_macs":ListOf(CensysString()),
-        "server_to_client_macs":ListOf(CensysString()),
-        "client_to_server_compression":ListOf(CensysString()),
-        "server_to_client_compression":ListOf(CensysString()),
-        "client_to_server_languages":ListOf(CensysString()),
-        "server_to_client_languages":ListOf(CensysString()),
+    "support":SubRecord({
+        "kex_algorithms":ListOf(String()),
+        "host_key_algorithms":ListOf(String()),
         "first_kex_follows":Boolean(),
-        "reserved":Unsigned32BitInteger(),
-    }),
-    "userauth":ListOf(CensysString()),
-    "algorithm_selection":SubRecord({
-        "dh_kex_algorithm":CensysString(),
-        "host_key_algorithm":CensysString(),
-        "client_to_server_alg_group": SubRecord({
-            "cipher":CensysString(),
-            "mac":CensysString(),
-            "compression":CensysString(),
+        "client_to_server":SubRecord({
+            "ciphers":ListOf(String()),
+            "macs":ListOf(String()),
+            "compressions":ListOf(String()),
+            "languages":ListOf(String()),
         }),
-        "server_to_client_alg_group": SubRecord({
-            "cipher":CensysString(),
-            "mac":CensysString(),
-            "compression":CensysString(),
+        "server_to_client":SubRecord({
+            "ciphers":ListOf(String()),
+            "macs":ListOf(String()),
+            "compressions":ListOf(String()),
+            "languages":ListOf(String()),
         }),
     }),
-    "dh_key_exchange": SubRecord({
-        "params": SubRecord({
+    "selected":SubRecord({
+        "kex_algorithm":String(),
+        "host_key_algorithm":String(),
+        "client_to_server": SubRecord({
+            "cipher":String(),
+            "mac":String(),
+            "compression":String(),
+        }),
+        "server_to_client": SubRecord({
+            "cipher":String(),
+            "mac":String(),
+            "compression":String(),
+        }),
+    }),
+    "key_exchange": SubRecord({
+        "ecdh_params": SubRecord({
+            "server_public": SubRecord({
+                "x": golang_crypto_param,
+                "y": golang_crypto_param,
+            }),
+        }),
+        "dh_params": SubRecord({
             "prime": golang_crypto_param,
             "generator": golang_crypto_param,
-            "client_public": golang_crypto_param,
-            "client_private": golang_crypto_param,
-            "server_public": golang_crypto_param,
         }),
-        "server_signature":ztag_ssh_signature,
-        "server_host_key":SubRecord({
-            "raw":IndexedBinary(),
-            "algorithm":CensysString(),
-            "fingerprint_sha256":HexString(),
-            "rsa_public_key":ztag_rsa_params,
-            "dsa_public_key":ztag_dsa_params,
-            "ecdsa_public_key":ztag_ssh_ecdsa_public_key,
-            "ed25519_public_key":ztag_ed25519_public_key,
-            "certkey_public_key":SubRecord({
-                "nonce":IndexedBinary(),
-                "key":SubRecord({
-                    "raw":IndexedBinary(),
-                    "fingerprint_sha256":HexString(),
-                    "algorithm":CensysString(),
-                    "rsa_public_key":ztag_rsa_params,
-                    "dsa_public_key":ztag_dsa_params,
-                    "ecdsa_public_key":ztag_ssh_ecdsa_public_key,
-                    "ed25519_public_key":ztag_ed25519_public_key,
+    }),
+    "server_host_key":SubRecord({
+        "key_algorithm":String(),
+        "fingerprint_sha256":HexString(),
+        "rsa_public_key":ztag_rsa_params,
+        "dsa_public_key":ztag_dsa_params,
+        "ecdsa_public_key":ztag_ssh_ecdsa_public_key,
+        "ed25519_public_key":ztag_ed25519_public_key,
+        "certkey_public_key":SubRecord({
+            "nonce":IndexedBinary(),
+            "key":SubRecord({
+                "fingerprint_sha256":HexString(),
+                "algorithm":String(),
+                "rsa_public_key":ztag_rsa_params,
+                "dsa_public_key":ztag_dsa_params,
+                "ecdsa_public_key":ztag_ssh_ecdsa_public_key,
+                "ed25519_public_key":ztag_ed25519_public_key,
+            }),
+            "serial":String(),
+            "type":SubRecord({
+                "id":Unsigned32BitInteger(),
+                "name":String(),
+            }),
+            "key_id":String(),
+            "valid_principals":ListOf(String()),
+            "validity":SubRecord({
+                "valid_after":DateTime(doc="Timestamp of when certificate is first valid. Timezone is UTC."),
+                "valid_before":DateTime(doc="Timestamp of when certificate expires. Timezone is UTC."),
+                "length":Signed64BitInteger(),
+            }),
+            "signature_key":SubRecord({
+                "fingerprint_sha256":HexString(),
+                "key_algorithm":String(),
+                "rsa_public_key":ztag_rsa_params,
+                "dsa_public_key":ztag_dsa_params,
+                "ecdsa_public_key":ztag_ssh_ecdsa_public_key,
+                "ed25519_public_key":ztag_ed25519_public_key,
+            }),
+            "signature":SubRecord({
+                "signature_algorithm":SubRecord({
+                    "name":String(),
                 }),
-                "serial":CensysString(),
-                "cert_type":SubRecord({
-                    "id":Unsigned32BitInteger(),
-                    "name":CensysString(),
-                }),
-                "key_id":CensysString(),
-                "valid_principals":ListOf(CensysString()),
-                "validity":SubRecord({
-                    "valid_after":DateTime(doc="Timestamp of when certificate is first valid. Timezone is UTC."),
-                    "valid_before":DateTime(doc="Timestamp of when certificate expires. Timezone is UTC."),
-                    "length":Signed64BitInteger(),
-                }),
-                "reserved":IndexedBinary(),
-                "signature_key":SubRecord({
-                    "raw":IndexedBinary(),
-                    "fingerprint_sha256":HexString(),
-                    "algorithm":CensysString(),
-                    "rsa_public_key":ztag_rsa_params,
-                    "dsa_public_key":ztag_dsa_params,
-                    "ecdsa_public_key":ztag_ssh_ecdsa_public_key,
-                    "ed25519_public_key":ztag_ed25519_public_key,
-                }),
-                "signature":ztag_ssh_signature,
-                "parse_error":String(),
-                "extensions":SubRecord({
-                    "known":SubRecord({
-                        "permit_X11_forwarding":CensysString(),
-                        "permit_agent_forwarding":CensysString(),
-                        "permit_port_forwarding":CensysString(),
-                        "permit_pty":CensysString(),
-                        "permit_user_rc":CensysString(),
-                    }),
-                    "unknown":ListOf(CensysString()),
-                }),
-                "critical_options":SubRecord({
-                    "known":SubRecord({
-                        "force_command":CensysString(),
-                        "source_address":CensysString(),
-                    }),
-                    "unknown":ListOf(CensysString()),
-                })
-            })
+                "value":IndexedBinary(),
+            }),
+            "parse_error":String(),
+            "extensions":SubRecord({
+                "permit_X11_forwarding":Boolean(),
+                "permit_agent_forwarding":Boolean(),
+                "permit_port_forwarding":Boolean(),
+                "permit_pty":Boolean(),
+                "permit_user_rc":Boolean(),
+                "unknown":ListOf(String()),
+            }),
+            "critical_options":SubRecord({
+                "force_command":Boolean(),
+                "source_address":Boolean(),
+                "unknown":ListOf(String()),
+            }),
         }),
     }),
 })
@@ -863,7 +852,7 @@ ztag_schemas = [
     #("ztag_open_proxy", ztag_open_proxy),
     ("ztag_modbus", ztag_modbus),
     ("ztag_extended_random", ztag_extended_random),
-    ("ztag_ssh_banner", ztag_ssh_banner),
+    ("ztag_ssh_v2", ztag_ssh_v2),
     ("ztag_dns_lookup", ztag_dns_lookup),
     ("ztag_bacnet", ztag_bacnet),
     ("ztag_fox", ztag_fox),
@@ -1393,7 +1382,7 @@ ipv4_host = Record({
             }),
             Port(22):SubRecord({
                 "ssh":SubRecord({
-                    "banner": ztag_ssh_banner
+                    "v2": ztag_ssh_v2
                 }),
             }),
             Port(53):SubRecord({
