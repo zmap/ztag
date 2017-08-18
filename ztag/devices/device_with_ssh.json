@@ -1,8 +1,13 @@
 {
     "22": {
         "ssh": {
-            "banner": {
-                "raw_banner": "SSH-1.99-Cisco-1.25\n", 
+            "v2": {
+                "banner": {
+                    "comment": "Debian-1uber3~13017.gbpf27c34",
+                    "raw": "SSH-2.0-OpenSSH_7.3p1 Debian-1uber3~13017.gbpf27c34",
+                    "software": "OpenSSH_7.3p1",
+                    "version": "2.0"
+                },
                 "metadata": {}
             }
         }

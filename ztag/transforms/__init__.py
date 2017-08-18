@@ -28,7 +28,7 @@ from pop3 import POP3STransform
 from s7 import S7Transform
 from smtp import SMTPStartTLSTransform
 from smtp import SMTPSTransform
-from ssh import SSHBannerTransform
+from ssh import SSHV2Transform
 from telnet import TelnetTransform
 from upnp import UPnPTransform
 from fox import NiagaraFoxTransform
