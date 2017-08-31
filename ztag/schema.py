@@ -19,6 +19,7 @@ local_metadata = SubRecord(__local_metadata)
 zgrab_subj_issuer = SubRecord({
     "serial_number":ListOf(String()),
     "common_name":ListOf(CensysString()),
+    "surname":ListOf(CensysString()),
     "country":ListOf(CensysString()),
     "locality":ListOf(CensysString()),
     "province":ListOf(CensysString()),
@@ -28,10 +29,14 @@ zgrab_subj_issuer = SubRecord({
     "postal_code":ListOf(String()),
     "domain_component":ListOf(CensysString()),
     "email_address":ListOf(CensysString()),
+    "given_name":ListOf(CensysString()),
     # EV Fields
-    "jurisdiction_country":ListOf(CensysString()),
-    "jurisdiction_locality":ListOf(CensysString()),
-    "jurisdiction_province":ListOf(CensysString()),
+    # Commented out 2017-08-18 due to ES analyzer mismatch:
+    # Data with these fields got into the IPv4 index before the ES mapping
+    # was updated, and ES automatically chose a different analyzer.
+    #"jurisdiction_country":ListOf(CensysString()),
+    #"jurisdiction_locality":ListOf(CensysString()),
+    #"jurisdiction_province":ListOf(CensysString()),
 })
 
 unknown_extension = SubRecord({
