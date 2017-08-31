@@ -1286,7 +1286,7 @@ certificate = Record({
         "parse_status":String(),
     }),
     "parents":ListOf(String()),
-    "parent_spki_subject_fp": HexString(),
+    "parent_spki_subject_fp":HexString(),
     "validation":SubRecord({
         "nss":ztag_certificate_validation,
         "apple":ztag_certificate_validation,
