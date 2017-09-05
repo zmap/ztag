@@ -34,9 +34,9 @@ zgrab_subj_issuer = SubRecord({
     # Commented out 2017-08-18 due to ES analyzer mismatch:
     # Data with these fields got into the IPv4 index before the ES mapping
     # was updated, and ES automatically chose a different analyzer.
-    #"jurisdiction_country":ListOf(CensysString()),
-    #"jurisdiction_locality":ListOf(CensysString()),
-    #"jurisdiction_province":ListOf(CensysString()),
+    "jurisdiction_country":ListOf(CensysString()),
+    "jurisdiction_locality":ListOf(CensysString()),
+    "jurisdiction_province":ListOf(CensysString()),
 })
 
 unknown_extension = SubRecord({
@@ -211,7 +211,7 @@ zgrab_parsed_certificate = SubRecord({
             "pub":Binary(),
             "curve":Enum(["P-224", "P-256", "P-384", "P-521"]),
             "length":Unsigned16BitInteger(),
-            #"asn1_oid":OID(), # TODO: this is currently commented out
+            "asn1_oid":OID(), # TODO: this is currently commented out
             # because for a bunch of certificates, this was encoded as [1, 2,
             # 840, 113549, 1, 1, 12] not 1.2.840.113549.1.1.12
         })
@@ -302,7 +302,7 @@ zgrab_parsed_certificate = SubRecord({
             "microsoft_csp_signature": Boolean(),
             "microsoft_root_list_signer": Boolean(),
             "microsoft_system_health_loophole": Boolean(),
-            #"unknown":ListOf(OID()) # TODO
+            "unknown":ListOf(OID()) # TODO
         }, exclude=["bigquery",]), # TODO
         "certificate_policies":ListOf(certificate_policy),
         "authority_info_access":SubRecord({
@@ -515,7 +515,7 @@ zgrab_http_headers = SubRecord({
     "proxy_authenticate":CensysString(),
     "public_key_pins":CensysString(),
     "refresh":CensysString(),
-    #"referer":CensysString(), // TODO: Why is this commented out?
+    "referer":CensysString(), # TODO: Why is this commented out?
     "retry_after":CensysString(),
     "server":CensysString(),
     "set_cookie":CensysString(),
@@ -537,8 +537,6 @@ zgrab_http_headers = SubRecord({
     "x_powered_by":CensysString(),
     "x_ua_compatible":CensysString(),
     "x_content_duration":CensysString(),
-    #"x_real_ip":CensysString(doc="overloaded X-Real-IP in our proxy testing so that "\
-    #                       "our scanner can detect who made the request."),
     "proxy_agent":CensysString(),
     "unknown":ListOf(zgrab_unknown_http_header)
 })
@@ -854,7 +852,6 @@ ztag_schemas = [
     ("ztag_tls1", ztag_tls_support),
     ("ztag_tls2", ztag_tls_support),
     ("ztag_tls3", ztag_tls_support),
-    #("ztag_open_proxy", ztag_open_proxy),
     ("ztag_modbus", ztag_modbus),
     ("ztag_extended_random", ztag_extended_random),
     ("ztag_ssh_v2", ztag_ssh_v2),
@@ -1324,6 +1321,11 @@ ipv4_host = Record({
                     "get":ztag_http,
                 }),
             }),
+            Port(8080):SubRecord({
+                "http":SubRecord({
+                    "get":ztag_http,
+                }),
+            }),
             Port(25):SubRecord({
                 "smtp":SubRecord({
                     "starttls": ztag_smtp_starttls,
@@ -1331,6 +1333,11 @@ ipv4_host = Record({
                 }),
             }),
             Port(23):SubRecord({
+                "telnet":SubRecord({
+                    "banner":ztag_telnet
+                })
+            }),
+            Port(2323):SubRecord({
                 "telnet":SubRecord({
                     "banner":ztag_telnet
                 })
@@ -1435,8 +1442,8 @@ website = Record({
                     "tls":ztag_tls,
                     "heartbleed":ztag_heartbleed,
                     "dhe": ztag_dh,
-                    "export_rsa": ztag_rsa_export, # wrong name. should be rsa_export
-                    "export_dhe": ztag_dh_export,  # wrong name. should be dhe_export
+                    "rsa_export": ztag_rsa_export,
+                    "dhe_export": ztag_dh_export,
                     "tls_1_1": ztag_tls_support,
                     "tls_1_2": ztag_tls_support,
                     "ecdhe": ztag_ecdh,
