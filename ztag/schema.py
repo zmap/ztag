@@ -1304,6 +1304,7 @@ ZLint = SubRecord({
 certificate = Record({
     "parsed":zgrab_parsed_certificate,
     "raw":Binary(),
+    "fingerprint_sha256":HexString(),
     "tags":ListOf(CensysString()),
     "metadata":SubRecord({
         "updated_at":DateTime(),
