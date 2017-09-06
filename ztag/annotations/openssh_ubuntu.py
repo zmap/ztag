@@ -244,6 +244,7 @@ class OpenSSHUbuntu(Annotation):
     }
 
     def __init__(self, *args, **kwargs):
+        super(OpenSSHUbuntu, self).__init__(*args, **kwargs)
         self.os_lookup = dict()
         for os, banners in self.FINGERPRINTS_FROM_MOZILLA_SSH_SCAN.iteritems():
             for banner in banners:
