@@ -1,0 +1,132 @@
+{
+  "22": {
+    "ssh": {
+      "v2": {
+        "key_exchange": {
+          "ecdh_params": {
+            "server_public": {
+              "y": {
+                "length": 256,
+                "value": "x4ivRNTCh11iefv2PpwbHRekI571+Jp+1hSxOrafbEg="
+              },
+              "x": {
+                "length": 256,
+                "value": "wk25ahw+tbjzLqYhlY//oecCHR/skfgnNLSUJzlRtC4="
+              }
+            }
+          }
+        },
+        "support": {
+          "host_key_algorithms": [
+            "ssh-rsa",
+            "ssh-dss",
+            "ecdsa-sha2-nistp256"
+          ],
+          "first_kex_follows": false,
+          "kex_algorithms": [
+            "ecdh-sha2-nistp256",
+            "ecdh-sha2-nistp384",
+            "ecdh-sha2-nistp521",
+            "diffie-hellman-group-exchange-sha256",
+            "diffie-hellman-group-exchange-sha1",
+            "diffie-hellman-group14-sha1",
+            "diffie-hellman-group1-sha1"
+          ],
+          "server_to_client": {
+            "ciphers": [
+              "aes128-ctr",
+              "aes192-ctr",
+              "aes256-ctr"
+            ],
+            "macs": [
+              "hmac-md5",
+              "hmac-sha1",
+              "umac-64@openssh.com",
+              "hmac-sha2-256",
+              "hmac-sha2-256-96",
+              "hmac-sha2-512",
+              "hmac-sha2-512-96",
+              "hmac-ripemd160",
+              "hmac-ripemd160@openssh.com",
+              "hmac-sha1-96",
+              "hmac-md5-96"
+            ],
+            "compressions": [
+              "none",
+              "zlib@openssh.com"
+            ]
+          },
+          "client_to_server": {
+            "ciphers": [
+              "aes128-ctr",
+              "aes192-ctr",
+              "aes256-ctr"
+            ],
+            "macs": [
+              "hmac-md5",
+              "hmac-sha1",
+              "umac-64@openssh.com",
+              "hmac-sha2-256",
+              "hmac-sha2-256-96",
+              "hmac-sha2-512",
+              "hmac-sha2-512-96",
+              "hmac-ripemd160",
+              "hmac-ripemd160@openssh.com",
+              "hmac-sha1-96",
+              "hmac-md5-96"
+            ],
+            "compressions": [
+              "none",
+              "zlib@openssh.com"
+            ]
+          }
+        },
+        "selected": {
+          "host_key_algorithm": "ecdsa-sha2-nistp256",
+          "client_to_server": {
+            "mac": "hmac-sha2-256",
+            "cipher": "aes128-ctr",
+            "compression": "none"
+          },
+          "kex_algorithm": "ecdh-sha2-nistp256",
+          "server_to_client": {
+            "mac": "hmac-sha2-256",
+            "cipher": "aes128-ctr",
+            "compression": "none"
+          }
+        },
+        "server_host_key": {
+          "fingerprint_sha256": "c032905c61015371150029efee07ee5c58eb3b75fb8ef2d4493246e45c7e8416",
+          "key_algorithm": "ecdsa-sha2-nistp256",
+          "ecdsa_public_key": {
+            "b": "WsY12Ko6k+ez671VdpiGvGUdBrDMU7D2O848PifSYEs=",
+            "curve": "P-256",
+            "gy": "T+NC4v4af5uO5+tKfA+eFivOM1drMV7Oy7ZAaDe/UfU=",
+            "n": "/////wAAAAD//////////7zm+q2nF56E87nKwvxjJVE=",
+            "p": "/////wAAAAEAAAAAAAAAAAAAAAD///////////////8=",
+            "length": 256,
+            "y": "+J1ISzcuE5YDQGBrTkeczBDwamuWXo9nIYzC7W2+g3A=",
+            "x": "hKT/g3D9xymRIJShjqEMEsQUEuQ8LDfJ5tiy33tPg6I=",
+            "gx": "axfR8uEsQkf4vOblY6RA8ncDfYEt6zOg9KE5RdiYwpY="
+          }
+        },
+        "banner": {
+          "comment": "Debian-5ubuntu1.9",
+          "raw": "SSH-2.0-OpenSSH_5.9p1 Debian-5ubuntu1.9",
+          "version": "2.0",
+          "software": "OpenSSH_5.9p1"
+        },
+        "metadata": {}
+      }
+    }
+  },
+  "23": {
+    "telnet": {
+      "banner": {
+        "support": true,
+        "banner": "SSH-2.0-OpenSSH_5.9p1 Debian-5ubuntu1.9",
+        "metadata": {}
+      }
+    }
+  }
+}
