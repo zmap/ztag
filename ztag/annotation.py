@@ -195,6 +195,7 @@ class Manufacturer(object):
     FACEXP = "FacExp"
     FLEXIM = "Flexim"
     FULLRATE = "FullRate"
+    HUAWEI = "Huwawei"
     HIKVISION = "Hikvision"
     HONEYWELL = "Honeywell"
     HP = "Hewlett-Packard"
@@ -208,6 +209,7 @@ class Manufacturer(object):
     KONICA_MINOLTA = "Konica Minolta"
     LAB_EL = "LAB-EL"
     LACIE = "LaCie"
+    LANCOM = "Lancom Systems"
     LANTRONIX = "Lantronix"
     LEIGHTRONIX = "Leightronix"
     LEXMARK = "Lexmark"
@@ -216,6 +218,7 @@ class Manufacturer(object):
     LUTRON = "Lutron"
     MAYGION = "Maygion"
     MICROSOFT = "Microsoft"
+    MIKROTIK = "Mikrotik"
     NATIONAL_INSTRUMENTS = "National Instruments"
     NETAPP = "Net App"
     NETGEAR = "NetGear"
@@ -282,11 +285,13 @@ class OperatingSystem(object):
     GENTOO = "Gentoo"
     KALI = "Kali Linux"
     MANDRIVE = "Mandriva"
-    REDHAD = "RedHat"
+    REDHAT = "RedHat"
+    CENTOS = "CentOS"
     SUNOS = "SunOS"
     SUSE = "openSUSE"
     UBUNTU = "Ubuntu"
     UCLINUX = "uClinux"
+    RASPBIAN = "Raspbian"
     # BSDs
     FREEBSD = "FreeBSD"
     NETBSD = "NetBSD"
@@ -302,6 +307,10 @@ class OperatingSystem(object):
     TIMOS = "TiMOS"
     # RTOS's
     QNX = "QNX"
+    # Router OSes
+    CISCO_IOS = "Cisco IOS"
+    MIKROTIK_ROUTER_OS = "MikroTik RouterOS"
+    DOPRA = "Dopra Linux OS" # Huawei
 
 class Annotation(object):
 

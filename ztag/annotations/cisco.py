@@ -1,4 +1,4 @@
-from ztag.annotation import * 
+from ztag.annotation import *
 
 
 class CiscoServer(Annotation):
@@ -13,10 +13,10 @@ class CiscoServer(Annotation):
                 "manufacturer":"Cisco",
             }
         }
-    } 
+    }
 
-    def process(self, obj, meta):	
-	server = obj["headers"]["server"]	
-	if "cisco" in server.lower():
-	    meta.global_metadata.manufacturer = "Cisco"
+    def process(self, obj, meta):
+        server = obj["headers"]["server"]
+        if "cisco" in server.lower():
+            meta.global_metadata.manufacturer = "Cisco"
             return meta
