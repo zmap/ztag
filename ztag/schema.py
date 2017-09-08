@@ -1359,6 +1359,11 @@ ipv4_host = Record({
                     "get":ztag_http,
                 }),
             }),
+            Port(8888):SubRecord({
+                "http":SubRecord({
+                    "get":ztag_http,
+                }),
+            }),
             Port(25):SubRecord({
                 "smtp":SubRecord({
                     "starttls": ztag_smtp_starttls,

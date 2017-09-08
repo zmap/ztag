@@ -1,0 +1,41 @@
+{
+  "21": {
+    "ftp": {
+      "banner": {
+        "banner": "220 Axis 2120 Network Camera 2.12.2 (Build 2) Mar 21 2001 ready.",
+        "metadata": {
+          "version": "2.12.2",
+          "description": "2.12.2"
+        }
+      }
+    }
+  },
+  "80": {
+    "http": {
+      "get": {
+        "body": "<HTML>\n<HEAD>\n\t<META HTTP-EQUIV=\"Expires\" CONTENT=\"Tue, 01 Jan 1980 1:00:00 GMT\">\n\t<META HTTP-EQUIV=\"Pragma\" CONTENT=\"no-cache\">\n\t<META HTTP-EQUIV=\"Cache-Control\" CONTENT=\"no-cache\">\n\t<META HTTP-EQUIV=\"Refresh\" CONTENT=\"0; URL=/index2.shtml\">\n\n  <TITLE>AXIS 2120 Network Camera</TITLE>\n</HEAD>\n<BODY>\n</BODY>\n</HTML>\n\n",
+        "headers": {
+          "content_length": "318",
+          "unknown": [
+            {
+              "value": "Thu, 07 Sep 2017 02:26:17 GMT",
+              "key": "date"
+            }
+          ],
+          "last_modified": "Thu, 07 Sep 2017 02:26:17 GMT",
+          "content_type": "text/html",
+          "server": "Boa/0.92o"
+        },
+        "status_code": 200,
+        "title": "AXIS 2120 Network Camera",
+        "status_line": "200 OK",
+        "body_sha256": "dLEn2BwQ3N9pOH2qWFzurVU+8Y9EA5X90gQ7Y6T/He0=",
+        "metadata": {
+          "product": "Boa",
+          "version": "0.92o",
+          "description": "Boa 0.92o"
+        }
+      }
+    }
+  }
+}

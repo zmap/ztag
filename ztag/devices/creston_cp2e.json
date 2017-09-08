@@ -1,0 +1,54 @@
+{
+  "23": {
+    "telnet": {
+      "banner": {
+        "support": true,
+        "banner": "CP2E Control Console\r\nConnected to Host: ccajbw321",
+        "metadata": {}
+      }
+    }
+  },
+  "updated_at": "2017-08-29T18:29:23+00:00",
+  "__restricted_location": {
+    "province": "Iowa",
+    "city": "Iowa City",
+    "country": "United States",
+    "longitude": -91.544700000000006,
+    "registered_country": "United States",
+    "registered_country_code": "US",
+    "postal_code": "52242",
+    "country_code": "US",
+    "latitude": 41.664000000000001,
+    "timezone": "America/Chicago",
+    "continent": "North America"
+  },
+  "location": {
+    "province": "Iowa",
+    "city": "Iowa City",
+    "country": "United States",
+    "longitude": -91.544700000000006,
+    "registered_country": "United States",
+    "registered_country_code": "US",
+    "postal_code": "52242",
+    "country_code": "US",
+    "latitude": 41.664000000000001,
+    "timezone": "America/Chicago",
+    "continent": "North America"
+  },
+  "80": {
+    "http": {
+      "get": {
+        "body": "<HTML>\r\n<HEAD>\r\n<TITLE>XPanel:W321 XWeb.vtx</TITLE>\r\n</HEAD>\r\n<BODY>\r\n\r\n<OBJECT ID=\"Xinit\" CLASSID=\"CLSID:F74959B0-1779-472E-BE6E-3023E1DBEC73\" CODEBASE=\"XInit.cab\">\r\n<SPAN CLASS=\"XWARNING\">e-control 2 failed to load, please check browser settings.</SPAN>\r\n</OBJECT>\r\n\r\n</BODY>\r\n</HTML>\r\n",
+        "title": "XPanel:W321 XWeb.vtx",
+        "status_code": 200,
+        "status_line": "200 Document Follows",
+        "headers": {
+          "content_length": "288",
+          "content_type": "text/html"
+        },
+        "body_sha256": "w9mWyHrFrTC7hQhzif7kYtM4FMMlxM2wXuZMfPxz00A=",
+        "metadata": {}
+      }
+    }
+  }
+}

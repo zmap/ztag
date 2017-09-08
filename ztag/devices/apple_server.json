@@ -1,0 +1,547 @@
+{
+  "22": {
+    "ssh": {
+      "v2": {
+        "support": {
+          "client_to_server": {
+            "ciphers": [
+              "chacha20-poly1305@openssh.com",
+              "aes128-ctr",
+              "aes192-ctr",
+              "aes256-ctr",
+              "aes128-gcm@openssh.com",
+              "aes256-gcm@openssh.com"
+            ],
+            "compressions": [
+              "none",
+              "zlib@openssh.com"
+            ],
+            "macs": [
+              "umac-64-etm@openssh.com",
+              "umac-128-etm@openssh.com",
+              "hmac-sha2-256-etm@openssh.com",
+              "hmac-sha2-512-etm@openssh.com",
+              "hmac-sha1-etm@openssh.com",
+              "umac-64@openssh.com",
+              "umac-128@openssh.com",
+              "hmac-sha2-256",
+              "hmac-sha2-512",
+              "hmac-sha1"
+            ]
+          },
+          "first_kex_follows": false,
+          "kex_algorithms": [
+            "curve25519-sha256@libssh.org",
+            "ecdh-sha2-nistp256",
+            "ecdh-sha2-nistp384",
+            "ecdh-sha2-nistp521",
+            "diffie-hellman-group-exchange-sha256",
+            "diffie-hellman-group14-sha1"
+          ],
+          "server_to_client": {
+            "ciphers": [
+              "chacha20-poly1305@openssh.com",
+              "aes128-ctr",
+              "aes192-ctr",
+              "aes256-ctr",
+              "aes128-gcm@openssh.com",
+              "aes256-gcm@openssh.com"
+            ],
+            "compressions": [
+              "none",
+              "zlib@openssh.com"
+            ],
+            "macs": [
+              "umac-64-etm@openssh.com",
+              "umac-128-etm@openssh.com",
+              "hmac-sha2-256-etm@openssh.com",
+              "hmac-sha2-512-etm@openssh.com",
+              "hmac-sha1-etm@openssh.com",
+              "umac-64@openssh.com",
+              "umac-128@openssh.com",
+              "hmac-sha2-256",
+              "hmac-sha2-512",
+              "hmac-sha1"
+            ]
+          },
+          "host_key_algorithms": [
+            "ssh-rsa",
+            "ssh-dss",
+            "ecdsa-sha2-nistp256",
+            "ssh-ed25519"
+          ]
+        },
+        "selected": {
+          "kex_algorithm": "curve25519-sha256@libssh.org",
+          "server_to_client": {
+            "cipher": "aes128-ctr",
+            "mac": "hmac-sha2-256",
+            "compression": "none"
+          },
+          "client_to_server": {
+            "cipher": "aes128-ctr",
+            "mac": "hmac-sha2-256",
+            "compression": "none"
+          },
+          "host_key_algorithm": "ecdsa-sha2-nistp256"
+        },
+        "metadata": {},
+        "banner": {
+          "software": "OpenSSH_6.9",
+          "version": "2.0",
+          "raw": "SSH-2.0-OpenSSH_6.9"
+        },
+        "server_host_key": {
+          "ecdsa_public_key": {
+            "x": "727Pb5QOe/8gVnoTDR90/beiKbxts5mUa4OHK8SFhuE=",
+            "y": "Ru5wNRD3+Th1ye2v+qIpdCC/6+LYQ83V1qDmzmIv6i8=",
+            "gx": "axfR8uEsQkf4vOblY6RA8ncDfYEt6zOg9KE5RdiYwpY=",
+            "gy": "T+NC4v4af5uO5+tKfA+eFivOM1drMV7Oy7ZAaDe/UfU=",
+            "p": "/////wAAAAEAAAAAAAAAAAAAAAD///////////////8=",
+            "curve": "P-256",
+            "n": "/////wAAAAD//////////7zm+q2nF56E87nKwvxjJVE=",
+            "length": 256,
+            "b": "WsY12Ko6k+ez671VdpiGvGUdBrDMU7D2O848PifSYEs="
+          },
+          "fingerprint_sha256": "3f01bb30d96a3caeaacd4078d965dd626a116e99b8e6a5b348c934a04296a770",
+          "key_algorithm": "ecdsa-sha2-nistp256"
+        }
+      }
+    }
+  },
+  "80": {
+    "http": {
+      "get": {
+        "title": "macOS Server",
+        "status_line": "200 OK",
+        "metadata": {},
+        "body_sha256": "fHBzhmCGBkwoGTx8C3ST3PZdXF1h0sOe6MTTmwC6tf8=",
+        "headers": {
+          "content_length": "1033398",
+          "unknown": [
+            {
+              "value": "Wed, 06 Sep 2017 03:38:15 GMT",
+              "key": "date"
+            },
+            {
+              "value": "DAV",
+              "key": "ms_author_via"
+            },
+            {
+              "value": "choice",
+              "key": "tcn"
+            },
+            {
+              "value": "\"fc4b6-53c90a45bf380\"",
+              "key": "etag"
+            }
+          ],
+          "last_modified": "Thu, 15 Sep 2016 19:13:34 GMT",
+          "content_language": "en",
+          "content_location": "default.html.en",
+          "content_type": "text/html",
+          "vary": "negotiate,accept-language",
+          "server": "Apache",
+          "accept_ranges": "bytes"
+        }
+      }
+    }
+  },
+  "443": {
+    "https": {
+      "rsa_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "dhe_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "heartbleed": {
+        "heartbeat_enabled": false,
+        "heartbleed_vulnerable": false,
+        "metadata": {}
+      },
+      "dhe": {
+        "support": true,
+        "metadata": {},
+        "dh_params": {
+          "prime": {
+            "value": "///////////JD9qiIWjCNMTGYouA3BzRKQJOCIpnzHQCC76mOxObIlFKCHmONATd75UZs806QxswKwpt8l8UN0/hNW1tUcJF5IW1dmJefsb0TELppjftawv/XLb0Brft7jhr+1qJn6WunyQRfEsf5kkoZlHs5Fs9wgB8uKFjvwWY2kg2HFXTmmkWP6j9JM9fg2VdI9yjrZYcYvNWIIVSu57VKQdwlpZtZww1Tkq8mATxdGwIyhghfDKQXkYuNs474553LBgOhgObJ4Oi7Aeij7XFXfBvTFLJ3ivL9pVYFxg5lUl86pVq5RXSJhiY+gUQFXKOWoqsqmj//////////w==",
+            "length": 2048
+          },
+          "generator": {
+            "value": "Ag==",
+            "length": 8
+          }
+        }
+      },
+      "tls": {
+        "certificate": {
+          "parsed": {
+            "subject": {
+              "common_name": [
+                "gibraltar.engin.umich.edu"
+              ],
+              "email_address": [
+                "kieffer@umich.edu"
+              ]
+            },
+            "redacted": false,
+            "serial_number": "1894922701",
+            "version": 3,
+            "signature": {
+              "signature_algorithm": {
+                "name": "SHA256WithRSA",
+                "oid": "1.2.840.113549.1.1.11"
+              },
+              "self_signed": false,
+              "valid": true,
+              "value": "K4Z5Gm1tdlLdAhw0S6mxZHBz+ZEC8eFKcdyb8rkO3cSmt4BALbCK2OB7BqQDPO/3uJ/UhoI65LaJuHthnHmoBjrQoLiH2KSPf5oBje2Q3Siza14uII/zm36YP1z0Au38PKt5PrTIDAjd9oDQUW4+mt6ONBMTn/mhVIwzfXh6NJCBL4LMNHZp4YIqnqEDVEd+g379KhtLI/iea4Ylk+rXqX1bzX5eNOwkap9J4BwaPxqKn5PrHK4KDF6qNlH2TVR3W0jvnwlhFZqgM5Zjk5Z9wragvi7u+gHkwBPPtCjBq72BXkvoxr5EvnBffK9JIYqI+XJpeMezqEfiyzI4h0M8/g=="
+            },
+            "extensions": {
+              "extended_key_usage": {
+                "server_auth": true
+              },
+              "key_usage": {
+                "value": 5,
+                "key_encipherment": true,
+                "digital_signature": true
+              }
+            },
+            "signature_algorithm": {
+              "name": "SHA256WithRSA",
+              "oid": "1.2.840.113549.1.1.11"
+            },
+            "fingerprint_sha1": "d4336958bd6eacd5e24704b621b4342b44296878",
+            "spki_subject_fingerprint": "574c3c92b5f29b0ff62a9dffb74fcf56ef695f57eb71589328b3cff90829e515",
+            "names": [
+              "gibraltar.engin.umich.edu"
+            ],
+            "fingerprint_sha256": "bd3082fade35738fc95dfd3152226c7e8922b544c3b9aca0dea911239cfd1815",
+            "issuer": {
+              "organizational_unit": [
+                "MACOSX OpenDirectory Intermediate CA"
+              ],
+              "common_name": [
+                "IntermediateCA_GIBRALTAR.ENGIN.UMICH.EDU_1"
+              ],
+              "organization": [
+                "University of Michigan"
+              ],
+              "email_address": [
+                "kieffer@umich.edu"
+              ]
+            },
+            "tbs_noct_fingerprint": "a4556e2195ae29d7187c4b00d8d1c391ab1952e8b0414e323efd01a59889f254",
+            "issuer_dn": "CN=IntermediateCA_GIBRALTAR.ENGIN.UMICH.EDU_1, O=University of Michigan, OU=MACOSX OpenDirectory Intermediate CA, emailAddress=kieffer@umich.edu",
+            "subject_dn": "CN=gibraltar.engin.umich.edu, emailAddress=kieffer@umich.edu",
+            "fingerprint_md5": "6c6a9ce00bc35dcd0a0691662521b460",
+            "tbs_fingerprint": "a4556e2195ae29d7187c4b00d8d1c391ab1952e8b0414e323efd01a59889f254",
+            "subject_key_info": {
+              "rsa_public_key": {
+                "length": 2048,
+                "exponent": 65537,
+                "modulus": "10EE2HQxmBzqUtTRuN15uRfVY2GEhNAyjrp6+R27sONSeOacmsXzXqC5TKtynHDCTpINTMK3ByjfapdKPPkWKkh0dCbXfwb4zpLQSsy0vNYdLvz3PsprGDiWP7MhMHgjRSBI7rNjYZtASXmNj1wo9XaP7RnAy7FW714jbxsqIVEJ27evVAQrlGmkwOvhFCN6w/cM5jO9MK6ZVWsBNlKAKfVTD6WP2hK+vVlQlrQfnp5yomjc+GvFZd1g5AqMKBfjd9Xb/6Y6j5uUAi3S9PoMcTwuHjvm5roSjHl+yejBSGCkd0YrFSNMF9eJQjGDKJEcbXn2v/CeJHopB+JPsvwPVw=="
+              },
+              "fingerprint_sha256": "d49ec60c0bc6af6165e19e488f4b62e51f0549c88f0cfabf8a352bb5b287ee6b",
+              "key_algorithm": {
+                "name": "RSA"
+              }
+            },
+            "validity": {
+              "start": "2017-08-04T16:17:09Z",
+              "length": 63158400,
+              "end": "2019-08-05T16:17:09Z"
+            },
+            "validation_level": "unknown"
+          }
+        },
+        "version": "TLSv1.2",
+        "cipher_suite": {
+          "name": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+          "id": "0xC02F"
+        },
+        "signature": {
+          "signature_algorithm": "rsa",
+          "hash_algorithm": "sha512",
+          "valid": true
+        },
+        "validation": {
+          "browser_trusted": false,
+          "browser_error": "x509: unknown error"
+        },
+        "server_key_exchange": {
+          "ecdh_params": {
+            "curve_id": {
+              "name": "secp256r1",
+              "id": 23
+            }
+          }
+        },
+        "metadata": {},
+        "chain": [
+          {
+            "parsed": {
+              "subject": {
+                "common_name": [
+                  "gibraltar.engin.umich.edu"
+                ],
+                "email_address": [
+                  "kieffer@umich.edu"
+                ]
+              },
+              "redacted": false,
+              "serial_number": "1894922701",
+              "version": 3,
+              "signature": {
+                "signature_algorithm": {
+                  "name": "SHA256WithRSA",
+                  "oid": "1.2.840.113549.1.1.11"
+                },
+                "self_signed": false,
+                "valid": false,
+                "value": "K4Z5Gm1tdlLdAhw0S6mxZHBz+ZEC8eFKcdyb8rkO3cSmt4BALbCK2OB7BqQDPO/3uJ/UhoI65LaJuHthnHmoBjrQoLiH2KSPf5oBje2Q3Siza14uII/zm36YP1z0Au38PKt5PrTIDAjd9oDQUW4+mt6ONBMTn/mhVIwzfXh6NJCBL4LMNHZp4YIqnqEDVEd+g379KhtLI/iea4Ylk+rXqX1bzX5eNOwkap9J4BwaPxqKn5PrHK4KDF6qNlH2TVR3W0jvnwlhFZqgM5Zjk5Z9wragvi7u+gHkwBPPtCjBq72BXkvoxr5EvnBffK9JIYqI+XJpeMezqEfiyzI4h0M8/g=="
+              },
+              "extensions": {
+                "extended_key_usage": {
+                  "server_auth": true
+                },
+                "key_usage": {
+                  "value": 5,
+                  "key_encipherment": true,
+                  "digital_signature": true
+                }
+              },
+              "signature_algorithm": {
+                "name": "SHA256WithRSA",
+                "oid": "1.2.840.113549.1.1.11"
+              },
+              "fingerprint_sha1": "d4336958bd6eacd5e24704b621b4342b44296878",
+              "spki_subject_fingerprint": "574c3c92b5f29b0ff62a9dffb74fcf56ef695f57eb71589328b3cff90829e515",
+              "names": [
+                "gibraltar.engin.umich.edu"
+              ],
+              "fingerprint_sha256": "bd3082fade35738fc95dfd3152226c7e8922b544c3b9aca0dea911239cfd1815",
+              "issuer": {
+                "organizational_unit": [
+                  "MACOSX OpenDirectory Intermediate CA"
+                ],
+                "common_name": [
+                  "IntermediateCA_GIBRALTAR.ENGIN.UMICH.EDU_1"
+                ],
+                "organization": [
+                  "University of Michigan"
+                ],
+                "email_address": [
+                  "kieffer@umich.edu"
+                ]
+              },
+              "tbs_noct_fingerprint": "a4556e2195ae29d7187c4b00d8d1c391ab1952e8b0414e323efd01a59889f254",
+              "issuer_dn": "CN=IntermediateCA_GIBRALTAR.ENGIN.UMICH.EDU_1, O=University of Michigan, OU=MACOSX OpenDirectory Intermediate CA, emailAddress=kieffer@umich.edu",
+              "subject_dn": "CN=gibraltar.engin.umich.edu, emailAddress=kieffer@umich.edu",
+              "fingerprint_md5": "6c6a9ce00bc35dcd0a0691662521b460",
+              "tbs_fingerprint": "a4556e2195ae29d7187c4b00d8d1c391ab1952e8b0414e323efd01a59889f254",
+              "subject_key_info": {
+                "rsa_public_key": {
+                  "length": 2048,
+                  "exponent": 65537,
+                  "modulus": "10EE2HQxmBzqUtTRuN15uRfVY2GEhNAyjrp6+R27sONSeOacmsXzXqC5TKtynHDCTpINTMK3ByjfapdKPPkWKkh0dCbXfwb4zpLQSsy0vNYdLvz3PsprGDiWP7MhMHgjRSBI7rNjYZtASXmNj1wo9XaP7RnAy7FW714jbxsqIVEJ27evVAQrlGmkwOvhFCN6w/cM5jO9MK6ZVWsBNlKAKfVTD6WP2hK+vVlQlrQfnp5yomjc+GvFZd1g5AqMKBfjd9Xb/6Y6j5uUAi3S9PoMcTwuHjvm5roSjHl+yejBSGCkd0YrFSNMF9eJQjGDKJEcbXn2v/CeJHopB+JPsvwPVw=="
+                },
+                "fingerprint_sha256": "d49ec60c0bc6af6165e19e488f4b62e51f0549c88f0cfabf8a352bb5b287ee6b",
+                "key_algorithm": {
+                  "name": "RSA"
+                }
+              },
+              "validity": {
+                "start": "2017-08-04T16:17:09Z",
+                "length": 63158400,
+                "end": "2019-08-05T16:17:09Z"
+              },
+              "validation_level": "unknown"
+            }
+          },
+          {
+            "parsed": {
+              "subject": {
+                "organizational_unit": [
+                  "MACOSX OpenDirectory Intermediate CA"
+                ],
+                "common_name": [
+                  "IntermediateCA_GIBRALTAR.ENGIN.UMICH.EDU_1"
+                ],
+                "organization": [
+                  "University of Michigan"
+                ],
+                "email_address": [
+                  "kieffer@umich.edu"
+                ]
+              },
+              "redacted": false,
+              "serial_number": "271269858",
+              "version": 3,
+              "signature": {
+                "signature_algorithm": {
+                  "name": "SHA256WithRSA",
+                  "oid": "1.2.840.113549.1.1.11"
+                },
+                "self_signed": false,
+                "valid": true,
+                "value": "M6PHRdtPDfrRGSDz/JTaGXt1HkEX/bVFTJhFVXLNyiDwiS55rhtuu6UTRJW4kn1RZY3yVdVGFmHNwogU/dkVFuvvfydGgJvprWkoQCFhGN5yXY20QDvG9eM8EzSvInlQYohjOFiPyiaPmcuJOaWmvxWetppeL/6z3m5EiLGc9EQsykLOjUk41/0Sf3Cx/f0dHlfTl+pD+NEPyzSYHWso9YowzOOscBfFIziUl3RpGyvcmOoOe3Znd8WmMyph6WEg1EinHM9xKZOiIASfJjS43Um/TRakOIMOIwsluKjpreB3E9JiSggSg3cRadpsIgPrm4fwoxY7Qr9TnCTLPswtOA=="
+              },
+              "extensions": {
+                "crl_distribution_points": [
+                  "http://gibraltar.engin.umich.edu:1640/rfc2585/IntermediateCA_GIBRALTAR.ENGIN.UMICH.EDU_1.crl"
+                ],
+                "basic_constraints": {
+                  "is_ca": true
+                },
+                "key_usage": {
+                  "value": 97,
+                  "certificate_sign": true,
+                  "digital_signature": true,
+                  "crl_sign": true
+                }
+              },
+              "signature_algorithm": {
+                "name": "SHA256WithRSA",
+                "oid": "1.2.840.113549.1.1.11"
+              },
+              "fingerprint_sha1": "b512053017a384e10301a9a9e391b365cb4017fc",
+              "spki_subject_fingerprint": "ab2ddc35e76af963f199233142182bcded1a904f0a59952635c47c734177aa8e",
+              "fingerprint_sha256": "d83c18b66f3e76094e5f2b3c8415ff932f78f92c5ba9eb5b46b602b73551a81c",
+              "issuer": {
+                "organizational_unit": [
+                  "MACOSX OpenDirectory Root CA"
+                ],
+                "common_name": [
+                  "University of Michigan"
+                ],
+                "organization": [
+                  "University of Michigan"
+                ],
+                "email_address": [
+                  "kieffer@umich.edu"
+                ]
+              },
+              "tbs_noct_fingerprint": "b2a54e71e9dd7432540a5e985a1f778624ae88eafd01669817af403a690a90bb",
+              "issuer_dn": "CN=University of Michigan, O=University of Michigan, OU=MACOSX OpenDirectory Root CA, emailAddress=kieffer@umich.edu",
+              "subject_dn": "CN=IntermediateCA_GIBRALTAR.ENGIN.UMICH.EDU_1, O=University of Michigan, OU=MACOSX OpenDirectory Intermediate CA, emailAddress=kieffer@umich.edu",
+              "fingerprint_md5": "e6f1ec151c7aa7ef1edcc51f57917f71",
+              "tbs_fingerprint": "b2a54e71e9dd7432540a5e985a1f778624ae88eafd01669817af403a690a90bb",
+              "subject_key_info": {
+                "rsa_public_key": {
+                  "length": 2048,
+                  "exponent": 65537,
+                  "modulus": "n3K8kGs1KZozwpXsbaJLyYdq0x+zrHj5ZMAM3pkxTPwWs6psODq64m5PBby5/H2U/ctU3Z45g7P+JYbNvyP1O889vGD/rVbwkuQ4D4K/gmE8e+txZuL0LRDBKNGxgauuTvU/F0cmNkj13rhs5cIS/zfKilLoLODBLA+u+5ZBSU2aX4qo4IpKlCANOt8ASQGpD7F1wKNc91nibA+VImiz5fSfYVNqnSF3RQ81eSw212VvXK98qyBivQFCyfL4SI8XN6x4q6vQ0CRJ6gkp6Dl5Wx9fBpNxeu4XCOPMbBRB1m57lSdAb311xHjxqkvcuTtwRihsBJNy/qxXKKi6NId/9w=="
+                },
+                "fingerprint_sha256": "7bb16ac38858acf9e06066a6fe81cbb4a2cfa989d83ad821ca678ec767db7ffc",
+                "key_algorithm": {
+                  "name": "RSA"
+                }
+              },
+              "validity": {
+                "start": "2017-01-19T22:51:08Z",
+                "length": 157852800,
+                "end": "2022-01-20T22:51:08Z"
+              },
+              "validation_level": "unknown"
+            }
+          },
+          {
+            "parsed": {
+              "subject": {
+                "organizational_unit": [
+                  "MACOSX OpenDirectory Root CA"
+                ],
+                "common_name": [
+                  "University of Michigan"
+                ],
+                "organization": [
+                  "University of Michigan"
+                ],
+                "email_address": [
+                  "kieffer@umich.edu"
+                ]
+              },
+              "redacted": false,
+              "serial_number": "1309973507",
+              "version": 3,
+              "signature": {
+                "signature_algorithm": {
+                  "name": "SHA256WithRSA",
+                  "oid": "1.2.840.113549.1.1.11"
+                },
+                "self_signed": true,
+                "valid": true,
+                "value": "UpCwdxM6B9qhSoQkQn6hb/FwZEl9FRjlRima6SlXXCulOqSuqunoe0VX67+ZUYWyX98iHRXp9OIjkeMTs/otDtFhuhobF/XvCZGJdZNfTpeeJl+uausEZoECeK7UZCbHFVk/M0CQr2W5Go/s3C/N7mz0H66vpV+M6zEracu8JeJ0O9XNU96b5L6KX+CFi2GEyVhGs7c5oLWXEvi7lUmeY4PiFcvW2BAj0TqflhV8Z7jVmqccIhf29POPQYoZd9Z9o+zEb4He8m38m0DLWSALK/pgdejIh4p+nb63sLolm+9k/Hn+3IuIXu8FK0btXEjQJw19tkeMmL+tUcsbSXdNqw=="
+              },
+              "extensions": {
+                "crl_distribution_points": [
+                  "http://gibraltar.engin.umich.edu:1640/rfc2585/University%20of%20Michigan.crl"
+                ],
+                "basic_constraints": {
+                  "is_ca": true
+                },
+                "key_usage": {
+                  "value": 97,
+                  "certificate_sign": true,
+                  "digital_signature": true,
+                  "crl_sign": true
+                }
+              },
+              "signature_algorithm": {
+                "name": "SHA256WithRSA",
+                "oid": "1.2.840.113549.1.1.11"
+              },
+              "fingerprint_sha1": "78456c1bcf06c016d9e82fff1f37d6cbc50c132d",
+              "spki_subject_fingerprint": "189750e069a88d35a2daee77c51d7e7adef66e990fc6179d3ea8107f4ede1ef0",
+              "fingerprint_sha256": "b26a40cd1ea6e0bd4a5e9c3f2acf2ce1c85296713c502d166231009175cb7b69",
+              "issuer": {
+                "organizational_unit": [
+                  "MACOSX OpenDirectory Root CA"
+                ],
+                "common_name": [
+                  "University of Michigan"
+                ],
+                "organization": [
+                  "University of Michigan"
+                ],
+                "email_address": [
+                  "kieffer@umich.edu"
+                ]
+              },
+              "tbs_noct_fingerprint": "66b7e8b3f69f57468a3c4620425f5bd9b697f73f81034ce9a19210ec6c69b500",
+              "issuer_dn": "CN=University of Michigan, O=University of Michigan, OU=MACOSX OpenDirectory Root CA, emailAddress=kieffer@umich.edu",
+              "subject_dn": "CN=University of Michigan, O=University of Michigan, OU=MACOSX OpenDirectory Root CA, emailAddress=kieffer@umich.edu",
+              "fingerprint_md5": "538dffb6c4d0514ea33a1af5e702f8b6",
+              "tbs_fingerprint": "66b7e8b3f69f57468a3c4620425f5bd9b697f73f81034ce9a19210ec6c69b500",
+              "subject_key_info": {
+                "rsa_public_key": {
+                  "length": 2048,
+                  "exponent": 65537,
+                  "modulus": "o52L2g9sEbieMV2W4hBiQgOlZPmh31NtxVu5ZIVqzbgVQ7v8jqqCi2I/Is3WsPQNC8Dne8rldbQx/4BQwSS5UpvwMILJIpvMaatUeqxP36YS9rC1/pUp2jNn87MwhzGUuzRIzwZO5pu4V8WPgT/x5TfsV5CKtKtl+xFySE6gCU/gsK6LNQPymv/ZBAJxee16pyYkq5SY/zdzmBu+/KZOhMbEOgmqtv2yLkG0nDlEYGXOnWxvDlzpi9zVNF30RIE5+StA2Mz/p6aMCw/k96btBRo2zKJ8ShoN8Qf8SLLLEVa+TIotRmQyPUwNARsFzsaoJXivSKDEroItz13E/ylOlQ=="
+                },
+                "fingerprint_sha256": "db8367446446434edcb4b0157190b71cfd2a9f5fd1d8c23632bad9c117c31d4e",
+                "key_algorithm": {
+                  "name": "RSA"
+                }
+              },
+              "validity": {
+                "start": "2017-01-19T22:51:08Z",
+                "length": 157852800,
+                "end": "2022-01-20T22:51:08Z"
+              },
+              "validation_level": "unknown"
+            }
+          }
+        ],
+        "ocsp_stapling": false,
+        "session_ticket": {
+          "lifetime_hint": 300,
+          "length": 192
+        }
+      }
+    }
+  }
+}

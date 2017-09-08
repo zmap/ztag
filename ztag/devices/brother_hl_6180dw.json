@@ -1,0 +1,137 @@
+{
+  "21": {
+    "ftp": {
+      "banner": {
+        "banner": "220 FTP print service:V-1.13/Use the network password for the ID if updating.",
+        "metadata": {}
+      }
+    }
+  },
+  "23": {
+    "telnet": {
+      "banner": {
+        "support": true,
+        "banner": "\u001b[2J\u001b[1;1f",
+        "metadata": {}
+      }
+    }
+  },
+  "80": {
+    "http": {
+      "get": {
+        "body": "<?xml version=\"1.0\" encoding=\"iso-8859-1\"?><!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\"><html lang=\"en\" xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\"><head><meta http-equiv=\"Content-Script-Type\" content=\"text/javascript\" /><meta http-equiv=\"content-style-type\" content=\"text/css\" /><meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\" />\n <link rel=\"stylesheet\" type=\"text/css\" href=\"../common/css/common.css\" /> \n <link rel=\"stylesheet\" type=\"text/css\" href=\"../common/css/ews.css\" /> \n <script type=\"text/javascript\" src=\"../common/js/cookie.js\"></script> \n <script type=\"text/javascript\" src=\"../common/js/language.js\"></script> \n <script type=\"text/javascript\" src=\"../common/js/lcddisplay.js\"></script><title>Brother HL-6180DW series</title></head><body><div id=\"baseFrame\"><div id=\"frameContainer\"><div id=\"headerFrameContainer\"><div id=\"headerFrame\"><div id=\"modelName\"><h1>HL-6180DW series</h1><div class=\"SetBox\" id=\"SetBoxAuthRight\"><div id=\"SetBoxAuthLeft\"><form method=\"post\" action=\"/general/status.html\"><div>Login<input type=\"password\" id=\"LogBox\" name=\"Nf9\" /><input type=\"hidden\" name=\"loginurl\" value=\"/general/status.html\"/><input id=\"login\" type=\"submit\" value=\"&nbsp;\" /></div></form></div></div></div><div id=\"corporateLogo\"><img src=\"/common/images/logo.gif\" alt=\"Brother\" /></div></div><div id=\"solutions\"><div><span><a href=\"http://solutions.brother.com/cgi-bin/solutions.cgi?MDL=prn069&amp;LNG=en&amp;SRC=DEVICE\">Brother<br />Solutions&#32;Center</a></span></div></div><div id=\"tabMenu\"><ul><li><ul><li class=\"selected\"><p>General</p></li></ul></li><li><ul></ul></li></ul></div></div><div id=\"mainFrameContainer\"><div id=\"subTabMenu\">&nbsp;</div><div id=\"subMenu\"><div class=\"selected\"><div class=\"top\"><div class=\"bottom\"><a href=\"/general/status.html\">Status</a></div></div></div><div><a href=\"/general/reflesh.html\" class=\"subPage\">Auto&#32;Refresh&#32;Interval</a></div><div><a href=\"/general/information.html?kind=item\">Maintenance&#32;Information</a></div><div><a href=\"/general/lists.html\">Lists/Reports</a></div><div><a href=\"/general/find.html\">Find&#32;Device</a></div><div><a href=\"/general/contact.html\">Contact&#32;&amp;&#32;Location</a></div><div><a href=\"/general/sleep.html\">Sleep&#32;Time</a></div><div><a href=\"/general/language.html\">Language</a></div><div><a href=\"/general/panel.html\">Panel</a></div></div><div id=\"rightFrameContainer\"><div id=\"rightFrame\"><div id=\"mainContent\"><div id=\"pageTitle\"><h2>Status</h2></div><div id=\"pageContents\"><form method=\"post\" action=\"/general/status.html\"><div><input type=\"hidden\" id=\"pageid\" name=\"pageid\" value=\"1\" /></div><div class=\"contentsGroup\"><dl class=\"items\"><dt>Device&#32;Status</dt><dd><div id=\"moni_data\"><span class=\"moni moniOk\">Sleep           </span></div></dd><dt class=\"subhead\"><span>Automatic&#32;Refresh</span></dt><dd><div><label class=\"radioSimple\"><input type=\"radio\" name=\"Refresh\" value=\"0\" onclick=\"refreshLCD(0);\" checked=\"checked\" />\nOff</label><label class=\"radioSimple\"><input type=\"radio\" name=\"Refresh\" value=\"1\" onclick=\"refreshLCD(60000);\" />\nOn</label></div></dd></dl></div><div class=\"contentsGroup\"><dl class=\"items\"><dt>Web&#32;Language</dt><dd><select id=\"Language\" name=\"Language\" onchange=\"changeLanguage('Language', 'WebLang');\"><option value=\"0\" selected=\"selected\">Auto</option><option value=\"2\">English</option><option value=\"3\">French</option><option value=\"4\">German</option><option value=\"5\">Dutch</option><option value=\"6\">Spanish</option><option value=\"7\">Italian</option><option value=\"10\">Russian</option><option value=\"8\">Japanese</option><option value=\"9\">Chinese</option></select></dd></dl></div><div class=\"contentsGroup\"><dl class=\"items\"><dt>Device&#32;Location</dt><dd><ul class=\"itemList\"><li class=\"contact\">Contact<span class=\"spacer\">:</span></li><li class=\"location\">Location<span class=\"spacer\">:</span></li></ul></dd></dl></div></form></div></div></div></div><script type=\"text/javascript\">\n<!--\njudge_refresh(60000);\n//-->\n</script>\n<div id=\"mainFrameBottom\"></div></div><div id=\"footerFrameContainer\"><div id=\"copyright\">Copyright(C) 2000-2011 Brother Industries, Ltd. All Rights Reserved.</div><div id=\"topBack\"><a href=\"#\">Top<img src=\"/common/images/ic_pt.gif\" alt=\"Top\" /></a></div></div></div></div></body></html>",
+        "status_code": 200,
+        "title": "Brother HL-6180DW series",
+        "status_line": "200 OK",
+        "metadata": {
+          "description": "debut 1.20",
+          "version": "1.20",
+          "product": "debut"
+        },
+        "body_sha256": "zHe3omKBdlEqe4KGBzvd2etGnjMjcqd5DHUN1uO+4s4=",
+        "headers": {
+          "content_length": "4363",
+          "pragma": "no-cache",
+          "content_language": "en",
+          "content_type": "text/html",
+          "server": "debut/1.20",
+          "cache_control": "no-cache"
+        }
+      }
+    }
+  },
+  "443": {
+    "https": {
+      "dhe_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "rsa_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "heartbleed": {
+        "heartbeat_enabled": false,
+        "heartbleed_vulnerable": false,
+        "metadata": {}
+      },
+      "tls": {
+        "certificate": {
+          "parsed": {
+            "subject": {
+              "common_name": [
+                "Preset Certificate"
+              ]
+            },
+            "redacted": false,
+            "serial_number": "297036677",
+            "version": 2,
+            "signature": {
+              "signature_algorithm": {
+                "name": "SHA1WithRSA",
+                "oid": "1.2.840.113549.1.1.5"
+              },
+              "self_signed": true,
+              "valid": true,
+              "value": "D3s+35BnIxGXC9eHK2opsCC1ImgSzkylc4j4ikPWK+44J9B11NRMXE1jl1ArRkgma50VVP4mL/OggFs4IvAOnm2HjjHANxg8qa/DTwtfeCv9BaWHWz9USN7D86gdQIcbr3RrpoI6HBVNcTjiLz3YFskzvs+NvbxYiJTsjGZPECJrGVWVaPmgit/zxFtBbL/uG1K3I6JXkCjmLbp0xn2oS5VSkZOJGXP2XTb5OPl+Vw0olthdGmm3mkGSgQyRfq/G874QfVvADrGHE1W1VLowlXgEYrsaqgiJYVBJCUjzp9NBPavWy0KlC3wssib1NFE34vpfD4Fera+FQxOZSq+oIQ=="
+            },
+            "extensions": {},
+            "signature_algorithm": {
+              "name": "SHA1WithRSA",
+              "oid": "1.2.840.113549.1.1.5"
+            },
+            "fingerprint_sha1": "fbba7f114078edb62d6fc650bc291abe71c4ce04",
+            "spki_subject_fingerprint": "77f80c26b4afac228976807749f24c48017fdf44753cf0f90d636847b256df41",
+            "fingerprint_sha256": "297238c7a6aa4e73ee2bfe1b509b3e8334250c21e90308e985477d495d80bc11",
+            "issuer": {
+              "common_name": [
+                "Preset Certificate"
+              ]
+            },
+            "tbs_noct_fingerprint": "865159c81d160f087027a593df0145d0475c59eeba877df84960a29e68fd2544",
+            "issuer_dn": "CN=Preset Certificate",
+            "subject_dn": "CN=Preset Certificate",
+            "fingerprint_md5": "00124fc0c0f5f13a8e48e541dcbed76a",
+            "tbs_fingerprint": "5cc89acbb7fcd6d7ae29dbc71f093b6497b6c0353152dbfe65dc69feab501209",
+            "subject_key_info": {
+              "rsa_public_key": {
+                "length": 2048,
+                "exponent": 65537,
+                "modulus": "qJCzc9zfeSP3GbSApou4JsIXcO+FqUzU551vpZC42Fp21jgY26mo03OGC32KWKO9aYkF9EgDZ8U1RdLJj5TimR+2bx3qp/eUtiJQ7NF3HBuxceXgwOfS6UndK6H6t4qyITsSUjqs+omgJ10WGdxefyH5tntxV17W9IbklIk+WzSRuLg8EFdLHdQpuLU88wVDIm5JnOdOitWEl41HVcnM0bklJb37TiqgupqBBlh94JkEmtiX+iy63yuDmRDsrP3t8hV5HlIa8IPKKC24NRFFtkGgo4/UCOsH0Gz4nnSaUpYDqeXZCpYvRdpFoc6Ao0pudSrhUSxyT9tlAiL9V14eJQ=="
+              },
+              "fingerprint_sha256": "c5e9452fe1191a253e95e32fbe57877f67ee7c21fcbebb916e280e269659a483",
+              "key_algorithm": {
+                "name": "RSA"
+              }
+            },
+            "validity": {
+              "start": "2000-01-01T00:00:00Z",
+              "length": 1577836799,
+              "end": "2049-12-30T23:59:59Z"
+            },
+            "validation_level": "unknown"
+          }
+        },
+        "version": "TLSv1.0",
+        "cipher_suite": {
+          "name": "TLS_RSA_WITH_AES_256_CBC_SHA",
+          "id": "0x0035"
+        },
+        "validation": {
+          "browser_trusted": false,
+          "browser_error": "x509: unknown error"
+        },
+        "metadata": {},
+        "ocsp_stapling": false
+      },
+      "ssl_3": {
+        "support": true,
+        "metadata": {}
+      },
+      "dhe": {
+        "support": false,
+        "metadata": {}
+      }
+    }
+  }
+}

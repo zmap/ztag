@@ -107,6 +107,7 @@ class Metadata(object):
 
 # types of devices, e.g., primary purpose of an embedded device
 class Type(object):
+
     CABLE_MODEM = "cable modem"
     CAMERA = "camera"
     CINEMA = "cinema"
@@ -124,6 +125,8 @@ class Type(object):
     MUTLIFUNCTION_PRINTER = "multifunction printer"
     NAS = "nas"
     NETWORK = "network"
+    SWITCH = "switch"
+    FIREWALL = "firewall"
     NETWORK_ANALYZER = "network analyzer"
     PDU = "power distribution unit"
     PHASER_PRINTER = "phaser printer"
@@ -132,6 +135,8 @@ class Type(object):
     POWER_MONITOR = "power monitor"
     PRINT_SERVER = "print server"
 
+    SERVER_MANAGEMENT = "server management"
+
     SCADA_CONTROLLER = "scada controller"
     SCADA_GATEWAY = "scada gateway"
     SCADA_PROCESSOR = "scada processor"
@@ -139,12 +144,13 @@ class Type(object):
     SCADA_FRONTEND = "scada frontend"
     SCADA_SERVER = "scada server"
 
-    SOHO_ROUTER = "home router"
+    SOHO_ROUTER = "soho router"
     SOLAR_PANEL = "solar panel"
     STORAGE = "storage"
     TEMPERATURE_MONITOR = "temperature monitor"
     THERMOSTAT = "thermostat"
     TV_BOX = "set-top box"
+    TV_TUNER = "TV tuner"
     UPS = "ups"
     USB_HUB = "usb"
     VOIP = "voip"
@@ -153,6 +159,8 @@ class Type(object):
     HVAC = "hvac"
     ACCESS_CONTROL = "access control"
     POWER_MONITOR = "power monitor"
+    SIGN = "sign"
+    KVM = "kvm"
 
 
 class Manufacturer(object):
@@ -164,6 +172,7 @@ class Manufacturer(object):
     ALLEGRO = "Allegro"
     ALLWORKS = "allworx"
     AMERICANMEGATRENDS = "American Megatrends Inc."
+    APPLE = "Apple"
     APACHE = "Apache"
     APC = "APC"
     ARUBA = "Aruba Networks"
@@ -174,6 +183,8 @@ class Manufacturer(object):
     BELKIN = "Belkin"
     BIGIP = "BigIP"
     BOMGAR = "Bomgar"
+    BROTHER = "Brother"
+    CANON = "Canon"
     CHEROKEE = "Cherokee"
     CISCO = "Cisco"
     CLARIION = "Clariion"
@@ -182,6 +193,7 @@ class Manufacturer(object):
     CROUZET = "Crouzet"
     DEDICATED_MICROS = "Dedicated Micros"
     DELL = "Dell"
+    DIGI = "Digi"
     DISTECH = "Distech Controls"
     DLINK = "DLink"
     DRAYTEK = "DrayTek"
@@ -198,7 +210,7 @@ class Manufacturer(object):
     HUAWEI = "Huwawei"
     HIKVISION = "Hikvision"
     HONEYWELL = "Honeywell"
-    HP = "Hewlett-Packard"
+    HP = "HP"
     IBM = "IBM"
     INTEG = "INTEG"
     INTEGRA = "Integra"
@@ -212,6 +224,7 @@ class Manufacturer(object):
     LANCOM = "Lancom Systems"
     LANTRONIX = "Lantronix"
     LEIGHTRONIX = "Leightronix"
+    LENOVO = "Lenovo"
     LEXMARK = "Lexmark"
     LINKSYS = "LinkSys"
     LIFESIZE = "LifeSize"
@@ -239,9 +252,11 @@ class Manufacturer(object):
     RICOH = "Ricoh"
     ROCKWELL = "Rockwell Automation"
     ROUTER_BOARD = "routerboard"
+    SCANNEX = "Scannex"
     SCHNEIDER = "Schneider Electric"
     SE_ELECTRONIC = "SE Electronic"
     SEAGATE = "Seagate"
+    SENSATRONICS = "Sensatronics"
     SHARP = "Sharp"
     SIEMENS = "Siemens"
     SOFT_AT_HOME = "SoftAtHome"
@@ -253,9 +268,12 @@ class Manufacturer(object):
     SUPERMICROCOMPUTER = "SuperMicroComputer"
     SYNOLOGY = "Synology"
     SYNCHRONIC = "Synchronic"
+    TANDBERG_DATA = "Tandberg Data"
     TELEMECANIQUE = "Telemecanique"
+    THECUS = "Thecus"
     THINK_SIMPLE = "Think Simple"
     TIVO = "TiVo"
+    TPLINK = "TP-LINK"
     TRANE = "Trane"
     TREND = "Trend"
     TRIDIUM = "Tridium"
@@ -275,6 +293,7 @@ class Manufacturer(object):
     XEROX = "Xerox"
     ZTE = "ZTE"
     ZYXEL = "ZyXEL"
+    ROOMWIZARD = "RoomWizard"
 
 
 class OperatingSystem(object):

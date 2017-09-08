@@ -1,0 +1,166 @@
+{
+  "21": {
+    "ftp": {
+      "banner": {
+        "banner": "220 Service ready for new user.",
+        "metadata": {}
+      }
+    }
+  },
+  "23": {
+    "telnet": {
+      "banner": {
+        "support": true,
+        "will": [
+          {
+            "name": "Echo",
+            "value": 1
+          },
+          {
+            "name": "Suppress Go Ahead",
+            "value": 3
+          }
+        ],
+        "metadata": {},
+        "banner": "Type \"help or ?\" for information.\r\n>"
+      }
+    }
+  },
+  "443": {
+    "https": {
+      "dhe_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "rsa_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "heartbleed": {
+        "heartbeat_enabled": false,
+        "heartbleed_vulnerable": false,
+        "metadata": {}
+      },
+      "tls": {
+        "certificate": {
+          "parsed": {
+            "subject": {
+              "organizational_unit": [
+                "3863BBDD5E88",
+                "CNB7GCV48M"
+              ],
+              "organization": [
+                "Hewlett-Packard Co."
+              ],
+              "common_name": [
+                "NPIDD5E88"
+              ]
+            },
+            "redacted": false,
+            "serial_number": "-1265514279",
+            "version": 3,
+            "tbs_noct_fingerprint": "7f3379d773ec33c392b29a4b4b8451103ebf175c6a4d590a8878ba466b89a201",
+            "fingerprint_md5": "42304e36b5403e0bb806bac49e595aa6",
+            "signature": {
+              "signature_algorithm": {
+                "name": "SHA1WithRSA",
+                "oid": "1.2.840.113549.1.1.5"
+              },
+              "self_signed": true,
+              "valid": false,
+              "value": "ZMasMrJJCSy4TNgbELVZdOzMTePHL+G4jbVAem+3uXP6oVFrbKb5UbJsJKmiOu8A5TZUzOw2QZnlp/GraTmFM9G4CeD9wkEMTpIyv4qA4eEaYdYTfK0dwY8njQ/u5UdXkDdHDeMtpsRVumlNwtEqFGDZu6ZPMoX80/clVYhJqBWgNNhX73fKcmibwuJgR2brmtMKNskrU6j/Mge5Sga+z27RxhUNY8VRfD0JDvqnla4SObOEyfjT5syZTigHZHd8tv0O/WG3rfrthHyXTh+B3hx3SKgJ7PBMCGe6lnt5weu8OuG1kiFpQLUQAujTUXTJ45OSkK1nZpx5mdxxn1PiCg=="
+            },
+            "fingerprint_sha1": "f02fbf0b642cbac680418e43f164b698ea7d900a",
+            "issuer_dn": "CN=NPIDD5E88, O=Hewlett-Packard Co., OU=3863BBDD5E88, OU=CNB7GCV48M",
+            "fingerprint_sha256": "2e3abe87cf61679b07ed433e7797c702390efd6802ed7c34f09f0d9244c22198",
+            "issuer": {
+              "organizational_unit": [
+                "3863BBDD5E88",
+                "CNB7GCV48M"
+              ],
+              "organization": [
+                "Hewlett-Packard Co."
+              ],
+              "common_name": [
+                "NPIDD5E88"
+              ]
+            },
+            "extensions": {
+              "extended_key_usage": {
+                "server_auth": true,
+                "client_auth": true
+              }
+            },
+            "subject_dn": "CN=NPIDD5E88, O=Hewlett-Packard Co., OU=3863BBDD5E88, OU=CNB7GCV48M",
+            "signature_algorithm": {
+              "name": "SHA1WithRSA",
+              "oid": "1.2.840.113549.1.1.5"
+            },
+            "validation_level": "unknown",
+            "spki_subject_fingerprint": "027b68b073da79ae872964105796f697302e218ecd9c85b2369b29fc8b439534",
+            "subject_key_info": {
+              "key_algorithm": {
+                "name": "RSA"
+              },
+              "rsa_public_key": {
+                "length": 2048,
+                "exponent": 65537,
+                "modulus": "ooerfdKnjsAj1xH0PmoBvWc+q4gyWRVpB95Jxxg+ZC7k8nb020v1QiKb/yVoIbX94Jkc4kVWhlGf8ETESdSA7NNo0TlW/2GC+u5L5SbfBcaUO1pngkNDnM52cLgAez6jD1B5rr3FD8ERgLvjgYfORz9YtRhbSW+KK0fM55KbErFIAY8IrxpfB9S5os1kfIIVcNWUnAp/CPlQRS4r4H23DDQK+MzChVO2fvav/F0r3oFlyh9NAgPTPz0rH/FauyGhXe4/p5wZpKmOBXTI6Ul/qw77gyN8dK4FnwRZpfoSbgi8H204LhW1ygKHB9UDYbsmzjWlfD5HSVeK4vipF6K8bQ=="
+              },
+              "fingerprint_sha256": "ee86529ea585eba310278e308ae09017bd17d9d02847687a3d39d87b67e93ea9"
+            },
+            "tbs_fingerprint": "7f3379d773ec33c392b29a4b4b8451103ebf175c6a4d590a8878ba466b89a201",
+            "validity": {
+              "start": "2014-08-01T00:00:00Z",
+              "length": 315619200,
+              "end": "2024-08-01T00:00:00Z"
+            }
+          }
+        },
+        "session_ticket": {
+          "lifetime_hint": 300,
+          "length": 160
+        },
+        "cipher_suite": {
+          "name": "TLS_RSA_WITH_AES_128_GCM_SHA256",
+          "id": "0x009C"
+        },
+        "validation": {
+          "browser_trusted": false,
+          "browser_error": "x509: unknown error"
+        },
+        "metadata": {},
+        "ocsp_stapling": false,
+        "version": "TLSv1.2"
+      },
+      "ssl_3": {
+        "support": true,
+        "metadata": {}
+      },
+      "dhe": {
+        "support": false,
+        "metadata": {}
+      }
+    }
+  },
+  "80": {
+    "http": {
+      "get": {
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n<html>\n\n<head>\n  \n\n  <title>HP Color LaserJet MFP M476dw&nbsp;&nbsp;&nbsp;141.212.190.116</title>\n\n  <link href=\"/hp/device/defaultnew.css\" type=\"text/css\" rel=\"stylesheet\">\n<link href=\"/hp/device/ltr.css\" type=\"text/css\" rel=\"stylesheet\">\n<link href=\"/hp/device/privacy200.css\" type=\"text/css\" rel=\"stylesheet\">\n\n  <script type=\"text/javascript\" src=\"/hp/device/global.js\"></script>\n  <script type=\"text/javascript\" src=\"/hp/device/buttonManager.js\"></script>\n  <script type=\"text/javascript\" src=\"/hp/device/jquery.js\"></script>\n<script type=\"text/javascript\">\n<!--\nfunction addSetupManageLinks()\n{\n  \n      var currentUrl = location.href;\n      var pattern = /localhost:[0-9][0-9][0-9][0-9][0-9]\\//;\n  \n\n   var setupUrls = [];\n   var manageUrls = [];\n   var index = 0;\n   setupUrls[index++] = \"<a href=\\\"set_config_IP.html?tab=Networking&amp;menu=NetIPv4Config\\\">IPv4 Configuration<\\/a>\";\n   setupUrls[index++] = \"<a href=\\\"set_config_networkIPv6.html?tab=Networking&amp;menu=NetIPv6Config\\\">IPv6 Configuration<\\/a>\";\n   setupUrls[index++] = \"<a href=\\\"set_config_network_Wireless.html?tab=Networking&amp;menu=NetWireless\\\">Wireless Configuration<\\/a>\";\n   \n       setupUrls[index++] = \"<a href=\\\"set_config_webServices.html?tab=WebServices&amp;menu=WebServicesConfig\\\">Web Services Setup<\\/a>\";\n   \n   \n   if(!(currentUrl.search(pattern) > 0))\n     {\n       setupUrls[index++] = \"\";\n     }\n  \n   setupUrls[index++] = \"<a href=\\\"set_config_scantoConfiguration.html?tab=Scan&amp;menu=ScantoCfg\\\">Scan to Network Folder Setup<\\/a>\";\n   setupUrls[index++] = \"<a href=\\\"info_scantoEmailSetup.html?tab=Scan&amp;menu=EmailSetup\\\">Scan to E-mail Setup<\\/a>\";\n   setupUrls[index++] = \"\";\n\n   manageUrls[0] = \"<a href=\\\"set_config_faxPhonebook.html?tab=Fax&amp;menu=FaxPB\\\">Fax Phone Book<\\/a>\";\n   manageUrls[1] = \"<a href=\\\"set_config_faxBlockList.html?tab=Fax&amp;menu=FaxBlockList\\\">Fax Junk Phone List<\\/a>\";\n   manageUrls[2] = \"<a href=\\\"set_config_networkCerts.html?tab=Networking&amp;menu=NetCerts\\\">Certificates<\\/a>\";\n   manageUrls[3] = \"<a href=\\\"set_config_password.html?tab=System&amp;menu=Passwd\\\">Product Security<\\/a>\";\n   manageUrls[4] = \"<a href=\\\"set_config_energy.html?tab=System&amp;menu=EnergySettings\\\">EcoSMART Console<\\/a>\";\n   manageUrls[5] = \"<a href=\\\"set_config_emailContacts.html?tab=Scan&amp;menu=EmailContacts\\\">E-mail Address Book<\\/a>\";\n\n   setupUrls = $.grep(setupUrls, function(val) { return val != \"\"; }); // Remove empties\n   var rowCount = Math.ceil( setupUrls.length/3 );\n   var urlIndex=0;\n\n   for(var rowIndex=0; rowIndex < rowCount; rowIndex++ )\n   {\n      var row= $('#setupSection')[0].insertRow(rowIndex);\n      for( var colIndex = 0; colIndex < 3; colIndex++ )\n      {\n         urlIndex=rowIndex + (colIndex*rowCount);\n         var cell = row.insertCell(colIndex);\n         cell.width=\"33%\";\n         if(setupUrls[urlIndex])\n         {\n            cell.innerHTML=setupUrls[urlIndex];\n         }\n      }\n   }\n\n   manageUrls = $.grep(manageUrls, function(val) { return val != \"\"; }); // Remove empties\n   rowCount = Math.ceil( manageUrls.length/3 );\n   urlIndex=0;\n\n   for(var rowIndex=0; rowIndex < rowCount; rowIndex++ )\n   {\n      var row= $('#manageSection')[0].insertRow(rowIndex);\n      for( var colIndex = 0; colIndex < 3; colIndex++ )\n      {\n         urlIndex=rowIndex + (colIndex*rowCount);\n         var cell = row.insertCell(colIndex);\n         cell.width=\"33%\";\n         if(manageUrls[urlIndex])\n         {\n            cell.innerHTML=manageUrls[urlIndex];\n         }\n      }\n   }\n}\n-->\n</script>\n\n\n</head>\n<body onload=\"addSetupManageLinks();\">\n   <noscript> <div id=\"WirelessAlertBox\" class=\"alertbox\"> <table> <tr><td><IMG SRC=\"info.gif\" alt=\"\"></td><td class=\"noscriptText\">JavaScript is disabled in your Web browser. Enable it to take full advantage of the printer's Web page, and then refresh the browser.</td> </tr> </table> </div> </noscript><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" class=\"applicationMastheadSmall\">\n  <tr>\n    <td class=\"mastheadIcon\"><a href=\"http://www.hp.com\" onclick=\"target = new Date().valueOf().toString(); if (window.open) window.open('http://www.hp.com', target,'resizable=yes,scrollbars=yes,menubar=yes,location=yes,toolbar=yes,status=yes'); return false;\"><img src=\"logo.gif\" alt=\"Click this Hewlett-Packard logo to open a new browser window, which takes you to the external HP.com Web site.\" title=\"Click this Hewlett-Packard logo to open a new browser window, which takes you to the external HP.com Web site.\"></a></td>\n    <td class=\"mastheadTitle\"><h1>HP Color LaserJet MFP M476dw</h1></td>\n    <td><div class=\"mastheadPhoto\"><img src=\"masthead.jpg\" alt=\"Printer Cartridges\"></div></td>\n    <td class=\"mastheadLinks\"><a href=\"info_deviceStatus.html?tab=Home&amp;menu=DevStatus\">Home</a></td>\n  </tr>\n</table>\n\n   <div class=\"userId\">HP&nbsp;Color&nbsp;LaserJet&nbsp;MFP&nbsp;M476dw&nbsp;&nbsp;&nbsp;monkey&nbsp;&nbsp;&nbsp;141.212.190.116</div>\n\n   <div class=\"applicationPalette\">\n   <table cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\">\n   <!-- tabs -->\n   <tr>\n  <td colspan=\"2\">\n  <div class=\"tabSet\">\n  \n  \n    <div class=\"tabOn\"><a href=\"info_deviceStatus.html?tab=Home&amp;menu=DevStatus\" title=\"Home tab.  This tab is currently selected.  You can view information and status about this product.\">Home</a></div>\n\n\n    <div class=\"tabOff\"><a href=\"set_config_deviceInfo.html?tab=System&amp;menu=DevInfo\" title=\"Sytem tab.  Click this tab to view and configure the system settings for this product.\">System</a></div>\n\n\n    <div class=\"tabOff\"><a href=\"set_config_print.html?tab=Print&amp;menu=Printing\" title=\"Print tab.  Click this tab to view and configure the print settings for this product.\">Print</a></div>\n\n\n    \n      <div class=\"tabOff\"><a href=\"set_config_faxRecv.html?tab=Fax&amp;menu=FaxRecv\" title=\"Fax tab.  Click this tab to view and configure the fax settings for this product.\">Fax</a></div>\n\n\n\n    \n    \n      <div class=\"tabOff\"><a href=\"set_config_scantoConfiguration.html?tab=Scan&amp;menu=ScantoCfg\" title=\"Scan tab.  Click this tab to view and configure the scan to settings for this product.\">Scan</a></div>\n\n\n\n    \n    \n      <div class=\"tabOff\"><a href=\"info_config_network.html?tab=Networking&amp;menu=NetConfig\" title=\"Networking tab.  Click this tab to view and configure the network settings for this product.\">Networking</a></div>\n\n    \n    \n      \n          \n  <div class=\"tabOff\"><a href=\"set_config_webServices.html?tab=WebServices&amp;menu=WebServicesConfig\" title=\"HP Web Services tab.  Click this tab to view and configure the Web Services settings for this product.\">HP Web Services</a></div>\n\n\n\n      \n    \n\n    \n  \n  </div>\n  </td>\n  \n  \n    <script type=\"text/javascript\">\n      var currentUrl = location.href;\n      var pattern = /localhost:[0-9][0-9][0-9][0-9][0-9]\\//;\n      if(currentUrl.search(pattern) > 0)\n        {\n          var smTabElem = document.getElementById(\"smartInstallTab\");\n          if(smTabElem)\n            {\n              smTabElem.style.visibility=\"hidden\";\n            }\n        }\n    </script> \n  \n</tr>\n\n   <tr>\n      <!-- menu -->\n            \n         <td class=\"leftContentPane\">\n  <div class=\"mainNav\">\n    <div id=\"navigationControl\">\n\n\n  <div class=\"navigationControlOn\"><a href=\"info_deviceStatus.html?tab=Home&amp;menu=DevStatus\" title=\"Device Status menu item.  Use this to view the current status of your device.\">Device Status</a></div>\n\n  \n  <div class=\"navigationControlOff\"><a href=\"info_suppliesStatus.html?tab=Home&amp;menu=SupplyStatus\" title=\"Supplies Status menu item.  Use this to view the status of the consumable supplies in your device.\">Supplies Status</a></div>\n\n  \n  <div class=\"navigationControlOff\"><a href=\"info_configuration.html?tab=Home&amp;menu=DevConfig\" title=\"Configuration menu item.  Use this to view the configuration of your device.\">Device Configuration</a></div>\n\n  \n  <div class=\"navigationControlOff\"><a href=\"info_config_network.html?tab=Home&amp;menu=NetConfig\" title=\"Network Summary menu item.  Use this to view the network configuration settings.\">Network Summary</a></div>\n\n  \n  <div class=\"navigationControlOff\"><a href=\"info_specialPages.html?tab=Home&amp;menu=InfoPages\" title=\"Reports menu item.  This page has links that you can use to print the various information pages that reside within the memory of the product.\">Reports</a></div>\n\n  \n  <div class=\"navigationControlOff\"><a href=\"info_colorUsageJobLog.html?tab=Home&amp;menu=ColorUsageLog\" title=\"Color Usage Job Log menu item.  Use this to view a list of recent documents that have been printed on this device.\">Color Usage Log</a></div>\n\n  \n  <div class=\"navigationControlOff\"><a href=\"info_eventLog.html?tab=Home&amp;menu=EventLog\" title=\"Event Log menu item.  Use this to view the events that have occurred in your device.\">Event Log</a></div>\n\n\n    </div>\n  </div>\n</td>\n\n\n      \n      \n      \n      \n      \n      \n      \n      \n\n      <td class=\"rightContentPane\">\n      <div class=\"paletteBg\">\n <table cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" class=\"paletteTop\" border=\"0\">\n  <tr>\n   <td valign=\"top\">\n    <h1>Device Status</h1>\n   </td>\n   <td class=\"paletteTopButtons\">\n    <div class=\"butSet\">\n\n     <FORM method=\"post\" onSubmit=\"return false;\" ACTION=\"/hp/device/contentHeader.html\">\n      <div>\n      <INPUT type=\"submit\" class=\"buttonTxtSize\" name=\"Order\" id=\"Order\" onClick=\"WindowOpen('order_supplies.html');\" VALUE=\"Shop for Supplies\">\n      <INPUT type=\"submit\" class=\"buttonTxtSize\" name=\"Support\" id=\"Support\" onClick=\"WindowOpen('support.html');\" VALUE=\"Support\">\n      </div>\n     </FORM>\n    </div>\n    <div class=\"clearFloats\"></div>\n   </td>\n  </tr>\n </table>\n</div>\n\n\n\n\n\n  \n\n\n\n      \n\n\n              \n\n              <h3 class=\"subTitle\">\n                Device Status\n              </h3>\n              <div class=\"subtitleBottomEdge\"></div>\n\n              <div class=\"pad10\">\n              <table>\n              <tr><td colspan=4>&nbsp;</td></tr> \n              <tr>\n                  <td class=\"labelLargeFont\">Status: </td>\n                  <td class=\"itemLargeFont\" id=\"deviceStatus_tableCell\">\n                    \n                       Sleep&nbsp;mode&nbsp;is&nbsp;on. <br>\n                    \n                  </td>\n                  <td>&nbsp;&nbsp<a href=\"info_deviceStatus.html?tab=Home&amp;menu=DevStatus\"><img src=\"icon_refresh.gif\" alt=\"Refresh. Click this to refresh the device status.\" title=\"Refresh. Click this to refresh the device status.\"></a></td>\n                  <td>&nbsp;</td>\n              </tr>\n\n              <tr><td>&nbsp;</td></tr> \n              </table></div>\n\n              \n\n              \n                     \n\n         <h3 class=\"subTitle\">Supplies Summary</h3><div class=\"subtitleBottomEdge\"></div>\n\n         <div class=\"pad10\">\n           <table class=\"mainContentArea width100 pad10\">\n             <tr>                                    \n               <td class=\"width25\">                  \n                 <table class=\"width100\">            \n                   <tr>                        \n                     <td>                      \n                       Black Cartridge\n                       <br>\n                       Order \u202d312A (CF380A)\u202c\n                     </td>\n                     <td class=\"alignRight valignTop\">\n                       \n                         \n                           \n                             80%\n                           \n                           *\n                         \n                       \n                     </td>\n                   </tr>\n                   <tr>\n                     <td class=\"width100\" colspan=\"2\">\n                       <table cellspacing=\"0\" cellpadding=\"0\" class=\"hpGasGaugeBorder valignTop\">\n                         <tr>\n                           \n                             <td style=\"WIDTH:80%; \n                                        MARGIN: 0px; HEIGHT:11px; BACKGROUND-COLOR: #000000;\"></td>\n                             <td style=\"WIDTH:20%; \n                                        MARGIN: 0px; HEIGHT:11px; BACKGROUND-COLOR: #FFFFFF;\"></td>\n                           \n                         </tr>\n                       </table>\n                     </td>\n                   </tr>\n                 </table>\n               </td>\n               \n                 \n\n\n\n\n\n               <td class=\"width25\">                  \n                 <table class=\"width100\">            \n                   <tr>                        \n                     <td>                      \n                       Cyan Cartridge\n                       <br>\n                       Order \u202d312A (CF381A)\u202c\n                     </td>\n                     <td class=\"alignRight valignTop\">\n                       \n                         \n                           \n                             80%\n                           \n                           *\n                         \n                       \n                     </td>\n                   </tr>\n                   <tr>\n                     <td class=\"width100\" colspan=\"2\">\n                       <table cellspacing=\"0\" cellpadding=\"0\" class=\"hpGasGaugeBorder valignTop\">\n                         <tr>\n                           \n                             <td style=\"WIDTH:80%; \n                                        MARGIN: 0px; HEIGHT:11px; BACKGROUND-COLOR: #00FFFF;\"></td>\n                             <td style=\"WIDTH:20%; \n                                        MARGIN: 0px; HEIGHT:11px; BACKGROUND-COLOR: #FFFFFF;\"></td>\n                           \n                         </tr>\n                       </table>\n                     </td>\n                   </tr>\n                 </table>\n               </td>\n\n\n\n\n\n\n\n\n               <td class=\"width25\">                  \n                 <table class=\"width100\">            \n                   <tr>                        \n                     <td>                      \n                       Magenta Cartridge\n                       <br>\n                       Order \u202d312A (CF383A)\u202c\n                     </td>\n                     <td class=\"alignRight valignTop\">\n                       \n                         \n                           \n                             80%\n                           \n                           *\n                         \n                       \n                     </td>\n                   </tr>\n                   <tr>\n                     <td class=\"width100\" colspan=\"2\">\n                       <table cellspacing=\"0\" cellpadding=\"0\" class=\"hpGasGaugeBorder valignTop\">\n                         <tr>\n                           \n                             <td style=\"WIDTH:80%; \n                                        MARGIN: 0px; HEIGHT:11px; BACKGROUND-COLOR: #FF00FF;\"></td>\n                             <td style=\"WIDTH:20%; \n                                        MARGIN: 0px; HEIGHT:11px; BACKGROUND-COLOR: #FFFFFF;\"></td>\n                           \n                         </tr>\n                       </table>\n                     </td>\n                   </tr>\n                 </table>\n               </td>\n\n\n\n\n\n\n\n\n               <td class=\"width25\">                  \n                 <table class=\"width100\">            \n                   <tr>                        \n                     <td>                      \n                       Yellow Cartridge\n                       <br>\n                       Order \u202d312A (CF382A)\u202c\n                     </td>\n                     <td class=\"alignRight valignTop\">\n                       \n                         \n                           \n                             80%\n                           \n                           *\n                         \n                       \n                     </td>\n                   </tr>\n                   <tr>\n                     <td class=\"width100\" colspan=\"2\">\n                       <table cellspacing=\"0\" cellpadding=\"0\" class=\"hpGasGaugeBorder valignTop\">\n                         <tr>\n                           \n                             <td style=\"WIDTH:80%; \n                                        MARGIN: 0px; HEIGHT:11px; BACKGROUND-COLOR: #FFFF00;\"></td>\n                             <td style=\"WIDTH:20%; \n                                        MARGIN: 0px; HEIGHT:11px; BACKGROUND-COLOR: #FFFFFF;\"></td>\n                           \n                         </tr>\n                       </table>\n                     </td>\n                   </tr>\n                 </table>\n               </td>\n\n\n\n               \n             </tr>\n\n             <tr><td style=\"FONT-SIZE:5px\" colspan=4>&nbsp;</td></tr>\n               \n          \n\n  \n          \n\n  \n          \n\n  \n          \n\n  \n          \n\n  \n          \n\n  \n          \n\n  \n          \n            <tr>\n              <td class=\"itemFont\" colspan=4>\n                *\n                Approximate only; varies depending on types of\ndocuments printed and other factors.\n                <br>&nbsp;\n              </td>\n            </tr>\n          \n\n\n\n\n             <tr>\n               <td colspan=\"4\">\n                 <FORM method=\"post\" ACTION=\"/hp/device/supplies_status.html\">\n                 <div class=\"butSet pad6x10\">\n                   <INPUT type=\"submit\" class=\"buttonTxtSize\" name=\"SuppliesDetails\" id=\"SuppliesDetails\" VALUE=\"Supplies Detail\">\n                 </div>\n                 </FORM>\n               </td>\n             </tr>\n           </table>\n         </div>\n\n\n\n\n  \n\n               \n              \n\n              <h3 class=\"subTitle\">\n                Setup\n              </h3>\n              <div class=\"subtitleBottomEdge\"></div>\n              \n              <div class=\"pad10\">\n                <table id=\"setupSection\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\">\n                  <tr><td>&nbsp;</td></tr> \n                </table>\n              </div>\n              \n              <h3 class=\"subTitle\">\n                Manage\n              </h3>\n              <div class=\"subtitleBottomEdge\"></div>\n              <div class=\"pad10\">\n                <table id=\"manageSection\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" width=\"100%\">\n                  <tr><td>&nbsp;</td></tr> \n                </table>\n              </div>\n              \n            <div>\n              <table class=\"mainContentArea\">\n               <tr><td colspan=\"5\"><hr></td></tr>\n               <tr><td>&nbsp;</td>\n                <td class=\"alignRight\"><img src=\"colorLok.png\" width=\"75\" height=\"75\" alt=\"\"></td>\n                <td class=\"ColorLokFont\">\n                  <div class=\"itemLargeFont\">\n                    <a class=\"linkHover\" href=\"http://www.colorlok.com\" onclick=\"window.open(this.href); return false;\">HP recommends ColorLok\u00ae papers for best printing results.</a>\n                  </div>\n\n                </td>\n                <td>&nbsp;</td>\n\t       </tr>  \n               <tr><td>&nbsp;</td></tr>\n             </table></div>\n              \n\n      </td>\n   </tr>\n   </table>\n   </div>\n   <script type=\"text/javascript\">\n  reconcileEventHandlers();\n</script>\n \n</body>\n</html>\n",
+        "status_code": 200,
+        "title": "HP Color LaserJet MFP M476dw&nbsp;&nbsp;&nbsp;141.212.190.116",
+        "status_line": "200 OK",
+        "metadata": {},
+        "body_sha256": "6wxwhB3GRwxgqJmkqoSAyawtyHCRzuComYRhZD1ScAg=",
+        "headers": {
+          "expires": "Thu, 01 Jan 1970 00:00:00 GMT",
+          "x_frame_options": "SAMEORIGIN",
+          "x_content_type_options": "nosniff",
+          "content_type": "text/html;charset=utf-8",
+          "server": "Virata-EmWeb/R6_2_1",
+          "cache_control": "no-cache, no-store, must-revalidate"
+        }
+      }
+    }
+  }
+}

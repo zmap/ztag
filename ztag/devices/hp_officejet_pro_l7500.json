@@ -1,0 +1,254 @@
+{
+  "80": {
+    "http": {
+      "get": {
+        "body": "\n<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"> \n<head>\n   <title>HP Officejet Pro L7500</title>\n</head>\n<body onLoad=\"window.top.location.href='./index.htm?cat=info&page=printerInfo'\"><!-- masthead -->\n</body>\n</html>\n",
+        "status_code": 200,
+        "title": "HP Officejet Pro L7500",
+        "status_line": "200 OK",
+        "metadata": {},
+        "body_sha256": "8mI1ul9x3Ee3amNxe91Rx8CIb3wiL+enMbFlwU2KVMM=",
+        "headers": {
+          "server": "Virata-EmWeb/R6_2_1",
+          "content_type": "text/html;charset=utf-8",
+          "cache_control": "no-cache",
+          "accept_ranges": "none"
+        }
+      }
+    }
+  },
+  "443": {
+    "https": {
+      "dhe_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "rsa_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "heartbleed": {
+        "heartbeat_enabled": false,
+        "heartbleed_vulnerable": false,
+        "metadata": {}
+      },
+      "tls": {
+        "certificate": {
+          "parsed": {
+            "subject": {
+              "locality": [
+                "Vancouver"
+              ],
+              "country": [
+                "US"
+              ],
+              "organizational_unit": [
+                "HP-IPG DCL"
+              ],
+              "province": [
+                "Washington"
+              ],
+              "common_name": [
+                "141.212.108.54"
+              ],
+              "organization": [
+                "HP-IPG"
+              ]
+            },
+            "redacted": false,
+            "serial_number": "1",
+            "version": 3,
+            "signature": {
+              "signature_algorithm": {
+                "name": "MD5WithRSA",
+                "oid": "1.2.840.113549.1.1.4"
+              },
+              "self_signed": false,
+              "valid": true,
+              "value": "OOnPxmOEG/PcBXagzr9WX6ZNP6XVtcVPoUvZ4zMgXWB2sV/FLxUp+Kp+m9v+Mfur7lUQWfq8R31v777zm+8UF9bHywP8S+kuWyanjXJn5WP2rf3o8WELfTOgYeFcellgbXsorGv6ouO+imaG/RDC50190SfqYQKUUwx74UlQIns="
+            },
+            "extensions": {
+              "extended_key_usage": {
+                "server_auth": true,
+                "client_auth": true
+              },
+              "key_usage": {
+                "digital_signature": true,
+                "value": 15,
+                "content_commitment": true,
+                "data_encipherment": true,
+                "key_encipherment": true
+              }
+            },
+            "signature_algorithm": {
+              "name": "MD5WithRSA",
+              "oid": "1.2.840.113549.1.1.4"
+            },
+            "fingerprint_sha1": "002b13bab7711cd8d592f822c28157b705c33151",
+            "spki_subject_fingerprint": "166f7e5e4cb568d424d3290624cab82494a2d6dc902e304758fadb0a23232662",
+            "names": [
+              "141.212.108.54"
+            ],
+            "fingerprint_sha256": "30870b9939edb3768f55fc3d5954b467319c0bcad956d6581645172345fd6bf1",
+            "issuer": {
+              "locality": [
+                "Bangalore"
+              ],
+              "country": [
+                "IN"
+              ],
+              "organizational_unit": [
+                "TSDU"
+              ],
+              "province": [
+                "Karnataka"
+              ],
+              "common_name": [
+                "HP-Printers"
+              ],
+              "organization": [
+                "Hewlett Packard"
+              ]
+            },
+            "tbs_noct_fingerprint": "70a3b88a16ff499bbbe35914e58ce4644339be13ecabf47d5044506ee367d2e0",
+            "issuer_dn": "C=IN, ST=Karnataka, L=Bangalore, O=Hewlett Packard, OU=TSDU, CN=HP-Printers",
+            "subject_dn": "CN=141.212.108.54, L=Vancouver, ST=Washington, C=US, O=HP-IPG, OU=HP-IPG DCL",
+            "fingerprint_md5": "90e250a8e9eee19a9de6caed692667f6",
+            "tbs_fingerprint": "70a3b88a16ff499bbbe35914e58ce4644339be13ecabf47d5044506ee367d2e0",
+            "subject_key_info": {
+              "rsa_public_key": {
+                "length": 1024,
+                "exponent": 3,
+                "modulus": "5zVNG84vFZQ8cUEn9sG1FtSEgVep+Aq4BZRHrMtDUAx24rUOyyhiqNYs9Rl463GTtnVt3PESP47VLqrstzsw4Wa/pUBv/IWz6BgEItnUBqm4IUePNSiq/RpwCp2SYwYv26S3E/NsXVyFRzKJRGzkLpYJBj4hv3Qs8sNzuzdikmU="
+              },
+              "fingerprint_sha256": "38b588af55a3f0553c2c113c7eec0c852782f37e6c539de2f00505bc516d1220",
+              "key_algorithm": {
+                "name": "RSA"
+              }
+            },
+            "validity": {
+              "start": "2017-07-24T11:45:24Z",
+              "length": 622080000,
+              "end": "2037-04-10T11:45:24Z"
+            },
+            "validation_level": "unknown"
+          }
+        },
+        "version": "TLSv1.0",
+        "cipher_suite": {
+          "name": "TLS_RSA_WITH_AES_256_CBC_SHA",
+          "id": "0x0035"
+        },
+        "validation": {
+          "browser_trusted": false,
+          "browser_error": "x509: unknown error"
+        },
+        "metadata": {},
+        "chain": [
+          {
+            "parsed": {
+              "subject": {
+                "locality": [
+                  "Bangalore"
+                ],
+                "country": [
+                  "IN"
+                ],
+                "organizational_unit": [
+                  "TSDU"
+                ],
+                "province": [
+                  "Karnataka"
+                ],
+                "common_name": [
+                  "HP-Printers"
+                ],
+                "organization": [
+                  "Hewlett Packard"
+                ]
+              },
+              "redacted": false,
+              "serial_number": "0",
+              "version": 3,
+              "signature": {
+                "signature_algorithm": {
+                  "name": "SHA1WithRSA",
+                  "oid": "1.2.840.113549.1.1.5"
+                },
+                "self_signed": true,
+                "valid": true,
+                "value": "jJL8yNGk5b/obKszvmx0VIKjDSWFqi8rt2OxvRouW0Dj9wSWFPQziGuo/jbY8lVLJIaikhtWwQZBwhKvqo6G1BYeWsUbFCyj8n/AWig9NqQL2/hrjxp+w00eSNgKkWEvyrRL8gmGWDrTMlSok2JJVhyATBQyR2ES5peFJ2BA0c0="
+              },
+              "extensions": {
+                "authority_key_id": "f432f5fabb43ce0bacac228b9cf79153b41465ff",
+                "basic_constraints": {
+                  "max_path_len": 1,
+                  "is_ca": true
+                },
+                "subject_key_id": "f432f5fabb43ce0bacac228b9cf79153b41465ff"
+              },
+              "signature_algorithm": {
+                "name": "SHA1WithRSA",
+                "oid": "1.2.840.113549.1.1.5"
+              },
+              "fingerprint_sha1": "92daf1749cedbb2b1caf8239136d5d18b202f062",
+              "spki_subject_fingerprint": "aa776a9d814e7db5b79e9af610b66746bc2b8ce1185d809465367c01a6a69d2b",
+              "fingerprint_sha256": "e4bec8d43a40550b6e657ac2042f1805e77fdafff9f297929e20f371958ae31d",
+              "issuer": {
+                "locality": [
+                  "Bangalore"
+                ],
+                "country": [
+                  "IN"
+                ],
+                "organizational_unit": [
+                  "TSDU"
+                ],
+                "province": [
+                  "Karnataka"
+                ],
+                "common_name": [
+                  "HP-Printers"
+                ],
+                "organization": [
+                  "Hewlett Packard"
+                ]
+              },
+              "tbs_noct_fingerprint": "2d87bfe92aec2bb46a22af7940115693dcb16cee7d19dc8a0fbdb4ef94c09f25",
+              "issuer_dn": "C=IN, ST=Karnataka, L=Bangalore, O=Hewlett Packard, OU=TSDU, CN=HP-Printers",
+              "subject_dn": "C=IN, ST=Karnataka, L=Bangalore, O=Hewlett Packard, OU=TSDU, CN=HP-Printers",
+              "fingerprint_md5": "cdb2ac4d1a06b593497232a0a61f5bfa",
+              "tbs_fingerprint": "2d87bfe92aec2bb46a22af7940115693dcb16cee7d19dc8a0fbdb4ef94c09f25",
+              "subject_key_info": {
+                "rsa_public_key": {
+                  "length": 1024,
+                  "exponent": 65537,
+                  "modulus": "u8/As1X9DHYwEF63g3UQ36f1gDnu0Tyg6Igg3gtvDcx1RjIUlQBnU66LxssWj3pTRrgRxMXh5XuV7F+cp/dQIAepUsVd3FHlYDBiI5XOYfcguMttTKHq6/bD9Lp2CTDveooVISeXHij14DROocfQ3YOBj113i/h557GrJXMTUYU="
+                },
+                "fingerprint_sha256": "89859f19005b331d8d5a7db4a9b48f37c3f1016c5f3675dbe6543e758baf3b29",
+                "key_algorithm": {
+                  "name": "RSA"
+                }
+              },
+              "validity": {
+                "start": "2006-03-13T06:17:39Z",
+                "length": 630720000,
+                "end": "2026-03-08T06:17:39Z"
+              },
+              "validation_level": "unknown"
+            }
+          }
+        ],
+        "ocsp_stapling": false
+      },
+      "ssl_3": {
+        "support": true,
+        "metadata": {}
+      },
+      "dhe": {
+        "support": false,
+        "metadata": {}
+      }
+    }
+  }
+}

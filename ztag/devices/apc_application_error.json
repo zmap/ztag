@@ -1,0 +1,31 @@
+{
+  "21": {
+    "ftp": {
+      "banner": {
+        "banner": "220 AP8959EU3 Network Management Card AOS v5.1.2 FTP server ready.",
+        "metadata": {}
+      }
+    }
+  },
+  "80": {
+    "http": {
+      "get": {
+        "body": "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\n<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\" />\n<title>APC | Application Error</title>\n\n<style type=\"text/css\">\nbody {font: 11px Verdana, Arial, Helvetica, sans-serif; margin:3px; padding:0; color: #036; background: #036 url(\"/Images/bggrad.jpg\") fixed;}\nhtml>body {font-size:10px;}\n#message {border: 4px solid #369; width: 450px; background: #FFF; margin:0 auto; padding:0; margin-top:100px;}\n.edging {border: 3px solid #C6D7EF;}\n.msg {padding-left: 10px; padding-top:15px;}\n.note {font-weight: bold; font-size:12px;}\n</style>\n</head>\n<body>\n<table cellpadding=\"0\" cellspacing=\"0\" id=\"message\">\n<tr>\n<td class=\"edging\"><table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n<tr>\n<td class=\"msg\">\n<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\">\n<tr><td><form method=\"get\" action=\"/Forms/errcode1\" name=\"ErrCode1\">\n<input type=\"hidden\" name=\"apcErrCode\" value=\"203\" />\n\n</form>\n</td>\n</tr>\n<tr><td class=\"note\">Protected Object</td>\n</tr>\n<tr><td>&nbsp;</td>\n</tr>\n<tr>\n<td>This object on the&nbsp;APC Management Web Server&nbsp;is protected.</td>\n</tr>\n</table>\n</td>\n\n<tr><td>&nbsp;</td>\n</tr>\n<tr><td>&nbsp;</td>\n</tr>\n</tr>\n</tr>\n</table>\n</td>\n\n</tr>\n</table>\n\n</body>\n</html>\n",
+        "headers": {
+          "unknown": [
+            {
+              "value": "",
+              "key": "webserver"
+            }
+          ],
+          "content_type": "text/html"
+        },
+        "status_code": 403,
+        "title": "APC | Application Error",
+        "status_line": "403 Forbidden",
+        "body_sha256": "SNgIf7h6UBB2bjnhjoMewXJQtzvGtEWbntVl812/gig=",
+        "metadata": {}
+      }
+    }
+  }
+}
