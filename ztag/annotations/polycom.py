@@ -30,8 +30,6 @@ class PolycomHTTPTitle(Annotation):
             return meta
 
 
-
-
 class PolycomConfigurationHTTPTitle(Annotation):
 
     protocol = protocols.HTTP
