@@ -134,7 +134,8 @@ ztag_ssh_ecdsa_public_key = SubRecord({
     "y":IndexedBinary(),
     "curve":Enum(["P-224", "P-256", "P-384", "P-521"]),
     "length":Unsigned16BitInteger(),
-    "asn1_oid":OID(),
+    # schema conflict in censys prod cert index
+    #"asn1_oid":OID(),
 })
 
 ztag_ed25519_public_key = SubRecord({
@@ -211,7 +212,7 @@ zgrab_parsed_certificate = SubRecord({
             "pub":Binary(),
             "curve":Enum(["P-224", "P-256", "P-384", "P-521"]),
             "length":Unsigned16BitInteger(),
-            "asn1_oid":OID(), # TODO: this is currently commented out
+            #"asn1_oid":OID(), # TODO: this is currently commented out
             # because for a bunch of certificates, this was encoded as [1, 2,
             # 840, 113549, 1, 1, 12] not 1.2.840.113549.1.1.12
         })
