@@ -1357,6 +1357,11 @@ ipv4_host = Record({
                     "get":ztag_http,
                 }),
             }),
+            Port(8888):SubRecord({
+                "http":SubRecord({
+                    "get":ztag_http,
+                }),
+            }),
             Port(25):SubRecord({
                 "smtp":SubRecord({
                     "starttls": ztag_smtp_starttls,
@@ -1464,7 +1469,8 @@ ipv4_host = Record({
             "ipint":Unsigned32BitInteger(required=True, doc="Integer value of IP address in host order"),
             "updated_at":DateTime(),
             "zdb_version":Unsigned32BitInteger(),
-            "protocols":ListOf(CensysString(exclude=["bigquery"]))
+            "protocols":ListOf(CensysString(exclude=["bigquery"])),
+            "ports":ListOf(Unsigned16BitInteger())
 })
 
 website = Record({
