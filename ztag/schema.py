@@ -34,9 +34,9 @@ zgrab_subj_issuer = SubRecord({
     # Commented out 2017-08-18 due to ES analyzer mismatch:
     # Data with these fields got into the IPv4 index before the ES mapping
     # was updated, and ES automatically chose a different analyzer.
-    "jurisdiction_country":ListOf(CensysString()),
-    "jurisdiction_locality":ListOf(CensysString()),
-    "jurisdiction_province":ListOf(CensysString()),
+    # "jurisdiction_country":ListOf(CensysString()),
+    # "jurisdiction_locality":ListOf(CensysString()),
+    # "jurisdiction_province":ListOf(CensysString()),
 })
 
 unknown_extension = SubRecord({
@@ -302,7 +302,7 @@ zgrab_parsed_certificate = SubRecord({
             "microsoft_csp_signature": Boolean(),
             "microsoft_root_list_signer": Boolean(),
             "microsoft_system_health_loophole": Boolean(),
-            "unknown":ListOf(OID()) # TODO
+            #"unknown":ListOf(OID()) # TODO
         }, exclude=["bigquery",]), # TODO
         "certificate_policies":ListOf(certificate_policy),
         "authority_info_access":SubRecord({
@@ -515,7 +515,8 @@ zgrab_http_headers = SubRecord({
     "proxy_authenticate":CensysString(),
     "public_key_pins":CensysString(),
     "refresh":CensysString(),
-    "referer":CensysString(), # TODO: Why is this commented out?
+    # Currently misindexed in IPv4 schema
+    #"referer":CensysString(),
     "retry_after":CensysString(),
     "server":CensysString(),
     "set_cookie":CensysString(),
