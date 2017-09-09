@@ -174,6 +174,7 @@ class Manufacturer(object):
     BELKIN = "Belkin"
     BIGIP = "BigIP"
     BOMGAR = "Bomgar"
+    BROTHER = "Brother"
     CHEROKEE = "Cherokee"
     CISCO = "Cisco"
     CLARIION = "Clariion"
