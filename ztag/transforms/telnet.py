@@ -4,7 +4,8 @@ from ztag.transform import *
 class TelnetTransform(ZGrabTransform):
 
     name = "telnet/banner"
-    port = 23
+
+    port = None
     protocol = protocols.TELNET
     subprotocol = protocols.TELNET.BANNER
 

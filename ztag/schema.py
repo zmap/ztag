@@ -19,6 +19,7 @@ local_metadata = SubRecord(__local_metadata)
 zgrab_subj_issuer = SubRecord({
     "serial_number":ListOf(String()),
     "common_name":ListOf(CensysString()),
+    "surname":ListOf(CensysString()),
     "country":ListOf(CensysString()),
     "locality":ListOf(CensysString()),
     "province":ListOf(CensysString()),
@@ -28,10 +29,14 @@ zgrab_subj_issuer = SubRecord({
     "postal_code":ListOf(String()),
     "domain_component":ListOf(CensysString()),
     "email_address":ListOf(CensysString()),
+    "given_name":ListOf(CensysString()),
     # EV Fields
-    "jurisdiction_country":ListOf(CensysString()),
-    "jurisdiction_locality":ListOf(CensysString()),
-    "jurisdiction_province":ListOf(CensysString()),
+    # Commented out 2017-08-18 due to ES analyzer mismatch:
+    # Data with these fields got into the IPv4 index before the ES mapping
+    # was updated, and ES automatically chose a different analyzer.
+    # "jurisdiction_country":ListOf(CensysString()),
+    # "jurisdiction_locality":ListOf(CensysString()),
+    # "jurisdiction_province":ListOf(CensysString()),
 })
 
 unknown_extension = SubRecord({
@@ -206,7 +211,7 @@ zgrab_parsed_certificate = SubRecord({
             "pub":Binary(),
             "curve":Enum(["P-224", "P-256", "P-384", "P-521"]),
             "length":Unsigned16BitInteger(),
-            #"asn1_oid":OID(), # TODO: this is currently commented out
+            "asn1_oid":OID(), # TODO: this is currently commented out
             # because for a bunch of certificates, this was encoded as [1, 2,
             # 840, 113549, 1, 1, 12] not 1.2.840.113549.1.1.12
         })
@@ -510,7 +515,8 @@ zgrab_http_headers = SubRecord({
     "proxy_authenticate":CensysString(),
     "public_key_pins":CensysString(),
     "refresh":CensysString(),
-    #"referer":CensysString(), // TODO: Why is this commented out?
+    # Currently misindexed in IPv4 schema
+    #"referer":CensysString(),
     "retry_after":CensysString(),
     "server":CensysString(),
     "set_cookie":CensysString(),
@@ -532,8 +538,6 @@ zgrab_http_headers = SubRecord({
     "x_powered_by":CensysString(),
     "x_ua_compatible":CensysString(),
     "x_content_duration":CensysString(),
-    #"x_real_ip":CensysString(doc="overloaded X-Real-IP in our proxy testing so that "\
-    #                       "our scanner can detect who made the request."),
     "proxy_agent":CensysString(),
     "unknown":ListOf(zgrab_unknown_http_header)
 })
@@ -572,126 +576,115 @@ golang_crypto_param = SubRecord({
 #    "metadata":local_metadata
 #})
 
-ztag_ssh_signature = SubRecord({
-    "parsed":SubRecord({
-        "algorithm":CensysString(),
-        "value":IndexedBinary(),
-    }),
-    "raw":IndexedBinary(),
-})
-
-ztag_ssh_banner = SubRecord({
-    "protocol_version":String(),
-    "software_version":String(),
-    "comment":CensysString(),
+ztag_ssh_v2 = SubRecord({
     "metadata":local_metadata,
     "timestamp":DateTime(),
-    "server_id":SubRecord({
+    "banner":SubRecord({
         "raw":CensysString(),
         "version":String(),
         "software":CensysString(),
         "comment":CensysString(),
     }),
-    "server_key_exchange":SubRecord({
-        "cookie": Binary(),
-        "kex_algorithms":ListOf(CensysString()),
-        "host_key_algorithms":ListOf(CensysString()),
-        "client_to_server_ciphers":ListOf(CensysString()),
-        "server_to_client_ciphers":ListOf(CensysString()),
-        "client_to_server_macs":ListOf(CensysString()),
-        "server_to_client_macs":ListOf(CensysString()),
-        "client_to_server_compression":ListOf(CensysString()),
-        "server_to_client_compression":ListOf(CensysString()),
-        "client_to_server_languages":ListOf(CensysString()),
-        "server_to_client_languages":ListOf(CensysString()),
+    "support":SubRecord({
+        "kex_algorithms":ListOf(String()),
+        "host_key_algorithms":ListOf(String()),
         "first_kex_follows":Boolean(),
-        "reserved":Unsigned32BitInteger(),
-    }),
-    "userauth":ListOf(CensysString()),
-    "algorithm_selection":SubRecord({
-        "dh_kex_algorithm":CensysString(),
-        "host_key_algorithm":CensysString(),
-        "client_to_server_alg_group": SubRecord({
-            "cipher":CensysString(),
-            "mac":CensysString(),
-            "compression":CensysString(),
+        "client_to_server":SubRecord({
+            "ciphers":ListOf(String()),
+            "macs":ListOf(String()),
+            "compressions":ListOf(String()),
+            "languages":ListOf(String()),
         }),
-        "server_to_client_alg_group": SubRecord({
-            "cipher":CensysString(),
-            "mac":CensysString(),
-            "compression":CensysString(),
+        "server_to_client":SubRecord({
+            "ciphers":ListOf(String()),
+            "macs":ListOf(String()),
+            "compressions":ListOf(String()),
+            "languages":ListOf(String()),
         }),
     }),
-    "dh_key_exchange": SubRecord({
-        "params": SubRecord({
+    "selected":SubRecord({
+        "kex_algorithm":String(),
+        "host_key_algorithm":String(),
+        "client_to_server": SubRecord({
+            "cipher":String(),
+            "mac":String(),
+            "compression":String(),
+        }),
+        "server_to_client": SubRecord({
+            "cipher":String(),
+            "mac":String(),
+            "compression":String(),
+        }),
+    }),
+    "key_exchange": SubRecord({
+        "ecdh_params": SubRecord({
+            "server_public": SubRecord({
+                "x": golang_crypto_param,
+                "y": golang_crypto_param,
+            }),
+        }),
+        "dh_params": SubRecord({
             "prime": golang_crypto_param,
             "generator": golang_crypto_param,
-            "client_public": golang_crypto_param,
-            "client_private": golang_crypto_param,
-            "server_public": golang_crypto_param,
         }),
-        "server_signature":ztag_ssh_signature,
-        "server_host_key":SubRecord({
-            "raw":IndexedBinary(),
-            "algorithm":CensysString(),
-            "fingerprint_sha256":HexString(),
-            "rsa_public_key":ztag_rsa_params,
-            "dsa_public_key":ztag_dsa_params,
-            "ecdsa_public_key":ztag_ssh_ecdsa_public_key,
-            "ed25519_public_key":ztag_ed25519_public_key,
-            "certkey_public_key":SubRecord({
-                "nonce":IndexedBinary(),
-                "key":SubRecord({
-                    "raw":IndexedBinary(),
-                    "fingerprint_sha256":HexString(),
-                    "algorithm":CensysString(),
-                    "rsa_public_key":ztag_rsa_params,
-                    "dsa_public_key":ztag_dsa_params,
-                    "ecdsa_public_key":ztag_ssh_ecdsa_public_key,
-                    "ed25519_public_key":ztag_ed25519_public_key,
+    }),
+    "server_host_key":SubRecord({
+        "key_algorithm":String(),
+        "fingerprint_sha256":HexString(),
+        "rsa_public_key":ztag_rsa_params,
+        "dsa_public_key":ztag_dsa_params,
+        "ecdsa_public_key":ztag_ssh_ecdsa_public_key,
+        "ed25519_public_key":ztag_ed25519_public_key,
+        "certkey_public_key":SubRecord({
+            "nonce":IndexedBinary(),
+            "key":SubRecord({
+                "fingerprint_sha256":HexString(),
+                "algorithm":String(),
+                "rsa_public_key":ztag_rsa_params,
+                "dsa_public_key":ztag_dsa_params,
+                "ecdsa_public_key":ztag_ssh_ecdsa_public_key,
+                "ed25519_public_key":ztag_ed25519_public_key,
+            }),
+            "serial":String(),
+            "type":SubRecord({
+                "id":Unsigned32BitInteger(),
+                "name":String(),
+            }),
+            "key_id":String(),
+            "valid_principals":ListOf(String()),
+            "validity":SubRecord({
+                "valid_after":DateTime(doc="Timestamp of when certificate is first valid. Timezone is UTC."),
+                "valid_before":DateTime(doc="Timestamp of when certificate expires. Timezone is UTC."),
+                "length":Signed64BitInteger(),
+            }),
+            "signature_key":SubRecord({
+                "fingerprint_sha256":HexString(),
+                "key_algorithm":String(),
+                "rsa_public_key":ztag_rsa_params,
+                "dsa_public_key":ztag_dsa_params,
+                "ecdsa_public_key":ztag_ssh_ecdsa_public_key,
+                "ed25519_public_key":ztag_ed25519_public_key,
+            }),
+            "signature":SubRecord({
+                "signature_algorithm":SubRecord({
+                    "name":String(),
                 }),
-                "serial":CensysString(),
-                "cert_type":SubRecord({
-                    "id":Unsigned32BitInteger(),
-                    "name":CensysString(),
-                }),
-                "key_id":CensysString(),
-                "valid_principals":ListOf(CensysString()),
-                "validity":SubRecord({
-                    "valid_after":DateTime(doc="Timestamp of when certificate is first valid. Timezone is UTC."),
-                    "valid_before":DateTime(doc="Timestamp of when certificate expires. Timezone is UTC."),
-                    "length":Signed64BitInteger(),
-                }),
-                "reserved":IndexedBinary(),
-                "signature_key":SubRecord({
-                    "raw":IndexedBinary(),
-                    "fingerprint_sha256":HexString(),
-                    "algorithm":CensysString(),
-                    "rsa_public_key":ztag_rsa_params,
-                    "dsa_public_key":ztag_dsa_params,
-                    "ecdsa_public_key":ztag_ssh_ecdsa_public_key,
-                    "ed25519_public_key":ztag_ed25519_public_key,
-                }),
-                "signature":ztag_ssh_signature,
-                "parse_error":String(),
-                "extensions":SubRecord({
-                    "known":SubRecord({
-                        "permit_X11_forwarding":CensysString(),
-                        "permit_agent_forwarding":CensysString(),
-                        "permit_port_forwarding":CensysString(),
-                        "permit_pty":CensysString(),
-                        "permit_user_rc":CensysString(),
-                    }),
-                    "unknown":ListOf(CensysString()),
-                }),
-                "critical_options":SubRecord({
-                    "known":SubRecord({
-                        "force_command":CensysString(),
-                        "source_address":CensysString(),
-                    }),
-                    "unknown":ListOf(CensysString()),
-                })
-            })
+                "value":IndexedBinary(),
+            }),
+            "parse_error":String(),
+            "extensions":SubRecord({
+                "permit_X11_forwarding":Boolean(),
+                "permit_agent_forwarding":Boolean(),
+                "permit_port_forwarding":Boolean(),
+                "permit_pty":Boolean(),
+                "permit_user_rc":Boolean(),
+                "unknown":ListOf(String()),
+            }),
+            "critical_options":SubRecord({
+                "force_command":Boolean(),
+                "source_address":Boolean(),
+                "unknown":ListOf(String()),
+            }),
         }),
     }),
 })
@@ -860,10 +853,9 @@ ztag_schemas = [
     ("ztag_tls1", ztag_tls_support),
     ("ztag_tls2", ztag_tls_support),
     ("ztag_tls3", ztag_tls_support),
-    #("ztag_open_proxy", ztag_open_proxy),
     ("ztag_modbus", ztag_modbus),
     ("ztag_extended_random", ztag_extended_random),
-    ("ztag_ssh_banner", ztag_ssh_banner),
+    ("ztag_ssh_v2", ztag_ssh_v2),
     ("ztag_dns_lookup", ztag_dns_lookup),
     ("ztag_bacnet", ztag_bacnet),
     ("ztag_fox", ztag_fox),
@@ -1047,86 +1039,85 @@ class LintBool(String):
 
     ES_TYPE = "boolean"
 
+# Lints can have any of the following outputs:
+#   - RESERVED [should never happen]
+#   - NA [not applicable]
+#   - NE [not applicable]
+#   - PASS [test success]
+#   - INFO [failed for info]
+#   - WARN [failed for warn]
+#   - FAIL [failed for error]
+#   - FATAL [test could not complete because cert is broken]
+#   - UNKNOWN [should never occur]
+# We don't want to store a string for every lint in elasticsearch because
+# our index size would explode. Instead we map these to a string:
+# {
+#     (reserved, unknown, ne, na, pass) -> null,
+#     (notice, warning, fail, fatal) -> true
+# }
+# For BigQuery, we have more options, so we allow some more information:
+# {
+#     all map to original value
+# }
+# This is horrible to schema, so define a custom type
 Lints = SubRecord({
-    # Lints can have any of the following outputs:
-    #   - RESERVED [should never happen]
-    #   - NA [not applicable]
-    #   - NE [not applicable]
-    #   - PASS [test success]
-    #   - INFO [failed for info]
-    #   - WARN [failed for warn]
-    #   - FAIL [failed for error]
-    #   - FATAL [test could not complete because cert is broken]
-    #   - UNKNOWN [should never occur]
-    # We don't want to store a string for every lint in elasticsearch because
-    # our index size would explode. Instead we map these to a string:
-    # {
-    #     (reserved, unknown, ne, na, pass) -> null,
-    #     (notice, warning, fail, fatal) -> true
-    # }
-    # For BigQuery, we have more options, so we allow some more information:
-    # {
-    #     all map to original value
-    # }
-    # This is horrible to schema, so define a custom type
     "e_basic_constraints_not_critical":LintBool(),
-    "e_ian_bare_wildcard":LintBool(),
-    "e_ian_wildcard_not_first":LintBool(),
-    "e_san_bare_wildcard":LintBool(),
-    "e_san_wildcard_not_first":LintBool(),
+    "e_ca_common_name_missing":LintBool(),
     "e_ca_country_name_invalid":LintBool(),
     "e_ca_country_name_missing":LintBool(),
     "e_ca_crl_sign_not_set":LintBool(),
-    "n_ca_digital_signature_not_set":LintBool(),
+    "e_ca_is_ca":LintBool(),
     "e_ca_key_cert_sign_not_set":LintBool(),
     "e_ca_key_usage_missing":LintBool(),
     "e_ca_key_usage_not_critical":LintBool(),
     "e_ca_organization_name_missing":LintBool(),
     "e_ca_subject_field_empty":LintBool(),
-    "e_cert_contains_unique_identifier":LintBool(),
-    "e_cert_extensions_version_not_3":LintBool(),
     "e_cab_dv_conflicts_with_locality":LintBool(),
     "e_cab_dv_conflicts_with_org":LintBool(),
     "e_cab_dv_conflicts_with_postal":LintBool(),
     "e_cab_dv_conflicts_with_province":LintBool(),
     "e_cab_dv_conflicts_with_street":LintBool(),
+    "e_cab_iv_requires_personal_name":LintBool(),
+    "e_cab_ov_requires_org":LintBool(),
+    "e_cert_contains_unique_identifier":LintBool(),
+    "e_cert_extensions_version_not_3":LintBool(),
     "e_cert_policy_iv_requires_country":LintBool(),
     "e_cert_policy_iv_requires_province_or_locality":LintBool(),
     "e_cert_policy_ov_requires_country":LintBool(),
     "e_cert_policy_ov_requires_province_or_locality":LintBool(),
-    "e_cab_ov_requires_org":LintBool(),
-    "e_cab_iv_requires_personal_name":LintBool(),
     "e_cert_unique_identifier_version_not_2_or_3":LintBool(),
-    "e_dh_params_missing":LintBool(),
     "e_distribution_point_incomplete":LintBool(),
-    "w_distribution_point_missing_ldap_or_uri":LintBool(),
+    "e_dnsname_bad_character_in_label":LintBool(),
+    "e_dnsname_contains_bare_iana_suffix":LintBool(),
+    "e_dnsname_empty_label":LintBool(),
+    "e_dnsname_hyphen_in_sld":LintBool(),
+    "e_dnsname_label_too_long":LintBool(),
+    "e_dnsname_left_label_wildcard_correct":LintBool(),
+    "e_dnsname_not_valid_tld":LintBool(),
+    "e_dnsname_underscore_in_sld":LintBool(),
+    "e_dnsname_wildcard_only_in_left_label":LintBool(),
+    "e_dsa_correct_order_in_subgroup":LintBool(),
     "e_dsa_improper_modulus_or_divisor_size":LintBool(),
+    "e_dsa_params_missing":LintBool(),
     "e_dsa_shorter_than_2048_bits":LintBool(),
+    "e_dsa_unique_correct_representation":LintBool(),
     "e_ec_improper_curves":LintBool(),
-    "w_eku_critical_improperly":LintBool(),
     "e_ev_business_category_missing":LintBool(),
     "e_ev_country_name_missing":LintBool(),
     "e_ev_locality_name_missing":LintBool(),
     "e_ev_organization_name_missing":LintBool(),
     "e_ev_serial_number_missing":LintBool(),
     "e_ev_valid_time_too_long":LintBool(),
-    "w_ext_aia_access_location_missing":LintBool(),
     "e_ext_aia_marked_critical":LintBool(),
     "e_ext_authority_key_identifier_critical":LintBool(),
     "e_ext_authority_key_identifier_missing":LintBool(),
     "e_ext_authority_key_identifier_no_key_identifier":LintBool(),
-    "w_ext_cert_policy_contains_noticeref":LintBool(),
     "e_ext_cert_policy_disallowed_any_policy_qualifier":LintBool(),
     "e_ext_cert_policy_duplicate":LintBool(),
     "e_ext_cert_policy_explicit_text_ia5_string":LintBool(),
-    "w_ext_cert_policy_explicit_text_includes_control":LintBool(),
-    "w_ext_cert_policy_explicit_text_not_nfc":LintBool(),
-    "w_ext_cert_policy_explicit_text_not_utf8":LintBool(),
     "e_ext_cert_policy_explicit_text_too_long":LintBool(),
-    "w_ext_crl_distribution_marked_critical":LintBool(),
     "e_ext_duplicate_extension":LintBool(),
     "e_ext_freshest_crl_marked_critical":LintBool(),
-    "w_ext_ian_critical":LintBool(),
     "e_ext_ian_dns_not_ia5_string":LintBool(),
     "e_ext_ian_empty_name":LintBool(),
     "e_ext_ian_no_entries":LintBool(),
@@ -1137,20 +1128,16 @@ Lints = SubRecord({
     "e_ext_ian_uri_not_ia5":LintBool(),
     "e_ext_ian_uri_relative":LintBool(),
     "e_ext_key_usage_cert_sign_without_ca":LintBool(),
-    "w_ext_key_usage_not_critical":LintBool(),
     "e_ext_key_usage_without_bits":LintBool(),
     "e_ext_name_constraints_not_critical":LintBool(),
     "e_ext_name_constraints_not_in_ca":LintBool(),
     "e_ext_policy_constraints_empty":LintBool(),
     "e_ext_policy_constraints_not_critical":LintBool(),
     "e_ext_policy_map_any_policy":LintBool(),
-    "w_ext_policy_map_not_critical":LintBool(),
-    "w_ext_policy_map_not_in_cert_policy":LintBool(),
     "e_ext_san_contains_reserved_ip":LintBool(),
-    "w_ext_san_critical_with_subject_dn":LintBool(),
     "e_ext_san_directory_name_present":LintBool(),
+    "e_ext_san_dns_name_too_long":LintBool(),
     "e_ext_san_dns_not_ia5_string":LintBool(),
-    "e_ext_san_dnsname_not_fqdn":LintBool(),
     "e_ext_san_edi_party_name_present":LintBool(),
     "e_ext_san_empty_name":LintBool(),
     "e_ext_san_missing":LintBool(),
@@ -1169,103 +1156,137 @@ Lints = SubRecord({
     "e_ext_subject_directory_attr_critical":LintBool(),
     "e_ext_subject_key_identifier_critical":LintBool(),
     "e_ext_subject_key_identifier_missing_ca":LintBool(),
-    "w_ext_subject_key_identifier_missing_sub_cert":LintBool(),
     "e_generalized_time_does_not_include_seconds":LintBool(),
     "e_generalized_time_includes_fraction_seconds":LintBool(),
     "e_generalized_time_not_in_zulu":LintBool(),
-    "w_gtld_under_consideration":LintBool(),
+    "e_ian_bare_wildcard":LintBool(),
     "e_ian_dns_name_includes_null_char":LintBool(),
     "e_ian_dns_name_starts_with_period":LintBool(),
-    "w_ian_iana_pub_suffix_empty":LintBool(),
+    "e_ian_wildcard_not_first":LintBool(),
     "e_inhibit_any_policy_not_critical":LintBool(),
+    "e_international_dns_name_not_nfkc":LintBool(),
+    "e_international_dns_name_not_unicode":LintBool(),
     "e_invalid_certificate_version":LintBool(),
     "e_issuer_field_empty":LintBool(),
     "e_name_constraint_empty":LintBool(),
     "e_name_constraint_maximum_not_absent":LintBool(),
     "e_name_constraint_minimum_non_zero":LintBool(),
-    "w_name_constraint_on_edi_party_name":LintBool(),
-    "w_name_constraint_on_registered_id":LintBool(),
-    "w_name_constraint_on_x400":LintBool(),
     "e_old_root_ca_rsa_mod_less_than_2048_bits":LintBool(),
     "e_old_sub_ca_rsa_mod_less_than_1024_bits":LintBool(),
     "e_old_sub_cert_rsa_mod_less_than_1024_bits":LintBool(),
     "e_path_len_constraint_improperly_included":LintBool(),
     "e_path_len_constraint_zero_or_less":LintBool(),
     "e_public_key_type_not_allowed":LintBool(),
-    "w_root_ca_basic_constraints_path_len_constraint_field_present":LintBool(),
-    "w_root_ca_contains_cert_policy":LintBool(),
     "e_root_ca_extended_key_usage_present":LintBool(),
+    "e_root_ca_key_usage_must_be_critical":LintBool(),
+    "e_root_ca_key_usage_present":LintBool(),
     "e_rsa_exp_negative":LintBool(),
-    "w_rsa_mod_factors_smaller_than_752":LintBool(),
     "e_rsa_mod_less_than_2048_bits":LintBool(),
-    "w_rsa_mod_not_odd":LintBool(),
-    "w_rsa_public_exponent_not_in_range":LintBool(),
+    "e_rsa_no_public_key":LintBool(),
     "e_rsa_public_exponent_not_odd":LintBool(),
     "e_rsa_public_exponent_too_small":LintBool(),
+    "e_san_bare_wildcard":LintBool(),
     "e_san_dns_name_includes_null_char":LintBool(),
     "e_san_dns_name_starts_with_period":LintBool(),
-    "w_san_iana_pub_suffix_empty":LintBool(),
+    "e_san_wildcard_not_first":LintBool(),
     "e_serial_number_longer_than_20_octets":LintBool(),
     "e_serial_number_not_positive":LintBool(),
-    "w_sub_ca_aia_does_not_contain_issuing_ca_url":LintBool(),
+    "e_signature_algorithm_not_supported":LintBool(),
     "e_sub_ca_aia_does_not_contain_ocsp_url":LintBool(),
+    "e_sub_ca_aia_marked_critical":LintBool(),
     "e_sub_ca_aia_missing":LintBool(),
-    "w_sub_ca_certificate_policies_marked_critical":LintBool(),
     "e_sub_ca_certificate_policies_missing":LintBool(),
     "e_sub_ca_crl_distribution_points_does_not_contain_url":LintBool(),
     "e_sub_ca_crl_distribution_points_marked_critical":LintBool(),
     "e_sub_ca_crl_distribution_points_missing":LintBool(),
-    "w_sub_ca_eku_critical":LintBool(),
-    "w_sub_ca_name_constraints_not_critical":LintBool(),
-    "e_sub_ca_no_dns_name_constraints":LintBool(),
-    "e_sub_ca_no_ip_name_constraints":LintBool(),
-    "e_sub_cert_aia_does_not_contain_issuing_ca_url":LintBool(),
+    "e_sub_ca_eku_missing":LintBool(),
+    "e_sub_ca_eku_name_constraints":LintBool(),
+    "e_sub_ca_must_not_contain_any_policy":LintBool(),
     "e_sub_cert_aia_does_not_contain_ocsp_url":LintBool(),
+    "e_sub_cert_aia_marked_critical":LintBool(),
     "e_sub_cert_aia_missing":LintBool(),
     "e_sub_cert_cert_policy_empty":LintBool(),
-    "w_sub_cert_certificate_policies_marked_critical":LintBool(),
+    "e_sub_cert_certificate_policies_missing":LintBool(),
+    "e_sub_cert_country_name_must_appear":LintBool(),
     "e_sub_cert_crl_distribution_points_does_not_contain_url":LintBool(),
     "e_sub_cert_crl_distribution_points_marked_critical":LintBool(),
-    "w_sub_cert_eku_extra_values":LintBool(),
     "e_sub_cert_eku_missing":LintBool(),
     "e_sub_cert_eku_server_auth_client_auth_missing":LintBool(),
+    "e_sub_cert_given_name_surname_contains_correct_policy":LintBool(),
     "e_sub_cert_key_usage_cert_sign_bit_set":LintBool(),
+    "e_sub_cert_key_usage_crl_sign_bit_set":LintBool(),
+    "e_sub_cert_locality_name_must_appear":LintBool(),
+    "e_sub_cert_locality_name_must_not_appear":LintBool(),
+    "e_sub_cert_not_is_ca":LintBool(),
     "e_sub_cert_or_sub_ca_using_sha1":LintBool(),
-    "w_sub_cert_sha1_expiration_too_long":LintBool(),
-    "e_subject_common_name_disallowed":LintBool(),
-    "n_subject_common_name_included":LintBool(),
+    "e_sub_cert_postal_code_must_not_appear":LintBool(),
+    "e_sub_cert_province_must_appear":LintBool(),
+    "e_sub_cert_province_must_not_appear":LintBool(),
+    "e_sub_cert_street_address_should_not_exist":LintBool(),
+    "e_sub_cert_valid_time_too_long":LintBool(),
+    "e_subject_common_name_max_length":LintBool(),
     "e_subject_common_name_not_from_san":LintBool(),
     "e_subject_contains_noninformational_value":LintBool(),
     "e_subject_contains_reserved_ip":LintBool(),
     "e_subject_country_not_iso":LintBool(),
     "e_subject_empty_without_san":LintBool(),
     "e_subject_info_access_marked_critical":LintBool(),
-    "e_subject_locality_without_org":LintBool(),
+    "e_subject_locality_name_max_length":LintBool(),
     "e_subject_not_dn":LintBool(),
-    "e_subject_org_without_country":LintBool(),
-    "e_subject_org_without_locality_or_province":LintBool(),
-    "e_subject_postal_without_org":LintBool(),
-    "e_subject_province_without_org":LintBool(),
-    "e_subject_street_without_org":LintBool(),
+    "e_subject_organization_name_max_length":LintBool(),
+    "e_subject_organizational_unit_name_max_length":LintBool(),
+    "e_subject_state_name_max_length":LintBool(),
     "e_utc_time_does_not_include_seconds":LintBool(),
     "e_utc_time_not_in_zulu":LintBool(),
     "e_validity_time_not_positive":LintBool(),
     "e_wrong_time_format_pre2050":LintBool(),
-    "e_rsa_no_public_key":LintBool(),
-    "e_sub_cert_certificate_policies_missing":LintBool(),
-    "e_sub_cert_key_usage_crl_sign_bit_set":LintBool(),
-    "e_subject_common_name_max_length":LintBool(),
-    "e_subject_locality_name_max_length":LintBool(),
-    "e_subject_organization_name_max_length":LintBool(),
-    "e_subject_organizational_unit_name_max_length":LintBool(),
-    "e_subject_state_name_max_length":LintBool(),
-    "w_multiple_subject_rdn":LintBool(),
-    "w_multiple_issuer_rdn":LintBool(),
-    "w_issuer_dn_trailing_whitespace":LintBool(),
+    "n_ca_digital_signature_not_set":LintBool(),
+    "n_contains_redacted_dnsname":LintBool(),
+    "n_sub_ca_eku_not_technically_constrained":LintBool(),
+    "n_subject_common_name_included":LintBool(),
+    "w_distribution_point_missing_ldap_or_uri":LintBool(),
+    "w_dnsname_underscore_in_trd":LintBool(),
+    "w_dnsname_wildcard_left_of_public_suffix":LintBool(),
+    "w_eku_critical_improperly":LintBool(),
+    "w_ext_aia_access_location_missing":LintBool(),
+    "w_ext_cert_policy_contains_noticeref":LintBool(),
+    "w_ext_cert_policy_explicit_text_includes_control":LintBool(),
+    "w_ext_cert_policy_explicit_text_not_nfc":LintBool(),
+    "w_ext_cert_policy_explicit_text_not_utf8":LintBool(),
+    "w_ext_crl_distribution_marked_critical":LintBool(),
+    "w_ext_ian_critical":LintBool(),
+    "w_ext_key_usage_not_critical":LintBool(),
+    "w_ext_policy_map_not_critical":LintBool(),
+    "w_ext_policy_map_not_in_cert_policy":LintBool(),
+    "w_ext_san_critical_with_subject_dn":LintBool(),
+    "w_ext_subject_key_identifier_missing_sub_cert":LintBool(),
+    "w_ian_iana_pub_suffix_empty":LintBool(),
     "w_issuer_dn_leading_whitespace":LintBool(),
-    "w_subject_dn_trailing_whitespace":LintBool(),
+    "w_issuer_dn_trailing_whitespace":LintBool(),
+    "w_multiple_issuer_rdn":LintBool(),
+    "w_multiple_subject_rdn":LintBool(),
+    "w_name_constraint_on_edi_party_name":LintBool(),
+    "w_name_constraint_on_registered_id":LintBool(),
+    "w_name_constraint_on_x400":LintBool(),
+    "w_root_ca_basic_constraints_path_len_constraint_field_present":LintBool(),
+    "w_root_ca_contains_cert_policy":LintBool(),
+    "w_rsa_mod_factors_smaller_than_752":LintBool(),
+    "w_rsa_mod_not_odd":LintBool(),
+    "w_rsa_public_exponent_not_in_range":LintBool(),
+    "w_san_iana_pub_suffix_empty":LintBool(),
+    "w_serial_number_low_entropy":LintBool(),
+    "w_sub_ca_aia_does_not_contain_issuing_ca_url":LintBool(),
+    "w_sub_ca_certificate_policies_marked_critical":LintBool(),
+    "w_sub_ca_eku_critical":LintBool(),
+    "w_sub_ca_name_constraints_not_critical":LintBool(),
+    "w_sub_cert_aia_does_not_contain_issuing_ca_url":LintBool(),
+    "w_sub_cert_certificate_policies_marked_critical":LintBool(),
+    "w_sub_cert_eku_extra_values":LintBool(),
+    "w_sub_cert_sha1_expiration_too_long":LintBool(),
     "w_subject_dn_leading_whitespace":LintBool(),
+    "w_subject_dn_trailing_whitespace":LintBool(),
 })
+
 
 ZLint = SubRecord({
     "version":Unsigned16BitInteger(),
@@ -1279,6 +1300,7 @@ ZLint = SubRecord({
 certificate = Record({
     "parsed":zgrab_parsed_certificate,
     "raw":Binary(),
+    "fingerprint_sha256":HexString(),
     "tags":ListOf(CensysString()),
     "metadata":SubRecord({
         "updated_at":DateTime(),
@@ -1292,6 +1314,7 @@ certificate = Record({
         "parse_status":String(),
     }),
     "parents":ListOf(String()),
+    "parent_spki_subject_fp":HexString(),
     "validation":SubRecord({
         "nss":ztag_certificate_validation,
         "apple":ztag_certificate_validation,
@@ -1330,6 +1353,16 @@ ipv4_host = Record({
                     "get":ztag_http,
                 }),
             }),
+            Port(8080):SubRecord({
+                "http":SubRecord({
+                    "get":ztag_http,
+                }),
+            }),
+            Port(8888):SubRecord({
+                "http":SubRecord({
+                    "get":ztag_http,
+                }),
+            }),
             Port(25):SubRecord({
                 "smtp":SubRecord({
                     "starttls": ztag_smtp_starttls,
@@ -1337,6 +1370,11 @@ ipv4_host = Record({
                 }),
             }),
             Port(23):SubRecord({
+                "telnet":SubRecord({
+                    "banner":ztag_telnet
+                })
+            }),
+            Port(2323):SubRecord({
                 "telnet":SubRecord({
                     "banner":ztag_telnet
                 })
@@ -1393,7 +1431,7 @@ ipv4_host = Record({
             }),
             Port(22):SubRecord({
                 "ssh":SubRecord({
-                    "banner": ztag_ssh_banner
+                    "v2": ztag_ssh_v2
                 }),
             }),
             Port(53):SubRecord({
@@ -1432,7 +1470,8 @@ ipv4_host = Record({
             "ipint":Unsigned32BitInteger(required=True, doc="Integer value of IP address in host order"),
             "updated_at":DateTime(),
             "zdb_version":Unsigned32BitInteger(),
-            "protocols":ListOf(CensysString(exclude=["bigquery"]))
+            "protocols":ListOf(CensysString(exclude=["bigquery"])),
+            "ports":ListOf(Unsigned16BitInteger())
 })
 
 website = Record({
@@ -1441,8 +1480,8 @@ website = Record({
                     "tls":ztag_tls,
                     "heartbleed":ztag_heartbleed,
                     "dhe": ztag_dh,
-                    "export_rsa": ztag_rsa_export, # wrong name. should be rsa_export
-                    "export_dhe": ztag_dh_export,  # wrong name. should be dhe_export
+                    "rsa_export": ztag_rsa_export,
+                    "dhe_export": ztag_dh_export,
                     "tls_1_1": ztag_tls_support,
                     "tls_1_2": ztag_tls_support,
                     "ecdhe": ztag_ecdh,

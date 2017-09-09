@@ -14,7 +14,7 @@ PROTOCOLS = [
     (protocols.HTTPS, protocols.HTTPS.TLS, {"device_with_https":{"tags":["https",]}}),
     (protocols.DNS, protocols.DNS.OPEN_RESOLVER, {"device_with_dns":{"tags":["dns",]}}),
     (protocols.UPNP, protocols.UPNP.DISCOVERY, {"device_with_upnp":{"tags":["upnp",]}}),
-    (protocols.SSH, protocols.SSH.BANNER, {"device_with_ssh":{"tags":["ssh",]}}),
+    (protocols.SSH, protocols.SSH.V2, {"device_with_ssh":{"tags":["ssh",]}}),
     (protocols.TELNET, protocols.TELNET.BANNER, {"device_with_telnet":{"tags":["telnet",]}}),
     #(protocols.NTP, protocols.NTP.TIME, {"device_with_ntp":{"tags":["ntp",]}}),
     (protocols.IMAP, protocols.IMAP.STARTTLS, {"device_with_imap":{"tags":["imap",]}}),

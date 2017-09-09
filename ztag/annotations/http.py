@@ -1,4 +1,4 @@
-from ztag.annotation import * 
+from ztag.annotation import *
 
 
 class HTTPServerParse(Annotation):
@@ -16,17 +16,22 @@ class HTTPServerParse(Annotation):
         "global_metadata":{
           "os":"Ubuntu"
         }
+      },
+      "nginx_simple":{
+        "local_metadata":{
+          "product":"nginx",
+        }
       }
     }
 
-    def process(self, obj, meta):	
-        s = obj["headers"]["server"]	
+    def process(self, obj, meta):
+        s = obj["headers"]["server"]
         if "mini_httpd" in s:
             return
         m = self.http_banner_parse(s, meta)
         if "-" in m.local_metadata.product:
             manu, prod = m.local_metadata.product.split("-")
-            m.local_metadata.manufacturer = manu 
+            m.local_metadata.manufacturer = manu
             m.local_metadata.product = prod
         elif m.local_metadata.product.lower() == "apache":
             m.local_metadata.manufacturer = "Apache"
@@ -50,7 +55,7 @@ class HTTPServerParse(Annotation):
             m.local_metadata.manufacturer = "Google"
             m.local_metadata.product = "Scripting Engine"
 
-        if "HTTP" in m.global_metadata.os: 
+        if m.global_metadata.os and "HTTP" in m.global_metadata.os:
             m.global_metadata.os = None
         if m.local_metadata.product == "IIS":
             m.global_metadata.os = "Windows"

@@ -24,7 +24,7 @@ setup(
   install_requires = [
     "redis>=2.10.5,<2.11",
     "python-dateutil>=2.6.0,<2.7",
-    "zsearch_definitions>=0.1.13,<0.2",
+    "zsearch_definitions>=0.1.14,<0.2",
     "kafka-python==1.3.2",
     "lz4tools>=1.3.1.2,<1.4",
     "xxhash>=1.0.1,<1.1",
@@ -36,4 +36,3 @@ setup(
     ]
   }
 )
-
