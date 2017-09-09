@@ -1,0 +1,118 @@
+{
+  "22": {
+    "ssh": {
+      "v2": {
+        "server_host_key": {
+          "fingerprint_sha256": "fa4eefe1a3a137f3ce460fcbe42450c786d883a676bd8bf1e51187d7e427ad08",
+          "key_algorithm": "ecdsa-sha2-nistp256",
+          "ecdsa_public_key": {
+            "b": "WsY12Ko6k+ez671VdpiGvGUdBrDMU7D2O848PifSYEs=",
+            "curve": "P-256",
+            "gy": "T+NC4v4af5uO5+tKfA+eFivOM1drMV7Oy7ZAaDe/UfU=",
+            "n": "/////wAAAAD//////////7zm+q2nF56E87nKwvxjJVE=",
+            "p": "/////wAAAAEAAAAAAAAAAAAAAAD///////////////8=",
+            "length": 256,
+            "y": "IDy3Rb4WLztsuZ3ADYcyBXXTuhc3oQwCN17t0E6DZ6g=",
+            "x": "IcGb8cV/wNpzEB5SYjiQkBvDlCqOTzC4dkZaI4IqsZs=",
+            "gx": "axfR8uEsQkf4vOblY6RA8ncDfYEt6zOg9KE5RdiYwpY="
+          }
+        },
+        "support": {
+          "host_key_algorithms": [
+            "ssh-rsa",
+            "ssh-dss",
+            "ecdsa-sha2-nistp256",
+            "ssh-ed25519"
+          ],
+          "first_kex_follows": false,
+          "kex_algorithms": [
+            "curve25519-sha256@libssh.org",
+            "ecdh-sha2-nistp256",
+            "ecdh-sha2-nistp384",
+            "ecdh-sha2-nistp521",
+            "diffie-hellman-group-exchange-sha256",
+            "diffie-hellman-group14-sha1"
+          ],
+          "server_to_client": {
+            "ciphers": [
+              "aes128-ctr",
+              "aes192-ctr",
+              "aes256-ctr",
+              "aes128-gcm@openssh.com",
+              "aes256-gcm@openssh.com",
+              "chacha20-poly1305@openssh.com"
+            ],
+            "macs": [
+              "umac-64-etm@openssh.com",
+              "umac-128-etm@openssh.com",
+              "hmac-sha2-256-etm@openssh.com",
+              "hmac-sha2-512-etm@openssh.com",
+              "hmac-sha1-etm@openssh.com",
+              "umac-64@openssh.com",
+              "umac-128@openssh.com",
+              "hmac-sha2-256",
+              "hmac-sha2-512",
+              "hmac-sha1"
+            ],
+            "compressions": [
+              "none",
+              "zlib@openssh.com"
+            ]
+          },
+          "client_to_server": {
+            "ciphers": [
+              "aes128-ctr",
+              "aes192-ctr",
+              "aes256-ctr",
+              "aes128-gcm@openssh.com",
+              "aes256-gcm@openssh.com",
+              "chacha20-poly1305@openssh.com"
+            ],
+            "macs": [
+              "umac-64-etm@openssh.com",
+              "umac-128-etm@openssh.com",
+              "hmac-sha2-256-etm@openssh.com",
+              "hmac-sha2-512-etm@openssh.com",
+              "hmac-sha1-etm@openssh.com",
+              "umac-64@openssh.com",
+              "umac-128@openssh.com",
+              "hmac-sha2-256",
+              "hmac-sha2-512",
+              "hmac-sha1"
+            ],
+            "compressions": [
+              "none",
+              "zlib@openssh.com"
+            ]
+          }
+        },
+        "selected": {
+          "host_key_algorithm": "ecdsa-sha2-nistp256",
+          "client_to_server": {
+            "mac": "hmac-sha2-256",
+            "cipher": "aes128-ctr",
+            "compression": "none"
+          },
+          "kex_algorithm": "curve25519-sha256@libssh.org",
+          "server_to_client": {
+            "mac": "hmac-sha2-256",
+            "cipher": "aes128-ctr",
+            "compression": "none"
+          }
+        },
+        "banner": {
+          "comment": "Raspbian-5+deb8u3",
+          "raw": "SSH-2.0-OpenSSH_6.7p1 Raspbian-5+deb8u3",
+          "version": "2.0",
+          "software": "OpenSSH_6.7p1"
+        },
+        "metadata": {}
+      }
+    }
+  },
+  "smbv1_support": true,
+        "metadata": {}
+      }
+    }
+  }
+}
