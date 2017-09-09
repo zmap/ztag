@@ -1,0 +1,18 @@
+{
+  "80": {
+    "http": {
+      "get": {
+        "body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0 Transitional//EN\">\r\n<html><head>\r\n<meta name=Copyright content=\"Copyright (c) 2005 HP Networks, Inc. All Rights Reserved.\">\r\n<meta http-equiv=Content-Type content=\"text/html; charset=iso-8859-1\">\r\n<meta http-equiv=\"Pragma\" content=\"no-cache\">\r\n<title>HP Networks Web Interface</title>\r\n<script src=\"/mainjs.js\" language=javascript type=\"text/javascript\"></script>\r\n<script language=\"javascript\" type=\"text/javascript\">\r\n//<!--\r\ncheckFrame();\t// Ensure we are not within a frame\r\nimplementLoginFrames('login.html');\r\ndocument.write('<noframes>');\r\n//-->\r\n</script>\r\n</head>\r\n\r\n<body BGCOLOR=\"#DAE3EB\">\r\n<center>\r\n<font color=\"#008BD1\" face=\"Arial, Helvetica, sans-serif\"><B>Please ensure that your browser supports Frames and Javascript, and that they are both enabled.</b></font>\r\n</center>\r\n<script language=\"javascript\" type=\"text/javascript\">\r\n//<!--\r\ndocument.write('<\\/noframes>');\r\n//-->\r\n</script>\r\n</body>\r\n</html>\r\n\r\n",
+        "headers": {
+          "connection": "close",
+          "content_type": "text/html; charset=iso-8859-1"
+        },
+        "status_code": 200,
+        "title": "HP Networks Web Interface",
+        "status_line": "200 OK",
+        "body_sha256": "6ukkeJRUoodJmeJP2wf5/G4+QTjcjmuohdl8HYAXWcA=",
+        "metadata": {}
+      }
+    }
+  }
+}

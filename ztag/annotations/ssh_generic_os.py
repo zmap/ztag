@@ -36,20 +36,21 @@ class SSHGenericOS(Annotation):
             meta.global_metadata.os = OperatingSystem.REDHAT
 
         # software package
-        if "openssh" in comment:
+        if "openssh" in software:
             meta.local_metadata.product = "OpenSSH"
-        elif "roshssh" in comment:
+        elif "roshssh" in software:
             meta.local_metadata.product = "RouterOS SSH"
             meta.global_metadata.manufacturer = Manufacturer.MIKROTIK
             meta.global_metadata.device_type = Type.NETWORK
             meta.global_metadata.os = OperatingSystem.MIKROTIK_ROUTER_OS
-        elif "dropbear" in comment:
+        elif "dropbear" in comment or "dropbear" in software:
             # dropbox versions are generally of the following form: dropbear_2013.59
             # however, we'll also see dropbear_0.46 and even just "dropbear"
             meta.local_metadata.product = "Dropbear SSH"
             if "-" in comment:
                 _, version = comment.split("-")
                 meta.local_metadata.version = version
+            meta.tags.add("embedded")
         elif "cisco" in comment:
             meta.global_metadata.manufacturer = Manufacturer.CISCO
             meta.global_metadata.device_type = Type.INFRASTRUCTURE_ROUTER
