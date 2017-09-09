@@ -954,6 +954,12 @@ CTStatus = SubRecord({
     "google_icarus":CTServerStatus,
     "google_daedalus":CTServerStatus,
 
+    "google_argon2017":CTServerStatus,
+    "google_argon2018":CTServerStatus,
+    "google_argon2019":CTServerStatus,
+    "google_argon2020":CTServerStatus,
+    "google_argon2021":CTServerStatus,
+
     "comodo_dodo":CTServerStatus,
     "comodo_mammoth":CTServerStatus,
     "comodo_sabre":CTServerStatus,
