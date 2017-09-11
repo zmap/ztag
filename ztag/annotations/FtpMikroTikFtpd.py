@@ -17,8 +17,10 @@ class FtpMikroTikFtpd(Annotation):
                 "os":OperatingSystem.MIKROTIK_ROUTER_OS,
                 "os_version": "2.9.27",
                 "device_type":Type.NETWORK,
-                "tags":["embedded",]
-            }
+                "manufacturer":Manufacturer.MIKROTIK,
+            },
+            "tags":["embedded",],
+
         }
     }
 

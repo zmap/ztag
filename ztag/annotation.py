@@ -244,7 +244,7 @@ class Manufacturer(object):
     LUTRON = "Lutron"
     MAYGION = "Maygion"
     MICROSOFT = "Microsoft"
-    MIKROTIK = "Mikrotik"
+    MIKROTIK = "MikroTik"
     MOTOROLA = "Motorola"
     MULTITECH = "Multitech"
     NATIONAL_INSTRUMENTS = "National Instruments"
