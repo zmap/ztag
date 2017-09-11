@@ -22,7 +22,7 @@ class DellCMC(TLSTag):
         if ou == "OpenCMC Group":
             meta.global_metadata.manufacturer = Manufacturer.DELL
             meta.global_metadata.device_type = Type.SERVER_MANAGEMENT
-            meta.global_metadata.product = "Chassis Meanagement Controller"
+            meta.global_metadata.product = "Chassis Management Controller"
             meta.tags.add("embedded")
             meta.tags.add("data center")
             return meta

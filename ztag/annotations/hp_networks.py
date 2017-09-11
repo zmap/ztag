@@ -17,10 +17,9 @@ class HPNetworksWebInterface(Annotation):
     }
 
     def process(self, obj, meta):
-        if obj["title"] == "NETGEAR Web Smart Switch":
-            meta.global_metadata.manufacturer = Manufacturer.NETGEAR
-            meta.global_metadata.product = "Smart Switch"
-            meta.global_metadata.device_type = Type.SWITCH
+        if obj["title"] == "HP Networks Web Interface":
+            meta.global_metadata.manufacturer = Manufacturer.HP
+            meta.global_metadata.device_type = Type.NETWORK
             meta.tags.add("embedded")
             return meta
 

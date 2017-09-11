@@ -19,10 +19,21 @@ class HPOfficeConnectSwitch(Annotation):
     }
 
     def process(self, obj, meta):
-        if obj["title"] == "NETGEAR Web Smart Switch":
-            meta.global_metadata.manufacturer = Manufacturer.NETGEAR
-            meta.global_metadata.product = "Smart Switch"
+        if obj["title"].startswith("HPE OfficeConnect Switch"):
+            meta.global_metadata.manufacturer = Manufacturer.HP
+            meta.global_metadata.product = "OfficeConnect Switch"
             meta.global_metadata.device_type = Type.SWITCH
+            # try to parse out version if available
+            if len(obj["title"]) > 25:
+                remainder = str(obj["title"][25:])
+                if " " in remainder:
+                    product, version = remainder.split(" ", 1)
+                    meta.global_metadata.product += " "
+                    meta.global_metadata.product += product
+                    meta.global_metadata.version = version
+                else:
+                    meta.global_metadata.product += " "
+                    meta.global_metadata.product += remainder
             meta.tags.add("embedded")
             return meta
 

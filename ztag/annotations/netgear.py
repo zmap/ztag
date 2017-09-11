@@ -57,8 +57,8 @@ class NetGearLabeledSwitches(Annotation):
 
 class NetGearProsafe(Annotation):
 
-    protocol = protocols.HTTP
-    subprotocol = protocols.HTTP.GET
+    protocol = protocols.HTTPS
+    subprotocol = protocols.HTTPS.TLS
     port = None
 
     tests = {
@@ -73,10 +73,11 @@ class NetGearProsafe(Annotation):
     }
 
     def process(self, obj, meta):
-        if obj["title"] == "NETGEAR Web Smart Switch":
+        cn = obj["certificate"]["parsed"]["subject"]["common_name"][0].strip()
+        if cn == "Netgear VPN Firewall":
             meta.global_metadata.manufacturer = Manufacturer.NETGEAR
-            meta.global_metadata.product = "Smart Switch"
-            meta.global_metadata.device_type = Type.SWITCH
+            meta.global_metadata.product = "Prosafe VPN Firewall"
+            meta.global_metadata.device_type = Type.FIREWALL
             meta.tags.add("embedded")
             return meta
 
