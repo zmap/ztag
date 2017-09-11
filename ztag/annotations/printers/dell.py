@@ -45,7 +45,7 @@ class DellPrinterHTTPTitleForm1(Annotation):
                 or title.startswith("Dell MFP Laser")\
                 or title.startswith("Dell Color Laser"):
             meta.global_metadata.manufacturer = Manufacturer.DELL
-            meta.global_metadata.product = title.split(" ")[-1]
+            meta.global_metadata.product = title.split(" ", 1)[1]
             meta.global_metadata.device_type = Type.LASER_PRINTER
             meta.tags.add("embedded")
             return meta
@@ -85,12 +85,14 @@ class DellPrinterHTTPTitleForm2(Annotation):
     }
 
     def process(self, obj, meta):
-        if obj["title"].startswith("Dell"):
-            r = self.model_re.match(obj["title"])
+        t = obj["title"].strip()
+        if t.startswith("Dell"):
+            r = self.model_re.match(t)
             if r:
                 meta.global_metadata.manufacturer = Manufacturer.DELL
                 meta.global_metadata.device_type = Type.LASER_PRINTER
-                meta.global_metadata.product = "%s %s" % (r.groups(1), r.groups(0))
+                meta.global_metadata.product = "%s %s" % (r.groups()[1],
+                        r.groups()[0])
                 meta.tags.add("embedded")
                 return meta
 
