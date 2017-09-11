@@ -29,33 +29,31 @@ class FtpRouterBoard(Annotation):
         re.IGNORECASE
         )
 
-    tests = {
-        "FtpRouterBoard_1": {
-            "global_metadata": {
-                "manufacturer": Manufacturer.ROUTER_BOARD,
-                "product": "711-5HnD"
-            },
-            "local_metadata": {
-                "product": "MikroTik",
-                "version": "6.10"
-            }
-        }
-    }
+    #tests = {
+    #    "FtpRouterBoard_1": {
+    #        "global_metadata": {
+    #            "manufacturer": Manufacturer.ROUTER_BOARD,
+    #            "product": "711-5HnD"
+    #        },
+    #        "local_metadata": {
+    #            "product": "MikroTik",
+    #            "version": "6.10"
+    #        }
+    #    }
+    #}
 
     def process(self, obj, meta):
         banner = obj["banner"]
 
-        if (
-            self.manufact_1_re.search(banner) or
-            self.manufact_2_re.search(banner)
-        ):
+        if self.manufact_1_re.search(banner) or\
+                self.manufact_2_re.search(banner):
 
-            meta.global_metadata.manufacturer = Manufacturer.ROUTER_BOARD
+            meta.global_metadata.manufacturer = Manufacturer.MIKROTIK
 
             product = self.product_re.search(banner).group(1)
             meta.global_metadata.product = product
 
-            meta.local_metadata.product = "MikroTik"
+            meta.local_metadata.product = "RouterBoard"
 
             implementation = self.implementation_re.search(banner)
             meta.local_metadata.version = implementation.group(1)
