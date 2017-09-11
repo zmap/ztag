@@ -25,6 +25,10 @@ class HTTPServerParse(Annotation):
         },
         "global_metadata":{
           "os":"Windows"
+      },
+      "nginx_simple":{
+        "local_metadata":{
+          "product":"nginx",
         }
       }
     }

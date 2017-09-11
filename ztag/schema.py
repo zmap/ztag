@@ -34,9 +34,9 @@ zgrab_subj_issuer = SubRecord({
     # Commented out 2017-08-18 due to ES analyzer mismatch:
     # Data with these fields got into the IPv4 index before the ES mapping
     # was updated, and ES automatically chose a different analyzer.
-    "jurisdiction_country":ListOf(CensysString()),
-    "jurisdiction_locality":ListOf(CensysString()),
-    "jurisdiction_province":ListOf(CensysString()),
+    # "jurisdiction_country":ListOf(CensysString()),
+    # "jurisdiction_locality":ListOf(CensysString()),
+    # "jurisdiction_province":ListOf(CensysString()),
 })
 
 unknown_extension = SubRecord({
@@ -134,7 +134,8 @@ ztag_ssh_ecdsa_public_key = SubRecord({
     "y":IndexedBinary(),
     "curve":Enum(["P-224", "P-256", "P-384", "P-521"]),
     "length":Unsigned16BitInteger(),
-    "asn1_oid":OID(),
+    # schema conflict in censys prod cert index
+    #"asn1_oid":OID(),
 })
 
 ztag_ed25519_public_key = SubRecord({
@@ -211,7 +212,7 @@ zgrab_parsed_certificate = SubRecord({
             "pub":Binary(),
             "curve":Enum(["P-224", "P-256", "P-384", "P-521"]),
             "length":Unsigned16BitInteger(),
-            "asn1_oid":OID(), # TODO: this is currently commented out
+            #"asn1_oid":OID(), # TODO: this is currently commented out
             # because for a bunch of certificates, this was encoded as [1, 2,
             # 840, 113549, 1, 1, 12] not 1.2.840.113549.1.1.12
         })
@@ -302,7 +303,7 @@ zgrab_parsed_certificate = SubRecord({
             "microsoft_csp_signature": Boolean(),
             "microsoft_root_list_signer": Boolean(),
             "microsoft_system_health_loophole": Boolean(),
-            "unknown":ListOf(OID()) # TODO
+            #"unknown":ListOf(OID()) # TODO
         }, exclude=["bigquery",]), # TODO
         "certificate_policies":ListOf(certificate_policy),
         "authority_info_access":SubRecord({
@@ -515,7 +516,8 @@ zgrab_http_headers = SubRecord({
     "proxy_authenticate":CensysString(),
     "public_key_pins":CensysString(),
     "refresh":CensysString(),
-    "referer":CensysString(), # TODO: Why is this commented out?
+    # Currently misindexed in IPv4 schema
+    #"referer":CensysString(),
     "retry_after":CensysString(),
     "server":CensysString(),
     "set_cookie":CensysString(),
@@ -952,6 +954,12 @@ CTStatus = SubRecord({
     "google_skydiver":CTServerStatus,
     "google_icarus":CTServerStatus,
     "google_daedalus":CTServerStatus,
+
+    "google_argon2017":CTServerStatus,
+    "google_argon2018":CTServerStatus,
+    "google_argon2019":CTServerStatus,
+    "google_argon2020":CTServerStatus,
+    "google_argon2021":CTServerStatus,
 
     "comodo_dodo":CTServerStatus,
     "comodo_mammoth":CTServerStatus,
