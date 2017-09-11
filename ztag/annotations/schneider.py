@@ -141,3 +141,20 @@ class SchneiderMEIGeneric(Annotation):
         if "schneider electric" in vendor.lower():
             meta.global_metadata.manufacturer = Manufacturer.SCHNEIDER
             return meta
+
+
+class SchneiderIndustrialWebControl(Annotation):
+
+    protocol = protocols.HTTP
+    subprotocol = protocols.HTTP.GET
+    port = None
+
+    def process(self, obj, meta):
+        if obj["title"] == "Schneider Electric Telecontrol - Industrial Web Control":
+            meta.global_metadata.manufacturer = Manufacturer.SCHNEIDER
+            meta.global_metadata.product = "Industrial Web Control"
+            meta.global_metadata.device_type = Type.SCADA
+            meta.tags.add("embedded")
+            meta.tags.add("scada")
+            return meta
+

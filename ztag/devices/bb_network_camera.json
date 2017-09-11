@@ -1,0 +1,28 @@
+{
+  "80": {
+    "http": {
+      "get": {
+        "body": "\ufeff\r\n \r\n<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\">\r\n<html lang=\"ja\" oncontextmenu=\"return false\">\r\n<head>\r\n<meta http-equiv=\"pragma\" content=\"no-cache\">\r\n<meta http-equiv=\"cache-control\" content=\"no-cache\">\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n<title>BB-SW172 Network Camera</title>\r\n</head>\r\n<body leftmargin=\"0\" topmargin=\"0\" marginwidth=\"0\" marginheight=\"0\">\r\n<script type=\"text/javascript\">\r\n<!--\r\nlocation.replace(\"./live/index2.html?Language=1\")\r\n//-->\r\n</script>\r\n</body>\r\n</html>\r\n",
+        "headers": {
+          "content_length": "539",
+          "status": "200",
+          "unknown": [
+            {
+              "value": "Thu, 29 Jun 2017 03:35:18 GMT",
+              "key": "date"
+            }
+          ],
+          "server": "ver2.4 rev0",
+          "content_type": "text/html",
+          "accept_ranges": "bytes",
+          "cache_control": "no-cache"
+        },
+        "status_code": 200,
+        "title": "BB-SW172 Network Camera",
+        "status_line": "200 OK",
+        "body_sha256": "iGra6rnvMoKAP3KXlxI4kH5HiIaSX7SlseoVH9ILKVs=",
+        "metadata": {}
+      }
+    }
+  }
+}

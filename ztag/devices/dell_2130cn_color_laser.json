@@ -1,0 +1,20 @@
+{
+  "80": {
+    "http": {
+      "get": {
+        "body": "<html>\r\n<head>\r\n<title>\r\nDell 2130cn Color Laser</title>\r\n</head>\r\n\r\n<frameset rows=\"32,*\" border=0>\r\n<frame src=\"framelogo.htm\" name=\"TopLogo\" frameborder=0 scrolling=no noresize>\r\n<frameset cols=\"220,*\" border=0>\r\n<frame src=\"frameleft.htm\" name=\"TopFrame\" frameborder=0 scrolling=auto>\r\n<frameset rows=\"138,*\" border=0>\r\n<frame src=\"frametop.htm\" name=\"LeftFrame\" frameborder=0 scrolling=no noresize>\r\n<frame src=\"status/status.htm\" name=\"RightFrame\" frameborder=0>\r\n</frameset>\r\n</frameset>\r\n</frameset>\r\n\r\n</html>\u0000",
+        "headers": {
+          "content_length": "519",
+          "connection": "Keep-Alive",
+          "content_type": "text/html",
+          "server": "EWS-NIC5/13.16"
+        },
+        "status_code": 200,
+        "title": "\r\nDell 2130cn Color Laser",
+        "status_line": "200 OK",
+        "body_sha256": "sNN7/enARYMbpFmastRlHoDEy6O1wv88Z9vUQTv3pXE=",
+        "metadata": {}
+      }
+    }
+  }
+}

@@ -8,7 +8,8 @@ class EpsonServer(Annotation):
     port = None
 
     def process(self, obj, meta):
-        server = obj["headers"]["server"]    
-        if "epson_linux" in server.lower():
-            meta.global_metadata.manufacturer = Manufacturer.EPSON 
+        server = obj["headers"]["server"]
+        if "epson_linux" in server.lower() or server == "SEIKO EPSON CORPORATION.":
+            meta.global_metadata.manufacturer = Manufacturer.EPSON
+            meta.tags.add("embedded")
             return meta

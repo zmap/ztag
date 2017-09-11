@@ -1,0 +1,21 @@
+{
+  "80": {
+    "http": {
+      "get": {
+        "body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\n<html>\n<head>\n  <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n  <meta name=\"viewport\" content=\"width=device-width; initial-scale=1.0\">\n\n  <link href=\"/framework/Unified.css\" rel=\"stylesheet\" type=\"text/css\">\n\n  <script type=\"text/javascript\">\n  frameWorkObj = {};\n  frameWorkObj.pkg = \"ews\";\n  </script>\n\n  <script src=\"/framework/Unified.js\" type=\"text/javascript\"></script>\n</head>\n\n<body>\n<!--[if lt IE 8]>\n<iframe id=\"pgm-history-iframe\" src=\"/framework/HistoryFrame.html\" style=\"display: none;\"></iframe>\n<![endif]-->\n\n<iframe src=\"/framework/cookie/client/cookie.html\" style=\"display: none;\"></iframe>\n\n\n<div id=\"pgm-overall-container\">\n  <div id=\"pgm-left-pane-bkground\"></div>\n  <div id=\"pgm-banner\"></div>\n  <div id=\"pgm-search-div\" class=\"gui-hidden\"></div>\n  <div id=\"pgm-top-pane\"></div>\n  <!--div id=\"pgm-title-div\"></div-->\n\n  <div class=\"pgm-container clear-fix\">\n  <div id=\"pgm-left-pane\"></div>\n    <div class=\"outerContentPane\">\n      <div id=\"pgm-title-div\" class=\"gui-hidden\"></div>\n      <div id=\"contentPane\" class=\"contentPane\"></div>\n    </div>\n  </div> <!-- .pgm-container -->\n\n  <div id=\"pgm-footer\"></div>\n  <div id=\"pgm-page-ts-div\"></div>\n</div> <!-- #pgm-overall-container -->\n\n<div id=\"pgm-theatre-staging-div\"></div>\n\n<script type=\"text/javascript\">\n// frame buster\nif(top != self)\n  top.location.replace(self.location.href);\n</script>\n\n<noscript>\n<div id=\"pgm-no-js-text\">\n<p>JavaScript is required to access this website.</p>\n\n<p>Please enable JavaScript or use a browser that supports JavaScript.</p>\n</div>\n</noscript>\n</body>\n</html>\n",
+        "status_code": 200,
+        "status_line": "200 OK",
+        "metadata": {},
+        "body_sha256": "cl7nfkm0rJZK1MZGWwahFetBYE+8TFn4+hnYNRTwBQo=",
+        "headers": {
+          "x_frame_options": "SAMEORIGIN",
+          "last_modified": "Fri, 20 Nov 2015 11:46:43 GMT",
+          "content_language": "en",
+          "content_type": "text/html",
+          "server": "HP HTTP Server; HP HP Officejet Pro 8620 - A7F65A; Serial Number: CN4ALD400H; Built:Fri Nov 20, 2015 11:46:43AM {FDP1CN1547AR}",
+          "cache_control": "max-age=0"
+        }
+      }
+    }
+  }
+}

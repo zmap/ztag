@@ -86,13 +86,13 @@ class AnnotationTesting(object):
                     expected_global_metadata = v.get("global_metadata", {})
                     expected_local_metadata = v.get("local_metadata", {})
                     if set(output.tags) != set(expected_tags):
-                        errors.append("  - %s (%s): %s != %s (expected)" % (k, "tags", str(output.tags), str(expected_tags)))
+                        errors.append("  - %s (%s):\n     %s (received)\n     %s (expected)" % (k, "tags", str(output.tags), str(expected_tags)))
                         tags_match = False
                     if output.local_metadata.to_dict(with_description=False) != expected_local_metadata:
-                        errors.append("  - %s (%s): %s != %s (expected)" % (k, "local metadata", str(output.local_metadata.to_dict()), str(expected_local_metadata)))
+                        errors.append("  - %s (%s):\n     %s (received)\n     %s (expected)" % (k, "local metadata", str(output.local_metadata.to_dict(with_description=False)), str(expected_local_metadata)))
                         local_metadata_match = False
                     if output.global_metadata.to_dict(with_description=False) != expected_global_metadata:
-                        errors.append("  - %s (%s): %s != %s (expected)" % (k, "global metadata", str(output.global_metadata.to_dict()), str(expected_global_metadata)))
+                        errors.append("  - %s (%s):\n     %s (received)\n     %s (expected)" % (k, "global metadata", str(output.global_metadata.to_dict(with_description=False)), str(expected_global_metadata)))
                         global_metadata_match = False
                 if errors:
                     print "{0}: \033[01;31mfail\033[00m".format(annotation.__class__.__name__)

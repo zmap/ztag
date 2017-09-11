@@ -1,0 +1,313 @@
+{
+  "22": {
+    "ssh": {
+      "v2": {
+        "server_host_key": {
+          "fingerprint_sha256": "6f6e52dbfbf8c767766e4fa2177002101ed3d30ea3e5a345e25623e592e95334",
+          "key_algorithm": "ecdsa-sha2-nistp256",
+          "ecdsa_public_key": {
+            "b": "WsY12Ko6k+ez671VdpiGvGUdBrDMU7D2O848PifSYEs=",
+            "curve": "P-256",
+            "gy": "T+NC4v4af5uO5+tKfA+eFivOM1drMV7Oy7ZAaDe/UfU=",
+            "n": "/////wAAAAD//////////7zm+q2nF56E87nKwvxjJVE=",
+            "p": "/////wAAAAEAAAAAAAAAAAAAAAD///////////////8=",
+            "length": 256,
+            "y": "2hgBMOeMRXkU6GH2qLrH9F1r5zDvE+d9fb7G+ctNN3Q=",
+            "x": "XtSwjkbqcjEgSNoKhLKNe7SHZtnmo0+Zwvu+Gt52dbI=",
+            "gx": "axfR8uEsQkf4vOblY6RA8ncDfYEt6zOg9KE5RdiYwpY="
+          }
+        },
+        "support": {
+          "host_key_algorithms": [
+            "ssh-rsa",
+            "ssh-dss",
+            "ecdsa-sha2-nistp256"
+          ],
+          "first_kex_follows": false,
+          "kex_algorithms": [
+            "curve25519-sha256@libssh.org",
+            "ecdh-sha2-nistp256",
+            "ecdh-sha2-nistp384",
+            "ecdh-sha2-nistp521",
+            "diffie-hellman-group-exchange-sha256",
+            "diffie-hellman-group-exchange-sha1",
+            "diffie-hellman-group14-sha1",
+            "diffie-hellman-group1-sha1"
+          ],
+          "server_to_client": {
+            "ciphers": [
+              "aes128-ctr",
+              "aes192-ctr",
+              "aes256-ctr",
+              "arcfour256",
+              "arcfour128",
+              "aes128-gcm@openssh.com",
+              "aes256-gcm@openssh.com",
+              "chacha20-poly1305@openssh.com",
+              "aes128-cbc",
+              "3des-cbc",
+              "blowfish-cbc",
+              "cast128-cbc",
+              "aes192-cbc",
+              "aes256-cbc",
+              "arcfour",
+              "rijndael-cbc@lysator.liu.se"
+            ],
+            "macs": [
+              "hmac-sha1",
+              "hmac-ripemd160",
+              "umac-64@openssh.com"
+            ],
+            "compressions": [
+              "none"
+            ]
+          },
+          "client_to_server": {
+            "ciphers": [
+              "aes128-ctr",
+              "aes192-ctr",
+              "aes256-ctr",
+              "arcfour256",
+              "arcfour128",
+              "aes128-gcm@openssh.com",
+              "aes256-gcm@openssh.com",
+              "chacha20-poly1305@openssh.com",
+              "aes128-cbc",
+              "3des-cbc",
+              "blowfish-cbc",
+              "cast128-cbc",
+              "aes192-cbc",
+              "aes256-cbc",
+              "arcfour",
+              "rijndael-cbc@lysator.liu.se"
+            ],
+            "macs": [
+              "hmac-sha1",
+              "hmac-ripemd160",
+              "umac-64@openssh.com"
+            ],
+            "compressions": [
+              "none"
+            ]
+          }
+        },
+        "selected": {
+          "host_key_algorithm": "ecdsa-sha2-nistp256",
+          "client_to_server": {
+            "mac": "hmac-sha1",
+            "cipher": "aes128-ctr",
+            "compression": "none"
+          },
+          "kex_algorithm": "curve25519-sha256@libssh.org",
+          "server_to_client": {
+            "mac": "hmac-sha1",
+            "cipher": "aes128-ctr",
+            "compression": "none"
+          }
+        },
+        "banner": {
+          "raw": "SSH-2.0-OpenSSH_6.6",
+          "version": "2.0",
+          "software": "OpenSSH_6.6"
+        },
+        "metadata": {}
+      }
+    }
+  },
+  "tags": [
+    "http",
+    "ssh",
+    "https"
+  ],
+  "443": {
+    "https": {
+      "tls": {
+        "server_key_exchange": {
+          "dh_params": {
+            "prime": {
+              "length": 1024,
+              "value": "zQIsEUPNrfVUX+2xKFbfmfqALHC1yKgSw804DTvh46Pk6ctYeH6mgH78yZM6hhyOC6Ic0AmZKZvBU7jzmKfYRr5buWQxzwJjD13yvu/2VYv78Lj3pS7Sb1geRj90PAJBL2VTfxx7inIiHSvpow9QwxMSbNIXqaWC/JHjPiiKl3M="
+            },
+            "generator": {
+              "length": 8,
+              "value": "Ag=="
+            }
+          }
+        },
+        "certificate": {
+          "parsed": {
+            "tbs_noct_fingerprint": "d2977b330a478caf34b979af558ab2ca4588c6f85286394a9b6c6c4762af595a",
+            "subject_dn": "C=US, ST=Texas, L=Round Rock, O=Dell Inc., OU=Remote Access Group, CN=idrac, emailAddress=support@dell.com",
+            "subject": {
+              "province": [
+                "Texas"
+              ],
+              "locality": [
+                "Round Rock"
+              ],
+              "country": [
+                "US"
+              ],
+              "organizational_unit": [
+                "Remote Access Group"
+              ],
+              "common_name": [
+                "idrac"
+              ],
+              "organization": [
+                "Dell Inc."
+              ],
+              "email_address": [
+                "support@dell.com"
+              ]
+            },
+            "signature_algorithm": {
+              "oid": "1.2.840.113549.1.1.11",
+              "name": "SHA256WithRSA"
+            },
+            "redacted": false,
+            "serial_number": "14492452386820719575",
+            "validation_level": "unknown",
+            "issuer_dn": "C=US, ST=Texas, L=Round Rock, O=Dell Inc., OU=Remote Access Group, CN=idrac, emailAddress=support@dell.com",
+            "fingerprint_sha1": "fc42ec27d57db567e9bb7d04f05722382c7cccb9",
+            "version": 3,
+            "fingerprint_sha256": "a240e98f087f379fc780c6ac6e3493f3fc70bb0945d6f5e51527564be0d03509",
+            "validity": {
+              "start": "2015-07-22T00:17:00Z",
+              "length": 315705600,
+              "end": "2025-07-23T00:17:00Z"
+            },
+            "tbs_fingerprint": "66a496778bafa11b4b4c273fe9fc0fb74a49d7440e310e2dc37360003cca726a",
+            "extensions": {
+              "authority_key_id": "a832c327258dd731c6ad8fcd7df466c6c0e945ff",
+              "basic_constraints": {
+                "is_ca": true
+              },
+              "subject_key_id": "a832c327258dd731c6ad8fcd7df466c6c0e945ff"
+            },
+            "fingerprint_md5": "98ed6b68cbee0e854d7c0240e144c78e",
+            "subject_key_info": {
+              "fingerprint_sha256": "9d7cbc347dd21a3a6699f183340e1052d520295fa120bb3708f0730f6ec42a0e",
+              "key_algorithm": {
+                "name": "RSA"
+              },
+              "rsa_public_key": {
+                "length": 2048,
+                "modulus": "sSglA3UBYU82aTTBiB2pLVDg+evPrYF5FQoSrVKanQ/cx9lmvEqO7jULlsXPmftxFluHKH/OjGPQKUzVWrvgiGtfkyH6WMW6LGB/3h5x5LTPRYKZgE4KaeUYlDD36d/aHqHMpUfZo4QeX4wJjogi4P3JPGqm+lpJHPk+ogCxRO8dl942T9VOrDUnJQ4Bww6ie0sbeIyrZjY/RqmBKmKroueEqMaKOm93rs7etQigPa4wm3DDhxlG0zLeG+PceRiyriXkfx4IUQcnxpO743YHRzbXB+0AbifJLcC0YORQEhq+xm54LWDRvRFsKewIV+hXzxfFNaU+yBntD24S8eHWGQ==",
+                "exponent": 65537
+              }
+            },
+            "signature": {
+              "self_signed": true,
+              "valid": true,
+              "value": "H6KyLcglcp/xJwZATGDWDeAAtOP+Ns9HheDwPRPTliG8NjwGj7SXIL6R8d4VKBzyx0mtZov9ux774Ekouw2WtDisB3XKvTrK4dZhP/5iInHe0QWBxPEZdBB2loE3J0wB3gYqcdSfAUY7Ewvd5iqqcDizVeeYN/YE5+2dDLBAyq9jVabwGi095kZjsxzKpabIwQej3AGS+q3pqkk/VB3vmVx71V283FE7g7ze9waEDnA/lAbpRvIuAxgbx7WF8ED5yvLphv3Gc+FM5k1kB9N4+Ceo1qZ2AEtDgdVvGbWo5i9yRcOXQ/dpmR4Yy1oMOH2MuVf+0DqMRzS+78j9bn3Sww==",
+              "signature_algorithm": {
+                "oid": "1.2.840.113549.1.1.11",
+                "name": "SHA256WithRSA"
+              }
+            },
+            "spki_subject_fingerprint": "1de409a8707240bd042520df0a31484b46592be35ac25977b5bb2b0d6f5d9cad",
+            "issuer": {
+              "province": [
+                "Texas"
+              ],
+              "locality": [
+                "Round Rock"
+              ],
+              "country": [
+                "US"
+              ],
+              "organizational_unit": [
+                "Remote Access Group"
+              ],
+              "common_name": [
+                "idrac"
+              ],
+              "organization": [
+                "Dell Inc."
+              ],
+              "email_address": [
+                "support@dell.com"
+              ]
+            }
+          }
+        },
+        "cipher_suite": {
+          "id": "0x009E",
+          "name": "TLS_DHE_RSA_WITH_AES_128_GCM_SHA256"
+        },
+        "version": "TLSv1.2",
+        "ocsp_stapling": false,
+        "signature": {
+          "hash_algorithm": "sha512",
+          "valid": true,
+          "signature_algorithm": "rsa"
+        },
+        "validation": {
+          "browser_trusted": false,
+          "browser_error": "x509: unknown error"
+        },
+        "metadata": {}
+      },
+      "dhe": {
+        "support": true,
+        "dh_params": {
+          "prime": {
+            "length": 1024,
+            "value": "zQIsEUPNrfVUX+2xKFbfmfqALHC1yKgSw804DTvh46Pk6ctYeH6mgH78yZM6hhyOC6Ic0AmZKZvBU7jzmKfYRr5buWQxzwJjD13yvu/2VYv78Lj3pS7Sb1geRj90PAJBL2VTfxx7inIiHSvpow9QwxMSbNIXqaWC/JHjPiiKl3M="
+          },
+          "generator": {
+            "length": 8,
+            "value": "Ag=="
+          }
+        },
+        "metadata": {}
+      },
+      "dhe_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "rsa_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "heartbleed": {
+        "heartbeat_enabled": true,
+        "heartbleed_vulnerable": false,
+        "metadata": {}
+      }
+    }
+  },
+  "80": {
+    "http": {
+      "get": {
+        "body": "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\n<head>\n<meta content=\"text/html; charset=UTF-8\" http-equiv=\"Content-Type\" />\n<meta http-equiv=\"Content-Script-Type\" content=\"text/javascript\" />\n<meta http-equiv=\"Content-Style-Type\" content=\"text/css\" />\n<meta http-equiv=\"Cache-control\" content=\"private\">\n<title></title>\n\n<script src=\"/js/prototype.js\" type=\"text/javascript\"></script>\n<script src=\"/js/Clarity.js\" type=\"text/javascript\"></script>\n<script language=\"javascript\" type=\"text/javascript\">\n \n   \tvar isSCenabled = 0;\n   \tvar isSSOenabled = 0;\n   \tvar isADEnabled = 1;\n\t\n\tfunction getAimIntProp(){\n\t\tvar sessionURI = \"/session?aimGetIntProp=scl_int_enabled,pam_int_ldap_enable_mode\";\n\t\tvar config = new Ajax.Request(sessionURI, { method: 'get', onSuccess: resAimGetIntProp, onFailure: configError});\n\t}\n\tfunction resAimGetIntProp(e)\n\t{\t\n\t\n\t\tif (e.responseText == null || e.responseText.length == 0) return;\n\t\t\ttry {\n\t\t\t\tvar tempObj = e.responseText.evalJSON();\n\t\t\t\tvar _jsonData = tempObj.aimGetIntProp;\n\t\t\t\tisSCenabled = _jsonData['scl_int_enabled'];\n\t\t\t\tisADEnabled = _jsonData['pam_int_ldap_enable_mode'];\n\t\t\t\tgetAimBoolProp();\n\t\t\t}catch(e){\n\t\t\t\t\n\t\t\t}\n\t}\n\tfunction getAimBoolProp(){\n\t\tvar sessionURI = \"/session?aimGetBoolProp=pam_bool_sso_enabled\";\n\t\tvar config = new Ajax.Request(sessionURI, { method: 'get', onSuccess: resAimGetBoolProp, onFailure: configError});\n\t}\n\tfunction resAimGetBoolProp(e)\n\t{\n\t\t\n\t\tif (e.responseText == null || e.responseText.length == 0) return;\n\t\t\ttry {\n\t\tvar tempObj = e.responseText.evalJSON();\n\t\tvar _jsonData = tempObj.aimGetBoolProp;\n\t\tisSSOenabled =  _jsonData['pam_bool_sso_enabled'];\n\t\tredirect();\n\t\t}catch(e){\n\t\t\t\n\t\t\t\t\n\t\t\t}\n\t}\n\t\n\tfunction configError(e)\n\t{\n\t\t//alert(\"error \"+e);\n\t\tredirect();\n\t}\n   \tfunction redirect() \n   \t{\n  \t\tif(isSCenabled > 0) {\n     \t\tif ( window.location.href.search('console') >= 0 )\n        \t\t\ttop.document.location.href = \"/sclogin.html?console\";\n     \t\telse\n        \t\t\ttop.document.location.href = \"/sclogin.html\";\n\t\t\t} else if ((isSSOenabled == \"true\") && (isADEnabled == \"2\")) {\n \t\t\tif ( window.location.href.search('console') >= 0 )\n    \t\t\t\ttop.document.location.href = \"/index.html?console\";\n \t\t\telse\n    \t\t\t\ttop.document.location.href = \"/index.html\";\n\t\t} else {\n\t\t\tif ( window.location.href.search('console') >= 0 )\n\t\t\t\ttop.document.location.href = \"/login.html?console\";\n\t\t\telse\n\t\t\t\ttop.document.location.href = \"/login.html\";\n\t\t}\t\t\t\n   \t}\t\n</script>\n</head>\n<body onload=\"javascript:getAimIntProp();\">\n</body>\n</html>\n",
+        "headers": {
+          "unknown": [
+            {
+              "value": "timeout=60, max=199",
+              "key": "keep_alive"
+            },
+            {
+              "value": "Tue, 05 Sep 2017 19:24:08 GMT",
+              "key": "date"
+            },
+            {
+              "value": "\"3c9-392-54dcc2b7\"",
+              "key": "etag"
+            }
+          ],
+          "connection": "Keep-Alive",
+          "accept_ranges": "bytes",
+          "cache_control": "no-store,no-cache",
+          "content_type": "text/html"
+        },
+        "status_code": 200,
+        "title": "",
+        "status_line": "200 OK",
+        "body_sha256": "e6edqFjGpu3Nr+g3S1jwgdBr0vSDoeJqEcyyeLc3GbU=",
+        "metadata": {}
+      }
+    }
+  }
+}

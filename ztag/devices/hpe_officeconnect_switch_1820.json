@@ -1,0 +1,149 @@
+{
+  "443": {
+    "https": {
+      "tls": {
+        "server_key_exchange": {
+          "dh_params": {
+            "prime": {
+              "length": 1024,
+              "value": "sqIy+/USEtR5Bp0G6AFWnhXDyVrivPZETvmuBRRJMI2SbIhIvxytqblN1fYYt+rhLlFmNmL9va24hPPtarqPgCYLVgrHNsIh8ibJbofjurYSIO6w+a9egTEI7P9B8D2RoJMR5mxwd575IbDuQDHXq1IJMwoCoqvG1BvpPGfZHnM="
+            },
+            "generator": {
+              "length": 8,
+              "value": "BQ=="
+            }
+          }
+        },
+        "certificate": {
+          "parsed": {
+            "tbs_noct_fingerprint": "1d254aa4c5de45af539bb7e8aab298a7a26c727e43cf6ec5ec38843ad5e7c4ae",
+            "subject_dn": "CN=128.255.255.134",
+            "subject": {
+              "common_name": [
+                "128.255.255.134"
+              ]
+            },
+            "signature_algorithm": {
+              "oid": "1.2.840.113549.1.1.5",
+              "name": "SHA1WithRSA"
+            },
+            "redacted": false,
+            "serial_number": "17726148535679064596",
+            "validation_level": "unknown",
+            "issuer_dn": "CN=self-signed",
+            "fingerprint_sha1": "f933fd320e21d35b362c2f44666b935733250a69",
+            "version": 3,
+            "fingerprint_sha256": "b5573b83b1a20ca17e24c685f8fe14e27ef70637168012c32b05fb3971818fb9",
+            "names": [
+              "128.255.255.134"
+            ],
+            "tbs_fingerprint": "d20a234dd0ca66c712b8a4814ec181459df4844c2cc90e1d45cadde0d21f9756",
+            "validity": {
+              "start": "2017-08-04T11:01:53Z",
+              "length": 31536000,
+              "end": "2018-08-04T11:01:53Z"
+            },
+            "extensions": {},
+            "fingerprint_md5": "de60f373f34a069223b64bc086723262",
+            "subject_key_info": {
+              "fingerprint_sha256": "4c2431062b6561061d54aea61b48fd79f123b63f101e560ecf6f34c0551c14b5",
+              "key_algorithm": {
+                "name": "RSA"
+              },
+              "rsa_public_key": {
+                "length": 2048,
+                "modulus": "qEHUfNABllICgtOfHZqapBlpadVeIId0KevDsKzeJFX8UmMJgeOLP9lE6dUpUIaXpW7EUbwaJEl4HhaTL5V3C4hX+KwwwZUDlaPaBCH5ghDP5WDSYx3XOICGmO+KSvofGNSrk3hgCkw7OZE7XnM/yhKUEJAFFk1E0YSTV4qKxB5hsx0QMXBapj8O/LAfASrplmkImFbZeKYhtgcsVxAfmPGZEZ0FhIOFbSHcwcZbpTCFs1FSwKaZqRHm/EaOJDE8/4ImpxPtxvJAIEywVG+wluS8TTCwRSzzmBfLwEMhL0dfvc947ZCjbYmbSuUl53Oknt3tXCh33JHOVM5SKDxyrw==",
+                "exponent": 65537
+              }
+            },
+            "signature": {
+              "self_signed": false,
+              "valid": false,
+              "value": "PDl7jM9CptbO/Fc/Fabig4JmJO/QrjpsKf5TpBP4NBdjdvmPV1MGjo0E1CnCNBWg1E3unl2zcYcHW1ftt1zhixfCFE1BdylJKaAm/ARZittiw1AGXaRpipfBMFsqYfhg7SNMMj/APufJ2Jsnhykt7BsZRBS0Y9Uxi0QYuCBzbC4bWAirlAnkLJ4f2jmczuaopWKVE9kRQ4nwSk4cQyCIBBA2vwMIfXAddJHI/5Ces+nTbiPdUp3yewWTofKAP7PXjzjKw1r6rbpCLYPxx1n+hIs+laZ3fjJwKgROXjRIuVvfLoBJjWOEwKU8wkSN22YCuuHUf2CeTA5DT31lkRsYIw==",
+              "signature_algorithm": {
+                "oid": "1.2.840.113549.1.1.5",
+                "name": "SHA1WithRSA"
+              }
+            },
+            "spki_subject_fingerprint": "0d47ac16a1b0a99227f2bd6038b85538cb799303818f56d642c37dbf635455df",
+            "issuer": {
+              "common_name": [
+                "self-signed"
+              ]
+            }
+          }
+        },
+        "cipher_suite": {
+          "id": "0x0039",
+          "name": "TLS_DHE_RSA_WITH_AES_256_CBC_SHA"
+        },
+        "version": "TLSv1.0",
+        "ocsp_stapling": false,
+        "signature": {
+          "valid": true
+        },
+        "validation": {
+          "browser_trusted": false,
+          "browser_error": "x509: certificate signed by unknown authority"
+        },
+        "metadata": {}
+      },
+      "dhe": {
+        "support": true,
+        "dh_params": {
+          "prime": {
+            "length": 1024,
+            "value": "sqIy+/USEtR5Bp0G6AFWnhXDyVrivPZETvmuBRRJMI2SbIhIvxytqblN1fYYt+rhLlFmNmL9va24hPPtarqPgCYLVgrHNsIh8ibJbofjurYSIO6w+a9egTEI7P9B8D2RoJMR5mxwd575IbDuQDHXq1IJMwoCoqvG1BvpPGfZHnM="
+          },
+          "generator": {
+            "length": 8,
+            "value": "BQ=="
+          }
+        },
+        "metadata": {}
+      },
+      "dhe_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "rsa_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "heartbleed": {
+        "heartbeat_enabled": false,
+        "heartbleed_vulnerable": false,
+        "metadata": {}
+      }
+    }
+  },
+  "80": {
+    "http": {
+      "get": {
+        "body": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\" \"http://www.w3.org/TR/html4/loose.dtd\">\n<!-- Copyright &copy; 2010-2016 Hewlett Packard Enterprise Development LP. -->\n<html>\r\n\n<head>\n<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\">\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n<meta http-equiv=\"Pragma\" content=\"no-cache\">\n<title>HPE OfficeConnect Switch 1820 48G J9981A</title>\n<link rel=\"shortcut icon\" href=\"/htdocs/login/favicon.ico?\">\n<link type=\"text/css\" media=\"screen\" rel=\"stylesheet\" href=\"/htdocs/static/bt1498683673/css/jquery-ui-1.8.16.custom.css\">\n<link type=\"text/css\" media=\"screen\" rel=\"stylesheet\" href=\"/htdocs/login/login.css\">\n<base target=\"_top\">\n</head>\r\n\n\n<body>\n\n<!-- Preload necessary Javascript files before page to prevent display artifacts -->\n<script type=\"text/javascript\" src=\"/htdocs/static/bt1498683673/js/ba-debug.js\"></script>\n<script type=\"text/javascript\" src=\"/htdocs/static/bt1498683673/jquery/jquery_1_7_1/jquery-1.7.1.min.js\"></script>\n<script type=\"text/javascript\" src=\"/htdocs/static/bt1498683673/jquery/jquery_ui_1_8_16/jquery-ui-1.8.16.custom.min.js\"></script>\n<script type=\"text/javascript\" src=\"/htdocs/static/bt1498683673/jquery/plugins/jquery-plugins-combo.js\"></script>\n\n<div id=\"login_header\" >\n  <table>\n    <tbody>\n\n      <tr>\n        <td id=\"login_logo\">\n          <a href=\"http://www.hpe.com/\" target=\"_blank\">\n            <img alt=\"Hewlet Packard Development Company, L.P.\" src=\"/htdocs/login/login_logo.png\" border=\"0\" height=\"75px\">\n          </a>\n        </td>\n        <td id=\"login_header_device\" width=\"100%\">UIowa PMBA CR HP 1820&nbsp;\n        </td>\n      </tr>\n\n    </tbody>\n  </table>\n</div>\n\n<div id=\"login_container\" >\n  <div id=\"login_form_container\" class=\"ui-widget-content\">\n      <table id=\"login_credentials\" align=\"center\">\n        <tbody>\n\n          <tr>\n          <td id=\"login_device\">\n             <table align=\"center\">\n             <tbody>\n               <tr> <td>HPE OfficeConnect Switch</td> </tr>\n               <tr> <td>1820 48G</td> </tr>\n               <tr> <td>J9981A</td> </tr>\n             </tbody>\n             </table>\n          </td>\n          </tr> \n          <tr>\n            <td align=\"left\" class=\"td_with_border\">\n              <label for=\"username\" style=\"margin-left:20px; font-size: 0.8em; font-weight:normal; color:#bbbbbb;\">Username</label><br/>\n              <input class=\"ui-widget input_without_border\" type=\"text\" name=\"username\" size=\"18\" maxlength=\"64\" value=\"\" tabindex=\"1\">\n            </td>\n          </tr>\n          <tr>\n            <td align=\"left\" class=\"td_with_border\">\n              <label for=\"password\" style=\"margin-left:20px; font-size: 0.8em; font-weight:normal; color:#bbbbbb;\">Password</label><br/>\n              <input class=\"ui-widget input_without_border\" type=\"password\" name=\"password\" size=\"18\" maxlength=\"64\" value=\"\" tabindex=\"2\">\n            </td>\n          </tr>\n          <tr>\n            <td align=\"center\">\n              <button id=\"login_button\">Log In</button>\n            </td>\n          </tr>\n\n          <tr>\n           <td style=\"text-align:center;margin-top:20px;\">\n            <a style=\"background-color: white;\" href=\"http://www.hpe.com/networking/support\" target=\"_blank\">Support</a>\n           </td>\n          </tr>\n\n        </tbody>\n      </table>\n\n  </div>\n\n  <div id=\"login_copyright\">\n    <p>\n      Copyright &copy; 2010-2016 Hewlett Packard Enterprise Development LP.    </p>\n  </div>\n\n</div>\n\n<script type=\"text/javascript\">\n\n  if (window.self != window.top) {\n    window.top.location.replace(window.location.href);\n  }\n\n  var idleTimer = new $.timer(loginTimedOut, 60000, false);\n\n  function showPopup(title, contents, okClickedFunc) {\n    var dialogHtml = '<div id=\"dialog\" title=\"' + title + '\">' +\n                     '<table width=\"100%\" height=\"100%\" valign=\"center\"><tr>' +\n                     '<td id=\"dialogContents\" align=\"left\">' + contents + '</td>' +\n                     '</tr></table>' +\n                     '</div>';\n\n    var $dialog = $(dialogHtml).appendTo('body');\n\n    idleTimer.stop();\n\n    function defaultDismissFunc() {\n      // this will refer to dialog element, cleanup DOM with remove()\n      $(this).remove();\n      idleTimer.reset();\n    }\n\n    var doneFunc = defaultDismissFunc;\n\n    if ( okClickedFunc !== undefined ) {\n      doneFunc = okClickedFunc;\n    }\n\n    $dialog.dialog({\n      draggable: false,\n      close: doneFunc,\n      buttons: {\n        \"OK\": doneFunc\n      },\n      modal: true,\n      resizable: false,\n      minWidth: 450\n    });\n  }\n\n  function dialogReloadPage() {\n    // Cleanup DOM of popup and reload at hostname root\n    $(this).remove();\n    //window.location.reload(true);\n    //window.open(window.location.hostname, '_self');\n    window.location.href = \"/\";\n  }\n\n  /**\n   * Event handler called in case of an error performing a jQuery Ajax method.\n   *\n   * @param event {Object} jQuery event object\n   * @param jqXHR {Map} jQuery XmlHttpRequest status object that holds various information\n   * about the XmlHttpRequest (Ajax request)\n   * @param settings {Map} Map of settings used to create ajax call.\n   * @param thrownError {Object} Error exception object with detailed information about\n   * what caused the error\n   */\n  function loginFailed(event, jqXHR, settings, thrownError) {\n    var message = \"Ajax request of \\\"\" + settings.url + \"\\\" failed.\"\n    debug.info(message, thrownError, jqXHR);\n\n    // Any failure is a login failure.  The returned JSON will contain the error\n    // text.\n    eval(\"var response = \" + jqXHR.responseText);\n    showPopup(\"Log In Failed\", response.error);\n  };\n\n  function loginClick() {\n    idleTimer.stop();\n\n    var usernameVal = $('input[name$=\"username\"]').val();\n    var passwordVal = $('input[name$=\"password\"]').val();\n\n    var credentials = {\n      username: usernameVal,\n      password: passwordVal\n    };\n\n    $.post(\"/htdocs/login/login.lua\", credentials, loginResult, 'json');\n  }\n\n  function loginResult(result) {\n    // If we got here then we were successfully logged in and the session\n    // cookie was established\n    window.open(result.redirect, '_self');\n  }\n\n  function loginTimedOut() {\n    idleTimer.stop();\n    showPopup(\"Inactivity Time Out\", \"The log in page has been inactive for too long.  Click OK to log in again.\", dialogReloadPage);\n  }\n\n\n  $(document).ready( function() {\n    // Register global ajax error handler\n    $(document).ajaxError(loginFailed);\n\n    var $loginButton = $('#login_button');\n    $loginButton.button();\n    $loginButton.click(loginClick);\n\n    function keyUp(event) {\n      idleTimer.reset();\n      if(event.keyCode == 13){\n        $loginButton.click();\n      }\n    }\n\n    $(\"td > input\").focus(function(e){\n      $(this).parent().addClass('td_with_highlight_border');\n    }).blur(function(e){\n      $(this).parent().removeClass('td_with_highlight_border');\n    });\n\n    $('input[name$=\"username\"]').keyup(keyUp).focus();\n    $('input[name$=\"password\"]').keyup(keyUp);\n\n\n    // If we still have a session cookie then we were timed-out.\n    var sid = $.cookie(\"SID\");\n\n    if ( (sid !== null) && (sid !== \"\") ) {\n      $.cookie(\"SID\", \"\", { path: '/'} );\n      showPopup(\"Automatic Inactivity Log Out\", \"You have been automatically logged-out because of inactivity.  Click OK to log in again.\", dialogReloadPage);\n    } else {\n      idleTimer.play();\n    }\n\n  });\n\n</script>\n\n\n</body>\n</html>\n\n",
+        "headers": {
+          "unknown": [
+            {
+              "value": "Wed, 06 Sep 2017 03:26:23 GMT",
+              "key": "date"
+            }
+          ],
+          "expires": "Wed, 06 Sep 2017 03:26:23 GMT",
+          "server": "lighttpd",
+          "last_modified": "Wed, 06 Sep 2017 03:26:23 GMT",
+          "content_type": "text/html",
+          "x_frame_options": "SAMEORIGIN",
+          "cache_control": "no-cache"
+        },
+        "status_code": 200,
+        "title": "HPE OfficeConnect Switch 1820 48G J9981A",
+        "status_line": "200 OK",
+        "body_sha256": "EWRC1xChYpvaSxnZgwb+V1XWNiDmx3oT1YCTuGWn4sc=",
+        "metadata": {
+          "product": "lighttpd",
+          "description": "lighttpd"
+        }
+      }
+    }
+  }
+}

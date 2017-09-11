@@ -1,0 +1,21 @@
+{
+  "80": {
+    "http": {
+      "get": {
+        "body": "\n\n<!DOCTYPE html\nPUBLIC \"-//W3C//DTD XHTML 1.0 Frameset//EN\"\n\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd\">\n\n\n<html>\n<head>\n\n\n<title> hp LaserJet 1320 series /\n141.212.25.193 </title>\n\n\n\n\n<script language=\"JavaScript1.1\">\n<!-- Begin Hiding\n netscapeVersion = navigator.appVersion.substring(0,4);\n ieVersion = navigator.appVersion.substring(17,25);\n var ieVSupported = \"MSIE 5.0\";\n var netscapeVSupported = \"4.75\";\n\n if(navigator.appVersion.indexOf(\"Win3.\") != -1 ) {\n   document.writeln(\"This application cannot run on Windows 3.1.  Please upgrade to Windows NT 4.0, Windows 95 or Windows 98.\");\n }\n else if( (navigator.appName == \"Netscape\") && (netscapeVSupported > netscapeVersion) ) {\n    document.writeln(\"This version of Netscape cannot load the application. Please upgrade your Netscape to version 4.75 or later\");\n        if(navigator.appVersion.indexOf(\"Macintosh\") != -1 )  {\n                document.writeln(\" running on MacOS 7.6.1 or higher.\");\n                document.close();\n        }\n        else if( navigator.appVersion.indexOf(\"WinNT\") != -1 ) //its an NT OS\n                document.writeln(\" running on Windows NT 4.0 or higher.\");\n    else\n                document.writeln(\".\");\n\n }\n else {\n\n   if(navigator.appName == \"Microsoft Internet Explorer\") {\n     document.writeln('<frameset rows = 57,54,*  border=0 frameborder=\"0\" framespacing=\"0\">');\n   }\n   else {  /* force a reload of frames for Netscape since problems with javascript */\n     document.writeln('<frameset rows = 57,54,* border=0 frameborder=\"0\" framespacing=\"0\" onResize=window.location.reload(1)>');\n   }\n\ndocument.writeln('<frame src=/hp/device/banner.html name=Banner noresize=\"noresize\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\">');\ndocument.writeln('<frame src=/hp/device/informationTab.html name=Tabs noresize=\"noresize\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\">');\ndocument.writeln('<frame src=/hp/device/content.html border=\"0\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"auto\">');\n\n\n document.writeln(\"</frameset>\");\n}\n // end hiding -->\n</script>\n\n\n\n\n<noframes>\nThis Browser is not fully supported. The window contains three frames which can be accessed separately.\n<br>At the top is the <a href=\"/hp/device/banner.html\" >  Banner Frame </a>\n<br> In the Middle is the <a href=\"/hp/device/informationTab.html\"> Tabs Frame </a>\n<br> At the bottom  is <a href=\"/hp/device/content.html\" > Menu and Content Frames </a> <br>\n</noframes>\n\n\n\n\n\n<noscript>\n<body bgcolor=\"#f4f4f4\">\n<b><font face=\"Arial,Helvetica\"  size=\"5\"> Browser Cannot Load Application </font></b>\n<p>\n<font face=\"Arial, Helvetica\" size=\"2\">\nThis browser cannot load the application. Please upgrade the browser version or make sure that Javascript is enabled.\n</font>\n</body>\n</noscript>\n\n\n\n</head>\n\n\n<body>\n</body>\n</html>\n",
+        "status_code": 200,
+        "title": " hp LaserJet 1320 series /\n141.212.25.193 ",
+        "status_line": "200 OK",
+        "metadata": {},
+        "body_sha256": "N3AaDBZ7XjTcqeeE8V3PnWeYpN8SPpsytkISbIEEILM=",
+        "headers": {
+          "content_type": "text/html",
+          "server": "Virata-EmWeb/R6_0_1",
+          "pragma": "no-cache",
+          "expires": "Thu, 01 Jan 1970 00:00:00 GMT",
+          "cache_control": "no-cache"
+        }
+      }
+    }
+  }
+}

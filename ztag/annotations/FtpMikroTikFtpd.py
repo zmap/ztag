@@ -1,11 +1,9 @@
-import re
-from ztag.annotation import Annotation
-from ztag.annotation import OperatingSystem
-from ztag import protocols
-import ztag.test
+from ztag.annotation import *
 
+import re
 
 class FtpMikroTikFtpd(Annotation):
+
     protocol = protocols.FTP
     subprotocol = protocols.FTP.BANNER
     port = None
@@ -15,21 +13,27 @@ class FtpMikroTikFtpd(Annotation):
 
     tests = {
         "FtpMikroTikFtpd_1": {
-            "local_metadata": {
-                "product": "MikroTik",
-                "version": "2.9.27"
-            }
+            "global_metadata": {
+                "os":OperatingSystem.MIKROTIK_ROUTER_OS,
+                "os_version": "2.9.27",
+                "device_type":Type.NETWORK,
+                "manufacturer":Manufacturer.MIKROTIK,
+            },
+            "tags":["embedded",],
+
         }
     }
 
     def process(self, obj, meta):
         banner = obj["banner"]
-
         if self.impl_re.search(banner):
-            meta.local_metadata.product = "MikroTik"
+            meta.global_metadata.os = OperatingSystem.MIKROTIK_ROUTER_OS
+            meta.global_metadata.manufacturer = Manufacturer.MIKROTIK
+            meta.global_metadata.device_type = Type.NETWORK
+            meta.tags.add("embedded")
 
             version = self.version_re.search(banner).group(1)
-            meta.local_metadata.version = version
+            meta.global_metadata.os_version = version
 
             return meta
 

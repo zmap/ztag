@@ -1,0 +1,114 @@
+{
+  "443": {
+    "https": {
+      "tls": {
+        "certificate": {
+          "parsed": {
+            "fingerprint_sha1": "c3d4f9172f9b759360cd8962e87dd906114cba52",
+            "tbs_noct_fingerprint": "e1552b172a3a5a74dc3f0243d8ea26ef46e5b8e538bbcac941dde554b7f4f503",
+            "subject_dn": "CN=Netgear VPN Firewall , OU=Netgear Prosafe, O=Netgear Inc., C=US",
+            "issuer": {
+              "common_name": [
+                "Netgear VPN Firewall "
+              ],
+              "country": [
+                "US"
+              ],
+              "organizational_unit": [
+                "Netgear Prosafe"
+              ],
+              "organization": [
+                "Netgear Inc."
+              ]
+            },
+            "tbs_fingerprint": "4515efa5a045c2a10b26dde5a1b297031a9ab51e66b895d6adec9038ea46481e",
+            "redacted": false,
+            "validation_level": "unknown",
+            "issuer_dn": "CN=Netgear VPN Firewall , OU=Netgear Prosafe, O=Netgear Inc., C=US",
+            "fingerprint_sha256": "2e1074ce6dffbdaeb9823680c06cfbce951d0243d30e9d724b18a110ad62128a",
+            "version": 3,
+            "extensions": {},
+            "validity": {
+              "start": "2013-01-30T12:00:02Z",
+              "length": 315360000,
+              "end": "2023-01-28T12:00:02Z"
+            },
+            "signature_algorithm": {
+              "oid": "1.2.840.113549.1.1.5",
+              "name": "SHA1WithRSA"
+            },
+            "serial_number": "151930774",
+            "fingerprint_md5": "7dbe40ff9208463628eb030baaffbe66",
+            "subject_key_info": {
+              "fingerprint_sha256": "3316be0b163422639a492c185ba2353316bdc2b2dde6220c733368467810bf74",
+              "key_algorithm": {
+                "name": "RSA"
+              },
+              "rsa_public_key": {
+                "length": 1024,
+                "modulus": "qORNExvFbYqz7sgPTXRULy5DN3I0vz8vbfmSpQ12VM9RTwFNypo0BoQpKpmwG0G+hUgzD/8mxL2lPLFiqQlycVCofecYTNDnYx6VQLR4NpCG5m20ah5l+wHxp7NDTpbGwlk3QPz9yDUALfnZ/UCFmvDZpX+54uwoPHRQSItUK6s=",
+                "exponent": 65537
+              }
+            },
+            "signature": {
+              "self_signed": true,
+              "valid": false,
+              "value": "UsLsnrgpPHFDOvWVfQ+wMiZCVSMJHuVDEhipUK9CQHVseTs+c+dUGWjWLjnXoj3LEDbomstzsOvAX45UMuYjdYraTBJtznwV2nfJMOLmVnazrIFKySiveLkDQefx9CnX6OgxEw6nKnJe7D0IjrgM5zADOIr2rYRtoIZySx3RwMM=",
+              "signature_algorithm": {
+                "oid": "1.2.840.113549.1.1.5",
+                "name": "SHA1WithRSA"
+              }
+            },
+            "spki_subject_fingerprint": "bb3a1990ce9eab3250fa430240d2d157e8962a36809fcde859c4be935b8e195c",
+            "subject": {
+              "common_name": [
+                "Netgear VPN Firewall "
+              ],
+              "country": [
+                "US"
+              ],
+              "organizational_unit": [
+                "Netgear Prosafe"
+              ],
+              "organization": [
+                "Netgear Inc."
+              ]
+            }
+          }
+        },
+        "cipher_suite": {
+          "id": "0x002F",
+          "name": "TLS_RSA_WITH_AES_128_CBC_SHA"
+        },
+        "version": "TLSv1.0",
+        "ocsp_stapling": false,
+        "validation": {
+          "browser_trusted": false,
+          "browser_error": "x509: unknown error"
+        },
+        "metadata": {}
+      },
+      "dhe_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "dhe": {
+        "support": false,
+        "metadata": {}
+      },
+      "ssl_3": {
+        "support": true,
+        "metadata": {}
+      },
+      "heartbleed": {
+        "heartbeat_enabled": false,
+        "heartbleed_vulnerable": false,
+        "metadata": {}
+      },
+      "rsa_export": {
+        "support": false,
+        "metadata": {}
+      }
+    }
+  }
+}

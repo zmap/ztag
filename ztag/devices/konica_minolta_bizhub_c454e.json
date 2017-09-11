@@ -1,0 +1,178 @@
+{
+  "443": {
+    "https": {
+      "tls": {
+        "server_key_exchange": {
+          "dh_params": {
+            "prime": {
+              "length": 1024,
+              "value": "sQuPlqCA4B3ekt5erl1U7FLJn7z7BqPGmmqdylLSO2Fgc+KGdaI9GJg47x4u5lLAE+y0rqkGESMkl1w81JuDv6zL3X2QxL1wmEiOnCGac3JO/9b65WRHOPqjGk/1W8zAoVGvXw3ItL1FvzffNlwaZeaM/adtTacI3x+yvC5KQ3E="
+            },
+            "generator": {
+              "length": 1024,
+              "value": "pNHL1cP9NBJnZaRC77mZBfgQTdJYrFB/1kBs/xQmbTEmb+oeXEFWS3d+aQ9VBPITFgIXtLAbiGpekVR/nidJ9Nf719O5qS7hkJ0NImP4CnamokwIegkfUx2/CgFptqKK1mKk0Y5zr6Mtd51ZGNCLyIWPTc75fCokhV5u6yKzsuU="
+            }
+          }
+        },
+        "certificate": {
+          "parsed": {
+            "tbs_noct_fingerprint": "6603784743be3f4a9731765e5891f1c69c9c98e168841b024d874214acb60acb",
+            "subject_dn": "C=, ST=, L=, O=KONICA MINOLTA, OU=00206B8326F1, OU=KONICA MINOLTA bizhub C454e, CN=KM8326F1, emailAddress=",
+            "subject": {
+              "province": [
+                ""
+              ],
+              "locality": [
+                ""
+              ],
+              "country": [
+                ""
+              ],
+              "organizational_unit": [
+                "00206B8326F1",
+                "KONICA MINOLTA bizhub C454e"
+              ],
+              "common_name": [
+                "KM8326F1"
+              ],
+              "organization": [
+                "KONICA MINOLTA"
+              ],
+              "email_address": [
+                ""
+              ]
+            },
+            "signature_algorithm": {
+              "oid": "1.2.840.113549.1.1.4",
+              "name": "MD5WithRSA"
+            },
+            "redacted": false,
+            "serial_number": "1386877737",
+            "validation_level": "unknown",
+            "issuer_dn": "C=, ST=, L=, O=KONICA MINOLTA, OU=00206B8326F1, OU=KONICA MINOLTA bizhub C454e, CN=KM8326F1, emailAddress=",
+            "fingerprint_sha1": "cd1026a2877a222d240419b7cef6cb20867f844e",
+            "version": 3,
+            "fingerprint_sha256": "88783f9fe711f6db4ffe081f76265f535d0630ba7eec3dc3027a03fac79655ae",
+            "validity": {
+              "start": "2013-12-12T19:48:57Z",
+              "length": 157680000,
+              "end": "2018-12-11T19:48:57Z"
+            },
+            "tbs_fingerprint": "82f3109485121580cb15b9c1a90fa88960584eecb2d27aed96927fd1f71d3598",
+            "extensions": {},
+            "fingerprint_md5": "a149c77227799f00c4a9e89a333ab0b0",
+            "subject_key_info": {
+              "fingerprint_sha256": "17ebd00986dc2dbdb598797d412753d2920b01e36def50be0a7b865140fd2d82",
+              "key_algorithm": {
+                "name": "RSA"
+              },
+              "rsa_public_key": {
+                "length": 1024,
+                "modulus": "wWp0LkeqemSuNuumbPsuNivUy/tzad69e9A4L+h1bJMuAfLFmwA/FwNmJU93pegaftPYtf66BAeDqO5mTj9xPQuFmeSvJnThUNweF/8fZ5wE6EQ9+QaBgBhNwgJ7l1oQKR0Ks6yBRfm+o5N+WMb/9HtQfmUuR1hQgsZIOTeZCtU=",
+                "exponent": 65537
+              }
+            },
+            "signature": {
+              "self_signed": true,
+              "valid": false,
+              "value": "r2hYr91m/okLAWMavN+lgmT3eYcPDkTr+82sOT32RLaY7q2SCdpE/Xy3xBeNSKDYBt5GVA0mta15lveekuCUrMsabQ8OQD7zHPdetJjTIqBwfeD8GGx1qQx6rR0fthOjhur4Md1hJlbAbU0z9ivUtScemdd8AyyWBRJHdq8dal8=",
+              "signature_algorithm": {
+                "oid": "1.2.840.113549.1.1.4",
+                "name": "MD5WithRSA"
+              }
+            },
+            "spki_subject_fingerprint": "3c0e4e717795a69d80386537ddab012aaa04a2c0e09530d1055b76620c3c002f",
+            "issuer": {
+              "province": [
+                ""
+              ],
+              "locality": [
+                ""
+              ],
+              "country": [
+                ""
+              ],
+              "organizational_unit": [
+                "00206B8326F1",
+                "KONICA MINOLTA bizhub C454e"
+              ],
+              "common_name": [
+                "KM8326F1"
+              ],
+              "organization": [
+                "KONICA MINOLTA"
+              ],
+              "email_address": [
+                ""
+              ]
+            }
+          }
+        },
+        "cipher_suite": {
+          "id": "0x0039",
+          "name": "TLS_DHE_RSA_WITH_AES_256_CBC_SHA"
+        },
+        "version": "TLSv1.2",
+        "ocsp_stapling": false,
+        "signature": {
+          "hash_algorithm": "sha1",
+          "valid": true,
+          "signature_algorithm": "rsa"
+        },
+        "validation": {
+          "browser_trusted": false,
+          "browser_error": "x509: unknown error"
+        },
+        "metadata": {}
+      },
+      "dhe_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "dhe": {
+        "support": true,
+        "dh_params": {
+          "prime": {
+            "length": 1024,
+            "value": "sQuPlqCA4B3ekt5erl1U7FLJn7z7BqPGmmqdylLSO2Fgc+KGdaI9GJg47x4u5lLAE+y0rqkGESMkl1w81JuDv6zL3X2QxL1wmEiOnCGac3JO/9b65WRHOPqjGk/1W8zAoVGvXw3ItL1FvzffNlwaZeaM/adtTacI3x+yvC5KQ3E="
+          },
+          "generator": {
+            "length": 1024,
+            "value": "pNHL1cP9NBJnZaRC77mZBfgQTdJYrFB/1kBs/xQmbTEmb+oeXEFWS3d+aQ9VBPITFgIXtLAbiGpekVR/nidJ9Nf719O5qS7hkJ0NImP4CnamokwIegkfUx2/CgFptqKK1mKk0Y5zr6Mtd51ZGNCLyIWPTc75fCokhV5u6yKzsuU="
+          }
+        },
+        "metadata": {}
+      },
+      "ssl_3": {
+        "support": true,
+        "metadata": {}
+      },
+      "heartbleed": {
+        "heartbeat_enabled": false,
+        "heartbleed_vulnerable": false,
+        "metadata": {}
+      },
+      "rsa_export": {
+        "support": false,
+        "metadata": {}
+      }
+    }
+  },
+  "80": {
+    "http": {
+      "get": {
+        "body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\">\r\n<HTML lang=\"en\">\r\n<HEAD>\r\n<TITLE></TITLE>\r\n<meta http-equiv=\"Expires\" content=\"0\">\r\n<meta http-equiv=\"Pragma\" content=\"no-cache\">\r\n<meta http-equiv=\"Content-Type\" content=\"text/html;charset=UTF-8\">\r\n<meta content=\"text/javascript\" http-equiv=\"Content-Script-Type\">\r\n<noscript>\r\n<meta http-equiv=\"refresh\" content=\"0; URL=/wcd/js_error.xml\">\r\n</noscript>\r\n</HEAD>\r\n<BODY BGCOLOR=\"#ffffff\" LINK=\"#000000\" ALINK=\"#ff0000\" VLINK=\"#000000\" onload=\"location.replace('/wcd/index.html');\" >\r\n</BODY>\r\n</HTML>\r\n",
+        "headers": {
+          "content_length": "563",
+          "expires": "Thu, 01 Jan 1970 00:00:00 GMT",
+          "content_type": "text/html"
+        },
+        "status_code": 200,
+        "title": "",
+        "status_line": "200 OK",
+        "body_sha256": "dX/jo2tBKRwpE9ue3A+xPNY0899nApB+4YeJug5cY00=",
+        "metadata": {}
+      }
+    }
+  }
+}

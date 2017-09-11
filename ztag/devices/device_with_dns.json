@@ -1,32 +1,32 @@
 {
     "53": {
         "dns": {
-            "open_resolver": {
-                "support": true, 
-                "metadata": {}, 
-                "iterative_resolver": false, 
+            "lookup": {
+                "support": true,
+                "metadata": {},
+                "iterative_resolver": false,
                 "answers": [
                     "192.42.93.30"
-                ], 
+                ],
                 "recursive_resolver": true
             }
         }
-    }, 
+    },
     "7547": {
         "cwmp": {
             "get": {
-                "body": "<html>\n<head>\n<title>Object Not Found</title></head><body>\n<h1>Object Not Found</h1>The requested URL '/' was not found on the RomPager server.<p>Return to <A HREF=\"\">last page</A><p>\n</body></html>", 
+                "body": "<html>\n<head>\n<title>Object Not Found</title></head><body>\n<h1>Object Not Found</h1>The requested URL '/' was not found on the RomPager server.<p>Return to <A HREF=\"\">last page</A><p>\n</body></html>",
                 "headers": {
                     "unknown": [
                         {
                             "key": "ext"
                         }
-                    ], 
-                    "content_type": "text/html", 
+                    ],
+                    "content_type": "text/html",
                     "server": "RomPager/4.07 UPnP/1.0"
-                }, 
-                "metadata": {}, 
-                "status_line": "HTTP/1.1 404 Not Found", 
+                },
+                "metadata": {},
+                "status_line": "HTTP/1.1 404 Not Found",
                 "status_code": 404
             }
         }
