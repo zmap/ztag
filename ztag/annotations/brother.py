@@ -28,8 +28,12 @@ class BrotherPrinter(Annotation):
 
     def process(self, obj, meta):
         title = obj["title"].strip()
-        if "canon http server" in title:
-            meta.global_metadata.manufacturer = Manufacturer.Brother
+        if title.startswith("Brother "):
+            meta.global_metadata.manufacturer = Manufacturer.BROTHER
             meta.global_metadata.device_type = Type.PRINTER
+            product = title.split(" ", 1)[1]
+            product = product.replace("series", "")
+            product = product.strip()
+            meta.global_metadata.product = product
             meta.tags.add("embedded")
             return meta
