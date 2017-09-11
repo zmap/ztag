@@ -110,7 +110,7 @@ class Type(object):
 
     CABLE_MODEM = "cable modem"
     DSL_MODEM = "DSL modem"
-    WIRELESS_MODEM = "Wireless modem"
+    WIRELESS_MODEM = "wireless modem"
     MODEM = "DSL/cable modem"
 
     ALARM_SYSTEM = "alarm system"
@@ -124,8 +124,8 @@ class Type(object):
     INFRASTRUCTURE_ROUTER = "infrastructure router"
     INKJET_PRINTER = "inkjet printer"
 
-    IPMI = "ipmi"
-    SERVER_MANAGEMENT = "ipmi"
+    IPMI = "IPMI"
+    SERVER_MANAGEMENT = "IPMI"
 
     LASER_PRINTER = "laser printer"
     LIGHT_CONTROLLER = "light controller"
@@ -142,7 +142,6 @@ class Type(object):
     POWER_MONITOR = "power monitor"
     PRINT_SERVER = "print server"
 
-
     SCADA_CONTROLLER = "scada controller"
     SCADA_GATEWAY = "scada gateway"
     SCADA_PROCESSOR = "scada processor"
@@ -157,9 +156,9 @@ class Type(object):
     THERMOSTAT = "thermostat"
     TV_BOX = "set-top box"
     TV_TUNER = "TV tuner"
-    UPS = "ups"
+    UPS = "UPS"
     USB_HUB = "usb"
-    VOIP = "voip"
+    VOIP = "VoIP phone"
     WATER_FLOW_CONTROLLER = "water flow controller"
     WIFI = "wifi"
     HVAC = "hvac"
@@ -170,6 +169,7 @@ class Type(object):
 
 
 class Manufacturer(object):
+
     ABB_STOTZ_KONTAKT = "ABB Stotz Kontakt"
     ACTL = "ACTL"
     ADTRAN = "ADTRAN"
