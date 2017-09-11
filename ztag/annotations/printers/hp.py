@@ -11,6 +11,7 @@ class HPPrinterHTTPSCN(TLSTag):
         if "HP-Printers" in cn:
             meta.global_metadata.manufacturer = Manufacturer.HP
             meta.global_metadata.device_type = Type.PRINTER
+            meta.tags.add("embedded")
             return meta
 
 
@@ -24,6 +25,8 @@ class HPPrinterHTTPSOrg(TLSTag):
         cn = obj["certificate"]["parsed"]["issuer"]["organization"][0]
         if org == "Hewlett-Packard Co.":
             meta.global_metadata.manufacturer = Manufacturer.HP
+            meta.global_metadata.device_type = Type.PRINTER
+            meta.tags.add("embedded")
             return meta
 
 
@@ -78,6 +81,7 @@ class HPPrinterHTTPTitle(Annotation):
     port = None
 
     tests = {
+      # "title": " hp LaserJet 1320 series /\n141.212.25.193 "
       "hp_laserjet_1320":{
         "global_metadata":{
           "manufacturer":Manufacturer.HP,
@@ -86,6 +90,7 @@ class HPPrinterHTTPTitle(Annotation):
         },
         "tags":["embedded",]
       },
+      # \nHP LaserJet P3005 Printers
       "hp_laserjet_p3005":{
         "global_metadata":{
           "manufacturer":Manufacturer.HP,
@@ -94,23 +99,25 @@ class HPPrinterHTTPTitle(Annotation):
         },
         "tags":["embedded",]
       },
+      # \nHP Color LaserJet 4700 Printers
       "hp_laserjet_4700":{
         "global_metadata":{
           "manufacturer":Manufacturer.HP,
           "device_type":Type.PRINTER,
-          "product":"LaserJet 4700",
+          "product":"Color LaserJet 4700",
         },
         "tags":["embedded",]
       },
+      # "title": "HP LaserJet 400 M401dn&nbsp;&nbsp;&nbsp;141.212.89.22"
       "hp_laserjet_400":{
         "global_metadata":{
           "manufacturer":Manufacturer.HP,
           "device_type":Type.PRINTER,
-          "product":"LaserJet 400",
-          "version":"M401dn"
+          "product":"LaserJet 400 M401dn",
         },
         "tags":["embedded",]
       },
+      # "title": "HP Officejet Pro L7500"
       "hp_officejet_pro_l7500":{
         "global_metadata":{
           "manufacturer":Manufacturer.HP,
@@ -119,6 +126,7 @@ class HPPrinterHTTPTitle(Annotation):
         },
         "tags":["embedded",]
       },
+      # "title": "HP Color LaserJet MFP M476dw&nbsp;&nbsp;&nbsp;141.212.190.116
       "hp_color_laserjet_mfp_m476dw":{
         "global_metadata":{
           "manufacturer":Manufacturer.HP,
@@ -127,6 +135,7 @@ class HPPrinterHTTPTitle(Annotation):
         },
         "tags":["embedded",]
       },
+      # "HP LaserJet P4014 Printers"
       "hp_laserjet_p4014":{
         "global_metadata":{
           "manufacturer":Manufacturer.HP,
@@ -138,9 +147,24 @@ class HPPrinterHTTPTitle(Annotation):
     }
 
     def process(self, obj, meta):
-        if "/media/canonlogo.gif" in obj["body"]:
-            meta.global_metadata.manufacturer = Manufacturer.Canon
+        title = obj["title"].strip()
+        t_l = title.lower()
+        if t_l.startswith("hp")\
+                and ("printer" in t_l or "laser" in t_l or "jet" in t_l):
+            if "&nbsp;" in title:
+                title = title.split("&nbsp;")[0]
+            if "/" in title:
+                title = title.split("/")[0]
+            title = title.replace("Printers","").strip()
+            title = title.replace("Printer","").strip()
+            title = title.replace("Series","").strip()
+            title = title.replace("series","").strip()
+            title = title.replace("HP","").strip()
+            title = title.replace("hp","").strip()
+            meta.global_metadata.manufacturer = Manufacturer.HP
             meta.global_metadata.device_type = Type.PRINTER
             meta.tags.add("embedded")
+            if title:
+                meta.global_metadata.product = title
             return meta
 
