@@ -12,7 +12,7 @@ PROTOCOLS = [
     (protocols.HTTP, protocols.HTTP.GET, {"device_with_http":{"tags":["http",]}}),
     (protocols.FTP, protocols.FTP.BANNER, {"device_with_ftp":{"tags":["ftp",]}}),
     (protocols.HTTPS, protocols.HTTPS.TLS, {"device_with_https":{"tags":["https",]}}),
-    (protocols.DNS, protocols.DNS.OPEN_RESOLVER, {"device_with_dns":{"tags":["dns",]}}),
+    (protocols.DNS, protocols.DNS.LOOKUP, {"device_with_dns":{"tags":["dns",]}}),
     (protocols.UPNP, protocols.UPNP.DISCOVERY, {"device_with_upnp":{"tags":["upnp",]}}),
     (protocols.SSH, protocols.SSH.V2, {"device_with_ssh":{"tags":["ssh",]}}),
     (protocols.TELNET, protocols.TELNET.BANNER, {"device_with_telnet":{"tags":["telnet",]}}),

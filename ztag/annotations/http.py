@@ -63,6 +63,9 @@ class HTTPServerParse(Annotation):
             m.tags.add("embedded")
         elif m.local_metadata.product == "RomPager":
             m.tags.add("embedded")
+        elif m.local_metadata.product == "Mikrotik":
+            m.global_metadata.manufacturer = Manufacturer.MIKROTIK
+            m.tags.add("embedded")
 
         if m.global_metadata.os and "HTTP" in m.global_metadata.os:
             m.global_metadata.os = None
