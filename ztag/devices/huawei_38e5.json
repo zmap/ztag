@@ -1,0 +1,146 @@
+{
+  "443": {
+    "https": {
+      "tls": {
+        "certificate": {
+          "parsed": {
+            "tbs_noct_fingerprint": "1396278d8962b62822a1a92977a6c22e7b9237cc1a3f89e27bb03e13a29506d8",
+            "names": [
+              "mediarouter.home",
+              "mediarouter1.home",
+              "mediarouter2.home",
+              "mediarouter3.home"
+            ],
+            "subject_dn": "C=CN, ST=Hubei, L=Wuhan, CN=mediarouter.home",
+            "subject": {
+              "common_name": [
+                "mediarouter.home"
+              ],
+              "country": [
+                "CN"
+              ],
+              "province": [
+                "Hubei"
+              ],
+              "locality": [
+                "Wuhan"
+              ]
+            },
+            "unknown_extensions": [
+              {
+                "critical": false,
+                "id": "2.16.840.1.113730.1.13",
+                "value": "Fh1PcGVuU1NMIEdlbmVyYXRlZCBDZXJ0aWZpY2F0ZQ=="
+              }
+            ],
+            "signature_algorithm": {
+              "oid": "1.2.840.113549.1.1.11",
+              "name": "SHA256WithRSA"
+            },
+            "redacted": false,
+            "validation_level": "unknown",
+            "issuer_dn": "C=CN, ST=Hubei, L=Wuhan, CN=root.home, emailAddress=mobile@huawei.com",
+            "fingerprint_sha1": "df89d8af96519566be7b2e80aefd8e180323eab6",
+            "version": 3,
+            "fingerprint_sha256": "6343022d4995a8d96f50a737e77fd5c0ab2efd842b5e05b1fd7109df426a38e5",
+            "extensions": {
+              "authority_key_id": "b25498675a5eed8a324329884cb1627b5c3966a8",
+              "basic_constraints": {
+                "is_ca": false
+              },
+              "key_usage": {
+                "key_encipherment": true,
+                "value": 7,
+                "digital_signature": true,
+                "content_commitment": true
+              },
+              "subject_key_id": "f0a96a789326d184e55446534fdadf8571548f46",
+              "subject_alt_name": {
+                "dns_names": [
+                  "mediarouter.home",
+                  "mediarouter1.home",
+                  "mediarouter2.home",
+                  "mediarouter3.home"
+                ]
+              }
+            },
+            "tbs_fingerprint": "1396278d8962b62822a1a92977a6c22e7b9237cc1a3f89e27bb03e13a29506d8",
+            "validity": {
+              "start": "2016-04-27T02:28:49Z",
+              "length": 315360000,
+              "end": "2026-04-25T02:28:49Z"
+            },
+            "serial_number": "25998",
+            "fingerprint_md5": "284c3cbbaccdf8bd2410474f39607d3d",
+            "subject_key_info": {
+              "fingerprint_sha256": "6f131144b06ec31981296fea56cfd6b687c885621e39540a267402461d828198",
+              "key_algorithm": {
+                "name": "RSA"
+              },
+              "rsa_public_key": {
+                "length": 2048,
+                "modulus": "vbtYXLxb1p4CBBemYLq49uxJaapjxGe67LpFEbz5DJHAuiUjbtui1+UsHOtR5Ic8S/FNWNsyVy77PGMcOkoEwR0Y8R+N/CZ+kkvutFa9fyKedi0FpSZTxKHL14FJvH5PpduCwM4fC9188+johIvTwh/nBx6TkFXQae0W16AIlZKW1/MzG+J/8VRqiBhh4yEJFf7TmCP8TUIie0hcbtgL3EEvClioc457qfUkzauIuZFi+2rN7wNn1W/UVM8hcA1g3s+8Z7Tzng4FKcb+wSTVd3yNu6eFS2CyXO3l5mbUbc2WRrFw0xdZiRHcywbP/xIoQ/fIAR4e7aCoFzTZDxxDEw==",
+                "exponent": 65537
+              }
+            },
+            "signature": {
+              "self_signed": false,
+              "valid": false,
+              "value": "yQqfxzoVYYCZVUB3QVaxXsoS4v/DO57AYz4DPx2lIYuxAN2Xpok93lVIjrCHQ+ort1mtNc/HkSjEYNbTBI8WCuLDCPI+OJh+va0fk4zb7uFP2teIBF/o3RwHJA5tjOS55fHYxSjvpgZ7j5wrI/+rkUPP5QKg2NSagS8vRCwTqrywHY5FxhssS70Tce7eNZd5+Z5llGlLmSbX+3Wfw+RcJtMH0m+4DPLVeSNP+f8IxxwfDja1JJHZ/PYxGzJc9BOPd36KtknTI3j4MiscLcgz1ThUfWyA0hWUuKBSFWij062sn4NZEgEB3bzgVbx0fElj7LbXOkK2jNkGSxDiQKkcWQ==",
+              "signature_algorithm": {
+                "oid": "1.2.840.113549.1.1.11",
+                "name": "SHA256WithRSA"
+              }
+            },
+            "spki_subject_fingerprint": "300b68658d42692a9e4fc6982924949ff499d03c32161f64c4eb538f85f27194",
+            "issuer": {
+              "common_name": [
+                "root.home"
+              ],
+              "country": [
+                "CN"
+              ],
+              "province": [
+                "Hubei"
+              ],
+              "email_address": [
+                "mobile@huawei.com"
+              ],
+              "locality": [
+                "Wuhan"
+              ]
+            }
+          }
+        },
+        "cipher_suite": {
+          "id": "0x009C",
+          "name": "TLS_RSA_WITH_AES_128_GCM_SHA256"
+        },
+        "version": "TLSv1.2",
+        "ocsp_stapling": false,
+        "validation": {
+          "browser_trusted": false,
+          "browser_error": "x509: certificate signed by unknown authority"
+        },
+        "metadata": {}
+      },
+      "dhe": {
+        "support": false,
+        "metadata": {}
+      },
+      "dhe_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "rsa_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "heartbleed": {
+        "heartbeat_enabled": false,
+        "heartbleed_vulnerable": false,
+        "metadata": {}
+      }
+    }
+  }
+}
