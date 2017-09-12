@@ -1,0 +1,274 @@
+{
+  "22": {
+    "ssh": {
+      "v2": {
+        "key_exchange": {
+          "ecdh_params": {
+            "server_public": {
+              "x": {
+                "value": "tRbPq3xVC3n/WjeJXWZ8VDG09G+q0uY6pTXV/kBB48U=",
+                "length": 256
+              },
+              "y": {
+                "value": "6Ur9GIM1uEFV4FRn+m2SCHmjUJuVTj2x3PMeEvp8kE4=",
+                "length": 256
+              }
+            }
+          }
+        },
+        "banner": {
+          "software": "OpenSSH_6.0",
+          "version": "2.0",
+          "raw": "SSH-2.0-OpenSSH_6.0"
+        },
+        "metadata": {},
+        "support": {
+          "client_to_server": {
+            "ciphers": [
+              "aes128-ctr",
+              "aes192-ctr",
+              "aes256-ctr",
+              "arcfour256",
+              "arcfour128",
+              "aes128-cbc",
+              "3des-cbc",
+              "blowfish-cbc",
+              "cast128-cbc",
+              "aes192-cbc",
+              "aes256-cbc",
+              "arcfour",
+              "rijndael-cbc@lysator.liu.se"
+            ],
+            "compressions": [
+              "none"
+            ],
+            "macs": [
+              "hmac-md5",
+              "hmac-sha1",
+              "umac-64@openssh.com",
+              "hmac-sha2-256",
+              "hmac-sha2-256-96",
+              "hmac-sha2-512",
+              "hmac-sha2-512-96",
+              "hmac-ripemd160",
+              "hmac-ripemd160@openssh.com",
+              "hmac-sha1-96",
+              "hmac-md5-96"
+            ]
+          },
+          "first_kex_follows": false,
+          "kex_algorithms": [
+            "ecdh-sha2-nistp256",
+            "ecdh-sha2-nistp384",
+            "ecdh-sha2-nistp521",
+            "diffie-hellman-group-exchange-sha256",
+            "diffie-hellman-group-exchange-sha1",
+            "diffie-hellman-group14-sha1",
+            "diffie-hellman-group1-sha1"
+          ],
+          "server_to_client": {
+            "ciphers": [
+              "aes128-ctr",
+              "aes192-ctr",
+              "aes256-ctr",
+              "arcfour256",
+              "arcfour128",
+              "aes128-cbc",
+              "3des-cbc",
+              "blowfish-cbc",
+              "cast128-cbc",
+              "aes192-cbc",
+              "aes256-cbc",
+              "arcfour",
+              "rijndael-cbc@lysator.liu.se"
+            ],
+            "compressions": [
+              "none"
+            ],
+            "macs": [
+              "hmac-md5",
+              "hmac-sha1",
+              "umac-64@openssh.com",
+              "hmac-sha2-256",
+              "hmac-sha2-256-96",
+              "hmac-sha2-512",
+              "hmac-sha2-512-96",
+              "hmac-ripemd160",
+              "hmac-ripemd160@openssh.com",
+              "hmac-sha1-96",
+              "hmac-md5-96"
+            ]
+          },
+          "host_key_algorithms": [
+            "ssh-rsa",
+            "ssh-dss"
+          ]
+        },
+        "selected": {
+          "kex_algorithm": "ecdh-sha2-nistp256",
+          "server_to_client": {
+            "cipher": "aes128-ctr",
+            "mac": "hmac-sha2-256",
+            "compression": "none"
+          },
+          "client_to_server": {
+            "cipher": "aes128-ctr",
+            "mac": "hmac-sha2-256",
+            "compression": "none"
+          },
+          "host_key_algorithm": "ssh-rsa"
+        },
+        "server_host_key": {
+          "rsa_public_key": {
+            "length": 2048,
+            "exponent": 65537,
+            "modulus": "v4auLv0woiftAvLc/Q2GObA1SrUNL51NO19rMwRJoWfSgKvoQl/wkozMhsJ+VXupAzJh0YyZ3Yyy1VOYzGAq9RIXQ/ute1oJN58/qN2CTBzxmOen+Le++2o0INNRHEbLM376v0fq+C4BWu2NCpTA7hfMI1p8pb8i1poDhYScH+jJfDNXlqOPP1N2pJsty18UyQ8KEb4c9IQ5MRcwTwrmguVo4Y1ixdqh5VUb3ScSR28ntoV6W8shRAfFHHA8vt8xHFYPjtNiOJbEugUEXyW1GZZp/A7HmNWhOI1y3v28Hz0wcDDzNRGGOT3Yn+gXdS0vx9zPZVjC4j17UIrqmTNMwQ=="
+          },
+          "fingerprint_sha256": "a11ffa265fb5e0ba6bf0c1a31de8d20917409849d59173ccf826a6a33cf50d0a",
+          "key_algorithm": "ssh-rsa"
+        }
+      }
+    }
+  },
+  "80": {
+    "http": {
+      "get": {
+        "body": "<!DOCTYPE HTML PUBLIC \"-//IETF//DTD HTML 2.0//EN\">\n<html><head>\n<title>400 Bad Request</title>\n</head><body>\n<h1>Bad Request</h1>\n<p>Your browser sent a request that this server could not understand.<br />\n</p>\n</body></html>\n",
+        "status_code": 400,
+        "title": "400 Bad Request",
+        "status_line": "400 Bad Request",
+        "metadata": {},
+        "body_sha256": "pcQC+nlap7OMQFWcnR4pBMHgSVgOIWspJGbWwGNOmrY=",
+        "headers": {
+          "content_length": "226",
+          "unknown": [
+            {
+              "value": "Tue, 05 Sep 2017 15:22:25 GMT",
+              "key": "date"
+            }
+          ],
+          "content_type": "text/html; charset=iso-8859-1",
+          "server": "Apache"
+        }
+      }
+    }
+  },
+  "443": {
+    "https": {
+      "rsa_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "dhe_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "heartbleed": {
+        "heartbeat_enabled": true,
+        "heartbleed_vulnerable": false,
+        "metadata": {}
+      },
+      "dhe": {
+        "support": false,
+        "metadata": {}
+      },
+      "tls": {
+        "certificate": {
+          "parsed": {
+            "subject": {
+              "country": [
+                "US"
+              ],
+              "common_name": [
+                "cmc-33483"
+              ],
+              "organization": [
+                "Dell Inc."
+              ],
+              "locality": [
+                "Round Rock"
+              ],
+              "organizational_unit": [
+                "OpenCMC Group"
+              ]
+            },
+            "redacted": false,
+            "serial_number": "10571545614288015218",
+            "version": 3,
+            "signature": {
+              "signature_algorithm": {
+                "name": "SHA256WithRSA",
+                "oid": "1.2.840.113549.1.1.11"
+              },
+              "self_signed": true,
+              "valid": false,
+              "value": "QUaABC5galFhM062oS9Am3doKBIgvjfEff39esSwZcI0GcVGzbS9hOx+YhLbtHbxvJUh1Rz/uNmDM3Wj1xyTB9up3fJTSL3bhgKh1PerEr0z7l8ABBaV5os3gqkyw4Qcb5nGG1ODngfX6M+GE8QFAsvtf1khWX7tEDUBLiVzh3OpGKyECFU2UGkve+PctXo2sUG9u6R2kE3NIlCTtF+F2JpYFr8nOnaE/fnJ0mFgTTkWAp83CQzqewsxKzmAi2JuRVki4h1StUoUB/wR/kU1stNAMI3lcl4ieKpDRF3dfdwL/fPfiPBRGlcYj61c0YxdZ4CYIPxYHDT5NsH+R8BjZg=="
+            },
+            "extensions": {},
+            "signature_algorithm": {
+              "name": "SHA256WithRSA",
+              "oid": "1.2.840.113549.1.1.11"
+            },
+            "fingerprint_sha1": "81a702c71229722b1ad1df4b6ce3fc081557359b",
+            "spki_subject_fingerprint": "9ee5480af3d81cc7a2175f0949c80edfe1c84df2d53f0b68d79bf54c7e22b7ac",
+            "fingerprint_sha256": "f0d21c42294724c73ec46621f3e908851612baad3d54ff657f786be35239b417",
+            "issuer": {
+              "country": [
+                "US"
+              ],
+              "common_name": [
+                "cmc-33483"
+              ],
+              "organization": [
+                "Dell Inc."
+              ],
+              "locality": [
+                "Round Rock"
+              ],
+              "organizational_unit": [
+                "OpenCMC Group"
+              ]
+            },
+            "tbs_noct_fingerprint": "94e78009dcce57c3942392c8724bf168c6ffd7c175874c819574279b5b91e3aa",
+            "issuer_dn": "C=US, L=Round Rock, O=Dell Inc., OU=OpenCMC Group, CN=cmc-33483",
+            "subject_dn": "C=US, L=Round Rock, O=Dell Inc., OU=OpenCMC Group, CN=cmc-33483",
+            "fingerprint_md5": "6c26f8d4647a84bf236d30cc4e8e9f8c",
+            "tbs_fingerprint": "97a13ef8c45cbee8a79613f6f319ce489f0441f08d5b8dca8533dde7b022a7af",
+            "subject_key_info": {
+              "rsa_public_key": {
+                "length": 2048,
+                "exponent": 65537,
+                "modulus": "xQYZskXSnOjnR1NU4/fgxW0JFPCnIeCH8GNd82Y8D8rG8DM5gUl162+mQE5+kJk6+ECihaozP4+aUYuYbYlx4YgSmNS7OZphJ/fbe/e+GllJRpuEBJgdBOXOeFiqc4A4/iNf855uEFavBbCRwFjszx+IfdOlvo6lJ40qukxUazE4wJAg9V5Zq2/ioS4beV4VirrxXW27CClG41CnMrZp1tMxEOpJ7yO22eiEy/VXZax5NCL9mwZKBpCjfrga2cZzYP5kGuSwWNX8SJBhPXFvjGnZmDbd1oHCSzH0ssZH43GwY30bbm01jBSaR3OcmahW1+daYivtIp88cEo3KTRjsw=="
+              },
+              "fingerprint_sha256": "28fdfd16c0d081cf820d40f2bd7e845034e2bb00c5bd8094dca8ddfe68d4fe9b",
+              "key_algorithm": {
+                "name": "RSA"
+              }
+            },
+            "validity": {
+              "start": "2015-06-26T13:03:06Z",
+              "length": 315360000,
+              "end": "2025-06-23T13:03:06Z"
+            },
+            "validation_level": "unknown"
+          }
+        },
+        "session_ticket": {
+          "lifetime_hint": 300,
+          "length": 192
+        },
+        "cipher_suite": {
+          "name": "TLS_RSA_WITH_AES_128_GCM_SHA256",
+          "id": "0x009C"
+        },
+        "validation": {
+          "browser_trusted": false,
+          "browser_error": "x509: unknown error"
+        },
+        "metadata": {},
+        "ocsp_stapling": false,
+        "version": "TLSv1.2"
+      }
+    }
+  }
+}

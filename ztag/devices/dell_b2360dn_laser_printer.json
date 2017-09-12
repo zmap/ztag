@@ -1,0 +1,148 @@
+{
+  "443": {
+    "https": {
+      "tls": {
+        "certificate": {
+          "parsed": {
+            "tbs_noct_fingerprint": "dc114d726b90a9110e15faf04deb4a3824b7e49dc863b5cdabd847278b4275a8",
+            "subject_dn": "O=Dell, OU=PS&SD, L=Lexington, ST=KY, C=US, CN=Dell B2360dn Laser Printer",
+            "subject": {
+              "province": [
+                "KY"
+              ],
+              "locality": [
+                "Lexington"
+              ],
+              "country": [
+                "US"
+              ],
+              "organizational_unit": [
+                "PS&SD"
+              ],
+              "common_name": [
+                "Dell B2360dn Laser Printer"
+              ],
+              "organization": [
+                "Dell"
+              ]
+            },
+            "signature_algorithm": {
+              "oid": "1.2.840.113549.1.1.11",
+              "name": "SHA256WithRSA"
+            },
+            "redacted": false,
+            "serial_number": "9872160113250595980",
+            "validation_level": "unknown",
+            "issuer_dn": "O=Dell, OU=PS&SD, L=Lexington, ST=KY, C=US, CN=Dell B2360dn Laser Printer",
+            "fingerprint_sha1": "f137a93e243c86b94d86bc8282e0c93be377241d",
+            "version": 2,
+            "fingerprint_sha256": "25b5fe855d367e27d8385c67e15ca72ad9d9e75010f481317aacdeb972547f42",
+            "validity": {
+              "start": "2015-08-04T08:08:58Z",
+              "length": 315360000,
+              "end": "2025-08-01T08:08:58Z"
+            },
+            "tbs_fingerprint": "68bd5324b36611147787aa94e478153537b7eec9ec92565403700fc767f3c10a",
+            "extensions": {},
+            "fingerprint_md5": "7a5d00183609f6baa0a65cf0020db975",
+            "subject_key_info": {
+              "fingerprint_sha256": "1c7afe887e12ead354981ad23b1e5894802ded433d5113dd5dff5364a57c7164",
+              "key_algorithm": {
+                "name": "RSA"
+              },
+              "rsa_public_key": {
+                "length": 2048,
+                "modulus": "w4lFwyy0E6yftokmrVaHWTpRrsW9Dv3MKaIr1nvyaeoAb4L0D5pI1964l9g92ubRm5TiRCAFLvjijYNCHXzOs8P8/oO5mGwtuGxeOz3K8P1Rk3sPf0nXoCqQgb1ZcXdszymM8LmroUl6mI7+QRnhQBsbljyR8GbGJiC9cpvnMkMNwod7DEjO0dp93m+AWs2eMXQ8Hvy5B/9npzUsSN/EiZ4yK3ANS3f5+ZDONMKP3KxWMfeVIWkAvmPUpKI8O48cH2VupLdilltdFth8Tg0R9ZFVQ5kLm8mGJGUlJ4d0ZstX/lPVfWHvgl1H8JIX7q9UHL8asBzP5qaW7NuVcgvC6Q==",
+                "exponent": 65537
+              }
+            },
+            "signature": {
+              "self_signed": true,
+              "valid": true,
+              "value": "VFSNTRDiBEOQmoXR7vW1VmxyRYeZFhKdAm6bkOjDcq/qXnrM9fx7ZYehnca3uuQCkHA/tWYQOP82nknJUPplGZyiXQdA6/wXDsZxnMpcWaQpkTWXdL0sL1ZH8Sq/yPvvUy+5nmiOOX8frCudtFrXb7ttYRaG8WSLdM+VCrUNDj7BFId9GNOEHVWlp1rGdITLI9slGz4cDfc4+6R7ETH/9c1TVI4mRzHxZNINpM+Pj7fXNUvdyl+EFFQx4xvidmk9zj47Ojh4/ypp5WUoON95t7yT/4IYkmozBa39A2UQpm/dHEYJV8MnaR5m+4IJZVwHc4+05ck3GKM2qoiyu2FNKQ==",
+              "signature_algorithm": {
+                "oid": "1.2.840.113549.1.1.11",
+                "name": "SHA256WithRSA"
+              }
+            },
+            "spki_subject_fingerprint": "ba9820e4724cd273e75b4bc9d2380ff02230b13497d9f912aedef76a506c3a02",
+            "issuer": {
+              "province": [
+                "KY"
+              ],
+              "locality": [
+                "Lexington"
+              ],
+              "country": [
+                "US"
+              ],
+              "organizational_unit": [
+                "PS&SD"
+              ],
+              "common_name": [
+                "Dell B2360dn Laser Printer"
+              ],
+              "organization": [
+                "Dell"
+              ]
+            }
+          }
+        },
+        "metadata": {},
+        "cipher_suite": {
+          "id": "0x009C",
+          "name": "TLS_RSA_WITH_AES_128_GCM_SHA256"
+        },
+        "version": "TLSv1.2",
+        "ocsp_stapling": false,
+        "validation": {
+          "browser_trusted": false,
+          "browser_error": "x509: unknown error"
+        },
+        "session_ticket": {
+          "length": 160,
+          "lifetime_hint": 300
+        }
+      },
+      "dhe_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "dhe": {
+        "support": false,
+        "metadata": {}
+      },
+      "ssl_3": {
+        "support": true,
+        "metadata": {}
+      },
+      "heartbleed": {
+        "heartbeat_enabled": true,
+        "heartbleed_vulnerable": false,
+        "metadata": {}
+      },
+      "rsa_export": {
+        "support": false,
+        "metadata": {}
+      }
+    }
+  },
+  "80": {
+    "http": {
+      "get": {
+        "body": "<html>\n<head>\n<META HTTP-EQUIV=\"Pragma\" CONTENT=\"no-cache\">\n<META HTTP-EQUIV=\"Expires\" CONTENT=\"-1\">\n<META HTTP-EQUIV=\"Content-type\" CONTENT=\"text/html; charset=UTF-8\">\n<META NAME=\"PAGE_TYPE\" CONTENT=\"Main\">\n<!-- Title in case of ENA's is not a single variable so it is a function -->\n<TITLE>Dell B2360dn Laser Printer</TITLE>\n<link rel=\"stylesheet\" href=\"/cgi-bin/dynamic/style_new.css\" type=\"text/css\">\n</head>\n\n<!-- Dell -->\n<frameset border=\"0\" frameborder=\"0\" framespacing=\"0\" rows=\"26,*\">\n <frame name=\"dell_header\" src=\"/cgi-bin/dynamic/dell_header.html\" noresize scrolling=\"no\"/>\n <frameset border=\"0\" frameborder=\"0\" framespacing=\"0\" cols=\"185,*\"/>\n  <frame name=\"Directory\" target=\"Printer Information\" src=\"/cgi-bin/dynamic/left_bar.html\" noresize scrolling=\"no\"/>\n  <frameset border=\"0\" frameborder=\"0\" framespacing=\"0\" rows=\"140,*,50\"/>\n   <frame name=\"Printer Information\" target=\"Main\" src=\"/cgi-bin/dynamic/topbar.html\" rel=\"nofollow\" noresize scrolling=\"no\"/>\n   <frame name=\"Main\" target=\"_self\" src=\"/cgi-bin/dynamic/printer/PrinterStatus.html\" noresize scrolling=\"auto\"/>\n   <frame name=\"Change Language\" target=\"Change Language\" src=\"/cgi-bin/dynamic/printer/langbar.html\" rel=\"nofollow\" noresize scrolling=\"no\"/>\n  </frameset>\n </frameset>\n</frameset>\n",
+        "headers": {
+          "expires": "Sun, 27 Feb 1972 08:00:00 GMT",
+          "pragma": "no-cache",
+          "cache_control": "no-cache",
+          "content_type": "text/html"
+        },
+        "status_code": 200,
+        "title": "Dell B2360dn Laser Printer",
+        "status_line": "200 OK",
+        "body_sha256": "oUlacCj6cdVFPrRfufWzr/anrMpqPl8ZCPTUKjsGLPc=",
+        "metadata": {}
+      }
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "80": {
+    "http": {
+      "get": {
+        "body": "<HTML>\n<HEAD>\n<TITLE>NETGEAR Web Smart Switch</TITLE>\n</HEAD>\n<FRAMESET frameBorder=no frameSpacing=0 rows=109,*>\n    <FRAME name=top scrolling=no src=/top.html>\n    <FRAMESET cols=210,* frameBorder=no frameSpacing=0>\n        <FRAME name=left src=/left.html>\n        <FRAME name=main src=/cgi/device>\n    </FRAMESET>\n</FRAMESET>\n</HTML>\n",
+        "title": "NETGEAR Web Smart Switch",
+        "status_code": 200,
+        "status_line": "200 OK",
+        "headers": {
+          "content_type": "text/html"
+        },
+        "body_sha256": "HIzRDCPwpvakO8ix0zNdsz8P/uM1++nXAkT8F3ykW0o=",
+        "metadata": {}
+      }
+    }
+  }
+}

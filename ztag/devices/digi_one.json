@@ -1,0 +1,24 @@
+{
+"80": {
+    "http": {
+      "get": {
+        "body": "<HTML><!-- **** NOTE **** -->\n<!-- This HTML file was generated from an XML file by the same name and transformed -->\n<!-- with the msgboxtransform.xsl stylesheet. Please do not modify this file directly. Instead -->\n<!-- modify the original XML and/or XSL files. -->\n<HEAD>\n<META http-equiv=\"Content-Type\" CONTENT=\"text/html; charset=iso-8859-1\">\n<META HTTP-EQUIV=\"pragma\" CONTENT=\"no-cache\">\n<META HTTP-EQUIV=\"cache-control\" CONTENT=\"no-cache\">\n<META HTTP-EQUIV=\"expires\" CONTENT=\"0\">\n<TITLE>\nDigi One SP&nbsp;Configuration and Management\n</TITLE>\n<LINK href=\"/stylesheet.css\" rel=\"stylesheet\">\n</HEAD>\n<BODY onload=\"\" onunload=\"\">\n<TABLE WIDTH=\"100%\" BORDER=\"0\" CELLPADDING=\"2\" CELLSPACING=\"2\"><TR>\n<TD class=\"headertop\" WIDTH=\"200\" HEIGHT=\"100\" ALIGN=middle>\n<a target=\"_blank\" href=\"http://www.digi.com/\">\n<IMG BORDER=\"0\" WIDTH=\"75\" HEIGHT=\"68\" src=\"/img/logo.gif\">\n</A></TD>\n\n<TD class=\"headertop\" ALIGN=left VALIGN=middle>\nDigi One SP&nbsp;Configuration and Management\n<BR><HR>\n</TD>\n</TR>\n</TABLE>\n<TABLE WIDTH=\"100%\" BORDER=\"0\" CELLPADDING=\"2\" CELLSPACING=\"2\"><TR><TD VALIGN=middle ALIGN=center><TABLE borderColorDark=\"darkblue\" borderColorLight=\"darkblue\" BORDER=\"1\" CELLPADDING=\"4\" CELLSPACING=\"0\">\n<TR><TD class=\"contentheader\" nowrap>\nServer Error - Restricted Page\n</TD>\n</TR>\n<TR><TD WIDTH=\"100%\" VALIGN=top><TABLE WIDTH=\"100%\" BORDER=\"0\" CELLPADDING=\"4\" CELLSPACING=\"0\"><TR><TD><!-- **************** Start page specific content... **************** -->\n<TABLE class=\"textmain\" CELLSPACING=\"0\" CELLPADDING=\"2\" BORDER=\"0\">\n<TR>\n<TD ALIGN=left>\nAn error occurred while trying to access the&nbsp;\nDigi One SP.\n<BR/>\n<BR/>\nThe following reasons may help to resolve this problem:<BR/>\n<BR/>\n<LI>\nThe specified username or password is incorrect. Please check the username and password and <A HREF=\"/index.htm\">try again</A>.\n<BR/><BR/>\n</LI>\n<LI>\nThe specified web page is restricted for the logged in user. Please check the access of\nthe web page and <A HREF=\"/index.htm\">try again</A>&nbsp;or logout and <A HREF=\"/index.htm\">log back in</A>&nbsp;as a different user.\n<BR/><BR/>\n</LI>\n<LI>\nThe device is in an unknown state. Please manually reboot the device and then\n<A HREF=\"/index.htm\">log back in</A>&nbsp;to try again. If the problem continues to persist, please contact tech support for more information.\n</LI>\n</TD>\n</TR>\n</TABLE>\n<!-- **************** ...End page specific content **************** -->\n</TD>\n</TR>\n</TABLE>\n</TD>\n</TR>\n</TABLE>\n</TD>\n</TR>\n</TABLE>\n<TABLE CELLSPACING=\"0\" CELLPADDING=\"0\" BORDER=\"0\" WIDTH=\"100%\"><TR><TD class=\"copyright\" WIDTH=\"100%\" ALIGN=center>\n<BR><BR>Copyright &#169; 1996-2009 Digi International Inc. All rights reserved.<BR></TD>\n</TR>\n</TABLE>\n\n</BODY>\n</HTML>\n",
+        "headers": {
+          "www_authenticate": "Basic realm=\"Digi One SP\"",
+          "content_type": "text/html",
+          "server": "Allegro-Software-RomPager/3.12"
+        },
+        "status_code": 401,
+        "title": "\nDigi One SP&nbsp;Configuration and Management\n",
+        "status_line": "401 Unauthorized",
+        "body_sha256": "H0rhQf35zdcLIRMc7x7QiZQwOm42guid+TuiTOEKhK4=",
+        "metadata": {
+          "product": "RomPager",
+          "version": "3.12",
+          "description": "Allegro RomPager 3.12",
+          "manufacturer": "Allegro"
+        }
+      }
+    }
+  }
+}

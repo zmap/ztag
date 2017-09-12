@@ -12,12 +12,10 @@ class JetDirectHTTPS(TLSTag):
 
         if "HP Jetdirect" in cn and "Hewlett-Packard" in org:
             meta.global_metadata.manufacturer = Manufacturer.HP
-            meta.global_metadata.product = "JetDirect" 
             meta.global_metadata.device_type = Type.PRINTER
             return meta
         elif "HP Designjet" in cn and "Hewlett-Packard" in org:
             meta.global_metadata.manufacturer = Manufacturer.HP
-            meta.global_metadata.product = "DesignJet" 
             meta.global_metadata.device_type = Type.PRINTER
             return meta
 

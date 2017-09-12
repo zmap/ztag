@@ -1,0 +1,158 @@
+{
+  "21": {
+    "ftp": {
+      "banner": {
+        "banner": "421 Session access restricted, closing control connection",
+        "metadata": {}
+      }
+    }
+  },
+  "23": {
+    "telnet": {
+      "banner": {
+        "support": true,
+        "will": [
+          {
+            "name": "Suppress Go Ahead",
+            "value": 3
+          },
+          {
+            "name": "Echo",
+            "value": 1
+          }
+        ],
+        "metadata": {},
+        "banner": "Disconnecting..."
+      }
+    }
+  },
+  "443": {
+    "https": {
+      "rsa_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "tls": {
+        "certificate": {
+          "parsed": {
+            "subject": {
+              "organizational_unit": [
+                "001321C0D368",
+                "J7949E"
+              ],
+              "organization": [
+                "Hewlett-Packard Co."
+              ],
+              "common_name": [
+                "HP Jetdirect 21C0D368"
+              ]
+            },
+            "redacted": false,
+            "serial_number": "2",
+            "version": 3,
+            "tbs_noct_fingerprint": "66279967d3261a8622b37cb63a8161422b713812be11f8a80674b442dfc63305",
+            "fingerprint_md5": "c5b9902f4b4583da5bd1bf4a1be43eb0",
+            "signature": {
+              "signature_algorithm": {
+                "name": "MD5WithRSA",
+                "oid": "1.2.840.113549.1.1.4"
+              },
+              "self_signed": true,
+              "valid": false,
+              "value": "IeDyVdbHyiQ5lGlATPHEn/vBC+uXMvu4K+SFf1irBL6diIYOZYvOyI4AadsdBygO7aphR8gTavonJ+r9S8BbhOaCkS8tboald4ofKwUvGUSo3l/hB0jAbKUcpzezP4qkMhvlBwxdvwDgFaJL3e7UV+5wluTjWN//YhVZ1xJKbqI="
+            },
+            "fingerprint_sha1": "7266e3d7661f66329efce25c9442292fc9141d73",
+            "issuer_dn": "CN=HP Jetdirect 21C0D368, O=Hewlett-Packard Co., OU=001321C0D368, OU=J7949E",
+            "fingerprint_sha256": "ad1a9dee4f4c4efb6ce23eb08523a024ee537e5122644215db612c0dc4e26e1d",
+            "issuer": {
+              "organizational_unit": [
+                "001321C0D368",
+                "J7949E"
+              ],
+              "organization": [
+                "Hewlett-Packard Co."
+              ],
+              "common_name": [
+                "HP Jetdirect 21C0D368"
+              ]
+            },
+            "extensions": {
+              "extended_key_usage": {
+                "server_auth": true,
+                "client_auth": true
+              }
+            },
+            "subject_dn": "CN=HP Jetdirect 21C0D368, O=Hewlett-Packard Co., OU=001321C0D368, OU=J7949E",
+            "signature_algorithm": {
+              "name": "MD5WithRSA",
+              "oid": "1.2.840.113549.1.1.4"
+            },
+            "validation_level": "unknown",
+            "spki_subject_fingerprint": "3b8634e221dec90b754dab9ed1badd33567737176cee4358a2690a2cc3fbb6a7",
+            "subject_key_info": {
+              "key_algorithm": {
+                "name": "RSA"
+              },
+              "rsa_public_key": {
+                "length": 1024,
+                "exponent": 65537,
+                "modulus": "0YQpSxZA8ZgkLeDVM8DYreNDrZ1JWU14nIkYPbeGjSqytzTeJY3LYzqLKlUSZ/7I/RQ2Bjg4DLIBcl4yxZpH9X1/u4L6P1zmhImIZ3v1mrGBfyG2Qke8BZY7AXV8Ims9U3vAiKsR00TojerQFGdReTFLizsD4z1ldEAk1/sxhvU="
+              },
+              "fingerprint_sha256": "46c04b85ba9d6eb7f738b85cd5956a23b80713e790ec52b7ddf5e2bc5c5ea8e5"
+            },
+            "tbs_fingerprint": "66279967d3261a8622b37cb63a8161422b713812be11f8a80674b442dfc63305",
+            "validity": {
+              "start": "2005-05-01T00:00:00Z",
+              "length": 157766400,
+              "end": "2010-05-01T00:00:00Z"
+            }
+          }
+        },
+        "version": "TLSv1.0",
+        "cipher_suite": {
+          "name": "TLS_RSA_WITH_RC4_128_SHA",
+          "id": "0x0005"
+        },
+        "validation": {
+          "browser_trusted": false,
+          "browser_error": "x509: unknown error"
+        },
+        "metadata": {},
+        "ocsp_stapling": false
+      },
+      "dhe_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "dhe": {
+        "support": false,
+        "metadata": {}
+      }
+    }
+  },
+  "80": {
+    "http": {
+      "get": {
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">\n <head>\n<title>\nhp LaserJet 4250</title>\n<style type=\"text/css\" media=\"all\">\na{text-decoration: underline; color: #3366cc;}\na.hpButtonNavigationLink, a.hpButtonNavigationLink:visited{color: #000000; text-decoration: none;}\na.hpSelectedTabLabel, a.hpSelectedTabLabel:visited{color: #000000;font-size: 14px; font-weight: bold; font-family: helvetica, arial;  text-decoration: none; z-index: 1; margin-left: 10px; margin-right: 10px;}\na.hpUnselectedTabLabel, a.hpUnselectedTabLabel:visited{color: #000000;font-size: 14px;  font-family: helvetica, arial;  text-decoration: none; z-index: 1;  margin-left: 10px; margin-right: 10px; }\na:visited{color: #3366cc;}\nbody{background-color: #ffffff; color: #000000;  margin: 5px 5px 0 5px; padding: 0 0 0 0;}\ndiv.hpButtonNavigation{background-color: #ffcc66; padding-top: 3px; border-left: solid #ffcc66 1px; border-right: solid #ffcc66 1px;}\ndiv.hpButtonSpacer{height: 10px;font-size: 1px;/*font-size to work around IE div size bug*/}\ndiv.hpConsumableBlock{background-color: #cdcecd; border-style: ridge; width: 97%; border-width: 2px;}\ndiv.hpContentArea{margin-top: 13px; font-family: helvetica, arial; font-size: 11px; width: 100%; color: #000000;}\ndiv.hpConsumableBlockData{padding: 0px 4px 0px 4px}\ndiv.hpConsumableBlockData > div.hpPageText:first-child{border-top: ridge; border-bottom: none; border-left: none; border-right: none; border-width: 2px; background-color: #ffffff; font-size: 9px;}\ndiv.hpConsumableBlockData > table.hpTable{font-size: 9px;}\ndiv.hpConsumableBlockDataNoPct{background-color: #ffffff; padding: 0px 4px 0px 4px}\ndiv.hpFormBottom{border-top: ridge #3366cc 2px; margin-top: 20px;}\ndiv.hpGasGaugeBlock{background-color: inherit; width: 100%; margin: 10px 10px 10px 0px;}\ndiv.hpGasGaugeBorder{border: solid #000000 1px;}\ndiv.hpNavigationButtonSelected{margin-left: 7px; margin-bottom: 3px;  padding-left: 2px; padding-top: 1px; padding-bottom: 1px; border-left: inset 1px; border-top: inset 1px; border-bottom: inset 1px; font-weight: bold; font-family: helvetica, arial; cursor: pointer; background-color: #ffffff; font-size: 12px;}\ndiv.hpNavigationButtonUnselected{margin-left: 7px; margin-bottom: 3px; padding-left: 2px; padding-top: 1px; padding-bottom: 1px; background-color: inherit; border-left: outset 1px; border-top: outset 1px; border-bottom: outset 1px; font-size: 12px; font-weight: bold; font-family: helvetica, arial; cursor: pointer; border-top: solid #ffffff 1px; border-left: solid #ffffff 1px; border-bottom: solid #7B7D7B 1px;}\ndiv.hpOtherLinksBanner{background-color: #cccccc; font-family: helvetica, arial; font-size: 12px; font-weight: bold; padding-left: 5px; padding-top: 2px; padding-bottom: 2px;}\ndiv.hpOtherLinksContent{padding-left: 5px; font-size: 11px; font-family: helvetica, arial; padding-bottom: 2px; padding-top: 2px;}\ndiv.hpOtherLinksNavigation{border: solid #3366cc 2px;}\ndiv.hpPageText, span.hpPageText{color: inherit; background-color: #ffffff;font-size: 12px; font-family: helvetica, arial;margin-top: .4em; margin-bottom: .4em; text-decoration: inherit}\ndiv.hpPageTitle{font-weight: bold; font-family: helvetica, arial; font-size: 18pt; color: #3366cc; border-bottom: ridge #3366cc 2px; margin-bottom: 5px;}\ndiv.hpSection{color: #ffffff;  font-family: helvetica, arial; font-size: 12px; background-color: #3366cc; margin-top: 14px; margin-bottom: 10px; padding-left: 5px; padding-top: 3px; padding-bottom: 2px;}\ndiv.hpTabExtender{height: 10px; background-color: #ffcc66; position: relative; border-top: solid black 1px; top: -1px; z-index: 0; border-bottom: solid #ffcc66 1px; border-left: solid #ffcc66 1px; border-right: solid #ffcc66 1px}\ndiv.hpSelectedTab{background-color: #ffcc66; position: relative;  float: left; margin-right: 4px; border-top: solid black 1px; border-left: solid black 1px; border-right: solid black 1px; border-bottom: solid #ffcc66 1px; z-index: 1; background-image: url(images/tabTopWhite.png); background-repeat: repeat-x; font-family: helvetica, arial; cursor: pointer; }\ndiv.hpUnselectedTab{background-color: #cccccc; position: relative; float: left; margin-right: 4px; border: solid black 1px; background-image: url(images/tabTopWhite.png); background-repeat: repeat-x; font-family: helvetica, arial; cursor: pointer; }\nform {margin: 0 0 0 0; padding: 0 0 0 0;}\nimg {border: none;}\nimg.hpPageImage{border: none;}\nimg.hpConsumableBlockImage{height: 24px;  width: 24px;}\nimg.hpLogo{border: none; width: 160px; height: 52px; vertical-align: bottom;}\nimg.tabLeftNotch{vertical-align: top; position: relative; top: -1px; left: -1px;}\nimg.tabRightNotch{vertical-align: top; position: relative; top: -1px; left: 1px;}\ninput{font-size: 12px; font-family: helvetica, arial;}\ninput.hpTextInput{width: 225px;font-size: 12px; font-family: helvetica arial;}\nselect.hpPageList{width: 225px;font-size: 12px; font-family: helvetica, arial;}\nselect.hpPageCombo{width: 225px;font-size: 12px; font-family: helvetica, arial;}\nspan.hpConsumableBlockHeaderText{font-size:10px; font-family: helvetica, arial}\nspan.hpBannerTextBig{font-size: 22px; color: #ffffff; padding-left: 3px; font-family: helvetica, arial;}\nspan.hpBannerTextSmall{font-size: 12px; color: #fffders=\"Status\"  style=\"white-space: nowrap:\"   >\n<img class=\"hpPageImage\" src=\"images/binOK.gif\" alt=\"\" title=\"\" /><span  class=\"hpPageText\" >&nbsp;&nbsp;OK</span></td>\n<td headers=\"Size\"    >\n<span  class=\"hpPageText\" >LETTER</span></td>\n<td headers=\"Type\"    >\n<span  class=\"hpPageText\" >PLAIN</span></td>\n</tr>\n<tr >\n<td headers=\"InOut\"    >\n<span  class=\"hpPageText\" >STANDARD TOP BIN</span></td>\n<td headers=\"Status\"  style=\"white-space: nowrap:\"   >\n<img class=\"hpPageImage\" src=\"images/binOK.gif\" alt=\"\" title=\"\" /><span  class=\"hpPageText\" >&nbsp;&nbsp;OK</span></td>\n<td headers=\"Size\"    >\n<span  class=\"hpPageText\" >N/A</span></td>\n<td headers=\"Type\"    >\n<span  class=\"hpPageText\" >N/A</span></td>\n</tr>\n</table>\n<div  style=\"text-align: center; padding-top: 5px\" >&nbsp;<a class=\"hpPageLink\" href=\"this.LCDispatcher?nav=hp.ConfigDevice\" ><span  style=\"\" >Change Settings</span></a>\n</div>\n</div><div><div class=\"hpSection\" >\nCapabilities\n</div>\n<select name=\"SOne\"  style=\"width:auto;\"   size=\"7\" >\n<option  value=\"x\">Printer Serial Number:  CNDXB20707</option>\n<option  value=\"x\">Firmware Datecode:  20050304 08.008.6</option>\n<option  value=\"x\">Mopier:  ON</option>\n<option  value=\"x\">   1: TRAY 1, 100 Sheets</option>\n<option  value=\"x\">   2: TRAY 2, 500 Sheets</option>\n<option  value=\"x\">RAM DISK Storage:  219 MB Capacity</option>\n<option  value=\"x\">DIMM Slot 1: 256 MB DDR</option>\n<option  value=\"x\">DIMM Slot 2: 64 MB DDR</option>\n<option  value=\"\">Card Slot 1:  Empty</option>\n<option  value=\"\">Card Slot 2:  Empty</option>\n<option  value=\"x\">Embedded Jetdirect : YES</option>\n</select>\n</div></form>\n<br /><div style=\"width: 580px;\" >&nbsp;</div>\n</div>\n<!--end hpContentArea--></div></td>\n<td class=\"hpContentMargin\">&nbsp;</td></tr>\n<tr><td class=\"hpLogo\">&nbsp;</td><td class=\"hpContentMargin\">&nbsp;</td><td>&nbsp;</td><td class=\"hpContentMargin\">&nbsp;</td></tr>\n</table>\n</div>\n</body>\n</html>",
+        "status_code": 200,
+        "title": "\nhp LaserJet 4250",
+        "status_line": "200 OK",
+        "metadata": {},
+        "body_sha256": "LU/THBTovhm2fiilXbfPsy/b+/mZ4tN/hXbEK8VhJ30=",
+        "headers": {
+          "expires": "Thu, 1 Jan 1980 00:00:01 GMT",
+          "unknown": [
+            {
+              "value": "Keep-Alive",
+              "key": "_onnection"
+            }
+          ],
+          "content_language": "en",
+          "content_type": "text/html; charset=UTF-8",
+          "server": "HP-ChaiSOE/1.0",
+          "cache_control": "no-cache"
+        }
+      }
+    }
+  }
+}

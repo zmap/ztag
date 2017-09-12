@@ -1,0 +1,136 @@
+{
+  "80": {
+    "http": {
+      "get": {
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\n<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">\n <head>\n<script type=\"text/javascript\">divClickEnabled=true;</script>\n<title>\nHP LaserJet P3005 Printers</title>\n<style type=\"text/css\" media=\"all\">\na{text-decoration: underline; color: #3366cc;}\na.hpButtonNavigationLink, a.hpButtonNavigationLink:visited{color: #000000; text-decoration: none;}\na.hpSelectedTabLabel, a.hpSelectedTabLabel:visited{color: #000000;font-size: 14px; font-weight: bold; font-family: helvetica, arial;  text-decoration: none; z-index: 1; margin-left: 10px; margin-right: 10px;}\na.hpUnselectedTabLabel, a.hpUnselectedTabLabel:visited{color: #000000;font-size: 14px;  font-family: helvetica, arial;  text-decoration: none; z-index: 1;  margin-left: 10px; margin-right: 10px; }\na:visited{color: #3366cc;}\nbody{background-color: #ffffff; color: #000000;  margin: 5px 5px 0 5px; padding: 0 0 0 0;}\ndiv.hpButtonNavigation{background-color: #ffcc66; padding-top: 3px; border-left: solid #ffcc66 1px; border-right: solid #ffcc66 1px;}\ndiv.hpButtonSpacer{height: 10px;font-size: 1px;/*font-size to work around IE div size bug*/}\ndiv.hpConsumableBlock{background-color: #cdcecd; border-style: ridge; width: 97%; border-width: 2px;}\ndiv.hpContentArea{margin-top: 13px; font-family: helvetica, arial; font-size: 11px; width: 100%; color: #000000;}\ndiv.hpConsumableBlockData{padding: 0px 4px 0px 4px}\ndiv.hpConsumableBlockData > div.hpPageText:first-child{border-top: ridge; border-bottom: none; border-left: none; border-right: none; border-width: 2px; background-color: #ffffff; font-size: 9px;}\ndiv.hpConsumableBlockData > table.hpTable{font-size: 9px;}\ndiv.hpConsumableBlockDataNoPct{background-color: #ffffff; padding: 0px 4px 0px 4px}\ndiv.hpFormBottom{border-top: ridge #3366cc 2px; margin-top: 20px;}\ndiv.hpGasGaugeBlock{background-color: inherit; width: 100%; margin: 10px 10px 10px 0px;}\ndiv.hpGasGaugeBorder{border: solid #000000 1px;}\ndiv.hpNavigationButtonSelected{margin-left: 7px; margin-bottom: 3px;  padding-left: 2px; padding-top: 1px; padding-bottom: 1px; border-left: inset 1px; border-top: inset 1px; border-bottom: inset 1px; font-weight: bold; font-family: helvetica, arial; cursor: pointer; background-color: #ffffff; font-size: 12px;}\ndiv.hpNavigationButtonUnselected{margin-left: 7px; margin-bottom: 3px; padding-left: 2px; padding-top: 1px; padding-bottom: 1px; background-color: inherit; border-left: outset 1px; border-top: outset 1px; border-bottom: outset 1px; font-size: 12px; font-weight: bold; font-family: helvetica, arial; cursor: pointer; border-top: solid #ffffff 1px; border-left: solid #ffffff 1px; border-bottom: solid #7B7D7B 1px;}\ndiv.hpOtherLinksBanner{background-color: #cccccc; font-family: helvetica, arial; font-size: 12px; font-weight: bold; padding-left: 5px; padding-top: 2px; padding-bottom: 2px;}\ndiv.hpOtherLinksContent{padding-left: 5px; font-size: 11px; font-family: helvetica, arial; padding-bottom: 2px; padding-top: 2px;}\ndiv.hpOtherLinksNavigation{border: solid #3366cc 2px;}\ndiv.hpPageText, span.hpPageText{color: inherit; background-color: inherit;font-size: 12px; font-family: helvetica, arial;margin-top: .4em; margin-bottom: .4em; text-decoration: inherit}\ndiv.hpPageTitle{font-weight: bold; font-family: helvetica, arial; font-size: 18pt; color: #3366cc; border-bottom: ridge #3366cc 2px; margin-bottom: 5px;}\ndiv.hpSection{color: #ffffff;  font-family: helvetica, arial; font-size: 12px; background-color: #3366cc; margin-top: 14px; margin-bottom: 10px; padding-left: 5px; padding-top: 3px; padding-bottom: 2px;}\ndiv.hpTabExtender{height: 10px; background-color: #ffcc66; position: relative; border-top: solid black 1px; top: -1px; z-index: 0; border-bottom: solid #ffcc66 1px; border-left: solid #ffcc66 1px; border-right: solid #ffcc66 1px}\ndiv.hpSelectedTab{background-color: #ffcc66; position: relative;  float: left; margin-right: 4px; border-top: solid black 1px; border-left: solid black 1px; border-right: solid black 1px; border-bottom: solid #ffcc66 1px; z-index: 1; background-image: url(images/tabTopWhite.png); background-repeat: repeat-x; font-family: helvetica, arial; cursor: pointer; }\ndiv.hpUnselectedTab{background-color: #cccccc; position: relative; float: left; margin-right: 4px; border: solid black 1px; background-image: url(images/tabTopWhite.png); background-repeat: repeat-x; font-family: helvetica, arial; cursor: pointer; }\nform {margin: 0 0 0 0; padding: 0 0 0 0;}\nimg {border: none;}\nimg.hpPageImage{border: none;}\nimg.hpConsumableBlockImage{height: 24px;  width: 24px;}\nimg.hpLogo{border: none; width: 160px; height: 52px; vertical-align: bottom;}\nimg.tabLeftNotch{vertical-align: top; position: relative; top: -1px; left: -1px;}\nimg.tabRightNotch{vertical-align: top; position: relative; top: -1px; left: 1px;}\ninput{font-size: 12px; font-family: helvetica, arial;}\ninput.hpTextInput{width: 225px;font-size: 12px; font-family: helvetica arial;}\nselect.hpPageList{width: 225px;font-size: 12px; font-family: helvetica, arial;}\nselect.hpPageCombo{width: 225px;font-size: 12px; font-family: helvetica, arial;}\nspan.hpConsumableBlockHeaderText{font-size:10px; font-family: helvetica, arial}\nspan.hpBannerTextBig{font-size: 22px; color: #ffffff; padding-left: 3px; font-family: helvetica, arial;}\nspan.hpBannerTextSmall{font-size: 12px; color: #ffffff; padding-left: 3px; font-family: helvetica, arial;}\nspan.hpPageTextButtonReference{font-weight: bold;}\ntable{margin: 0 0 0 0; border: none; paddass=\"hpPageText\" >Input/Output</span></th>\n<th id=\"Status\"  class=\"hpTableHeader\" style=\"width: 20%\"  >\n<span  id=\"Text8\"  class=\"hpPageText\" >Status</span></th>\n<th id=\"Capacity\"  class=\"hpTableHeader\" style=\"width: 20%\"  >\n<span  id=\"Text9\"  class=\"hpPageText\" >Capacity</span></th>\n<th id=\"Size\"  class=\"hpTableHeader\" style=\"width: 20%\"  >\n<span  id=\"Text10\"  class=\"hpPageText\" >Size</span></th>\n<th id=\"Type\"  class=\"hpTableHeader\" style=\"width: 20%\"  >\n<span  id=\"Text11\"  class=\"hpPageText\" >Type</span></th>\n</tr>\n<tr >\n<td headers=\"InOut\"    >\n<span  id=\"Text12\"  class=\"hpPageText\" >Tray 1</span></td>\n<td headers=\"Status\"  style=\"white-space: nowrap:\"   >\n<img class=\"hpPageImage\" src=\"images/binEMPTY.gif\" alt=\"\" title=\"\" /><span  id=\"Text13\"  class=\"hpPageText\" >&nbsp;&nbsp;Empty</span></td>\n<td headers=\"Capacity\"    >\n<span  id=\"Text14\"  class=\"hpPageText\" >100 Sheets</span></td>\n<td headers=\"Size\"    >\n<span  id=\"Text15\"  class=\"hpPageText\" >ANY SIZE</span></td>\n<td headers=\"Type\"    >\n<span  id=\"Text16\"  class=\"hpPageText\" >ANY TYPE</span></td>\n</tr>\n<tr >\n<td headers=\"InOut\"    >\n<span  id=\"Text17\"  class=\"hpPageText\" >Tray 2</span></td>\n<td headers=\"Status\"  style=\"white-space: nowrap:\"   >\n<img class=\"hpPageImage\" src=\"images/binOK.gif\" alt=\"\" title=\"\" /><span  id=\"Text18\"  class=\"hpPageText\" >&nbsp;&nbsp;OK</span></td>\n<td headers=\"Capacity\"    >\n<span  id=\"Text19\"  class=\"hpPageText\" >500 Sheets</span></td>\n<td headers=\"Size\"    >\n<span  id=\"Text20\"  class=\"hpPageText\" >LETTER</span></td>\n<td headers=\"Type\"    >\n<span  id=\"Text21\"  class=\"hpPageText\" >PLAIN</span></td>\n</tr>\n<tr >\n<td headers=\"InOut\"    >\n<span  id=\"Text22\"  class=\"hpPageText\" >STANDARD TOP BIN</span></td>\n<td headers=\"Status\"  style=\"white-space: nowrap:\"   >\n<img class=\"hpPageImage\" src=\"images/binOK.gif\" alt=\"\" title=\"\" /><span  id=\"Text23\"  class=\"hpPageText\" >&nbsp;&nbsp;OK</span></td>\n<td headers=\"Size\"    >\n<span  id=\"Text24\"  class=\"hpPageText\" >N/A</span></td>\n<td headers=\"Type\"    >\n<span  id=\"Text25\"  class=\"hpPageText\" >N/A</span></td>\n</tr>\n</table>\n<div  id=\"Text26\"  style=\"text-align: center; padding-top: 5px\" >&nbsp;<a class=\"hpPageLink\" href=\"this.LCDispatcher?nav=hp.ConfigDevice\" ><span  id=\"Text27\"  style=\"\" >Change Settings</span></a>\n</div>\n</div><div><div id=\"Section4\"  class=\"hpSection\" >\nCapabilities\n</div>\n<select name=\"SOne\"  style=\"width:auto;\"   size=\"7\" >\n<option  value=\"x\">Printer Serial Number:  CNG1P05607</option>\n<option  value=\"x\">Firmware Datecode:  20080411 02.040.2</option>\n<option  value=\"x\">Duplex: OFF</option>\n<option  value=\"x\">RAM DISK Storage:  16 MB Capacity</option>\n<option  value=\"x\">DIMM Slot 1: 32 MB DDR</option>\n<option  value=\"x\">Embedded Jetdirect : YES</option>\n</select>\n</div></form>\n<br /><div style=\"width: 580px;\" >&nbsp;</div>\n</div>\n<!--end hpContentArea--></div></td>\n<td class=\"hpContentMargin\">&nbsp;</td></tr>\n<tr><td class=\"hpLogo\">&nbsp;</td><td class=\"hpContentMargin\">&nbsp;</td><td>&nbsp;</td><td class=\"hpContentMargin\">&nbsp;</td></tr>\n</table>\n</div>\n</body>\n</html>",
+        "status_code": 200,
+        "title": "\nHP LaserJet P3005 Printers",
+        "status_line": "200 OK",
+        "metadata": {},
+        "body_sha256": "Jod+lEyNntDyMzXT82neCZiLkVtZHlMv3WQZfX8od74=",
+        "headers": {
+          "expires": "Thu, 1 Jan 1980 00:00:01 GMT",
+          "unknown": [
+            {
+              "value": "Keep-Alive",
+              "key": "_onnection"
+            }
+          ],
+          "content_language": "en",
+          "content_type": "text/html; charset=UTF-8",
+          "server": "HP-ChaiSOE/1.0",
+          "cache_control": "no-cache"
+        }
+      }
+    }
+  },
+  "443": {
+    "https": {
+      "rsa_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "dhe_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "heartbleed": {
+        "heartbeat_enabled": false,
+        "heartbleed_vulnerable": false,
+        "metadata": {}
+      },
+      "dhe": {
+        "support": false,
+        "metadata": {}
+      },
+      "tls": {
+        "certificate": {
+          "parsed": {
+            "subject": {
+              "organizational_unit": [
+                "001F2920EF88",
+                "J7979E"
+              ],
+              "common_name": [
+                "HP Jetdirect 2920EF88"
+              ],
+              "organization": [
+                "Hewlett-Packard Co."
+              ]
+            },
+            "redacted": false,
+            "serial_number": "856145377",
+            "version": 3,
+            "signature": {
+              "signature_algorithm": {
+                "name": "MD5WithRSA",
+                "oid": "1.2.840.113549.1.1.4"
+              },
+              "self_signed": true,
+              "valid": false,
+              "value": "B0zDBHLLN5ImaK9E8GROxkrcUFzF9WTHb5p9zRKS9gyKoWNCTsQKMx0JbGTyajhqnhoNPbSlqBCnED+siFGr3nHwbPd0j1EBGM7fZMzrftzbMuDCwJJ7MkjKfMBfKi/G6xfsFvyl53rQNkXXITIrBFEIVTFLNhCZCmlhtaSdAEE="
+            },
+            "extensions": {
+              "extended_key_usage": {
+                "server_auth": true,
+                "client_auth": true
+              }
+            },
+            "signature_algorithm": {
+              "name": "MD5WithRSA",
+              "oid": "1.2.840.113549.1.1.4"
+            },
+            "fingerprint_sha1": "6db95edf165dc8942b87bc140182927b0dc56868",
+            "spki_subject_fingerprint": "2532c57b75ee0eed5457e70df736f3d7f587acd71cb2f426e40926c9e55c32ec",
+            "fingerprint_sha256": "17167977983b6a211c2c7e3421ca139cd854f9f37a57297bd62f56ce8c5d3443",
+            "issuer": {
+              "organizational_unit": [
+                "001F2920EF88",
+                "J7979E"
+              ],
+              "common_name": [
+                "HP Jetdirect 2920EF88"
+              ],
+              "organization": [
+                "Hewlett-Packard Co."
+              ]
+            },
+            "tbs_noct_fingerprint": "ffd02f1c085cda70fbc40072a030766d238807bed3ae56926cdde40b3b754e2b",
+            "issuer_dn": "CN=HP Jetdirect 2920EF88, O=Hewlett-Packard Co., OU=001F2920EF88, OU=J7979E",
+            "subject_dn": "CN=HP Jetdirect 2920EF88, O=Hewlett-Packard Co., OU=001F2920EF88, OU=J7979E",
+            "fingerprint_md5": "288c4b766dcabf66fc9fe67114abc7f1",
+            "tbs_fingerprint": "ffd02f1c085cda70fbc40072a030766d238807bed3ae56926cdde40b3b754e2b",
+            "subject_key_info": {
+              "rsa_public_key": {
+                "length": 1024,
+                "exponent": 65537,
+                "modulus": "pzD8fgz/MR6ArUcNz7aLiMdaFOcsfICTlW1JslS0nmFpHTrqbtRlKrhyDKsx7MUGerWhWxlNpCYvKJcOrgYFFvBhNqDz6Tz169JJRF0QJrJIhSwsrvx1KQYU6RI9qgALvGZZQxs6qXEZsEnPCg7htrpvdprPKc2a5P9sSIpo95M="
+              },
+              "fingerprint_sha256": "66f0f0d9270ea4b967d0245cfaf22ad5b907de633ff32d4725defe2aa786f752",
+              "key_algorithm": {
+                "name": "RSA"
+              }
+            },
+            "validity": {
+              "start": "2008-06-01T00:00:00Z",
+              "length": 157766400,
+              "end": "2013-06-01T00:00:00Z"
+            },
+            "validation_level": "unknown"
+          }
+        },
+        "version": "TLSv1.0",
+        "cipher_suite": {
+          "name": "TLS_RSA_WITH_RC4_128_SHA",
+          "id": "0x0005"
+        },
+        "validation": {
+          "browser_trusted": false,
+          "browser_error": "x509: unknown error"
+        },
+        "metadata": {},
+        "ocsp_stapling": false
+      }
+    }
+  }
+}

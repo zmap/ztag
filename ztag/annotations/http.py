@@ -17,6 +17,16 @@ class HTTPServerParse(Annotation):
           "os":"Ubuntu"
         }
       },
+      "iis7":{
+        "local_metadata":{
+          "manufacturer":"Microsoft",
+          "product":"IIS",
+          "version":"7.5"
+        },
+        "global_metadata":{
+          "os":"Windows"
+        },
+      },
       "nginx_simple":{
         "local_metadata":{
           "product":"nginx",
@@ -54,10 +64,17 @@ class HTTPServerParse(Annotation):
         elif m.local_metadata.product == "gse":
             m.local_metadata.manufacturer = "Google"
             m.local_metadata.product = "Scripting Engine"
+        elif m.local_metadata.product == "GoAhead-Webs":
+            m.tags.add("embedded")
+        elif m.local_metadata.product == "RomPager":
+            m.tags.add("embedded")
+        elif m.local_metadata.product == "Mikrotik":
+            m.global_metadata.manufacturer = Manufacturer.MIKROTIK
+            m.tags.add("embedded")
 
         if m.global_metadata.os and "HTTP" in m.global_metadata.os:
             m.global_metadata.os = None
-        if m.local_metadata.product == "IIS":
+        if m.local_metadata.product == "IIS" or m.local_metadata.product == "Microsoft-IIS":
             m.global_metadata.os = "Windows"
         return m
 

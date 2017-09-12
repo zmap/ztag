@@ -1,0 +1,423 @@
+{
+  "22": {
+    "ssh": {
+      "v2": {
+        "key_exchange": {
+          "dh_params": {
+            "prime": {
+              "value": "///////////JD9qiIWjCNMTGYouA3BzRKQJOCIpnzHQCC76mOxObIlFKCHmONATd75UZs806QxswKwpt8l8UN0/hNW1tUcJF5IW1dmJefsb0TELppjftawv/XLb0Brft7jhr+1qJn6WunyQRfEsf5kkoZlHs5Fs9wgB8uKFjvwWY2kg2HFXTmmkWP6j9JM9fg2VdI9yjrZYcYvNWIIVSu57VKQdwlpZtZww1Tkq8mATxdGwIyhghfDKQXkYuNs474553LBgOhgObJ4Oi7Aeij7XFXfBvTFLJ3ivL9pVYFxg5lUl86pVq5RXSJhiY+gUQFXKOWoqsqmj//////////w==",
+              "length": 2048
+            },
+            "generator": {
+              "value": "Ag==",
+              "length": 8
+            }
+          }
+        },
+        "banner": {
+          "software": "OpenSSH_4.2",
+          "version": "1.99",
+          "raw": "SSH-1.99-OpenSSH_4.2"
+        },
+        "metadata": {},
+        "support": {
+          "client_to_server": {
+            "ciphers": [
+              "aes128-cbc",
+              "3des-cbc",
+              "blowfish-cbc",
+              "cast128-cbc",
+              "arcfour128",
+              "arcfour256",
+              "arcfour",
+              "aes192-cbc",
+              "aes256-cbc",
+              "rijndael-cbc@lysator.liu.se",
+              "aes128-ctr",
+              "aes192-ctr",
+              "aes256-ctr"
+            ],
+            "compressions": [
+              "none",
+              "zlib@openssh.com"
+            ],
+            "macs": [
+              "hmac-md5",
+              "hmac-sha1",
+              "hmac-ripemd160",
+              "hmac-ripemd160@openssh.com",
+              "hmac-sha1-96",
+              "hmac-md5-96"
+            ]
+          },
+          "first_kex_follows": false,
+          "kex_algorithms": [
+            "diffie-hellman-group-exchange-sha1",
+            "diffie-hellman-group14-sha1",
+            "diffie-hellman-group1-sha1"
+          ],
+          "server_to_client": {
+            "ciphers": [
+              "aes128-cbc",
+              "3des-cbc",
+              "blowfish-cbc",
+              "cast128-cbc",
+              "arcfour128",
+              "arcfour256",
+              "arcfour",
+              "aes192-cbc",
+              "aes256-cbc",
+              "rijndael-cbc@lysator.liu.se",
+              "aes128-ctr",
+              "aes192-ctr",
+              "aes256-ctr"
+            ],
+            "compressions": [
+              "none",
+              "zlib@openssh.com"
+            ],
+            "macs": [
+              "hmac-md5",
+              "hmac-sha1",
+              "hmac-ripemd160",
+              "hmac-ripemd160@openssh.com",
+              "hmac-sha1-96",
+              "hmac-md5-96"
+            ]
+          },
+          "host_key_algorithms": [
+            "ssh-rsa",
+            "ssh-dss"
+          ]
+        },
+        "selected": {
+          "kex_algorithm": "diffie-hellman-group14-sha1",
+          "server_to_client": {
+            "cipher": "aes128-ctr",
+            "mac": "hmac-sha1",
+            "compression": "none"
+          },
+          "client_to_server": {
+            "cipher": "aes128-ctr",
+            "mac": "hmac-sha1",
+            "compression": "none"
+          },
+          "host_key_algorithm": "ssh-rsa"
+        },
+        "server_host_key": {
+          "rsa_public_key": {
+            "length": 1024,
+            "exponent": 35,
+            "modulus": "0bh/cRlG1/U00/JUpNwUxyO7hh5vmGy3NHsK37JFTc1LGw0JkpzQdoqiwmxEvwNwGPDl2p51i89y62XKLSuEDYCTZ4yeYsJoy3hhzjgqwF19SgI3bUz+bd4G2LqR6imIaAzwUOc8xxheQfb74egClqDgXU3ihzZFVPceuagp4sk="
+          },
+          "fingerprint_sha256": "efeb003eb8099614b151ffae186f7e060efd529510e654963b403e1f06fa42f1",
+          "key_algorithm": "ssh-rsa"
+        }
+      }
+    }
+  },
+  "80": {
+    "http": {
+      "get": {
+        "body": "<script>\n  location.href=\"index.php\";\n</script>\n  \n",
+        "status_code": 200,
+        "status_line": "200 OK",
+        "metadata": {},
+        "body_sha256": "/6xZrldQyM+VNEMUJrLBXtjF2985iIDFp5imM4z8NLM=",
+        "headers": {
+          "content_length": "51",
+          "unknown": [
+            {
+              "value": "Tue, 05 Sep 2017 19:26:56 GMT",
+              "key": "date"
+            }
+          ],
+          "content_type": "text/html",
+          "server": "Apache"
+        }
+      }
+    }
+  },
+  "443": {
+    "https": {
+      "dhe_export": {
+        "support": true,
+        "metadata": {},
+        "dh_params": {
+          "prime": {
+            "value": "n9uLigBFRPAEXxc30LouCydM3xqfWIIY+0NTFqFuN0Fx/RnY2PN8Ob+GP9YOPjAGgKMDDG5MN1fQj3DmqocQMw==",
+            "length": 512
+          },
+          "generator": {
+            "value": "Ag==",
+            "length": 8
+          }
+        }
+      },
+      "rsa_export": {
+        "rsa_params": {
+          "length": 512,
+          "exponent": 65537,
+          "modulus": "mFz6FEBFCqTT895IsKuf4JefBFQpdqJgZXLvsM1ATWyQI6GzYEr859h/OHnf8tmG3HNtapLEQWDqUGJrzo8LjQ=="
+        },
+        "support": true,
+        "metadata": {}
+      },
+      "heartbleed": {
+        "heartbeat_enabled": false,
+        "heartbleed_vulnerable": false,
+        "metadata": {}
+      },
+      "tls": {
+        "certificate": {
+          "parsed": {
+            "subject": {
+              "locality": [
+                "Taipei"
+              ],
+              "country": [
+                "TW"
+              ],
+              "organizational_unit": [
+                "N7700"
+              ],
+              "email_address": [
+                "support@thecus.com"
+              ],
+              "province": [
+                "Taipei"
+              ],
+              "common_name": [
+                "Thecus"
+              ],
+              "organization": [
+                "Thecus Technology Corp."
+              ]
+            },
+            "redacted": false,
+            "serial_number": "1",
+            "version": 3,
+            "signature": {
+              "signature_algorithm": {
+                "name": "MD5WithRSA",
+                "oid": "1.2.840.113549.1.1.4"
+              },
+              "self_signed": false,
+              "valid": true,
+              "value": "lVOsbPo7QLAMz4Wt9V4rlh4fvWnGga28hz3npLu+vcKT9MK0vALZXuV+fDzLmTxIlFlIYU12gFs1BKxxVFwjVAJNDa34Xk0KYJ/0mgsxi0C7114gYSVXoiPzZz+af6PSMPGU59Gu7xc5UyFMQZzKBxml0ewKoWkBSWkeeuMgrK8="
+            },
+            "extensions": {
+              "basic_constraints": {
+                "is_ca": false
+              },
+              "subject_key_id": "0c4d0e63a7d52ac8d1a0abd59f9fa0851517bf6d"
+            },
+            "signature_algorithm": {
+              "name": "MD5WithRSA",
+              "oid": "1.2.840.113549.1.1.4"
+            },
+            "fingerprint_sha1": "77be18c8566fcf20c7b01795263a53cf2f3fd69f",
+            "spki_subject_fingerprint": "f5902b9b2119efadeef7222729b8f210f394f0c80366f62b64212aca94047605",
+            "fingerprint_sha256": "c2da0ef66b841b9abd02bf4d44f30a17e2cbaa5f134ce7258246a80a25eba812",
+            "issuer": {
+              "locality": [
+                "Taipei"
+              ],
+              "country": [
+                "TW"
+              ],
+              "organizational_unit": [
+                "dummy_ca"
+              ],
+              "email_address": [
+                "dummy_ca@thecus.com"
+              ],
+              "province": [
+                "Taipei"
+              ],
+              "common_name": [
+                "dummy_ca.thecus.com"
+              ],
+              "organization": [
+                "Thecus Technology Corp."
+              ]
+            },
+            "tbs_noct_fingerprint": "1d8060d274531b5b7ecab08d0fbc2ce89f8b117925c58b7e201b965aa358c9d7",
+            "issuer_dn": "C=TW, ST=Taipei, L=Taipei, O=Thecus Technology Corp., OU=dummy_ca, CN=dummy_ca.thecus.com, emailAddress=dummy_ca@thecus.com",
+            "subject_dn": "C=TW, ST=Taipei, L=Taipei, O=Thecus Technology Corp., OU=N7700, CN=Thecus, emailAddress=support@thecus.com",
+            "unknown_extensions": [
+              {
+                "value": "Fh1PcGVuU1NMIEdlbmVyYXRlZCBDZXJ0aWZpY2F0ZQ==",
+                "critical": false,
+                "id": "2.16.840.1.113730.1.13"
+              }
+            ],
+            "fingerprint_md5": "6b6313bc2fe80e6e8134cd471b16d277",
+            "tbs_fingerprint": "1d8060d274531b5b7ecab08d0fbc2ce89f8b117925c58b7e201b965aa358c9d7",
+            "subject_key_info": {
+              "rsa_public_key": {
+                "length": 1024,
+                "exponent": 65537,
+                "modulus": "4fKkGJCBrx7aVbtWq16eHYkH8OHzwalbS6dPJquBUxQ88mx3pf5XvXDFtg4ke5WtBL0lf7IFTaaVmDG4GfhD5V+VWty5PRv78f+d3L2kBY+J2GH5RBlXpF/k7pSufhDdzBfzMw8LCf3Hkf/spQq/XeJwaliJzFHZ3nxEdKwILlE="
+              },
+              "fingerprint_sha256": "a19fd029b0b0e9f0a6a95b84223baaa5c66eede4efa526acb21c286931b67f2c",
+              "key_algorithm": {
+                "name": "RSA"
+              }
+            },
+            "validity": {
+              "start": "2008-07-24T08:49:26Z",
+              "length": 315360000,
+              "end": "2018-07-22T08:49:26Z"
+            },
+            "validation_level": "unknown"
+          }
+        },
+        "version": "TLSv1.0",
+        "cipher_suite": {
+          "name": "TLS_DHE_RSA_WITH_AES_256_CBC_SHA",
+          "id": "0x0039"
+        },
+        "signature": {
+          "valid": true
+        },
+        "validation": {
+          "browser_trusted": false,
+          "browser_error": "x509: certificate is not authorized to sign other certificates"
+        },
+        "server_key_exchange": {
+          "dh_params": {
+            "prime": {
+              "value": "1n3kQMu73Bk21pPTSv0K1QyE0jmkX1ILuIF0y5i86VGEn5EuY5xy+xO0tNcXfhbVWsF5ukILKin+MkpGemNegf9ZATd77dz9MxaKRhqtO3La6IYAeARbB6fbynh0CH0VEOqfzJ3dMwUH3WLbiK6qdH3g9NbivWiw5zk+DyQhjrM=",
+              "length": 1024
+            },
+            "generator": {
+              "value": "Ag==",
+              "length": 8
+            }
+          }
+        },
+        "metadata": {},
+        "chain": [
+          {
+            "parsed": {
+              "subject": {
+                "locality": [
+                  "Taipei"
+                ],
+                "country": [
+                  "TW"
+                ],
+                "organizational_unit": [
+                  "dummy_ca"
+                ],
+                "email_address": [
+                  "dummy_ca@thecus.com"
+                ],
+                "province": [
+                  "Taipei"
+                ],
+                "common_name": [
+                  "dummy_ca.thecus.com"
+                ],
+                "organization": [
+                  "Thecus Technology Corp."
+                ]
+              },
+              "redacted": false,
+              "serial_number": "17095659997446074300",
+              "version": 2,
+              "signature": {
+                "signature_algorithm": {
+                  "name": "MD5WithRSA",
+                  "oid": "1.2.840.113549.1.1.4"
+                },
+                "self_signed": true,
+                "valid": false,
+                "value": "NUKdK+iJhAgToAgJZ606d2NFM9sRYp1jqD0A/bX838EosYle83UPRfpHwUuIMOvr/dRSxnlqrIXplvKm+fl6yTsugZACIzXtMRtwwfwlnPVskajuj/WnTrER0uAZYCBH5dfrHNAZW6P0pvP3YOohBL+ER4x6ZPXVp3NMkXwh6s0="
+              },
+              "extensions": {},
+              "signature_algorithm": {
+                "name": "MD5WithRSA",
+                "oid": "1.2.840.113549.1.1.4"
+              },
+              "fingerprint_sha1": "5f8937484254aa1f64e19f8b57a70b1f6874241c",
+              "spki_subject_fingerprint": "6cb7dd4f900734a53aac665baf955a5fc94ff3ca38b504871092faaab8739d25",
+              "names": [
+                "dummy_ca.thecus.com"
+              ],
+              "fingerprint_sha256": "27f94aa7f6483432bca23bad7b37a8c85b4fc13f3b2b06ebdb6625c8f29ad06c",
+              "issuer": {
+                "locality": [
+                  "Taipei"
+                ],
+                "country": [
+                  "TW"
+                ],
+                "organizational_unit": [
+                  "dummy_ca"
+                ],
+                "email_address": [
+                  "dummy_ca@thecus.com"
+                ],
+                "province": [
+                  "Taipei"
+                ],
+                "common_name": [
+                  "dummy_ca.thecus.com"
+                ],
+                "organization": [
+                  "Thecus Technology Corp."
+                ]
+              },
+              "tbs_noct_fingerprint": "208b0da71feaaa96b8204770a397fe9b3f985081c060302dd0c0ab2dd2e90698",
+              "issuer_dn": "C=TW, ST=Taipei, L=Taipei, O=Thecus Technology Corp., OU=dummy_ca, CN=dummy_ca.thecus.com, emailAddress=dummy_ca@thecus.com",
+              "subject_dn": "C=TW, ST=Taipei, L=Taipei, O=Thecus Technology Corp., OU=dummy_ca, CN=dummy_ca.thecus.com, emailAddress=dummy_ca@thecus.com",
+              "fingerprint_md5": "2098f67f5b66affd41be81b8cbe13711",
+              "tbs_fingerprint": "666e10bf26a99294b1728de6ccd08a0318ab1059e34668f9c2da941f7a8eca54",
+              "subject_key_info": {
+                "rsa_public_key": {
+                  "length": 1024,
+                  "exponent": 65537,
+                  "modulus": "0BDqixwX8W1wtoGKbRN45OacWWi8IpwfYcsui6tlXjcMVZ6u7nPZWHwE9fcMI8m6oLCY4F5pA84f9vKMCPfSpwbliajOnmnMm1K71TOY1Vx8L7zUB04HbPInqkaYDgKA4yLXB+4NR+vE7EvwV+LyUOUK/g+mktHtrC8QNwvNzSk="
+                },
+                "fingerprint_sha256": "c1b00e293afcc389e475bcf227738856d6a315f4a930ddd0d70592a95d71e9cc",
+                "key_algorithm": {
+                  "name": "RSA"
+                }
+              },
+              "validity": {
+                "start": "2008-07-24T08:49:26Z",
+                "length": 315360000,
+                "end": "2018-07-22T08:49:26Z"
+              },
+              "validation_level": "unknown"
+            }
+          }
+        ],
+        "ocsp_stapling": false,
+        "session_ticket": {
+          "length": 192
+        }
+      },
+      "ssl_3": {
+        "support": true,
+        "metadata": {}
+      },
+      "dhe": {
+        "support": true,
+        "metadata": {},
+        "dh_params": {
+          "prime": {
+            "value": "1n3kQMu73Bk21pPTSv0K1QyE0jmkX1ILuIF0y5i86VGEn5EuY5xy+xO0tNcXfhbVWsF5ukILKin+MkpGemNegf9ZATd77dz9MxaKRhqtO3La6IYAeARbB6fbynh0CH0VEOqfzJ3dMwUH3WLbiK6qdH3g9NbivWiw5zk+DyQhjrM=",
+            "length": 1024
+          },
+          "generator": {
+            "value": "Ag==",
+            "length": 8
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "443": {
+    "https": {
+      "rsa_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "dhe_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "heartbleed": {
+        "heartbeat_enabled": true,
+        "heartbleed_vulnerable": false,
+        "metadata": {}
+      },
+      "dhe": {
+        "support": true,
+        "metadata": {},
+        "dh_params": {
+          "prime": {
+            "value": "gDsrYufX1QGgz1RClgskv3BBeojUfmvf0azdMOl9majy/NuQnxSU8AtKANoK1XX7rugJExNeW9ZyjTzXNfOQO+3baR4MZk0AerbMVoiDwH7/63qPbGMrbFwrB2OoMd6lwJz+IugymZt1kntz6WDbmJwOZGysxgqHMsqElFyvdJiRdSjrQOXPcxKKjxWXWYswsb4IYMwo9gODdJlHMwgRoPxFdFPoSl4DZ36Dr5TJvI7pZoczUfZDdNABJqIYJaNo2z59MM0dFIgW3j7xyRbgvjNqxciL80PlJrlU8GHFrXbfKrNwhyoDM5a9wEIH3iohaXw+MiR5vLEFzdo/zc8/yw==",
+            "length": 2048
+          },
+          "generator": {
+            "value": "Ag==",
+            "length": 8
+          }
+        }
+      },
+      "tls": {
+        "certificate": {
+          "parsed": {
+            "subject": {
+              "locality": [
+                "Taipei"
+              ],
+              "country": [
+                "TW"
+              ],
+              "organizational_unit": [
+                "FTP Team"
+              ],
+              "email_address": [
+                "product@synology.com"
+              ],
+              "province": [
+                "Taiwan"
+              ],
+              "common_name": [
+                "synology.com"
+              ],
+              "organization": [
+                "Synology Inc."
+              ]
+            },
+            "redacted": false,
+            "serial_number": "73855172306",
+            "version": 3,
+            "signature": {
+              "signature_algorithm": {
+                "name": "SHA1WithRSA",
+                "oid": "1.2.840.113549.1.1.5"
+              },
+              "self_signed": false,
+              "valid": false,
+              "value": "SXZk5pquBdZo2Vt/+gcNOBg/y0TgZfyd2/sCsRU1mw0heBkbgf3uaLtpbQePx77MLA7MYrfHWbfrum0t7lYNLhGn/p9gy6Z6SbSkhbQHWwxIgYY5Gh9hjcs73ZLUc4t/eZ5V/h/ZkPBBAPgNhP4s4G0t73OYUyH8TjrUUjZwe+8="
+            },
+            "extensions": {
+              "subject_alt_name": {
+                "email_addresses": [
+                  "product@synology.com"
+                ]
+              }
+            },
+            "signature_algorithm": {
+              "name": "SHA1WithRSA",
+              "oid": "1.2.840.113549.1.1.5"
+            },
+            "fingerprint_sha1": "e27e4b9ca89d08290eb646b7e1b44fc69279c765",
+            "spki_subject_fingerprint": "484293f534369c9316485ebffb4f19c8dba2f3b0902677048b520cad649d75e8",
+            "names": [
+              "synology.com"
+            ],
+            "fingerprint_sha256": "2bed2e721b3d2de9cd10d43cb611cef66817a21358e1e571e139951247ab31ac",
+            "issuer": {
+              "locality": [
+                "Taipei"
+              ],
+              "country": [
+                "TW"
+              ],
+              "organizational_unit": [
+                "Certificate Authority"
+              ],
+              "email_address": [
+                "product@synology.com"
+              ],
+              "province": [
+                "Taiwan"
+              ],
+              "common_name": [
+                "Synology Inc. CA"
+              ],
+              "organization": [
+                "Synology Inc."
+              ]
+            },
+            "tbs_noct_fingerprint": "00f9db349ef07484394d039a9d90318a9b7b44d3a4ccddb98fef600527f9ce09",
+            "issuer_dn": "C=TW, ST=Taiwan, L=Taipei, O=Synology Inc., OU=Certificate Authority, CN=Synology Inc. CA, emailAddress=product@synology.com",
+            "subject_dn": "C=TW, ST=Taiwan, L=Taipei, O=Synology Inc., OU=FTP Team, CN=synology.com, emailAddress=product@synology.com",
+            "unknown_extensions": [
+              {
+                "value": "Fittb2Rfc3NsIGdlbmVyYXRlZCBjdXN0b20gc2VydmVyIGNlcnRpZmljYXRl",
+                "critical": false,
+                "id": "2.16.840.1.113730.1.13"
+              },
+              {
+                "value": "AwIGQA==",
+                "critical": false,
+                "id": "2.16.840.1.113730.1.1"
+              }
+            ],
+            "fingerprint_md5": "2a2b82be07b36d1e44480956579bb384",
+            "tbs_fingerprint": "00f9db349ef07484394d039a9d90318a9b7b44d3a4ccddb98fef600527f9ce09",
+            "subject_key_info": {
+              "rsa_public_key": {
+                "length": 1024,
+                "exponent": 65537,
+                "modulus": "6pGgyurvVy4VPPY5VrQDYjhZWuiTAWctsxvcj7vvBWOKprIPPwSNwtLtkob6WaC9m4BZ15IznAJHEHaKVqbtitgp7LhNVcRRiPWPV2fR9Cf9sFQIL9V27k3+ru2qWFVYsAwsGNJDqBDXvB8Zemr3KbnBoVtYL7RabD4mxIeqUtU="
+              },
+              "fingerprint_sha256": "e5210ff51e3e2c428505c816e8e69cd0d5bd53e0cf38822dfc30b9f8a92046ec",
+              "key_algorithm": {
+                "name": "RSA"
+              }
+            },
+            "validity": {
+              "start": "2013-07-16T19:17:39Z",
+              "length": 622080000,
+              "end": "2033-04-02T19:17:39Z"
+            },
+            "validation_level": "unknown"
+          }
+        },
+        "version": "TLSv1.2",
+        "cipher_suite": {
+          "name": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256",
+          "id": "0xC02F"
+        },
+        "signature": {
+          "signature_algorithm": "rsa",
+          "hash_algorithm": "sha512",
+          "valid": true
+        },
+        "validation": {
+          "browser_trusted": false,
+          "browser_error": "x509: certificate signed by unknown authority"
+        },
+        "server_key_exchange": {
+          "ecdh_params": {
+            "curve_id": {
+              "name": "secp256r1",
+              "id": 23
+            }
+          }
+        },
+        "metadata": {},
+        "ocsp_stapling": false
+      }
+    }
+  }
+}
