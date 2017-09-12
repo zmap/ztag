@@ -90,3 +90,20 @@ class CiscoRV082(TLSTag):
             meta.tags.add("embedded")
             return meta
 
+
+
+class CiscoASA(TLSTag):
+
+    protocol = protocols.HTTPS
+    subprotocol = protocols.HTTPS.TLS
+    port = None
+
+    def process(self, obj,meta):
+        cn = obj["certificate"]["parsed"]["subject"]["common_name"]
+        if "ciscoasa" in cn:
+            meta.global_metadata.manufacturer = Manufacturer.CISCO
+            meta.global_metadata.product = "Adaptive Security Appliance (ASA)"
+            meta.global_metadata.device_type = Type.FIREWALL
+            meta.tags.add("embedded")
+            return meta
+
