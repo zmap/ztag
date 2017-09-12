@@ -239,7 +239,7 @@ class Manufacturer(object):
     LEIGHTRONIX = "Leightronix"
     LENOVO = "Lenovo"
     LEXMARK = "Lexmark"
-    LINKSYS = "LinkSys"
+    LINKSYS = "Linksys"
     LIFESIZE = "LifeSize"
     LUTRON = "Lutron"
     MAYGION = "Maygion"
