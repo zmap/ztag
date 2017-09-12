@@ -7,8 +7,20 @@ class CommonCertificateFingerprints(Annotation):
     subprotocol = protocols.HTTPS.TLS
     port = None
 
+    tests = {
+      "huawei_38e5":{
+        "global_metadata":{
+          "manufacturer":Manufacturer.HUAWEI,
+          "device_type":Type.MODEM,
+          "product":"Home Gateway HG658d",
+        },
+        "tags":["embedded",]
+      }
+    }
+
+
     def process(self, obj, meta):
-        fp = d["certificate"]["parsed"]["fingerprint_sha256"]
+        fp = obj["certificate"]["parsed"]["fingerprint_sha256"]
         if fp == "6343022d4995a8d96f50a737e77fd5c0ab2efd842b5e05b1fd7109df426a38e5":
             meta.global_metadata.manufacturer = Manufacturer.HUAWEI
             meta.global_metadata.product = "Home Gateway HG658d"
