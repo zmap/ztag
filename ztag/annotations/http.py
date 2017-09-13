@@ -46,6 +46,10 @@ class HTTPServerParse(Annotation):
         elif m.local_metadata.product.lower() == "apache":
             m.local_metadata.manufacturer = "Apache"
             m.local_metadata.product = "httpd"
+        elif m.local_metadata.product.lower() == "akamaighost":
+            m.local_metadata.manufacturer = "Akamai"
+            m.local_metadata.product = "Global Host"
+            m.tags.add("akamai")
         elif m.local_metadata.product.lower() == "httpd":
             m.local_metadata.manufacturer = "Apache"
             m.local_metadata.product = "httpd"

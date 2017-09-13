@@ -4,8 +4,12 @@ from ztag.annotation import Annotation
 
 from ztag import protocols
 
+SCADA_PROTOCOLS = set(["dnp", "modbus", "bacnet", "fox", "dnp3", "s7"])
+
 def __process(self, obj, meta):
     meta.tags.add(self.protocol.pretty_name)
+    if self.protocol.pretty_name in SCADA_PROTOCOLS:
+        meta.tags.add("scada")
     return meta
 
 PROTOCOLS = [
