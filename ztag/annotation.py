@@ -198,6 +198,7 @@ class Manufacturer(object):
     COMPUTEC = "Computec OY"
     COMTROL = "Comtrol Corporation"
     CROUZET = "Crouzet"
+    DAHUA = "Dahua Technology"
     DEDICATED_MICROS = "Dedicated Micros"
     DELL = "Dell"
     DIGI = "Digi"

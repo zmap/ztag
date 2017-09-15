@@ -27,6 +27,10 @@ class CommonCertificateFingerprints(Annotation):
             meta.global_metadata.device_type = Type.MODEM
             meta.tags.add("embedded")
             return meta
+        elif fp == "d86ac7ac292a9bf702b90c0a6396df047d961e549331d802db22079f7a4d8b8e"
+            meta.global_metadata.manufacturer = Manufacturer.DAHUA
+            meta.tags.add("embedded")
+            return meta
         elif fp == "96421eda0168df9a44c9eadc7451cae578f3c42456bbef5c5b33e1791b88d20c":
             meta.global_metadata.manufacturer = Manufacturer.MOTOROLA
             meta.global_metadata.product = "Cable Modem"

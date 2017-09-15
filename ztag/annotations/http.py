@@ -78,7 +78,9 @@ class HTTPServerParse(Annotation):
 
         if m.global_metadata.os and "HTTP" in m.global_metadata.os:
             m.global_metadata.os = None
-        if m.local_metadata.product == "IIS" or m.local_metadata.product == "Microsoft-IIS":
+        if m.local_metadata.product == "IIS"\
+                or m.local_metadata.manufacturer == "Microsoft"\
+                or m.local_metadata.product == "Microsoft-IIS":
             m.global_metadata.os = "Windows"
         return m
 
