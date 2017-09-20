@@ -33,6 +33,7 @@ PROTOCOLS = [
     (protocols.S7, protocols.S7.SZL, {"device_with_s7": {"tags":["s7",]}}),
     (protocols.CWMP, protocols.CWMP.GET, {"device_with_cwmp": {"tags":["cwmp",]}}),
     (protocols.SMB, protocols.SMB.BANNER, {"device_with_smb": {"tags":["smb",]}}),
+    (protocols.UPNP, protocols.UPNP.DISCOVERY, {"device_with_upnp": {"tags":["upnp",]}}),
 ]
 
 for proto, subproto, tests in PROTOCOLS:

@@ -82,7 +82,8 @@ class CommonCertificateFingerprints(Annotation):
             meta.tags.add("embedded")
             return meta
         elif fp == "182034cb65b46a7a8563262995120630392b1f5d626133d961503056c1c72c1a"\
-                or fp == "cdf555315a8ba0139e721d5b17cbee6599c42b52e4b8eb52f9237825b1e74f64":
+                or fp == "cdf555315a8ba0139e721d5b17cbee6599c42b52e4b8eb52f9237825b1e74f64"\
+                or fp == "f617e883351ed4e69f23d155205d627808b4270948acf3012865104e726a2b1d ":
             meta.global_metadata.manufacturer = Manufacturer.DRAYTEK
             meta.global_metadata.device_type = Type.SOHO_ROUTER
             meta.global_metadata.product = "Vigor Router"
