@@ -4,7 +4,7 @@ from ztag.transform import Transformable
 import re
 
 # That's right, I'm parsing HTML with regex
-title_regex = re.compile(r'<title>([\s\S]*)<\/title>', re.IGNORECASE | re.UNICODE)
+title_regex = re.compile(r'<title>([\s\S]*?)<\/title>', re.IGNORECASE | re.UNICODE)
 
 class HTTPTransform(ZGrabTransform):
 
@@ -43,7 +43,7 @@ class HTTPTransform(ZGrabTransform):
                     title = m.group(1)
                     if len(title) > 1024:
                         title = title[0:1024]
-                    out['title'] = title
+                    out['title'] = title.strip()
             if headers is not None:
                 if "set_cookie" in headers:
                     del headers["set_cookie"]
