@@ -27,7 +27,7 @@ class CommonCertificateFingerprints(Annotation):
             meta.global_metadata.device_type = Type.MODEM
             meta.tags.add("embedded")
             return meta
-        elif fp == "d86ac7ac292a9bf702b90c0a6396df047d961e549331d802db22079f7a4d8b8e"
+        elif fp == "d86ac7ac292a9bf702b90c0a6396df047d961e549331d802db22079f7a4d8b8e":
             meta.global_metadata.manufacturer = Manufacturer.DAHUA
             meta.tags.add("embedded")
             return meta
@@ -303,4 +303,3 @@ class CommonCertificateFingerprints(Annotation):
             meta.global_metadata.device_type = Type.NETWORK
             meta.tags.add("embedded")
             return meta
-
