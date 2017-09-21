@@ -35,34 +35,28 @@ class FtpSynology(Annotation):
             "global_metadata": {
                 "device_type": Type.NAS,
                 "manufacturer": Manufacturer.SYNOLOGY,
-                "product": "Cube Station"
+                "product": "CubeStation"
             }
         },
     }
 
     def process(self, obj, meta):
         banner = obj["banner"]
-
-        if (
-            self.manufact_2_re.search(banner) or
-            self.manufact_3_re.search(banner)
-        ):
+        if (self.manufact_2_re.search(banner) or self.manufact_3_re.search(banner)):
             meta.global_metadata.device_type = Type.NAS
             meta.global_metadata.manufacturer = Manufacturer.SYNOLOGY
             meta.global_metadata.product = "DiskStation"
-
             return meta
 
         if banner.startswith("220 Cube Station FTP server"):
             meta.global_metadata.device_type = Type.NAS
             meta.global_metadata.manufacturer = Manufacturer.SYNOLOGY
-            meta.global_metadata.product = "Cube Station"
-
+            meta.global_metadata.product = "CubeStation"
             return meta
 
         if self.manufact_1_re.search(banner):
             meta.global_metadata.manufacturer = Manufacturer.SYNOLOGY
-
+            meta.global_metadata.device_type = Type.NAS
             return meta
 
     """ Tests

@@ -46,6 +46,10 @@ class HTTPServerParse(Annotation):
         elif m.local_metadata.product.lower() == "apache":
             m.local_metadata.manufacturer = "Apache"
             m.local_metadata.product = "httpd"
+        elif m.local_metadata.product.lower() == "akamaighost":
+            m.local_metadata.manufacturer = "Akamai"
+            m.local_metadata.product = "Global Host"
+            m.tags.add("akamai")
         elif m.local_metadata.product.lower() == "httpd":
             m.local_metadata.manufacturer = "Apache"
             m.local_metadata.product = "httpd"
@@ -74,7 +78,9 @@ class HTTPServerParse(Annotation):
 
         if m.global_metadata.os and "HTTP" in m.global_metadata.os:
             m.global_metadata.os = None
-        if m.local_metadata.product == "IIS" or m.local_metadata.product == "Microsoft-IIS":
+        if m.local_metadata.product == "IIS"\
+                or m.local_metadata.manufacturer == "Microsoft"\
+                or m.local_metadata.product == "Microsoft-IIS":
             m.global_metadata.os = "Windows"
         return m
 
