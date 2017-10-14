@@ -19,7 +19,7 @@ class SSHGenericOS(Annotation):
           "os_version":"5+deb8u3",
           "product":"Raspberry Pi",
         },
-        "tags":["embedded",]
+        "tags":["embedded","raspberry pi"]
       }
     }
 
