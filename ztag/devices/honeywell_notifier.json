@@ -1,0 +1,177 @@
+{
+  "tags": [
+    "http",
+    "https"
+  ],
+  "443": {
+    "https": {
+      "tls": {
+        "server_key_exchange": {
+          "ecdh_params": {
+            "curve_id": {
+              "id": 23,
+              "name": "secp256r1"
+            }
+          }
+        },
+        "certificate": {
+          "parsed": {
+            "tbs_noct_fingerprint": "7817f1f86c5c076d4ba9a6c9c82717329e17a81f45f2db5d407f8a0cb0cfb4e7",
+            "subject_dn": "CN=192.168.1.2, ST=Connecticut, C=US, emailAddress=none, O=Honeywell, OU=Notifier",
+            "subject": {
+              "province": [
+                "Connecticut"
+              ],
+              "country": [
+                "US"
+              ],
+              "organizational_unit": [
+                "Notifier"
+              ],
+              "common_name": [
+                "192.168.1.2"
+              ],
+              "organization": [
+                "Honeywell"
+              ],
+              "email_address": [
+                "none"
+              ]
+            },
+            "signature_algorithm": {
+              "oid": "1.2.840.113549.1.1.11",
+              "name": "SHA256WithRSA"
+            },
+            "redacted": false,
+            "serial_number": "10501398617944708537",
+            "validation_level": "unknown",
+            "issuer_dn": "CN=192.168.1.2, ST=Connecticut, C=US, emailAddress=none, O=Honeywell, OU=Notifier",
+            "fingerprint_sha1": "6fb9ead604bd94ff460d204e114c9b5348e55f5a",
+            "version": 2,
+            "fingerprint_sha256": "25c18fce9e547f00e281cccea65953cbb4877a74d9972de35602bd6be25c069f",
+            "names": [
+              "192.168.1.2"
+            ],
+            "tbs_fingerprint": "85a324fdbc3d2046345de8c8723faaab0f0cf033d0c046a9157ddbc4bac05cda",
+            "validity": {
+              "start": "2017-06-12T12:48:05Z",
+              "length": 95040000,
+              "end": "2020-06-16T12:48:05Z"
+            },
+            "extensions": {},
+            "fingerprint_md5": "bb654ac18f7228f96074f4f8c79bfb6b",
+            "subject_key_info": {
+              "fingerprint_sha256": "1c6a18a94b98bf81af49d5aa8ef22651ed90aaa3529c7c931c76df5392897521",
+              "key_algorithm": {
+                "name": "RSA"
+              },
+              "rsa_public_key": {
+                "length": 2048,
+                "modulus": "qG0c0Fo0ITgPUuoESSLz95U8PN2rlQ6NNKRkpGM+zafazP26+HNpwlQnNgAtDZczLLZ50fTLnnD9820RMxBo3ziDh8KbDM2mJnPYrfumAtXqHOqIHYCqu6xieLBP6ARcXneFe58/Koud4dDCFjUIi28ZRkndQzWZ8/w+p30D5V8O/QVVby0+s7FAJYd1gHiuyz8oQqKGQ4JNP/Tecn7/9ftNSiJU6CL0pqMnA8lVort+GWyUAMwnA6IWh9DM4ilzETVxO5NmzNnJF2vNOuZzUgyQs1d7b4RR7GHL22CoMvvFRr3IdvcnbD6gWBVcuuE8BB2oUPvHK+85q4eGvZQOFw==",
+                "exponent": 65537
+              }
+            },
+            "signature": {
+              "self_signed": true,
+              "valid": true,
+              "value": "EAM5uklnx47VN7qlM4E/lxacE2YsHLpLt7LsXHQC42hTc5KKCGAx1LhBZcsSzANp93BOMcVhUajQ+rjWUO1uOZh46IlzIy0NeZ3pBQIc0PDP4NrMVd7jd80H6ThmWgreEyegQiNg7QHdw3JL4RztwK9XMa/PScIDlM9IIkNXkmNfOrGWDIxn5ksqu5QgrhWxs9RByBG1NNWohsU4tEqUarkTWiy4pCg2k31NnGxNK2BjQwMliVKf5eGfsZMq1ZhdDv3IPO4KI+GejuHcoqylpJHTav+doFGXPfNYa63kyqEQAVnqiYqMXX0gDhyC6+2cwPc3kskPmAmddUUeUrCHmQ==",
+              "signature_algorithm": {
+                "oid": "1.2.840.113549.1.1.11",
+                "name": "SHA256WithRSA"
+              }
+            },
+            "spki_subject_fingerprint": "45e2a9eac56a6d89b0a04fadc552f80ab771315059eda9287bbbd56b9cf244dd",
+            "issuer": {
+              "province": [
+                "Connecticut"
+              ],
+              "country": [
+                "US"
+              ],
+              "organizational_unit": [
+                "Notifier"
+              ],
+              "common_name": [
+                "192.168.1.2"
+              ],
+              "organization": [
+                "Honeywell"
+              ],
+              "email_address": [
+                "none"
+              ]
+            }
+          }
+        },
+        "cipher_suite": {
+          "id": "0xC02F",
+          "name": "TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256"
+        },
+        "version": "TLSv1.2",
+        "ocsp_stapling": false,
+        "signature": {
+          "hash_algorithm": "sha256",
+          "valid": true,
+          "signature_algorithm": "rsa"
+        },
+        "validation": {
+          "browser_trusted": false,
+          "browser_error": "x509: unknown error"
+        },
+        "metadata": {}
+      },
+      "dhe": {
+        "support": true,
+        "dh_params": {
+          "prime": {
+            "length": 2048,
+            "value": "///////////JD9qiIWjCNMTGYouA3BzRKQJOCIpnzHQCC76mOxObIlFKCHmONATd75UZs806QxswKwpt8l8UN0/hNW1tUcJF5IW1dmJefsb0TELppjftawv/XLb0Brft7jhr+1qJn6WunyQRfEsf5kkoZlHs5Fs9wgB8uKFjvwWY2kg2HFXTmmkWP6j9JM9fg2VdI9yjrZYcYvNWIIVSu57VKQdwlpZtZww1Tkq8mATxdGwIyhghfDKQXkYuNs474553LBgOhgObJ4Oi7Aeij7XFXfBvTFLJ3ivL9pVYFxg5lUl86pVq5RXSJhiY+gUQFXKOWoqsqmj//////////w=="
+          },
+          "generator": {
+            "length": 8,
+            "value": "Ag=="
+          }
+        },
+        "metadata": {}
+      },
+      "dhe_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "rsa_export": {
+        "support": false,
+        "metadata": {}
+      },
+      "heartbleed": {
+        "heartbeat_enabled": false,
+        "heartbleed_vulnerable": false,
+        "metadata": {}
+      }
+    }
+  },
+  "80": {
+    "http": {
+      "get": {
+        "body": "<HTML><HEAD><META HTTP-EQUIV=\"refresh\"CONTENT=\"0;URL=https://128.255.238.42/\"></HEAD><BODY></BODY></HTML>",
+        "headers": {
+          "content_length": "105",
+          "unknown": [
+            {
+              "value": "Wed, 11 Oct 2017 14:44:28 GMT",
+              "key": "date"
+            }
+          ],
+          "x_content_security_policy": "default-src: 'self'",
+          "content_type": "text/html;charset=utf-8",
+          "content_security_policy": "default-src: 'self'",
+          "x_frame_options": "sameorigin",
+          "x_webkit_csp": "default-src: 'self'"
+        },
+        "status_code": 200,
+        "status_line": "200 Success",
+        "body_sha256": "42a920237664833e806b037ff7ad32c22a85b421994410bb27cf00a5c0409db4",
+        "metadata": {}
+      }
+    }
+  }
+}

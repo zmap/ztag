@@ -134,6 +134,7 @@ class Type(object):
     NETWORK = "network"
     SWITCH = "switch"
     FIREWALL = "firewall"
+    FIRE_ALARM = "fire alarm"
     NETWORK_ANALYZER = "network analyzer"
     PDU = "power distribution unit"
     PHASER_PRINTER = "phaser printer"
