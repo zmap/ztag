@@ -4,8 +4,8 @@ from ztag.annotation import *
 
 class DellPrinterHTTPS(Annotation):
 
-    protocol = protocols.FTP
-    subprotocol = protocols.FTP.BANNER
+    protocol = protocols.HTTPS
+    subprotocol = protocols.HTTPS.TLS
     port = None
 
     def process(self, obj, meta):
