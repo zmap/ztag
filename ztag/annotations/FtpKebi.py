@@ -18,7 +18,7 @@ class FtpKebi(Annotation):
     def process(self, obj, meta):
         banner = obj["banner"]
 
-        if self.imple_re.search(banner):
+        if self.impl_re.search(banner):
             meta.local_metadata.product = "Kebi Ftpd"
 
         match = self.version_re.search(banner)
