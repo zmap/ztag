@@ -44,9 +44,11 @@ class HTTPTransform(ZGrabTransform):
                     if len(title) > 1024:
                         title = title[0:1024]
                     out['title'] = title.strip()
-            if headers is not None:
+            if headers:
                 if "set_cookie" in headers:
                     del headers["set_cookie"]
+                if "date" in headers:
+                    del headers["date"]
                 for k, v, in headers.iteritems():
                     if k == "unknown":
                         for d in v:

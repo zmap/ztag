@@ -19,7 +19,7 @@ class GordianServer(Annotation):
             # looks like: Boa/0.94.14rc19
             server = obj["headers"]["server"]	
             if "gordian embedded" in server.lower():
-                meta.local_metadata.product = "Gorian Embedded"
+                meta.local_metadata.product = "Gordian Embedded"
                 index = server.lower().find("embedded") + len("embedded")
                 if index < len(server):
                     meta.local_metadata.version = server[index:]

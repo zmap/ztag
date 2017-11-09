@@ -19,7 +19,7 @@ class SSHGenericOS(Annotation):
           "os_version":"5+deb8u3",
           "product":"Raspberry Pi",
         },
-        "tags":["embedded",]
+        "tags":["embedded","raspberry pi"]
       }
     }
 
@@ -41,6 +41,7 @@ class SSHGenericOS(Annotation):
             meta.global_metadata.os = OperatingSystem.RASPBIAN
             meta.global_metadata.product = "Raspberry Pi"
             meta.tags.add("embedded")
+            meta.tags.add("raspberry pi")
             if "-" in comment:
                 meta.global_metadata.os_version = comment.split("-")[1]
         elif "bitvise" in comment:
