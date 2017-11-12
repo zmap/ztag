@@ -146,7 +146,7 @@ ztag_sct = SubRecord({
     "version":Unsigned8BitInteger(),
     "log_id":IndexedBinary(),
     "log_name":String(),
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
     "signature":Binary(),
     "extensions":Binary(),
 })
