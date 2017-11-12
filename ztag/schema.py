@@ -79,14 +79,14 @@ ztag_dh_export = SubRecord({
     "dh_params":ztag_dh_params,
     "support":Boolean(),
     "metadata":local_metadata,
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
 })
 
 ztag_dh = SubRecord({
     "dh_params":ztag_dh_params,
     "support":Boolean(),
     "metadata":local_metadata,
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
 })
 
 ztag_rsa_params = SubRecord({
@@ -99,7 +99,7 @@ ztag_rsa_export = SubRecord({
     "rsa_params":ztag_rsa_params,
     "support":Boolean(),
     "metadata":local_metadata,
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
 })
 
 ztag_ecdh_params = SubRecord({
@@ -113,7 +113,7 @@ ztag_ecdh = SubRecord({
     "ecdh_params":ztag_ecdh_params,
     "support":Boolean(),
     "metadata":local_metadata,
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
 })
 
 ztag_dsa_params = SubRecord({
@@ -181,8 +181,8 @@ zgrab_parsed_certificate = SubRecord({
                                "Stored as string to support >uint lengths. "\
                                "Negative values are allowed."),
     "validity":SubRecord({
-        "start":DateTime(doc="Timestamp of when certificate is first valid. Timezone is UTC."),
-        "end":DateTime(doc="Timestamp of when certificate expires. Timezone is UTC."),
+        "start":Timestamp(doc="Timestamp of when certificate is first valid. Timezone is UTC."),
+        "end":Timestamp(doc="Timestamp of when certificate expires. Timezone is UTC."),
         "length":Signed64BitInteger(),
     }),
     "signature_algorithm":SubRecord({
@@ -429,7 +429,7 @@ ztag_tls = SubRecord({
         "hash_algorithm":String(),
     }),
     "metadata":local_metadata,
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
 })
 
 ztag_sslv2 = SubRecord({
@@ -442,20 +442,20 @@ ztag_sslv2 = SubRecord({
         "id": Unsigned32BitInteger(),
     })),
     "metadata": local_metadata,
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
 })
 
 ztag_heartbleed = SubRecord({
     "heartbeat_enabled":Boolean(),
     "heartbleed_vulnerable":Boolean(),
     "metadata":local_metadata,
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
 })
 
 ztag_extended_random = SubRecord({
     "extended_random_support": Boolean(),
     "metadata":local_metadata,
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
 })
 
 ztag_smtp_starttls = SubRecord({
@@ -464,7 +464,7 @@ ztag_smtp_starttls = SubRecord({
     "starttls": CensysString(),
     "tls": ztag_tls,
     "metadata":local_metadata,
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
 })
 
 ztag_mail_starttls = SubRecord({
@@ -472,14 +472,14 @@ ztag_mail_starttls = SubRecord({
     "starttls": CensysString(),
     "tls": ztag_tls,
     "metadata":local_metadata,
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
 })
 
 ztag_mail_tls = SubRecord({
     "tls":ztag_tls,
     "banner": CensysString(),
     "metadata":local_metadata,
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
 })
 
 zgrab_unknown_http_header = SubRecord({
@@ -551,7 +551,7 @@ ztag_http = SubRecord({
     "body_sha256":HexString(),
     "title":CensysString(),
     "metadata":local_metadata,
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
 })
 
 golang_crypto_param = SubRecord({
@@ -579,7 +579,7 @@ golang_crypto_param = SubRecord({
 
 ztag_ssh_v2 = SubRecord({
     "metadata":local_metadata,
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
     "banner":SubRecord({
         "raw":CensysString(),
         "version":String(),
@@ -654,8 +654,8 @@ ztag_ssh_v2 = SubRecord({
             "key_id":String(),
             "valid_principals":ListOf(String()),
             "validity":SubRecord({
-                "valid_after":DateTime(doc="Timestamp of when certificate is first valid. Timezone is UTC."),
-                "valid_before":DateTime(doc="Timestamp of when certificate expires. Timezone is UTC."),
+                "valid_after":Timestamp(doc="Timestamp of when certificate is first valid. Timezone is UTC."),
+                "valid_before":Timestamp(doc="Timestamp of when certificate expires. Timezone is UTC."),
                 "length":Signed64BitInteger(),
             }),
             "signature_key":SubRecord({
@@ -693,7 +693,7 @@ ztag_ssh_v2 = SubRecord({
 ztag_ftp = SubRecord({
     "banner":CensysString(),
     "metadata":local_metadata,
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
 })
 
 telnet_caps_list = ListOf(SubRecord({
@@ -709,7 +709,7 @@ ztag_telnet = SubRecord({
     "do":telnet_caps_list,
     "dont":telnet_caps_list,
     "metadata":local_metadata,
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
 })
 
 ztag_modbus = SubRecord({
@@ -728,7 +728,7 @@ ztag_modbus = SubRecord({
       })
     }),
     "metadata":local_metadata,
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
 })
 
 ztag_bacnet = SubRecord({
@@ -746,7 +746,7 @@ ztag_bacnet = SubRecord({
     "description":CensysString(),
     "location":CensysString(),
     "metadata":local_metadata,
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
 })
 
 ztag_dns_question = SubRecord({
@@ -771,13 +771,13 @@ ztag_dns_lookup = SubRecord({
     "additionals":ListOf(ztag_dns_answer),
     "questions":ListOf(ztag_dns_question),
     "metadata":local_metadata,
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
 })
 
 ztag_tls_support = SubRecord({
     "support": Boolean(),
     "metadata":local_metadata,
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
 })
 
 ztag_fox = SubRecord({
@@ -801,14 +801,14 @@ ztag_fox = SubRecord({
     "sys_info":CensysString(),
     "auth_agent_type":String(),
     "metadata":local_metadata,
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
 })
 
 ztag_dnp3 = SubRecord({
     "support":Boolean(),
     "raw_response":Binary(),
     "metadata":local_metadata,
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
 })
 
 ztag_s7 = SubRecord({
@@ -828,7 +828,7 @@ ztag_s7 = SubRecord({
     "hardware":CensysString(),
     "firmware":CensysString(),
     "metadata":local_metadata,
-    "timestamp":DateTime(),
+    "timestamp":Timestamp(),
 })
 
 ztag_smb = SubRecord({
@@ -867,7 +867,7 @@ ztag_schemas = [
 for (name, schema) in ztag_schemas:
     x = Record({
         "ip_address":IPv4Address(required=True),
-        #"timestamp":DateTime(required=True),
+        #"timestamp":Timestamp(required=True),
         "tags":ListOf(String()),
         "metadata": SubRecord({}, allow_unknown=True),
     }, extends=schema)
@@ -935,9 +935,9 @@ zdb_metadata = SubRecord(__metadata)
 
 CTServerStatus = SubRecord({
     "index":Signed64BitInteger(),
-    "added_to_ct_at":DateTime(),
-    "ct_to_censys_at":DateTime(),
-    "censys_to_ct_at":DateTime(),
+    "added_to_ct_at":Timestamp(),
+    "ct_to_censys_at":Timestamp(),
+    "censys_to_ct_at":Timestamp(),
     "sct":Binary(),
 })
 
@@ -1008,7 +1008,7 @@ CertificateAudit = SubRecord({
         "standard_audit":CensysString(),
         "br_audit":CensysString(),
         "auditor":CensysString(),
-        "standard_audit_statement_timestamp":DateTime(),
+        "standard_audit_statement_timestamp":Timestamp(),
         "management_assertions_by":CensysString(),
         "comments":EnglishString(es_include_raw=True),
         #"ev_policy_oids":CensysString(), # TODO
@@ -1310,10 +1310,10 @@ certificate = Record({
     "fingerprint_sha256":HexString(),
     "tags":ListOf(CensysString()),
     "metadata":SubRecord({
-        "updated_at":DateTime(),
-        "added_at":DateTime(),
+        "updated_at":Timestamp(),
+        "added_at":Timestamp(),
         "post_processed":Boolean(),
-        "post_processed_at":DateTime(),
+        "post_processed_at":Timestamp(),
         "seen_in_scan":Boolean(),
         "source":String(),
         "parse_version":Unsigned16BitInteger(),
@@ -1475,7 +1475,7 @@ ipv4_host = Record({
             "notes":CensysString(),
             "ip":IPv4Address(required=True),
             "ipint":Unsigned32BitInteger(required=True, doc="Integer value of IP address in host order"),
-            "updated_at":DateTime(),
+            "updated_at":Timestamp(),
             "zdb_version":Unsigned32BitInteger(),
             "protocols":ListOf(CensysString(exclude=["bigquery"])),
             "ports":ListOf(Unsigned16BitInteger())
@@ -1524,7 +1524,7 @@ website = Record({
             "domain":String(),
             "alexa_rank":Unsigned32BitInteger(doc="Rank in the Alexa Top 1 Million. "
                     "Null if not currently in the Top 1 Million sites."),
-            "updated_at":DateTime(),
+            "updated_at":Timestamp(),
             "zdb_version":Unsigned32BitInteger(),
             "protocols":ListOf(String()),
             "ports":ListOf(Unsigned16BitInteger())
