@@ -942,55 +942,69 @@ CTServerStatus = SubRecord({
 })
 
 CTStatus = SubRecord({
-
+    # Censys (reserved)
     "censys_dev":CTServerStatus,
     "censys":CTServerStatus,
-
+    # Google
     "google_aviator":CTServerStatus,
     "google_pilot":CTServerStatus,
     "google_rocketeer":CTServerStatus,
     "google_submariner":CTServerStatus,
     "google_testtube":CTServerStatus,
-    "google_skydiver":CTServerStatus,
     "google_icarus":CTServerStatus,
+    "google_skydiver":CTServerStatus,
     "google_daedalus":CTServerStatus,
-
-    "google_argon2017":CTServerStatus,
-    "google_argon2018":CTServerStatus,
-    "google_argon2019":CTServerStatus,
-    "google_argon2020":CTServerStatus,
-    "google_argon2021":CTServerStatus,
-
-    "comodo_dodo":CTServerStatus,
-    "comodo_mammoth":CTServerStatus,
-    "comodo_sabre":CTServerStatus,
-
+    # Google Argon
+    "google_argon_2017":CTServerStatus,
+    "google_argon_2018":CTServerStatus,
+    "google_argon_2019":CTServerStatus,
+    "google_argon_2020":CTServerStatus,
+    "google_argon_2021":CTServerStatus,
+    # Cloudflare
+    "cloudflare_nimbus_2017":CTServerStatus,
+    "cloudflare_nimbus_2018":CTServerStatus,
+    "cloudflare_nimbus_2019":CTServerStatus,
+    "cloudflare_nimbus_2020":CTServerStatus,
+    "cloudflare_nimbus_2021":CTServerStatus,
+    # Digicert
     "digicert_ct1":CTServerStatus,
     "digicert_ct2":CTServerStatus,
-
+    # Izenpe
     "izenpe_com_ct":CTServerStatus,
     "izenpe_eus_ct":CTServerStatus,
-
+    # Symantec
     "symantec_ws_ct":CTServerStatus,
     "symantec_ws_vega":CTServerStatus,
     "symantec_ws_sirius":CTServerStatus,
-
+    "symantec_ws_deneb":CTServerStatus,
+    # Comodo
+    "comodo_dodo":CTServerStatus,
+    "comodo_mammoth":CTServerStatus,
+    "comodo_sabre":CTServerStatus,
+    # Wosign, StartCom, Wotrus
     "wosign_ctlog":CTServerStatus,
     "wosign_ct":CTServerStatus,
-    "cnnic_ctserver":CTServerStatus,
+    "startssl_ct":CTServerStatus,
+    "wotrus_ctlog":CTServerStatus,
+    "wotrus_ctlog3":CTServerStatus,
+    # GDCA
     "gdca_ct":CTServerStatus,
     "gdca_ctlog":CTServerStatus,
-    "startssl_ct":CTServerStatus,
-    "certly_log":CTServerStatus,
-
+    "gdca_log":CTServerStatus,
+    "gdca_log2":CTServerStatus,
+    # Venafi
     "venafi_api_ctlog":CTServerStatus,
     "venafi_api_ctlog_gen2":CTServerStatus,
-
-    "symantec_ws_deneb":CTServerStatus,
+    # Nordu
     "nordu_ct_plausible":CTServerStatus,
-    "certificatetransparency_cn_ct":CTServerStatus,
-    "sheca_ct":CTServerStatus,
+    # Let's Encrypt
     "letsencrypt_ct_clicky":CTServerStatus,
+    # Other
+    "cnnic_ctserver":CTServerStatus,
+    "certly_log":CTServerStatus,
+    "sheca_ct":CTServerStatus,
+    "behind_the_sofa":CTServerStatus,
+    "certificatetransparency_cn_ct":CTServerStatus,
 
 })
 
