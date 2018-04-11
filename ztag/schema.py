@@ -5,17 +5,17 @@ import zschema.registry
 
 from ztag.annotation import Annotation
 
-
 class CensysString(WhitespaceAnalyzedString):
     "default type for any strings in Censys"
     INCLUDE_RAW = True
-
 
 __local_metadata = {}
 for key in Annotation.LOCAL_METADATA_KEYS:
     __local_metadata[key] = CensysString()
 local_metadata = SubRecord(__local_metadata)
 
+# x509/pkix/pkix.go: Name
+# zgrab_subj_issuer -> distinguished_name
 zgrab_subj_issuer = SubRecord({
     "serial_number":ListOf(String()),
     "common_name":ListOf(CensysString()),
@@ -39,17 +39,20 @@ zgrab_subj_issuer = SubRecord({
     # "jurisdiction_province":ListOf(CensysString()),
 })
 
+# x509/pkix/pkix.go: Extension
 unknown_extension = SubRecord({
     "id":OID(),
     "critical":Boolean(),
     "value":IndexedBinary(),
 })
 
+# x509/pkix/pkix.go: type EDIPartyName struct
 edi_party_name = SubRecord({
-    "name_assigner":CensysString(),
-    "party_name":CensysString(),
+    "name_assigner": CensysString(),
+    "party_name": CensysString(),
 })
 
+# x509/extensions.go: GeneralNames/jsonGeneralNames
 alternate_name = SubRecord({
     "dns_names":ListOf(FQDN()),
     "email_addresses":ListOf(EmailAddress()),
@@ -64,93 +67,105 @@ alternate_name = SubRecord({
     "uniform_resource_identifiers":ListOf(URI()),
 })
 
+# json/dhe.go: cryptoParameter / auxCryptoParameter
+crypto_parameter = SubRecord({
+    "value": IndexedBinary(),
+    "length": Unsigned16BitInteger(),
+})
+
+# json/dhe.go: DHParams / auxDHParams:
 ztag_dh_params = SubRecord({
-    "prime":SubRecord({
-        "value":IndexedBinary(),
-        "length":Unsigned16BitInteger(),
-    }),
-    "generator":SubRecord({
-        "value":IndexedBinary(),
-        "length":Unsigned16BitInteger(),
-    }),
+    "prime": crypto_parameter,
+    "generator": crypto_parameter,
+    "server_public": crypto_parameter,
+    "server_private": crypto_parameter,
+    "client_public": crypto_parameter,
+    "client_private": crypto_parameter,
+    "session_key": crypto_parameter,
 })
 
-ztag_dh_export = SubRecord({
-    "dh_params":ztag_dh_params,
-    "support":Boolean(),
-    "metadata":local_metadata,
-    "timestamp":Timestamp(),
-})
-
-ztag_dh = SubRecord({
-    "dh_params":ztag_dh_params,
-    "support":Boolean(),
-    "metadata":local_metadata,
-    "timestamp":Timestamp(),
-})
-
+# json/rsa.go: RSAPublicKey/auxRSAPublicKey (alias for crypto/rsa/PublicKey)
 ztag_rsa_params = SubRecord({
-    "exponent":Unsigned32BitInteger(),
-    "modulus":IndexedBinary(),
-    "length":Unsigned16BitInteger(doc="Bit-length of modulus.")
- })
-
-ztag_rsa_export = SubRecord({
-    "rsa_params":ztag_rsa_params,
-    "support":Boolean(),
-    "metadata":local_metadata,
-    "timestamp":Timestamp(),
+    "exponent": Unsigned32BitInteger(),
+    "modulus": IndexedBinary(),
+    "length": Unsigned16BitInteger(doc="Bit-length of modulus.")
 })
 
+# json/ecdhe.go: TLSCurveID.MarshalJSON()
+tls_curve_id = SubRecord({
+    "name": String(),
+    "id": Unsigned16BitInteger(),
+})
+
+# json/ecdhe.go: ECPoint.MarshalJSON()
+ec_point = SubRecord({
+    "x": crypto_parameter,
+    "y": crypto_parameter,
+})
+
+# json/ecdhe.go: ECDHPrivateParams
+ecdh_private_params = SubRecord({
+    "value": IndexedBinary(required=False),
+    "length": Unsigned16BitInteger(required=False),
+})
+
+# json/ecdhe.go: ECDHParams
 ztag_ecdh_params = SubRecord({
-    "curve_id":SubRecord({
-        "name":String(),
-        "id":Unsigned16BitInteger(),
-    })
+    "curve_id": tls_curve_id,
+    "server_public": ec_point,
+    "server_private": ecdh_private_params,
+    "client_public": ec_point,
+    "client_private": ecdh_private_params,
 })
 
-ztag_ecdh = SubRecord({
-    "ecdh_params":ztag_ecdh_params,
-    "support":Boolean(),
-    "metadata":local_metadata,
-    "timestamp":Timestamp(),
-})
-
+# x509/json.go (mapped from crypto.dsa)
+# (dsa_public_key)
 ztag_dsa_params = SubRecord({
-    "p":IndexedBinary(),
-    "q":IndexedBinary(),
-    "g":IndexedBinary(),
-    "y":IndexedBinary(),
+    "p": IndexedBinary(),
+    "q": IndexedBinary(),
+    "g": IndexedBinary(),
+    "y": IndexedBinary(),
 })
 
+# x509/json.go (mapped from crypto.ecdsa)
+# (ecdsa_public_key)
 ztag_ssh_ecdsa_public_key = SubRecord({
-    "pub":IndexedBinary(),
-    "b":IndexedBinary(),
-    "gx":IndexedBinary(),
-    "gy":IndexedBinary(),
-    "n":IndexedBinary(),
-    "p":IndexedBinary(),
-    "x":IndexedBinary(),
-    "y":IndexedBinary(),
-    "curve":Enum(["P-224", "P-256", "P-384", "P-521"]),
-    "length":Unsigned16BitInteger(),
+    "pub": IndexedBinary(),
+    "b": IndexedBinary(),
+    "gx": IndexedBinary(),
+    "gy": IndexedBinary(),
+    "n": IndexedBinary(),
+    "p": IndexedBinary(),
+    "x": IndexedBinary(),
+    "y": IndexedBinary(),
+    "curve": Enum(["P-224", "P-256", "P-384", "P-521"]),
+    "length": Unsigned16BitInteger(),
     # schema conflict in censys prod cert index
-    #"asn1_oid":OID(),
+    #"asn1_oid":OID(), # TODO: this is currently commented out
+    # because for a bunch of certificates, this was encoded as [1, 2,
+    # 840, 113549, 1, 1, 12] not 1.2.840.113549.1.1.12
 })
 
+
+
+# Unused? Not defined in zcrypto.
 ztag_ed25519_public_key = SubRecord({
     "public_bytes":IndexedBinary(),
 })
 
+# x509/ct/types.go: SignedCertificateTimestamp.
 ztag_sct = SubRecord({
     "version":Unsigned8BitInteger(),
     "log_id":IndexedBinary(),
+    # Note: log_name is not present in the struct.
     "log_name":String(),
     "timestamp":Timestamp(),
     "signature":Binary(),
     "extensions":Binary(),
 })
 
+# x509/json.go: auxGeneralSubtreeIP (modifies GeneralSubtreeIP from x509.go)
+# (general_subtree_ip)
 expanded_cidr = SubRecord({
     "cidr":String(),
     "begin":IPAddress(),
@@ -158,163 +173,169 @@ expanded_cidr = SubRecord({
     "mask":IPAddress(),
 }, exclude=["bigquery",]) # XXX
 
+# x509/extensions.go: type NoticeReference struct
+notice_reference = SubRecord({
+    "organization": CensysString(),
+    "notice_numbers": ListOf(Signed32BitInteger()),
+})
+
+# x509/extensions.go: type UserNoticeData struct
+user_notice_data = SubRecord({
+    "explicit_text": EnglishString(),
+    "notice_reference": ListOf(notice_reference),
+})
+
+# x509/extensions.go: type CertificatePoliciesJSON struct
 certificate_policy = SubRecord({
-    "id":OID(),
-    "name":String(),
-    "cps":ListOf(URL()),
-    "user_notice":SubRecord({
-        "explit_text":EnglishString(),
-        "notice_reference":ListOf(SubRecord({
-            "organization":CensysString(),
-            "notice_numbers":ListOf(Signed32BitInteger())
-        }))
-    })
+    "id": OID(),
+    "cps": String(),
+    "user_notice": ListOf(user_notice_data),
+})
+
+# x509/extensions.go: type CertificatePoliciesJSON struct
+certificate_policy = SubRecord({
+    "id": OID(),
+    "name": String(),
+    "cps": ListOf(URL()),
+    # FIXME: Isn't this a ListOf(...)? see x509/extensions.go line 82
+    "user_notice": user_notice_data
 }, exclude=["bigquery",]) # XXX
 
+# Generated by zcrypto/x509/extended_key_usage.sh, with a manual tweak on unknown
+extended_key_usage = SubRecord({
+    "value": ListOf(Signed32BitInteger()), # TODO: remove after reparse
+    "any": Boolean(),
+    "apple_code_signing": Boolean(),
+    "apple_code_signing_development": Boolean(),
+    "apple_code_signing_third_party": Boolean(),
+    "apple_crypto_development_env": Boolean(),
+    "apple_crypto_env": Boolean(),
+    "apple_crypto_maintenance_env": Boolean(),
+    "apple_crypto_production_env": Boolean(),
+    "apple_crypto_qos": Boolean(),
+    "apple_crypto_test_env": Boolean(),
+    "apple_crypto_tier0_qos": Boolean(),
+    "apple_crypto_tier1_qos": Boolean(),
+    "apple_crypto_tier2_qos": Boolean(),
+    "apple_crypto_tier3_qos": Boolean(),
+    "apple_ichat_encryption": Boolean(),
+    "apple_ichat_signing": Boolean(),
+    "apple_resource_signing": Boolean(),
+    "apple_software_update_signing": Boolean(),
+    "apple_system_identity": Boolean(),
+    "client_auth": Boolean(),
+    "code_signing": Boolean(),
+    "dvcs": Boolean(),
+    "eap_over_lan": Boolean(),
+    "eap_over_ppp": Boolean(),
+    "email_protection": Boolean(),
+    "ipsec_end_system": Boolean(),
+    "ipsec_tunnel": Boolean(),
+    "ipsec_user": Boolean(),
+    "microsoft_ca_exchange": Boolean(),
+    "microsoft_cert_trust_list_signing": Boolean(),
+    "microsoft_csp_signature": Boolean(),
+    "microsoft_document_signing": Boolean(),
+    "microsoft_drm": Boolean(),
+    "microsoft_drm_individualization": Boolean(),
+    "microsoft_efs_recovery": Boolean(),
+    "microsoft_embedded_nt_crypto": Boolean(),
+    "microsoft_encrypted_file_system": Boolean(),
+    "microsoft_enrollment_agent": Boolean(),
+    "microsoft_kernel_mode_code_signing": Boolean(),
+    "microsoft_key_recovery_21": Boolean(),
+    "microsoft_key_recovery_3": Boolean(),
+    "microsoft_license_server": Boolean(),
+    "microsoft_licenses": Boolean(),
+    "microsoft_lifetime_signing": Boolean(),
+    "microsoft_mobile_device_software": Boolean(),
+    "microsoft_nt5_crypto": Boolean(),
+    "microsoft_oem_whql_crypto": Boolean(),
+    "microsoft_qualified_subordinate": Boolean(),
+    "microsoft_root_list_signer": Boolean(),
+    "microsoft_server_gated_crypto": Boolean(),
+    "microsoft_sgc_serialized": Boolean(),
+    "microsoft_smart_display": Boolean(),
+    "microsoft_smartcard_logon": Boolean(),
+    "microsoft_system_health": Boolean(),
+    "microsoft_system_health_loophole": Boolean(),
+    "microsoft_timestamp_signing": Boolean(),
+    "microsoft_whql_crypto": Boolean(),
+    "netscape_server_gated_crypto": Boolean(),
+    "ocsp_signing": Boolean(),
+    "sbgp_cert_aa_service_auth": Boolean(),
+    "server_auth": Boolean(),
+    "time_stamping": Boolean(),
+    # NOTE: unknown is actually included in the JSON.
+    # "unknown": ListOf(OID()),
+})
+
 zgrab_parsed_certificate = SubRecord({
-    "subject":zgrab_subj_issuer,
-    "subject_dn":CensysString(),
-    "issuer":zgrab_subj_issuer,
-    "issuer_dn":CensysString(),
-    "version":Unsigned8BitInteger(),
-    "serial_number":String(doc="Serial number as an signed decimal integer. "\
-                               "Stored as string to support >uint lengths. "\
-                               "Negative values are allowed."),
-    "validity":SubRecord({
-        "start":Timestamp(doc="Timestamp of when certificate is first valid. Timezone is UTC."),
-        "end":Timestamp(doc="Timestamp of when certificate expires. Timezone is UTC."),
-        "length":Signed64BitInteger(),
+    "subject": zgrab_subj_issuer,
+    "subject_dn": CensysString(),
+    "issuer": zgrab_subj_issuer,
+    "issuer_dn": CensysString(),
+    "version": Unsigned8BitInteger(),
+    "serial_number": String(doc="Serial number as an signed decimal integer. "\
+                                "Stored as string to support >uint lengths. "\
+                                "Negative values are allowed."),
+    "validity": SubRecord({
+        "start": Timestamp(doc="Timestamp of when certificate is first valid. Timezone is UTC."),
+        "end": Timestamp(doc="Timestamp of when certificate expires. Timezone is UTC."),
+        "length": Signed64BitInteger(),
     }),
-    "signature_algorithm":SubRecord({
-        "name":String(),
-        "oid":OID(),
+    "signature_algorithm": SubRecord({
+        "name": String(),
+        "oid": OID(),
     }),
-    "subject_key_info":SubRecord({
-        "fingerprint_sha256":HexString(),
-        "key_algorithm":SubRecord({
-            "name":String(doc="Name of public key type, e.g., RSA or ECDSA. "\
-                              "More information is available the named SubRecord "\
-                              "(e.g., rsa_public_key)."),
-            "oid":OID(doc="OID of the public key on the certificate. "\
-                             "This is helpful when an unknown type is present. "\
-                             "This field is reserved and not current populated.")
-         }),
-        "rsa_public_key":ztag_rsa_params,
-        "dsa_public_key":ztag_dsa_params,
-        "ecdsa_public_key":SubRecord({
-            "b":IndexedBinary(),
-            "gx":IndexedBinary(),
-            "gy":IndexedBinary(),
-            "n":IndexedBinary(),
-            "p":IndexedBinary(),
-            "x":IndexedBinary(),
-            "y":IndexedBinary(),
-            "pub":Binary(),
-            "curve":Enum(["P-224", "P-256", "P-384", "P-521"]),
-            "length":Unsigned16BitInteger(),
-            #"asn1_oid":OID(), # TODO: this is currently commented out
-            # because for a bunch of certificates, this was encoded as [1, 2,
-            # 840, 113549, 1, 1, 12] not 1.2.840.113549.1.1.12
-        })
+    "subject_key_info": SubRecord({
+        "fingerprint_sha256": HexString(),
+        # x509/json.go: auxPublicKeyAlgorithm
+        "key_algorithm": SubRecord({
+            "name": String(doc="Name of public key type, e.g., RSA or ECDSA. "\
+                               "More information is available the named SubRecord "\
+                               "(e.g., rsa_public_key)."),
+            "oid": OID(doc="OID of the public key on the certificate. "\
+                           "This is helpful when an unknown type is present. "\
+                           "This field is reserved and not current populated.")
+        }),
+        "rsa_public_key": ztag_rsa_params,
+        "dsa_public_key": ztag_dsa_params,
+        "ecdsa_public_key": ztag_ssh_ecdsa_public_key
     }),
-    "extensions":SubRecord({
-        "key_usage":SubRecord({
-            "value":Unsigned16BitInteger("Integer value of the bitmask in the extension"),
-            "digital_signature":Boolean(),
-            "certificate_sign":Boolean(),
-            "crl_sign":Boolean(),
-            "content_commitment":Boolean(),
-            "key_encipherment":Boolean(),
-            "data_encipherment":Boolean(),
-            "key_agreement":Boolean(),
-            "decipher_only":Boolean(),
-            "encipher_only":Boolean(),
+    "extensions": SubRecord({
+        "key_usage": SubRecord({
+            "value": Unsigned16BitInteger("Integer value of the bitmask in the extension"),
+            "digital_signature": Boolean(),
+            "certificate_sign": Boolean(),
+            "crl_sign": Boolean(),
+            "content_commitment": Boolean(),
+            "key_encipherment": Boolean(),
+            "data_encipherment": Boolean(),
+            "key_agreement": Boolean(),
+            "decipher_only": Boolean(),
+            "encipher_only": Boolean(),
         }),
-        "basic_constraints":SubRecord({
-            "is_ca":Boolean(),
-            "max_path_len":Signed32BitInteger(),
+        "basic_constraints": SubRecord({
+            "is_ca": Boolean(),
+            "max_path_len": Signed32BitInteger(),
         }),
-        "subject_alt_name":alternate_name,
-        "issuer_alt_name":alternate_name,
-        "crl_distribution_points":ListOf(URL()),
-        "authority_key_id":HexString(),
-        "subject_key_id":HexString(),
-        "extended_key_usage":SubRecord({
-            "value":ListOf(Signed32BitInteger()), # TODO: remove after reparse
-            "apple_ichat_signing": Boolean(),
-            "microsoft_lifetime_signing": Boolean(),
-            "microsoft_oem_whql_crypto": Boolean(),
-            "microsoft_system_health": Boolean(),
-            "ipsec_end_system": Boolean(),
-            "microsoft_key_recovery_3": Boolean(),
-            "microsoft_key_recovery_21": Boolean(),
-            "microsoft_license_server": Boolean(),
-            "apple_code_signing_development": Boolean(),
-            "apple_crypto_tier0_qos": Boolean(),
-            "microsoft_qualified_subordinate": Boolean(),
-            "microsoft_sgc_serialized": Boolean(),
-            "microsoft_licenses": Boolean(),
-            "dvcs": Boolean(),
-            "eap_over_lan": Boolean(),
-            "apple_crypto_qos": Boolean(),
-            "microsoft_timestamp_signing": Boolean(),
-            "microsoft_nt5_crypto": Boolean(),
-            "microsoft_drm": Boolean(),
-            "apple_software_update_signing": Boolean(),
-            "apple_crypto_development_env": Boolean(),
-            "apple_crypto_tier1_qos": Boolean(),
-            "apple_crypto_tier3_qos": Boolean(),
-            "microsoft_drm_individualization": Boolean(),
-            "sbgp_cert_aa_service_auth": Boolean(),
-            "ocsp_signing": Boolean(),
-            "netscape_server_gated_crypto": Boolean(),
-            "code_signing": Boolean(),
-            "apple_crypto_production_env": Boolean(),
-            "microsoft_document_signing": Boolean(),
-            "server_auth": Boolean(),
-            "client_auth": Boolean(),
-            "apple_ichat_encryption": Boolean(),
-            "apple_crypto_maintenance_env": Boolean(),
-            "microsoft_enrollment_agent": Boolean(),
-            "microsoft_ca_exchange": Boolean(),
-            "time_stamping": Boolean(),
-            "apple_crypto_test_env": Boolean(),
-            "microsoft_kernel_mode_code_signing": Boolean(),
-            "email_protection": Boolean(),
-            "microsoft_cert_trust_list_signing": Boolean(),
-            "microsoft_embedded_nt_crypto": Boolean(),
-            "microsoft_efs_recovery": Boolean(),
-            "microsoft_smartcard_logon": Boolean(),
-            "ipsec_tunnel": Boolean(),
-            "any": Boolean(),
-            "apple_code_signing": Boolean(),
-            "apple_system_identity": Boolean(),
-            "apple_crypto_env": Boolean(),
-            "microsoft_server_gated_crypto": Boolean(),
-            "apple_code_signing_third_party": Boolean(),
-            "microsoft_whql_crypto": Boolean(),
-            "apple_resource_signing": Boolean(),
-            "apple_crypto_tier2_qos": Boolean(),
-            "microsoft_mobile_device_software": Boolean(),
-            "microsoft_encrypted_file_system": Boolean(),
-            "eap_over_ppp": Boolean(),
-            "ipsec_user": Boolean(),
-            "microsoft_smart_display": Boolean(),
-            "microsoft_csp_signature": Boolean(),
-            "microsoft_root_list_signer": Boolean(),
-            "microsoft_system_health_loophole": Boolean(),
-            #"unknown":ListOf(OID()) # TODO
-        }, exclude=["bigquery",]), # TODO
-        "certificate_policies":ListOf(certificate_policy),
-        "authority_info_access":SubRecord({
-            "ocsp_urls":ListOf(URL()),
-            "issuer_urls":ListOf(URL())
+        "subject_alt_name": alternate_name,
+        "issuer_alt_name": alternate_name,
+        "crl_distribution_points" :ListOf(URL()),
+        "authority_key_id" :HexString(),
+        "subject_key_id": HexString(),
+        "extended_key_usage": extended_key_usage,
+        "certificate_policies": ListOf(certificate_policy),
+        "authority_info_access": SubRecord({
+            "ocsp_urls": ListOf(URL()),
+            "issuer_urls": ListOf(URL())
         }),
-        "name_constraints":SubRecord({
-            "critical":Boolean(),
-            "permitted_names":ListOf(FQDN()),
+        "name_constraints": SubRecord({
+            "critical": Boolean(),
+            "permitted_names": ListOf(FQDN()),
             # We do not schema email addresses as an EmailAddress per
-            # rfc5280#section-4.2.1.10 documnetation:
+            # rfc5280#section-4.2.1.10 documentation:
             # A name constraint for Internet mail addresses MAY specify a
             # particular mailbox, all addresses at a particular host, or all
             # mailboxes in a domain.  To indicate a particular mailbox, the
@@ -328,67 +349,70 @@ zgrab_parsed_certificate = SubRecord({
             # URIs).  For example, ".example.com" indicates all the Internet mail
             # addresses in the domain "example.com", but not Internet mail
             # addresses on the host "example.com".
-            "permitted_email_addresses":ListOf(CensysString()),
-            "permitted_ip_addresses":ListOf(expanded_cidr),
-            "permitted_directory_names":ListOf(zgrab_subj_issuer),
-            "permitted_registered_ids":ListOf(OID()),
-            "permitted_edi_party_names":ListOf(edi_party_name),
-            "excluded_names":ListOf(FQDN()),
-            "excluded_email_addresses":ListOf(CensysString()),
-            "excluded_ip_addresses":ListOf(expanded_cidr),
-            "excluded_directory_names":ListOf(zgrab_subj_issuer),
-            "excluded_registered_ids":ListOf(OID()),
-            "excluded_edi_party_names":ListOf(edi_party_name),
+            "permitted_email_addresses": ListOf(CensysString()),
+            "permitted_ip_addresses": ListOf(expanded_cidr),
+            "permitted_directory_names": ListOf(zgrab_subj_issuer),
+            "permitted_registered_ids": ListOf(OID()),
+            "permitted_edi_party_names": ListOf(edi_party_name),
+            "excluded_names": ListOf(FQDN()),
+            "excluded_email_addresses": ListOf(CensysString()),
+            "excluded_ip_addresses": ListOf(expanded_cidr),
+            "excluded_directory_names": ListOf(zgrab_subj_issuer),
+            "excluded_registered_ids": ListOf(OID()),
+            "excluded_edi_party_names": ListOf(edi_party_name),
 
         }),
-        "signed_certificate_timestamps":ListOf(ztag_sct),
-        "ct_poison":Boolean()
+        "signed_certificate_timestamps": ListOf(ztag_sct),
+        "ct_poison": Boolean()
     }),
-    "unknown_extensions":ListOf(unknown_extension),
-    "signature":SubRecord({
-        "signature_algorithm":SubRecord({
-            "name":String(),
-            "oid":OID(),
+    "unknown_extensions": ListOf(unknown_extension),
+    "signature": SubRecord({
+        "signature_algorithm": SubRecord({
+            "name": String(),
+            "oid": OID(),
         }),
-        "value":IndexedBinary(),
-        "valid":Boolean(),
-        "self_signed":Boolean(),
+        "value": IndexedBinary(),
+        "valid": Boolean(),
+        "self_signed": Boolean(),
     }),
-    "fingerprint_md5":HexString(),
-    "fingerprint_sha1":HexString(),
-    "fingerprint_sha256":HexString(),
-    "spki_subject_fingerprint":HexString(),
-    "tbs_fingerprint":HexString(),
-    "tbs_noct_fingerprint":HexString(),
-    "names":ListOf(FQDN()),
+    "fingerprint_md5": HexString(),
+    "fingerprint_sha1": HexString(),
+    "fingerprint_sha256": HexString(),
+    "spki_subject_fingerprint": HexString(),
+    "tbs_fingerprint": HexString(),
+    "tbs_noct_fingerprint": HexString(),
+    "names": ListOf(FQDN()),
     "__expanded_names":ListOf(String()),
     "validation_level":Enum(),
-    "redacted":Boolean(),
+    "redacted": Boolean(),
 })
 
 zgrab_certificate_trust = SubRecord({
-    "type":Enum(doc="root, intermediate, or leaf certificate"),
-    "trusted_path":Boolean(doc="Does certificate chain up to browser root store"),
-    "valid":Boolean(doc="is this certificate currently valid in this browser"),
-    "was_valid":Boolean(doc="was this certificate ever valid in this browser")
+    "type": Enum(doc="root, intermediate, or leaf certificate"),
+    "trusted_path": Boolean(doc="Does certificate chain up to browser root store"),
+    "valid": Boolean(doc="is this certificate currently valid in this browser"),
+    "was_valid": Boolean(doc="was this certificate ever valid in this browser")
 })
+
+zgrab_lint = SubRecord({})
 
 zgrab_certificate = SubRecord({
-    "parsed":zgrab_parsed_certificate,
-    "validation":SubRecord({
-        "nss":zgrab_certificate_trust,
-        "apple":zgrab_certificate_trust,
-        "microsoft":zgrab_certificate_trust,
-        "android":zgrab_certificate_trust,
-        "java":zgrab_certificate_trust,
+    "raw": Binary(),
+    "parsed": zgrab_parsed_certificate,
+    "validation": SubRecord({
+        "nss": zgrab_certificate_trust,
+        "apple": zgrab_certificate_trust,
+        "microsoft": zgrab_certificate_trust,
+        "android": zgrab_certificate_trust,
+        "java": zgrab_certificate_trust,
     }),
+    "lint": zgrab_lint
 })
 
-
 zgrab_server_certificate_valid = SubRecord({
-    "complete_chain":Boolean(doc="does server provide a chain up to a root"),
-    "valid":Boolean(doc="is this certificate currently valid in this browser"),
-    "error":CensysString()
+    "complete_chain": Boolean(doc="does server provide a chain up to a root"),
+    "valid": Boolean(doc="is this certificate currently valid in this browser"),
+    "error": CensysString()
 })
 
 ztag_tls = SubRecord({
@@ -553,6 +577,35 @@ ztag_http = SubRecord({
     "metadata":local_metadata,
     "timestamp":Timestamp(),
 })
+
+ztag_dh_export = SubRecord({
+    "dh_params":ztag_dh_params,
+    "support":Boolean(),
+    "metadata":local_metadata,
+    "timestamp":Timestamp(),
+})
+
+ztag_dh = SubRecord({
+    "dh_params":ztag_dh_params,
+    "support":Boolean(),
+    "metadata":local_metadata,
+    "timestamp":Timestamp(),
+})
+
+ztag_rsa_export = SubRecord({
+    "rsa_params":ztag_rsa_params,
+    "support":Boolean(),
+    "metadata":local_metadata,
+    "timestamp":Timestamp(),
+})
+
+ztag_ecdh = SubRecord({
+    "ecdh_params":ztag_ecdh_params,
+    "support":Boolean(),
+    "metadata":local_metadata,
+    "timestamp":Timestamp(),
+})
+
 
 golang_crypto_param = SubRecord({
     "value":IndexedBinary(),
