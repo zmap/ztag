@@ -1511,7 +1511,7 @@ website = Record({
                 "https_www":SubRecord({
                     "tls":ztag_tls,
                 })
-            }),
+            }, category="443/HTTPS"),
             Port(80):SubRecord({
                 "http":SubRecord({
                     "get":ztag_http,
@@ -1519,29 +1519,29 @@ website = Record({
                 "http_www":SubRecord({
                     "get":ztag_http,
                 }),
-            }),
+            }, category="80/HTTP"),
             Port(25):SubRecord({
                 "smtp":SubRecord({
                     "starttls": ztag_smtp_starttls,
                 })
-            }),
+            }, category="25/SMTP"),
             Port(0):SubRecord({
                 "lookup":SubRecord({
                     "spf":ztag_lookup_spf,
                     "dmarc":ztag_lookup_dmarc,
                     "axfr":ztag_lookup_axfr,
                 })
-            }),
+            }, category="Basic Information"),
 
-            "tags":ListOf(CensysString()),
+            "tags":ListOf(CensysString(), category="Basic Information"),
             "metadata":zdb_metadata,
             "notes":EnglishString(es_include_raw=True),
-            "domain":String(),
+            "domain":String(category="Basic Information"),
             "alexa_rank":Unsigned32BitInteger(doc="Rank in the Alexa Top 1 Million. "
                     "Null if not currently in the Top 1 Million sites."),
             "updated_at":Timestamp(),
             "zdb_version":Unsigned32BitInteger(),
-            "protocols":ListOf(String()),
+            "protocols":ListOf(String(), category="Basic Information"),
             "ports":ListOf(Unsigned16BitInteger())
 })
 
