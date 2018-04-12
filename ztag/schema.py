@@ -1368,131 +1368,131 @@ ipv4_host = Record({
                     #"tls_1_3": ztag_tls_support,
                     "ecdhe": ztag_ecdh,
                     #"extended_random":ztag_extended_random,
-                })
+                }, category="443/HTTPS")
             }),
             Port(80):SubRecord({
                 "http":SubRecord({
                     "get":ztag_http,
-                }),
+                }, category="80/HTTP"),
             }),
             Port(8080):SubRecord({
                 "http":SubRecord({
                     "get":ztag_http,
-                }),
+                }, category="8080/HTTP"),
             }),
             Port(8888):SubRecord({
                 "http":SubRecord({
                     "get":ztag_http,
-                }),
+                }, category="8888/HTTP"),
             }),
             Port(25):SubRecord({
                 "smtp":SubRecord({
                     "starttls": ztag_smtp_starttls,
                     #"ssl_2": ztag_sslv2, # XXX
-                }),
+                }, category="25/SMTP"),
             }),
             Port(23):SubRecord({
                 "telnet":SubRecord({
                     "banner":ztag_telnet
-                })
+                }, category="23/Telnet")
             }),
             Port(2323):SubRecord({
                 "telnet":SubRecord({
                     "banner":ztag_telnet
-                })
+                }, category="2323/Telnet")
             }),
             Port(21):SubRecord({
                 "ftp":SubRecord({
                   "banner":ztag_ftp,
-                })
+                }, category="21/FTP")
             }),
             Port(102):SubRecord({
                 "s7":SubRecord({
                     "szl":ztag_s7
-                })
+                }, category="102/S7")
             }),
             Port(110):SubRecord({
                 "pop3":SubRecord({
                     "starttls":ztag_mail_starttls,
                     #"ssl_2": ztag_sslv2, # XXX
-                })
+                }, category="110/POP3")
             }),
             Port(143):SubRecord({
                 "imap":SubRecord({
                     "starttls":ztag_mail_starttls,
                     #"ssl_2": ztag_sslv2, # XXX
-                })
+                }, category="143/IMAP")
             }),
             Port(445):SubRecord({
                 "smb":SubRecord({
                     "banner":ztag_smb
-                })
+                }, category="445/SMB")
             }),
             Port(993):SubRecord({
                 "imaps":SubRecord({
                     "tls":ztag_mail_tls,
                     #"ssl_2": ztag_sslv2, # XXX
-                })
+                }, category="993/IMAPS")
             }),
             Port(995):SubRecord({
                 "pop3s":SubRecord({
                     "tls":ztag_mail_tls,
                     #"ssl_2": ztag_sslv2, # XXX
-                })
+                }, category="995/POP3S")
             }),
             Port(587):SubRecord({
                 "smtp":SubRecord({
                     "starttls": ztag_smtp_starttls,
                     #"ssl_2": ztag_sslv2,  # XXX
-                })
+                }, category="587/SMTP")
             }),
             Port(502):SubRecord({
                 "modbus":SubRecord({
                     "device_id":ztag_modbus
-                })
+                }, category="502/Modbus")
             }),
             Port(22):SubRecord({
                 "ssh":SubRecord({
                     "v2": ztag_ssh_v2
-                }),
+                }, category="22/SSH"),
             }),
             Port(53):SubRecord({
                 "dns":SubRecord({
                     "lookup":ztag_dns_lookup
-                })
+                }, category="53/DNS")
             }),
             Port(47808):SubRecord({
                 "bacnet":SubRecord({
                     "device_id":ztag_bacnet
-                })
+                }, category="47808/BACNET")
             }),
             Port(1911):SubRecord({
                 "fox":SubRecord({
                     "device_id":ztag_fox
-                })
+                }, category="1911/Fox")
             }),
             Port(20000):SubRecord({
                 "dnp3":SubRecord({
                     "status":ztag_dnp3,
-                })
+                }, category="20000/DNP3")
             }),
             Port(7547):SubRecord({
                 "cwmp":SubRecord({
                     "get":ztag_http,
-                })
+                }, category="7547/CWMP")
             }),
 
-            "tags":ListOf(CensysString()),
+            "tags":ListOf(CensysString(), category="Basic Information"),
             "metadata":zdb_metadata,
             "location":zdb_location,
             "__restricted_location":zdb_restricted_location,
-            "autonomous_system":zdb_as,
+            "autonomous_system":zdb_as.new(category="Basic Information"),
             "notes":CensysString(),
-            "ip":IPv4Address(required=True),
+            "ip":IPv4Address(required=True, category="Basic Information"),
             "ipint":Unsigned32BitInteger(required=True, doc="Integer value of IP address in host order"),
             "updated_at":Timestamp(),
             "zdb_version":Unsigned32BitInteger(),
-            "protocols":ListOf(CensysString(exclude=["bigquery"])),
+            "protocols":ListOf(CensysString(exclude=["bigquery"]), category="Basic Information"),
             "ports":ListOf(Unsigned16BitInteger())
 })
 
