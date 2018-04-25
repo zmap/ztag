@@ -51,7 +51,6 @@ ztag_ecdh = SubRecord({
     "timestamp":Timestamp(),
 })
 
-
 zgrab_certificate_trust = SubRecord({
     "type":Enum(doc="root, intermediate, or leaf certificate"),
     "trusted_path":Boolean(doc="Does certificate chain up to browser root store"),
