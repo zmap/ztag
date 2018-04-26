@@ -552,7 +552,7 @@ ztag_http = SubRecord({
     "status_line":CensysString(),
     "body":HTML(),
     "headers":zgrab_http_headers,
-    "body_sha256":HexString(),
+    "body_sha256":HexString(validator=String()),
     "title":CensysString(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
