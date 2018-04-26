@@ -31,12 +31,14 @@ zgrab_subj_issuer = SubRecord({
     "email_address":ListOf(CensysString()),
     "given_name":ListOf(CensysString()),
     # EV Fields
-    # Commented out 2017-08-18 due to ES analyzer mismatch:
+    # Commented out 2017-08-18 due to ES analyzer mismatch
+    # Changed to String from CensysString 2018-04-26 for ESLoader data validation
     # Data with these fields got into the IPv4 index before the ES mapping
     # was updated, and ES automatically chose a different analyzer.
-    # "jurisdiction_country":ListOf(CensysString()),
-    # "jurisdiction_locality":ListOf(CensysString()),
-    # "jurisdiction_province":ListOf(CensysString()),
+    # If/when we reindex in the future, this should change to CensysString
+    "jurisdiction_country":ListOf(String()),
+    "jurisdiction_locality":ListOf(String()),
+    "jurisdiction_province":ListOf(String()),
 })
 
 unknown_extension = SubRecord({
