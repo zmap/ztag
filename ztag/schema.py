@@ -871,7 +871,7 @@ ztag_schemas = [
 ]
 for (name, schema) in ztag_schemas:
     x = Record({
-        "ip_address":IPv4Address(required=True),
+        "ip_address":IPAddress(required=True),
         #"timestamp":Timestamp(required=True),
         "tags":ListOf(String()),
         "metadata": SubRecord({}, allow_unknown=True),
