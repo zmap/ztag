@@ -543,6 +543,7 @@ zgrab_http_headers = SubRecord({
     "x_powered_by":CensysString(),
     "x_ua_compatible":CensysString(),
     "x_content_duration":CensysString(),
+    "x_forwarded_for":CensysString(),
     "proxy_agent":CensysString(),
     "unknown":ListOf(zgrab_unknown_http_header)
 })
