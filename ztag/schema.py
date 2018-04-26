@@ -840,6 +840,18 @@ ztag_smb = SubRecord({
     "metadata":local_metadata,
 })
 
+ztag_upnp_discovery = SubRecord({
+    "usn": String(),
+    "agent": String(),
+    "st": String(),
+    "ext": String(),
+    "location": String(),
+    "server": String(),
+    "cache_control": String(),
+    "x_user_agent": String(),
+    "metadata": local_metadata,
+})
+
 ztag_schemas = [
     ("ztag_https", ztag_tls),
     ("ztag_heartbleed", ztag_heartbleed),
@@ -868,6 +880,7 @@ ztag_schemas = [
     ("ztag_dnp3", ztag_dnp3),
     ("ztag_s7", ztag_s7),
     ("ztag_smb", ztag_smb),
+    ("ztag_upnp_discovery", ztag_upnp_discovery),
 ]
 for (name, schema) in ztag_schemas:
     x = Record({
@@ -1485,6 +1498,11 @@ ipv4_host = Record({
                 "cwmp":SubRecord({
                     "get":ztag_http,
                 }, category="7547/CWMP")
+            }),
+            Port(1900):SubRecord({
+                "upnp":SubRecord({
+                    "discovery":ztag_upnp_discovery,
+                }, category="1900/UPnP")
             }),
 
             "tags":ListOf(CensysString(), category="Basic Information"),
