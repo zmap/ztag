@@ -1367,6 +1367,7 @@ ipv4_host = Record({
                     "rsa_export": ztag_rsa_export,
                     "dhe_export": ztag_dh_export,
                     #"ssl_2": ztag_sslv2, # XXX
+                    "ssl_3": ztag_tls_support,
                     "tls_1_1": ztag_tls_support,
                     "tls_1_2": ztag_tls_support,
                     #"tls_1_3": ztag_tls_support,
