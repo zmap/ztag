@@ -164,13 +164,13 @@ certificate_policy = SubRecord({
     "id":OID(),
     "name":String(),
     "cps":ListOf(URL()),
-    "user_notice":SubRecord({
-        "explit_text":EnglishString(),
+    "user_notice":ListOf(SubRecord({
+        "explicit_text":EnglishString(),
         "notice_reference":ListOf(SubRecord({
             "organization":CensysString(),
             "notice_numbers":ListOf(Signed32BitInteger())
         }))
-    })
+    }))
 }, exclude=["bigquery",]) # XXX
 
 zgrab_parsed_certificate = SubRecord({
