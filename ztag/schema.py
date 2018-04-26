@@ -306,7 +306,7 @@ zgrab_parsed_certificate = SubRecord({
             "microsoft_csp_signature": Boolean(),
             "microsoft_root_list_signer": Boolean(),
             "microsoft_system_health_loophole": Boolean(),
-            #"unknown":ListOf(OID()) # TODO
+            "unknown": ListOf(OID(), doc="A list of the raw OBJECT IDENTIFIERs of any EKUs not recognized by the application."),
         }, exclude=["bigquery",], category="Extended Key Usage"), # TODO
         "certificate_policies":ListOf(certificate_policy, category="Certificate Policies"),
         "authority_info_access":SubRecord({
