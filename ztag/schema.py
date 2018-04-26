@@ -837,6 +837,7 @@ ztag_s7 = SubRecord({
 
 ztag_smb = SubRecord({
     "smbv1_support":Boolean(),
+    "metadata":local_metadata,
 })
 
 ztag_schemas = [
