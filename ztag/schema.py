@@ -190,7 +190,7 @@ zgrab_parsed_certificate = SubRecord({
     }, category="Validity Period"),
     "signature_algorithm":SubRecord({
         "name":String(),
-        "oid":OID(),
+        "oid":OID(validator=String()),
     }),
     "subject_key_info":SubRecord({
         "fingerprint_sha256":HexString(),
@@ -200,7 +200,8 @@ zgrab_parsed_certificate = SubRecord({
                               "(e.g., rsa_public_key)."),
             "oid":OID(doc="OID of the public key on the certificate. "\
                              "This is helpful when an unknown type is present. "\
-                             "This field is reserved and not current populated.")
+                             "This field is reserved and not current populated.",
+                             validator=String())
          }),
         "rsa_public_key":ztag_rsa_params,
         "dsa_public_key":ztag_dsa_params,
@@ -351,7 +352,7 @@ zgrab_parsed_certificate = SubRecord({
     "signature":SubRecord({
         "signature_algorithm":SubRecord({
             "name":String(),
-            "oid":OID(),
+            "oid":OID(validator=String()),
         }),
         "value":IndexedBinary(),
         "valid":Boolean(),
