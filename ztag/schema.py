@@ -1446,7 +1446,7 @@ ipv4_host = Record({
             Port(445):SubRecord({
                 "smb":SubRecord({
                     "banner":ztag_smb
-                }, category="445/SMB")
+                }, category="445/SMB", validation_policy="error")
             }),
             Port(993):SubRecord({
                 "imaps":SubRecord({
