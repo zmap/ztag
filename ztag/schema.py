@@ -11,11 +11,6 @@ class CensysString(WhitespaceAnalyzedString):
     INCLUDE_RAW = True
 
 
-class Valid(Leaf):
-    def validate(self, *args):
-        return True
-
-
 __local_metadata = {}
 for key in Annotation.LOCAL_METADATA_KEYS:
     __local_metadata[key] = CensysString()
@@ -195,7 +190,7 @@ zgrab_parsed_certificate = SubRecord({
     }, category="Validity Period"),
     "signature_algorithm":SubRecord({
         "name":String(),
-        "oid":OID(validator=String()),
+        "oid":OID(validation_policy="warn"),
     }),
     "subject_key_info":SubRecord({
         "fingerprint_sha256":HexString(),
@@ -206,7 +201,7 @@ zgrab_parsed_certificate = SubRecord({
             "oid":OID(doc="OID of the public key on the certificate. "\
                              "This is helpful when an unknown type is present. "\
                              "This field is reserved and not current populated.",
-                             validator=String())
+                             validation_policy="warn")
          }),
         "rsa_public_key":ztag_rsa_params,
         "dsa_public_key":ztag_dsa_params,
@@ -247,7 +242,7 @@ zgrab_parsed_certificate = SubRecord({
         "issuer_alt_name":alternate_name,
         "crl_distribution_points":ListOf(URL(), category="CRL Distribution Points"),
         "authority_key_id":HexString(category="Authority Key ID (AKID)"),
-        "subject_key_id":HexString(category="Subject Key ID (SKID)", validator=String()),
+        "subject_key_id":HexString(category="Subject Key ID (SKID)", validation_policy="warn"),
         "extended_key_usage":SubRecord({
             "value":ListOf(Signed32BitInteger()), # TODO: remove after reparse
             "apple_ichat_signing": Boolean(),
@@ -313,8 +308,8 @@ zgrab_parsed_certificate = SubRecord({
             "microsoft_root_list_signer": Boolean(),
             "microsoft_system_health_loophole": Boolean(),
             "unknown": ListOf(OID(), doc="A list of the raw OBJECT IDENTIFIERs of any EKUs not recognized by the application."),
-        }, exclude=["bigquery",], category="Extended Key Usage", validator=Valid()), # TODO
-        "certificate_policies":ListOf(certificate_policy, category="Certificate Policies", validator=Valid()),
+        }, exclude=["bigquery",], category="Extended Key Usage", validation_policy="warn"), # TODO
+        "certificate_policies":ListOf(certificate_policy, category="Certificate Policies", validation_policy="warn"),
         "authority_info_access":SubRecord({
             "ocsp_urls":ListOf(URL()),
             "issuer_urls":ListOf(URL())
@@ -357,7 +352,7 @@ zgrab_parsed_certificate = SubRecord({
     "signature":SubRecord({
         "signature_algorithm":SubRecord({
             "name":String(),
-            "oid":OID(validator=String()),
+            "oid":OID(validation_policy="warn"),
         }),
         "value":IndexedBinary(),
         "valid":Boolean(),
@@ -559,7 +554,7 @@ ztag_http = SubRecord({
     "status_line":CensysString(),
     "body":HTML(),
     "headers":zgrab_http_headers,
-    "body_sha256":HexString(validator=String()),
+    "body_sha256":HexString(validation_policy="warn"),
     "title":CensysString(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
