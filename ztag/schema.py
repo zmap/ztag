@@ -242,7 +242,7 @@ zgrab_parsed_certificate = SubRecord({
         "issuer_alt_name":alternate_name,
         "crl_distribution_points":ListOf(URL(), category="CRL Distribution Points"),
         "authority_key_id":HexString(category="Authority Key ID (AKID)"),
-        "subject_key_id":HexString(category="Subject Key ID (SKID)"),
+        "subject_key_id":HexString(category="Subject Key ID (SKID)", validator=String()),
         "extended_key_usage":SubRecord({
             "value":ListOf(Signed32BitInteger()), # TODO: remove after reparse
             "apple_ichat_signing": Boolean(),
