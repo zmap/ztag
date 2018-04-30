@@ -11,6 +11,11 @@ class CensysString(WhitespaceAnalyzedString):
     INCLUDE_RAW = True
 
 
+class Valid(Leaf):
+    def validate(self, *args):
+        return True
+
+
 __local_metadata = {}
 for key in Annotation.LOCAL_METADATA_KEYS:
     __local_metadata[key] = CensysString()
@@ -308,8 +313,8 @@ zgrab_parsed_certificate = SubRecord({
             "microsoft_root_list_signer": Boolean(),
             "microsoft_system_health_loophole": Boolean(),
             "unknown": ListOf(OID(), doc="A list of the raw OBJECT IDENTIFIERs of any EKUs not recognized by the application."),
-        }, exclude=["bigquery",], category="Extended Key Usage"), # TODO
-        "certificate_policies":ListOf(certificate_policy, category="Certificate Policies"),
+        }, exclude=["bigquery",], category="Extended Key Usage", validator=Valid()), # TODO
+        "certificate_policies":ListOf(certificate_policy, category="Certificate Policies", validator=Valid()),
         "authority_info_access":SubRecord({
             "ocsp_urls":ListOf(URL()),
             "issuer_urls":ListOf(URL())
