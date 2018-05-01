@@ -188,3 +188,26 @@ class Kafka(Outgoing):
             self.main_producer.flush()
         if self.cert_producer:
             self.cert_producer.flush()
+
+
+class Pubsub(Outgoing):
+
+    def __init__(self, logger=None, destination=None, *args, **kwargs):
+        topic_url = os.environ.get('PUBSUB_DATA_TOPIC_URL')
+        cert_topic_url = os.environ.get('PUBSUB_CERT_TOPIC_URL')
+        if not topic_url:
+            raise Exception('missing $PUBSUB_DATA_TOPIC_URL')
+        if not cert_topic_url:
+            raise Exception('missing $PUBSUB_CERT_TOPIC_URL')
+        # TODO: Make topics
+
+    def take(self, pbout):
+        for certificate in pbout.certificates:
+            # TODO: Send to cert topic
+            pass
+        data = pbout.transformed
+        # TODO: Send to data topic
+
+    def cleanup(self):
+        # TODO: Flush, if needed
+        pass
