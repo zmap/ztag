@@ -28,6 +28,7 @@ setup(
     "kafka-python==1.3.2",
     "lz4tools>=1.3.1.2,<1.4",
     "xxhash>=1.0.1,<1.1",
+    "google-cloud-pubsub",
   ],
   package_data={"ztag":["devices/*",]},
   entry_points = {
