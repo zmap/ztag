@@ -31,12 +31,14 @@ zgrab_subj_issuer = SubRecord({
     "email_address":ListOf(CensysString()),
     "given_name":ListOf(CensysString()),
     # EV Fields
-    # Commented out 2017-08-18 due to ES analyzer mismatch:
+    # Commented out 2017-08-18 due to ES analyzer mismatch
+    # Changed to String from CensysString 2018-04-26 for ESLoader data validation
     # Data with these fields got into the IPv4 index before the ES mapping
     # was updated, and ES automatically chose a different analyzer.
-    # "jurisdiction_country":ListOf(CensysString()),
-    # "jurisdiction_locality":ListOf(CensysString()),
-    # "jurisdiction_province":ListOf(CensysString()),
+    # If/when we reindex in the future, this should change to CensysString
+    "jurisdiction_country":ListOf(String()),
+    "jurisdiction_locality":ListOf(String()),
+    "jurisdiction_province":ListOf(String()),
 })
 
 unknown_extension = SubRecord({
@@ -162,13 +164,13 @@ certificate_policy = SubRecord({
     "id":OID(),
     "name":String(),
     "cps":ListOf(URL()),
-    "user_notice":SubRecord({
-        "explit_text":EnglishString(),
+    "user_notice":ListOf(SubRecord({
+        "explicit_text":EnglishString(),
         "notice_reference":ListOf(SubRecord({
             "organization":CensysString(),
             "notice_numbers":ListOf(Signed32BitInteger())
         }))
-    })
+    }))
 }, exclude=["bigquery",]) # XXX
 
 zgrab_parsed_certificate = SubRecord({
@@ -188,7 +190,7 @@ zgrab_parsed_certificate = SubRecord({
     }, category="Validity Period"),
     "signature_algorithm":SubRecord({
         "name":String(),
-        "oid":OID(),
+        "oid":OID(validation_policy="warn"),
     }),
     "subject_key_info":SubRecord({
         "fingerprint_sha256":HexString(),
@@ -198,7 +200,8 @@ zgrab_parsed_certificate = SubRecord({
                               "(e.g., rsa_public_key)."),
             "oid":OID(doc="OID of the public key on the certificate. "\
                              "This is helpful when an unknown type is present. "\
-                             "This field is reserved and not current populated.")
+                             "This field is reserved and not current populated.",
+                             validation_policy="warn")
          }),
         "rsa_public_key":ztag_rsa_params,
         "dsa_public_key":ztag_dsa_params,
@@ -239,7 +242,7 @@ zgrab_parsed_certificate = SubRecord({
         "issuer_alt_name":alternate_name,
         "crl_distribution_points":ListOf(URL(), category="CRL Distribution Points"),
         "authority_key_id":HexString(category="Authority Key ID (AKID)"),
-        "subject_key_id":HexString(category="Subject Key ID (SKID)"),
+        "subject_key_id":HexString(category="Subject Key ID (SKID)", validation_policy="warn"),
         "extended_key_usage":SubRecord({
             "value":ListOf(Signed32BitInteger()), # TODO: remove after reparse
             "apple_ichat_signing": Boolean(),
@@ -304,9 +307,9 @@ zgrab_parsed_certificate = SubRecord({
             "microsoft_csp_signature": Boolean(),
             "microsoft_root_list_signer": Boolean(),
             "microsoft_system_health_loophole": Boolean(),
-            #"unknown":ListOf(OID()) # TODO
-        }, exclude=["bigquery",], category="Extended Key Usage"), # TODO
-        "certificate_policies":ListOf(certificate_policy, category="Certificate Policies"),
+            "unknown": ListOf(OID(), doc="A list of the raw OBJECT IDENTIFIERs of any EKUs not recognized by the application."),
+        }, exclude=["bigquery",], category="Extended Key Usage", validation_policy="warn"), # TODO
+        "certificate_policies":ListOf(certificate_policy, category="Certificate Policies", validation_policy="warn"),
         "authority_info_access":SubRecord({
             "ocsp_urls":ListOf(URL()),
             "issuer_urls":ListOf(URL())
@@ -349,7 +352,7 @@ zgrab_parsed_certificate = SubRecord({
     "signature":SubRecord({
         "signature_algorithm":SubRecord({
             "name":String(),
-            "oid":OID(),
+            "oid":OID(validation_policy="warn"),
         }),
         "value":IndexedBinary(),
         "valid":Boolean(),
@@ -410,6 +413,7 @@ ztag_tls = SubRecord({
     "validation":SubRecord({
         "matches_domain":Boolean(),
         "browser_trusted":Boolean(),
+        "browser_error":String(),
         #"stores":SubRecord({
         #    "nss":zgrab_server_certificate_valid,
         #    "microsoft":zgrab_server_certificate_valid,
@@ -540,6 +544,7 @@ zgrab_http_headers = SubRecord({
     "x_powered_by":CensysString(),
     "x_ua_compatible":CensysString(),
     "x_content_duration":CensysString(),
+    "x_forwarded_for":CensysString(),
     "proxy_agent":CensysString(),
     "unknown":ListOf(zgrab_unknown_http_header)
 })
@@ -549,7 +554,7 @@ ztag_http = SubRecord({
     "status_line":CensysString(),
     "body":HTML(),
     "headers":zgrab_http_headers,
-    "body_sha256":HexString(),
+    "body_sha256":HexString(validation_policy="warn"),
     "title":CensysString(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
@@ -834,6 +839,19 @@ ztag_s7 = SubRecord({
 
 ztag_smb = SubRecord({
     "smbv1_support":Boolean(),
+    "metadata":local_metadata,
+})
+
+ztag_upnp_discovery = SubRecord({
+    "usn": String(),
+    "agent": String(),
+    "st": String(),
+    "ext": String(),
+    "location": String(),
+    "server": String(),
+    "cache_control": String(),
+    "x_user_agent": String(),
+    "metadata": local_metadata,
 })
 
 ztag_schemas = [
@@ -864,10 +882,11 @@ ztag_schemas = [
     ("ztag_dnp3", ztag_dnp3),
     ("ztag_s7", ztag_s7),
     ("ztag_smb", ztag_smb),
+    ("ztag_upnp_discovery", ztag_upnp_discovery),
 ]
 for (name, schema) in ztag_schemas:
     x = Record({
-        "ip_address":IPv4Address(required=True),
+        "ip_address":IPAddress(required=True),
         #"timestamp":Timestamp(required=True),
         "tags":ListOf(String()),
         "metadata": SubRecord({}, allow_unknown=True),
@@ -1363,6 +1382,7 @@ ipv4_host = Record({
                     "rsa_export": ztag_rsa_export,
                     "dhe_export": ztag_dh_export,
                     #"ssl_2": ztag_sslv2, # XXX
+                    "ssl_3": ztag_tls_support,
                     "tls_1_1": ztag_tls_support,
                     "tls_1_2": ztag_tls_support,
                     #"tls_1_3": ztag_tls_support,
@@ -1426,7 +1446,7 @@ ipv4_host = Record({
             Port(445):SubRecord({
                 "smb":SubRecord({
                     "banner":ztag_smb
-                }, category="445/SMB")
+                }, category="445/SMB", validation_policy="error")
             }),
             Port(993):SubRecord({
                 "imaps":SubRecord({
@@ -1480,6 +1500,11 @@ ipv4_host = Record({
                 "cwmp":SubRecord({
                     "get":ztag_http,
                 }, category="7547/CWMP")
+            }),
+            Port(1900):SubRecord({
+                "upnp":SubRecord({
+                    "discovery":ztag_upnp_discovery,
+                }, category="1900/UPnP")
             }),
 
             "tags":ListOf(CensysString(), category="Basic Information"),
