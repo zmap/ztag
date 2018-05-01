@@ -172,19 +172,20 @@ certificate_policy = SubRecord({
 }, exclude=["bigquery",]) # XXX
 
 zgrab_parsed_certificate = SubRecord({
-    "subject":zgrab_subj_issuer,
-    "subject_dn":CensysString(),
-    "issuer":zgrab_subj_issuer,
-    "issuer_dn":CensysString(),
-    "version":Unsigned8BitInteger(),
+    "subject":zgrab_subj_issuer.new(category="Subject"),
+    "subject_dn":CensysString(category="Basic Information"),
+    "issuer":zgrab_subj_issuer.new(category="Issuer"),
+    "issuer_dn":CensysString(category="Basic Information"),
+    "version":Unsigned8BitInteger(category="Misc"),
     "serial_number":String(doc="Serial number as an signed decimal integer. "\
                                "Stored as string to support >uint lengths. "\
-                               "Negative values are allowed."),
+                               "Negative values are allowed.",
+                               category="Basic Information"),
     "validity":SubRecord({
         "start":Timestamp(doc="Timestamp of when certificate is first valid. Timezone is UTC."),
         "end":Timestamp(doc="Timestamp of when certificate expires. Timezone is UTC."),
         "length":Signed64BitInteger(),
-    }),
+    }, category="Validity Period"),
     "signature_algorithm":SubRecord({
         "name":String(),
         "oid":OID(),
@@ -216,7 +217,7 @@ zgrab_parsed_certificate = SubRecord({
             # because for a bunch of certificates, this was encoded as [1, 2,
             # 840, 113549, 1, 1, 12] not 1.2.840.113549.1.1.12
         })
-    }),
+    }, category="Public Key"),
     "extensions":SubRecord({
         "key_usage":SubRecord({
             "value":Unsigned16BitInteger("Integer value of the bitmask in the extension"),
@@ -229,16 +230,16 @@ zgrab_parsed_certificate = SubRecord({
             "key_agreement":Boolean(),
             "decipher_only":Boolean(),
             "encipher_only":Boolean(),
-        }),
+        }, category="Key Usage"),
         "basic_constraints":SubRecord({
             "is_ca":Boolean(),
             "max_path_len":Signed32BitInteger(),
-        }),
-        "subject_alt_name":alternate_name,
+        }, category="Basic Constaints"),
+        "subject_alt_name":alternate_name.new(category="Subject Alternate Names (SANs)"),
         "issuer_alt_name":alternate_name,
-        "crl_distribution_points":ListOf(URL()),
-        "authority_key_id":HexString(),
-        "subject_key_id":HexString(),
+        "crl_distribution_points":ListOf(URL(), category="CRL Distribution Points"),
+        "authority_key_id":HexString(category="Authority Key ID (AKID)"),
+        "subject_key_id":HexString(category="Subject Key ID (SKID)"),
         "extended_key_usage":SubRecord({
             "value":ListOf(Signed32BitInteger()), # TODO: remove after reparse
             "apple_ichat_signing": Boolean(),
@@ -304,12 +305,12 @@ zgrab_parsed_certificate = SubRecord({
             "microsoft_root_list_signer": Boolean(),
             "microsoft_system_health_loophole": Boolean(),
             #"unknown":ListOf(OID()) # TODO
-        }, exclude=["bigquery",]), # TODO
-        "certificate_policies":ListOf(certificate_policy),
+        }, exclude=["bigquery",], category="Extended Key Usage"), # TODO
+        "certificate_policies":ListOf(certificate_policy, category="Certificate Policies"),
         "authority_info_access":SubRecord({
             "ocsp_urls":ListOf(URL()),
             "issuer_urls":ListOf(URL())
-        }),
+        }, category="Authority Info Access (AIA)"),
         "name_constraints":SubRecord({
             "critical":Boolean(),
             "permitted_names":ListOf(FQDN()),
@@ -340,11 +341,11 @@ zgrab_parsed_certificate = SubRecord({
             "excluded_registered_ids":ListOf(OID()),
             "excluded_edi_party_names":ListOf(edi_party_name),
 
-        }),
-        "signed_certificate_timestamps":ListOf(ztag_sct),
-        "ct_poison":Boolean()
+        }, category="Name Constraints"),
+        "signed_certificate_timestamps":ListOf(ztag_sct, category="Embedded SCTS / CT Poison"),
+        "ct_poison":Boolean(category="Embedded SCTS / CT Poison")
     }),
-    "unknown_extensions":ListOf(unknown_extension),
+    "unknown_extensions":ListOf(unknown_extension, category="Unknown Extensions"),
     "signature":SubRecord({
         "signature_algorithm":SubRecord({
             "name":String(),
@@ -353,17 +354,17 @@ zgrab_parsed_certificate = SubRecord({
         "value":IndexedBinary(),
         "valid":Boolean(),
         "self_signed":Boolean(),
-    }),
-    "fingerprint_md5":HexString(),
-    "fingerprint_sha1":HexString(),
-    "fingerprint_sha256":HexString(),
-    "spki_subject_fingerprint":HexString(),
-    "tbs_fingerprint":HexString(),
-    "tbs_noct_fingerprint":HexString(),
-    "names":ListOf(FQDN()),
+    }, category="Signature"),
+    "fingerprint_md5":HexString(category="Fingerprint"),
+    "fingerprint_sha1":HexString(category="Fingerprint"),
+    "fingerprint_sha256":HexString(category="Fingerprint"),
+    "spki_subject_fingerprint":HexString(category="Fingerprint"),
+    "tbs_fingerprint":HexString(category="Fingerprint"),
+    "tbs_noct_fingerprint":HexString(category="Fingerprint"),
+    "names":ListOf(FQDN(), category="Basic Information"),
     "__expanded_names":ListOf(String()),
-    "validation_level":Enum(),
-    "redacted":Boolean(),
+    "validation_level":Enum(category="Misc"),
+    "redacted":Boolean(category="Misc"),
 })
 
 zgrab_certificate_trust = SubRecord({
@@ -376,9 +377,9 @@ zgrab_certificate_trust = SubRecord({
 zgrab_certificate = SubRecord({
     "parsed":zgrab_parsed_certificate,
     "validation":SubRecord({
-        "nss":zgrab_certificate_trust,
-        "apple":zgrab_certificate_trust,
-        "microsoft":zgrab_certificate_trust,
+        "nss":zgrab_certificate_trust.new(category="NSS (Firefox) Validation"),
+        "apple":zgrab_certificate_trust.new(category="Apple Validation"),
+        "microsoft":zgrab_certificate_trust.new(category="Microsoft Validation"),
         "android":zgrab_certificate_trust,
         "java":zgrab_certificate_trust,
     }),
@@ -1037,7 +1038,7 @@ CertificateAudit = SubRecord({
         #"company_website":CensysString(), # TODO
         #"geographic_focus":CensysString(), # TODO
         #"standard_audit_type":CensysString(), # TODO
-     })
+     }, category="CCADB Audit")
 })
 
 ztag_certificate_validation = SubRecord({
@@ -1333,22 +1334,22 @@ certificate = Record({
         "parse_version":Unsigned16BitInteger(),
         "parse_error":CensysString(),
         "parse_status":String(),
-    }),
-    "parents":ListOf(String()),
+    }, category="Metadata"),
+    "parents":ListOf(String(), category="Misc"),
     "parent_spki_subject_fingerprint":HexString(),
     "validation":SubRecord({
-        "nss":ztag_certificate_validation,
-        "apple":ztag_certificate_validation,
-        "microsoft":ztag_certificate_validation,
+        "nss":ztag_certificate_validation.new(category="NSS (Firefox) Validation"),
+        "apple":ztag_certificate_validation.new(category="Apple Validation"),
+        "microsoft":ztag_certificate_validation.new(category="Microsoft Validation"),
         #"java":ztag_certificate_validation,
         #"android":ztag_certificate_validation,
-        "google_ct_primary":ztag_certificate_validation,
+        "google_ct_primary":ztag_certificate_validation.new(category="Google CT Validation"),
         #"google_ct_submariner":ztag_certificate_validation,
     }),
-    "ct":CTStatus,
+    "ct":CTStatus.new(category="Certificate Transparency Logs"),
     "audit":CertificateAudit,
-    "zlint":ZLint,
-    "precert":Boolean()
+    "zlint":ZLint.new(category="ZLint"),
+    "precert":Boolean(category="Misc")
 })
 
 zschema.registry.register_schema("certificate", certificate)
@@ -1367,131 +1368,131 @@ ipv4_host = Record({
                     #"tls_1_3": ztag_tls_support,
                     "ecdhe": ztag_ecdh,
                     #"extended_random":ztag_extended_random,
-                })
+                }, category="443/HTTPS")
             }),
             Port(80):SubRecord({
                 "http":SubRecord({
                     "get":ztag_http,
-                }),
+                }, category="80/HTTP"),
             }),
             Port(8080):SubRecord({
                 "http":SubRecord({
                     "get":ztag_http,
-                }),
+                }, category="8080/HTTP"),
             }),
             Port(8888):SubRecord({
                 "http":SubRecord({
                     "get":ztag_http,
-                }),
+                }, category="8888/HTTP"),
             }),
             Port(25):SubRecord({
                 "smtp":SubRecord({
                     "starttls": ztag_smtp_starttls,
                     #"ssl_2": ztag_sslv2, # XXX
-                }),
+                }, category="25/SMTP"),
             }),
             Port(23):SubRecord({
                 "telnet":SubRecord({
                     "banner":ztag_telnet
-                })
+                }, category="23/Telnet")
             }),
             Port(2323):SubRecord({
                 "telnet":SubRecord({
                     "banner":ztag_telnet
-                })
+                }, category="2323/Telnet")
             }),
             Port(21):SubRecord({
                 "ftp":SubRecord({
                   "banner":ztag_ftp,
-                })
+                }, category="21/FTP")
             }),
             Port(102):SubRecord({
                 "s7":SubRecord({
                     "szl":ztag_s7
-                })
+                }, category="102/S7")
             }),
             Port(110):SubRecord({
                 "pop3":SubRecord({
                     "starttls":ztag_mail_starttls,
                     #"ssl_2": ztag_sslv2, # XXX
-                })
+                }, category="110/POP3")
             }),
             Port(143):SubRecord({
                 "imap":SubRecord({
                     "starttls":ztag_mail_starttls,
                     #"ssl_2": ztag_sslv2, # XXX
-                })
+                }, category="143/IMAP")
             }),
             Port(445):SubRecord({
                 "smb":SubRecord({
                     "banner":ztag_smb
-                })
+                }, category="445/SMB")
             }),
             Port(993):SubRecord({
                 "imaps":SubRecord({
                     "tls":ztag_mail_tls,
                     #"ssl_2": ztag_sslv2, # XXX
-                })
+                }, category="993/IMAPS")
             }),
             Port(995):SubRecord({
                 "pop3s":SubRecord({
                     "tls":ztag_mail_tls,
                     #"ssl_2": ztag_sslv2, # XXX
-                })
+                }, category="995/POP3S")
             }),
             Port(587):SubRecord({
                 "smtp":SubRecord({
                     "starttls": ztag_smtp_starttls,
                     #"ssl_2": ztag_sslv2,  # XXX
-                })
+                }, category="587/SMTP")
             }),
             Port(502):SubRecord({
                 "modbus":SubRecord({
                     "device_id":ztag_modbus
-                })
+                }, category="502/Modbus")
             }),
             Port(22):SubRecord({
                 "ssh":SubRecord({
                     "v2": ztag_ssh_v2
-                }),
+                }, category="22/SSH"),
             }),
             Port(53):SubRecord({
                 "dns":SubRecord({
                     "lookup":ztag_dns_lookup
-                })
+                }, category="53/DNS")
             }),
             Port(47808):SubRecord({
                 "bacnet":SubRecord({
                     "device_id":ztag_bacnet
-                })
+                }, category="47808/BACNET")
             }),
             Port(1911):SubRecord({
                 "fox":SubRecord({
                     "device_id":ztag_fox
-                })
+                }, category="1911/Fox")
             }),
             Port(20000):SubRecord({
                 "dnp3":SubRecord({
                     "status":ztag_dnp3,
-                })
+                }, category="20000/DNP3")
             }),
             Port(7547):SubRecord({
                 "cwmp":SubRecord({
                     "get":ztag_http,
-                })
+                }, category="7547/CWMP")
             }),
 
-            "tags":ListOf(CensysString()),
+            "tags":ListOf(CensysString(), category="Basic Information"),
             "metadata":zdb_metadata,
             "location":zdb_location,
             "__restricted_location":zdb_restricted_location,
-            "autonomous_system":zdb_as,
+            "autonomous_system":zdb_as.new(category="Basic Information"),
             "notes":CensysString(),
-            "ip":IPv4Address(required=True),
+            "ip":IPv4Address(required=True, category="Basic Information"),
             "ipint":Unsigned32BitInteger(required=True, doc="Integer value of IP address in host order"),
             "updated_at":Timestamp(),
             "zdb_version":Unsigned32BitInteger(),
-            "protocols":ListOf(CensysString(exclude=["bigquery"])),
+            "protocols":ListOf(CensysString(exclude=["bigquery"]), category="Basic Information"),
             "ports":ListOf(Unsigned16BitInteger())
 })
 
@@ -1510,7 +1511,7 @@ website = Record({
                 "https_www":SubRecord({
                     "tls":ztag_tls,
                 })
-            }),
+            }, category="443/HTTPS"),
             Port(80):SubRecord({
                 "http":SubRecord({
                     "get":ztag_http,
@@ -1518,29 +1519,29 @@ website = Record({
                 "http_www":SubRecord({
                     "get":ztag_http,
                 }),
-            }),
+            }, category="80/HTTP"),
             Port(25):SubRecord({
                 "smtp":SubRecord({
                     "starttls": ztag_smtp_starttls,
                 })
-            }),
+            }, category="25/SMTP"),
             Port(0):SubRecord({
                 "lookup":SubRecord({
                     "spf":ztag_lookup_spf,
                     "dmarc":ztag_lookup_dmarc,
                     "axfr":ztag_lookup_axfr,
                 })
-            }),
+            }, category="Basic Information"),
 
-            "tags":ListOf(CensysString()),
+            "tags":ListOf(CensysString(), category="Basic Information"),
             "metadata":zdb_metadata,
             "notes":EnglishString(es_include_raw=True),
-            "domain":String(),
+            "domain":String(category="Basic Information"),
             "alexa_rank":Unsigned32BitInteger(doc="Rank in the Alexa Top 1 Million. "
                     "Null if not currently in the Top 1 Million sites."),
             "updated_at":Timestamp(),
             "zdb_version":Unsigned32BitInteger(),
-            "protocols":ListOf(String()),
+            "protocols":ListOf(String(), category="Basic Information"),
             "ports":ListOf(Unsigned16BitInteger())
 })
 
