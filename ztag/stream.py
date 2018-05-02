@@ -1,13 +1,13 @@
-import time
-import sys
-import os
 import csv
-
-from ztag.errors import IgnoreObject
-
+import google
+import os
 import redis
+import sys
+import time
 
 from kafka import KafkaProducer
+from google.cloud import pubsub
+from ztag.errors import IgnoreObject
 
 
 class Stream(object):
@@ -188,3 +188,30 @@ class Kafka(Outgoing):
             self.main_producer.flush()
         if self.cert_producer:
             self.cert_producer.flush()
+
+
+class Pubsub(Outgoing):
+
+    def __init__(self, logger=None, destination=None, *args, **kwargs):
+        self.topic_url = os.environ.get('PUBSUB_DATA_TOPIC_URL')
+        self.cert_topic_url = os.environ.get('PUBSUB_CERT_TOPIC_URL')
+        if not self.topic_url:
+            raise Exception('missing $PUBSUB_DATA_TOPIC_URL')
+        if not self.cert_topic_url:
+            raise Exception('missing $PUBSUB_CERT_TOPIC_URL')
+        self.publisher = pubsub.PublisherClient()
+        try:
+            self.publisher.get_topic(self.topic_url)
+            self.publisher.get_topic(self.cert_topic_url)
+        except google.api_core.exceptions.GoogleAPICallError as e:
+            logger.error(e.message)
+            raise
+
+    def take(self, pbout):
+        for certificate in pbout.certificates:
+            self.publisher.publish(self.cert_topic_url, certificate)
+        self.publisher.publish(self.topic_url, pbout.transformed)
+
+    def cleanup(self):
+        # Not needed
+        pass

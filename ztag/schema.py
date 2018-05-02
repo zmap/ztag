@@ -22,7 +22,6 @@ for key in Annotation.LOCAL_METADATA_KEYS:
     __local_metadata[key] = CensysString()
 local_metadata = SubRecord(__local_metadata)
 
-
 ztag_dh_export = SubRecord({
     "dh_params": zcrypto.DHParams(doc="The parameters for the key."),
     "support": Boolean(),
@@ -225,6 +224,7 @@ zgrab_http_headers = SubRecord({
     "x_powered_by":CensysString(),
     "x_ua_compatible":CensysString(),
     "x_content_duration":CensysString(),
+    "x_forwarded_for":CensysString(),
     "proxy_agent":CensysString(),
     "unknown":ListOf(zgrab_unknown_http_header)
 })
@@ -234,7 +234,7 @@ ztag_http = SubRecord({
     "status_line":CensysString(),
     "body":HTML(),
     "headers":zgrab_http_headers,
-    "body_sha256":HexString(),
+    "body_sha256":HexString(validation_policy="warn"),
     "title":CensysString(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
@@ -495,6 +495,19 @@ ztag_s7 = SubRecord({
 
 ztag_smb = SubRecord({
     "smbv1_support":Boolean(),
+    "metadata":local_metadata,
+})
+
+ztag_upnp_discovery = SubRecord({
+    "usn": String(),
+    "agent": String(),
+    "st": String(),
+    "ext": String(),
+    "location": String(),
+    "server": String(),
+    "cache_control": String(),
+    "x_user_agent": String(),
+    "metadata": local_metadata,
 })
 
 ztag_schemas = [
@@ -525,10 +538,11 @@ ztag_schemas = [
     ("ztag_dnp3", ztag_dnp3),
     ("ztag_s7", ztag_s7),
     ("ztag_smb", ztag_smb),
+    ("ztag_upnp_discovery", ztag_upnp_discovery),
 ]
 for (name, schema) in ztag_schemas:
     x = Record({
-        "ip_address":IPv4Address(required=True),
+        "ip_address":IPAddress(required=True),
         #"timestamp":Timestamp(required=True),
         "tags":ListOf(String()),
         "metadata": SubRecord({}, allow_unknown=True),
@@ -1024,6 +1038,7 @@ ipv4_host = Record({
                     "rsa_export": ztag_rsa_export,
                     "dhe_export": ztag_dh_export,
                     #"ssl_2": ztag_sslv2, # XXX
+                    "ssl_3": ztag_tls_support,
                     "tls_1_1": ztag_tls_support,
                     "tls_1_2": ztag_tls_support,
                     #"tls_1_3": ztag_tls_support,
@@ -1087,7 +1102,7 @@ ipv4_host = Record({
             Port(445):SubRecord({
                 "smb":SubRecord({
                     "banner":ztag_smb
-                }, category="445/SMB")
+                }, category="445/SMB", validation_policy="error")
             }),
             Port(993):SubRecord({
                 "imaps":SubRecord({
@@ -1141,6 +1156,11 @@ ipv4_host = Record({
                 "cwmp":SubRecord({
                     "get":ztag_http,
                 }, category="7547/CWMP")
+            }),
+            Port(1900):SubRecord({
+                "upnp":SubRecord({
+                    "discovery":ztag_upnp_discovery,
+                }, category="1900/UPnP")
             }),
 
             "tags":ListOf(CensysString(), category="Basic Information"),
