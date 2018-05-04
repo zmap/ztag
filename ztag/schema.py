@@ -7,6 +7,7 @@ from ztag.annotation import Annotation
 
 import zcrypto_schemas.zcrypto as zcrypto
 import zgrab2_schemas.zgrab2 as zgrab2
+import zgrab2_schemas.zgrab2.oracle as zgrab2_oracle
 import zgrab2_schemas.zgrab2.ssh as zgrab2_ssh
 
 class CensysString(WhitespaceAnalyzedString):
@@ -508,7 +509,7 @@ ztag_upnp_discovery = SubRecord({
 })
 
 # The oracle ztag transform is a plain copy of the "handshake" field.
-ztag_oracle = zgrab2.oracle_scan_response["result"]["handshake"]
+ztag_oracle = zgrab2_oracle.oracle_scan_response["result"]["handshake"]
 
 ztag_mssql = SubRecord({
     "version": String(),
