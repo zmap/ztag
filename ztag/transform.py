@@ -198,16 +198,6 @@ class ZGrabTransform(ZMapTransform):
         return out
 
 class ZGrab2Transform(ZMapTransform):
-    STATUSES = {
-        "success",
-        "connection-refused",
-        "connection-timeout",
-        "connection-closed",
-        "io-timeout",
-        "protocol-error",
-        "application-error",
-        "unknown-error",
-    }
     """
     This is registered in zschema as "zgrab2".
     The generic format is
@@ -236,6 +226,18 @@ class ZGrab2Transform(ZMapTransform):
         "tls" is a standard TLS structure (see https.make_tls_obj)
         ...
     """
+
+    STATUSES = {
+        "success",
+        "connection-refused",
+        "connection-timeout",
+        "connection-closed",
+        "io-timeout",
+        "protocol-error",
+        "application-error",
+        "unknown-error",
+    }
+
     def __init__(self, *args, **kwargs):
         self.strip_domain_prefix = kwargs.get('strip_domain_prefix', '')
         super(ZGrab2Transform, self).__init__(*args, **kwargs)
