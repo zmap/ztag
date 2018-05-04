@@ -1,10 +1,7 @@
-from ztag.transform import ZGrabTransform, ZMapTransformOutput
-from ztag import protocols, errors
-from ztag.transform import Transformable
-import https
+from ztag.transform import ZGrab2Transform
+from ztag import protocols
 
-
-class OracleTransform(ZGrabTransform):
+class OracleTransform(ZGrab2Transform):
 
     name = "oracle/generic"
     port = None
@@ -16,12 +13,13 @@ class OracleTransform(ZGrabTransform):
 
     def _transform_object(self, obj):
         zout = super(OracleTransform, self)._transform_object(obj)
+        results = self.get_scan_results(obj)
         # No handshake -- just keep the TLS (if present).
-        if "handshake" not in obj:
+        if not results or "handshake" not in results:
             return zout
 
         # Otherwise, just copy everything from handshake into the root.
-        for k, v in obj["handshake"].items():
+        for k, v in results["handshake"].items():
             zout.transformed[k] = v
 
         return zout

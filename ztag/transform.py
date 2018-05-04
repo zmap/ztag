@@ -253,7 +253,11 @@ class ZGrab2Transform(ZMapTransform):
         for key in keys:
             path.append(key)
             if key not in temp:
-                self.invalid_result(obj, "field %s (of %s) is not present.", ".".join(path), ".".join(keys))
+                missing = ".".join(path)
+                full = ".".join(keys)
+                if missing != full:
+                    missing = " (of %s)" % full
+                self.invalid_result(obj, "field %s is not present.", missing)
             temp = temp[key]
         return temp
 
@@ -263,8 +267,17 @@ class ZGrab2Transform(ZMapTransform):
         except Exception:
             return None
 
+    def get_scan_results(self, obj):
+        try:
+            data = self.get_scan_data(obj)
+            if "result" in data:
+                return data["result"]
+            return None
+        except Exception:
+            return None
+
     def get_scan_data(self, obj):
-        scan_id = getattr(self, "scan_id", getattr(self, "protocol", None))
+        scan_id = getattr(self, "scan_id", self.protocol.pretty_name)
         if scan_id is not None:
             return self.get(obj, "data", scan_id)
         else:
@@ -279,7 +292,6 @@ class ZGrab2Transform(ZMapTransform):
     def _transform_object(self, obj):
         # Children are expected to call this first, then fill out the result.
         out = ZMapTransformOutput()
-
         if "ip" in obj:
             out.transformed['ip_address'] = obj['ip']
         if "domain" in obj:
@@ -289,17 +301,23 @@ class ZGrab2Transform(ZMapTransform):
                     domain = domain[len(self.strip_domain_prefix):]
             out.transformed['domain'] = domain
 
-        out.transformed['timestamp'] = obj['timestamp']
-
         scan_data = self.get_scan_data(obj)
         status = self.get(scan_data, "status")
         if status not in self.STATUSES:
             self.invalid_result(obj, "%s is not a valid status", status)
+        out.transformed['timestamp'] = scan_data['timestamp']
+
         # TODO: Do anything with scan_data["error"]?
-        tls_record = self.get(scan_data, "result", "tls")
+        tls_record = self.optget(scan_data, "result", "tls")
         if tls_record is not None:
             from ztag.transforms import HTTPSTransform
             tls_out, tls_certificates = HTTPSTransform.make_tls_obj(tls_record)
             out.transformed["tls"] = tls_out
             out.certificates = list(set(out.certificates) | set(tls_certificates))
+
         return out
+
+    def transform(self, obj):
+        # Intentionally skipping ZMapTransform.transform
+        # But...why is this a ZMapTransform in the first place?
+        return super(ZMapTransform, self).transform(obj)
