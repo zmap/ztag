@@ -8,9 +8,9 @@ from ztag.annotation import Annotation
 # Assumes that zcrypto/schemas/* and zgrab2/schemas/* have been merged
 # into a schemas folder on the PYTHONPATH.
 # This can be automated with merge-external-schemas.sh.
-import schemas.zcrypto as zcrypto
-import schemas.zgrab2 as zgrab2
-import schemas.zgrab2.ssh as zgrab2_ssh
+import zcrypto_schemas.zcrypto as zcrypto
+import zgrab2_schemas.zgrab2 as zgrab2
+import zgrab2_schemas.zgrab2.ssh as zgrab2_ssh
 
 class CensysString(WhitespaceAnalyzedString):
     "default type for any strings in Censys"
