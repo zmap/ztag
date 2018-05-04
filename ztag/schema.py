@@ -5,9 +5,6 @@ import zschema.registry
 
 from ztag.annotation import Annotation
 
-# Assumes that zcrypto/schemas/* and zgrab2/schemas/* have been merged
-# into a schemas folder on the PYTHONPATH.
-# This can be automated with merge-external-schemas.sh.
 import zcrypto_schemas.zcrypto as zcrypto
 import zgrab2_schemas.zgrab2 as zgrab2
 import zgrab2_schemas.zgrab2.ssh as zgrab2_ssh
@@ -510,6 +507,15 @@ ztag_upnp_discovery = SubRecord({
     "metadata": local_metadata,
 })
 
+# The oracle ztag transform is a plain copy of the "handshake" field.
+ztag_oracle = zgrab2.oracle_scan_response["result"]["handshake"]
+
+ztag_mssql = SubRecord({
+    "version": String(),
+    "instance_name": String(),
+    "tls": zcrypto.TLSHandshake(doc="The TLS handshake with the server (for non-encrypted connections, this used only for the authentication phase).")
+})
+
 ztag_schemas = [
     ("ztag_https", ztag_tls),
     ("ztag_heartbleed", ztag_heartbleed),
@@ -539,6 +545,8 @@ ztag_schemas = [
     ("ztag_s7", ztag_s7),
     ("ztag_smb", ztag_smb),
     ("ztag_upnp_discovery", ztag_upnp_discovery),
+    ("ztag_oracle", ztag_oracle),
+    ("ztag_mssql", ztag_mssql),
 ]
 for (name, schema) in ztag_schemas:
     x = Record({

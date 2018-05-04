@@ -1,6 +1,7 @@
 from ztag.transform import ZGrab2Transform
 from ztag import protocols
 
+
 class MSSQLTransform(ZGrab2Transform):
 
     name = "mssql/generic"

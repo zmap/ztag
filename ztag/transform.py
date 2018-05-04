@@ -197,6 +197,7 @@ class ZGrabTransform(ZMapTransform):
         out.transformed['timestamp'] = obj['timestamp']
         return out
 
+
 class ZGrab2Transform(ZMapTransform):
     """
     This is registered in zschema as "zgrab2".
@@ -211,14 +212,14 @@ class ZGrab2Transform(ZMapTransform):
                   "connection-timeout",
                   "connection-closed",
                   "io-timeout",
-                  "protocol-error",The 
+                  "protocol-error",
                   "application-error",
                   "unknown-error"
                 ]),
                 "protocol": [scan-protocol-name],
                 "timestamp": DateTime(),
                 "result": { [protocol-specific] },
-                "error": String(),                
+                "error": String(),
             }
         }
     }
@@ -242,8 +243,9 @@ class ZGrab2Transform(ZMapTransform):
     def __init__(self, *args, **kwargs):
         """
         Same as old ZGrabTransform.
-        :param args:  Nothing new (forwarded to ZMapTransform)
-        :param kwargs:  strip_domain_prefix -- optional domain prefix to strip (as with ZGrabTransform)
+        :param args: Nothing new (forwarded to ZMapTransform)
+        :param kwargs: strip_domain_prefix -- optional domain prefix to strip
+                       (as with ZGrabTransform)
         """
         self.strip_domain_prefix = kwargs.get('strip_domain_prefix', '')
         super(ZGrab2Transform, self).__init__(*args, **kwargs)
@@ -257,7 +259,7 @@ class ZGrab2Transform(ZMapTransform):
         :raises Exception:
         """
         if fmt is not None:
-            suffix = ": %s" % ( fmt % args )
+            suffix = ": %s" % (fmt % args)
         else:
             suffix = ""
         raise Exception("Not a valid ZGrab2 result" + suffix)
@@ -268,8 +270,8 @@ class ZGrab2Transform(ZMapTransform):
         :param obj: the dict to index into
         :param keys: zero or more keys to index into obj
         :return: obj[keys[0]][keys[1]][...][keys[-1]]
-        :raises Exception: If any of the keys is absent, or a non-terminal value
-                           is not indexable
+        :raises Exception: If any of the keys is absent, or a non-terminal
+                            value is not indexable
         """
         temp = obj
         path = []

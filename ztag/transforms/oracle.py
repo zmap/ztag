@@ -1,6 +1,7 @@
 from ztag.transform import ZGrab2Transform
 from ztag import protocols
 
+
 class OracleTransform(ZGrab2Transform):
 
     name = "oracle/generic"
