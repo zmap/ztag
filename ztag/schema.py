@@ -510,14 +510,46 @@ ztag_upnp_discovery = SubRecord({
 })
 
 # The oracle ztag transform is a plain copy of the "handshake" field.
+# TODO: Apply some transform to replace all String() with CensysString()?
 ztag_oracle = zgrab2_oracle.oracle_scan_response["result"]["handshake"]
 
+
+# TODO: Apply some transform to replace all String() with CensysString()?
 ztag_mssql = SubRecord({
     "version": String(),
     "instance_name": String(),
     "encrypt_mode": Enum(values=zgrab2_mssql.ENCRYPT_MODES),
     "tls": zcrypto.TLSHandshake(doc="The TLS handshake with the server (for non-encrypted connections, this used only for the authentication phase).")
 })
+
+
+# TODO: Apply some transform to replace all String() with CensysString()?
+ztag_mysql = SubRecord({
+    "protocol_version": zgrab2.mysql.mysql_scan_response["result"]["protocol_version"],
+    "server_version": zgrab2.mysql.mysql_scan_response["result"]["server_version"],
+    "capability_flags": zgrab2.mysql.mysql_capability_flags,
+    "status_flags": zgrab2.mysql.mysql_server_status_flags,
+    "error_code": zgrab2.mysql.mysql_scan_response["result"]["error_code"],
+    "error_message": zgrab2.mysql.mysql_scan_response["result"]["error_message"],
+    "tls": zcrypto.TLSHandshake(doc="TODO"),
+})
+
+
+# TODO: Apply some transform to replace all String() with CensysString()?
+ztag_postgres = SubRecord({
+    "supported_versions": String(),  # TODO: CensysString?
+    "protocol_error": zgrab2.postgres.postgres_error,
+    "startup_error": zgrab2.postgres.postgres_error,
+    "is_ssl": Boolean(),
+    "server_parameters": zgrab2.postgres.postgres_scan_response["server_parameters"],
+    "authentication_mode": SubRecord({
+        "mode": zgrab2.postgres.postgres_auth_mode["mode"],
+    }),
+    "backend_key_data": zgrab2.postgres.postgres_key_data,
+    "tls": zcrypto.TLSHandshake(doc="TODO"),
+})
+
+
 
 ztag_schemas = [
     ("ztag_https", ztag_tls),
@@ -1183,6 +1215,12 @@ ipv4_host = Record({
                     "banner": ztag_mssql,
                 }, category="1433/MSSQL"),
             }),
+            Port(3306): SubRecord({
+                "mysql": ztag_mysql,
+            }, category="3306/MySQL"),
+            Port(5432): SubRecord({
+                "postgres": ztag_postgres,
+            }, category="5432/Postgres"),
             "tags":ListOf(CensysString(), category="Basic Information"),
             "metadata":zdb_metadata,
             "location":zdb_location,
