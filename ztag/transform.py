@@ -336,7 +336,7 @@ class ZGrab2Transform(ZMapTransform):
         except Exception:
             return None
 
-    def _transform_object(self, obj):
+    def _transform_object(self, obj, tls=True):
         # Child classes should call this first, then fill out the result.
         out = ZMapTransformOutput()
         if "ip" in obj:
@@ -355,12 +355,13 @@ class ZGrab2Transform(ZMapTransform):
         out.transformed["timestamp"] = scan_data["timestamp"]
 
         # TODO: Do anything with scan_data["error"]?
-        tls_record = self.optget(scan_data, "result", "tls", "handshake_log")
-        if tls_record is not None:
-            from ztag.transforms import HTTPSTransform
-            tls_out, tls_certificates = HTTPSTransform.make_tls_obj(tls_record)
-            out.transformed["tls"] = tls_out
-            out.certificates = out.certificates + tls_certificates
+        if tls:
+            tls_record = self.optget(scan_data, "result", "tls", "handshake_log")
+            if tls_record is not None:
+                from ztag.transforms import HTTPSTransform
+                tls_out, tls_certificates = HTTPSTransform.make_tls_obj(tls_record)
+                out.transformed["tls"] = tls_out
+                out.certificates = out.certificates + tls_certificates
 
         return out
 
