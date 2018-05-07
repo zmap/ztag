@@ -7,6 +7,7 @@ from ztag.annotation import Annotation
 
 import zcrypto_schemas.zcrypto as zcrypto
 import zgrab2_schemas.zgrab2 as zgrab2
+import zgrab2_schemas.zgrab2.mssql as zgrab2_mssql
 import zgrab2_schemas.zgrab2.oracle as zgrab2_oracle
 import zgrab2_schemas.zgrab2.ssh as zgrab2_ssh
 
@@ -514,6 +515,7 @@ ztag_oracle = zgrab2_oracle.oracle_scan_response["result"]["handshake"]
 ztag_mssql = SubRecord({
     "version": String(),
     "instance_name": String(),
+    "encrypt_mode": Enum(values=zgrab2_mssql.ENCRYPT_MODES),
     "tls": zcrypto.TLSHandshake(doc="The TLS handshake with the server (for non-encrypted connections, this used only for the authentication phase).")
 })
 
@@ -1171,7 +1173,16 @@ ipv4_host = Record({
                     "discovery":ztag_upnp_discovery,
                 }, category="1900/UPnP")
             }),
-
+            Port(1521):SubRecord({
+                "oracle":SubRecord({
+                    "banner": ztag_oracle,
+                }, category="1521/Oracle"),
+            }),
+            Port(1433):SubRecord({
+                "mssql":SubRecord({
+                    "banner": ztag_mssql,
+                }, category="1433/MSSQL"),
+            }),
             "tags":ListOf(CensysString(), category="Basic Information"),
             "metadata":zdb_metadata,
             "location":zdb_location,

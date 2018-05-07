@@ -4,10 +4,10 @@ from ztag import protocols
 
 class MSSQLTransform(ZGrab2Transform):
 
-    name = "mssql/generic"
+    name = "mssql/banner"
     port = None
     protocol = protocols.MSSQL
-    subprotocol = protocols.MSSQL.GENERIC
+    subprotocol = protocols.MSSQL.BANNER
 
     def __init__(self, *args, **kwargs):
         super(MSSQLTransform, self).__init__(*args, **kwargs)
@@ -22,10 +22,11 @@ class MSSQLTransform(ZGrab2Transform):
         if not results:
             return zout
 
+        # Version is required, ignore this record if it isn't present.
         zout.transformed["version"] = results["version"]
+
         if "instance_name" in results:
             zout.transformed["instance_name"] = results["instance_name"]
-
         if "prelogin_options" in results:
             self.load_prelogin_options(results["prelogin_options"], zout)
 
