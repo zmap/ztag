@@ -542,9 +542,7 @@ ztag_postgres = SubRecord({
     "startup_error": zgrab2.postgres.postgres_error,
     "is_ssl": Boolean(),
     "server_parameters": zgrab2.postgres.postgres_scan_response["server_parameters"],
-    "authentication_mode": SubRecord({
-        "mode": zgrab2.postgres.postgres_auth_mode["mode"],
-    }),
+    "authentication_mode": zgrab2.postgres.postgres_auth_mode["mode"],
     "backend_key_data": zgrab2.postgres.postgres_key_data,
     "tls": zcrypto.TLSHandshake(doc="TODO"),
 })
