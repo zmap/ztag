@@ -1,3 +1,0 @@
--e .
-git+https://github.com/zmap/zcrypto#egg=zcrypto-schemas
-git+https://github.com/zmap/zgrab2#egg=zgrab2-schemas

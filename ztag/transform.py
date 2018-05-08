@@ -183,6 +183,8 @@ class ZGrabTransform(ZMapTransform):
         super(ZGrabTransform, self).__init__(*args, **kwargs)
 
     def transform(self, obj):
+        # Intentionally skipping ZMapTransform.transform
+        # But...why is this a ZMapTransform in the first place?
         out = super(ZMapTransform, self).transform(obj)
         if "ip" in obj:
             out.transformed['ip_address'] = obj['ip']
@@ -194,3 +196,176 @@ class ZGrabTransform(ZMapTransform):
             out.transformed['domain'] = domain
         out.transformed['timestamp'] = obj['timestamp']
         return out
+
+
+class ZGrab2Transform(ZMapTransform):
+    """
+    This is registered in zschema as "zgrab2".
+    The generic format is
+    {
+        "ip": IPv4Address(),
+        "domain": String(),
+        "data": {
+            [scan-id]: {
+                "status": Enum(values=["success",
+                  "connection-refused",
+                  "connection-timeout",
+                  "connection-closed",
+                  "io-timeout",
+                  "protocol-error",
+                  "application-error",
+                  "unknown-error"
+                ]),
+                "protocol": [scan-protocol-name],
+                "timestamp": DateTime(),
+                "result": { [protocol-specific] },
+                "error": String(),
+            }
+        }
+    }
+    There are some standardized fields in result:
+        "tls" is a standard TLS structure (see https.make_tls_obj)
+        ...
+    """
+
+    # TODO -- pull from zgrab2_schemas.zgrab2.zgrab2.STATUS_VALUES?
+    STATUSES = {
+        "success",
+        "connection-refused",
+        "connection-timeout",
+        "connection-closed",
+        "io-timeout",
+        "protocol-error",
+        "application-error",
+        "unknown-error",
+    }
+
+    def __init__(self, *args, **kwargs):
+        """
+        Same as old ZGrabTransform.
+        :param args: Nothing new (forwarded to ZMapTransform)
+        :param kwargs: strip_domain_prefix -- optional domain prefix to strip
+                       (as with ZGrabTransform)
+        """
+        self.strip_domain_prefix = kwargs.get('strip_domain_prefix', '')
+        super(ZGrab2Transform, self).__init__(*args, **kwargs)
+
+    def invalid_result(self, obj, fmt=None, *args):
+        """
+        Throw an error indicating that this is not a valid ZGrab2 scan result.
+        :param obj: The noncompliant input JSON object
+        :param fmt: optional format string for the error message
+        :param args: optional format string arguments for the error message
+        :raises Exception:
+        """
+        if fmt is not None:
+            suffix = ": %s" % (fmt % args)
+        else:
+            suffix = ""
+        raise Exception("Not a valid ZGrab2 result" + suffix)
+
+    def get(self, obj, *keys):
+        """
+        Get nested keys from obj, or throw.
+        :param obj: the dict to index into
+        :param keys: zero or more keys to index into obj
+        :return: obj[keys[0]][keys[1]][...][keys[-1]]
+        :raises Exception: If any of the keys is absent, or a non-terminal
+                            value is not indexable
+        """
+        temp = obj
+        path = []
+        for key in keys:
+            path.append(key)
+            if key not in temp:
+                missing = ".".join(path)
+                full = ".".join(keys)
+                if missing != full:
+                    missing = " (of %s)" % full
+                self.invalid_result(obj, "field %s is not present.", missing)
+            temp = temp[key]
+        return temp
+
+    def optget(self, obj, *keys):
+        """
+        Get nested keys from obj, or return None.
+        :param obj:  the dict to index into
+        :param keys: zero or more keys to index into obj
+        :return: obj[keys[0]][keys[1]][...][keys[-1]], or None.
+        """
+
+        try:
+            return self.get(obj, *keys)
+        except Exception as e:
+            return None
+
+    def get_scan_data(self, obj):
+        """
+        Get the scan data value for this protocol, i.e. obj["data"][scan_id],
+        where scan_id is self.scan_id, if present, or self.protocol.pretty_name
+        if not.
+        :param obj: The input JSON object.
+        :return: The scan data (i.e. obj["data"][scan_id])
+        :raises Exception: if not present, or if no scan_id can be found.
+        """
+        scan_id = getattr(self, "scan_id", None) or self.protocol.pretty_name
+        if scan_id is not None:
+            return self.get(obj, "data", scan_id)
+        else:
+            data = self.get(obj, "data")
+            for k, v in data.items():
+                if "protocol" in v:
+                    self.scan_id = k
+                    self.protocol = v["protocol"]
+                    return v
+            self.invalid_result(obj)
+
+    def get_scan_results(self, obj):
+        """
+        Get the protocol-specific scan results for this scan,
+        i.e. self.get_scan_data()["result"], or None if not present.
+        :param obj: The input JSON object.
+        :return: the protocol-specific scan results.
+        """
+
+        try:
+            data = self.get_scan_data(obj)
+            if "result" in data:
+                return data["result"]
+            return None
+        except Exception:
+            return None
+
+    def _transform_object(self, obj, tls=True):
+        # Child classes should call this first, then fill out the result.
+        out = ZMapTransformOutput()
+        if "ip" in obj:
+            out.transformed["ip_address"] = obj["ip"]
+        if "domain" in obj:
+            domain = obj["domain"]
+            if self.strip_domain_prefix:
+                if domain.startswith(self.strip_domain_prefix):
+                    domain = domain[len(self.strip_domain_prefix):]
+            out.transformed["domain"] = domain
+
+        scan_data = self.get_scan_data(obj)
+        status = self.get(scan_data, "status")
+        if status not in self.STATUSES:
+            self.invalid_result(obj, "%s is not a valid status", status)
+        out.transformed["timestamp"] = scan_data["timestamp"]
+
+        # TODO: Do anything with scan_data["error"]?
+        if tls:
+            tls_record = self.optget(scan_data, "result", "tls", "handshake_log")
+            if tls_record is not None:
+                from ztag.transforms import HTTPSTransform
+                tls_out, tls_certificates = HTTPSTransform.make_tls_obj(tls_record)
+                out.transformed["tls"] = tls_out
+                out.certificates = out.certificates + tls_certificates
+
+        return out
+
+    def transform(self, obj):
+        # Following ZGrabTransform, intentionally skips ZMapTransform.transform
+        # But...why is it a ZMapTransform in the first place?
+        return super(ZMapTransform, self).transform(obj)

@@ -5,12 +5,11 @@ import zschema.registry
 
 from ztag.annotation import Annotation
 
-# Assumes that zcrypto/schemas/* and zgrab2/schemas/* have been merged
-# into a schemas folder on the PYTHONPATH.
-# This can be automated with merge-external-schemas.sh.
-import schemas.zcrypto as zcrypto
-import schemas.zgrab2 as zgrab2
-import schemas.zgrab2.ssh as zgrab2_ssh
+import zcrypto_schemas.zcrypto as zcrypto
+import zgrab2_schemas.zgrab2 as zgrab2
+import zgrab2_schemas.zgrab2.mssql as zgrab2_mssql
+import zgrab2_schemas.zgrab2.oracle as zgrab2_oracle
+import zgrab2_schemas.zgrab2.ssh as zgrab2_ssh
 
 class CensysString(WhitespaceAnalyzedString):
     "default type for any strings in Censys"
@@ -510,6 +509,16 @@ ztag_upnp_discovery = SubRecord({
     "metadata": local_metadata,
 })
 
+# The oracle ztag transform is a plain copy of the "handshake" field.
+ztag_oracle = zgrab2_oracle.oracle_scan_response["result"]["handshake"]
+
+ztag_mssql = SubRecord({
+    "version": String(),
+    "instance_name": String(),
+    "encrypt_mode": Enum(values=zgrab2_mssql.ENCRYPT_MODES),
+    "tls": zcrypto.TLSHandshake(doc="The TLS handshake with the server (for non-encrypted connections, this used only for the authentication phase).")
+})
+
 ztag_schemas = [
     ("ztag_https", ztag_tls),
     ("ztag_heartbleed", ztag_heartbleed),
@@ -539,6 +548,8 @@ ztag_schemas = [
     ("ztag_s7", ztag_s7),
     ("ztag_smb", ztag_smb),
     ("ztag_upnp_discovery", ztag_upnp_discovery),
+    ("ztag_oracle", ztag_oracle),
+    ("ztag_mssql", ztag_mssql),
 ]
 for (name, schema) in ztag_schemas:
     x = Record({
@@ -1162,7 +1173,16 @@ ipv4_host = Record({
                     "discovery":ztag_upnp_discovery,
                 }, category="1900/UPnP")
             }),
-
+            Port(1521):SubRecord({
+                "oracle":SubRecord({
+                    "banner": ztag_oracle,
+                }, category="1521/Oracle"),
+            }),
+            Port(1433):SubRecord({
+                "mssql":SubRecord({
+                    "banner": ztag_mssql,
+                }, category="1433/MSSQL"),
+            }),
             "tags":ListOf(CensysString(), category="Basic Information"),
             "metadata":zdb_metadata,
             "location":zdb_location,

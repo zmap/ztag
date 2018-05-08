@@ -10,9 +10,9 @@ setup(
   license="Apache License, Version 2.0",
   long_description=open(os.path.join(here, 'README.md')).read(),
   classifiers=[
-    "Programming Language :: Python",
-    "License :: OSI Approved :: Apache Software License",
-    "Natural Language :: English"
+      "Programming Language :: Python",
+      "License :: OSI Approved :: Apache Software License",
+      "Natural Language :: English"
   ],
   author='ZMap Team',
   author_email='zmap-team@umich.edu',
@@ -22,18 +22,25 @@ setup(
   include_package_data=True,
   zip_safe=False,
   install_requires = [
-    "redis>=2.10.5,<2.11",
-    "python-dateutil>=2.6.0",
-    "zsearch_definitions>=0.1.26,<0.2",
-    "kafka-python==1.3.2",
-    "lz4tools>=1.3.1.2,<1.4",
-    "xxhash>=1.0.1,<1.1",
-    "google-cloud-pubsub",
+      "redis",
+      "python-dateutil>=2.6.0",
+      "zsearch_definitions>=0.1.26,<0.2",
+      "kafka-python>=1.3.2",
+      "lz4tools>=1.3.1.2,<1.4",
+      "xxhash>=1.0.1,<1.1",
+      "google-cloud-pubsub",
   ],
+  extras_requires = {
+      "schemas": [
+          "zschema",
+          "zgrab2_schemas",
+          "zcrypto_schemas",
+      ],
+  },
   package_data={"ztag":["devices/*",]},
   entry_points = {
-    'console_scripts': [
-      'ztag = ztag.__main__:main',
-    ]
+      'console_scripts': [
+          'ztag = ztag.__main__:main',
+      ]
   }
 )
