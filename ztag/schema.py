@@ -558,7 +558,7 @@ ztag_mysql = SubRecord({
 
 
 ztag_postgres = SubRecord({
-    "supported_versions": CensysString(),  # TODO: What data is actually in this field?
+    "supported_versions": CensysString(),
     "protocol_error": zgrab2.postgres.postgres_error | remove_strings,
     "startup_error": zgrab2.postgres.postgres_error | remove_strings,
     "is_ssl": Boolean(),

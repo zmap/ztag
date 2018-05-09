@@ -18,8 +18,8 @@ class PostgresTransform(ZGrab2Transform):
         if not results:
             return zout
 
-        if "version" in results:
-            zout.transformed["supported_versions"] = results["version"]
+        if "supported_versions" in results:
+            zout.transformed["supported_versions"] = results["supported_versions"]
         if "protocol_error" in results:
             zout.transformed["protocol_error"] = results["protocol_error"]
         if "startup_error" in results:
