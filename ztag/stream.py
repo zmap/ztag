@@ -31,6 +31,7 @@ class Stream(object):
                 if self.logger:
                     self.logger.debug(e.original_exception)
                     self.logger.trace(obj)
+                skipped += 1
                 continue
         self.outgoing.cleanup()
         return (handled, skipped)
