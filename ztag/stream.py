@@ -1,12 +1,8 @@
 import csv
-import google
 import os
-import redis
 import sys
 import time
 
-from kafka import KafkaProducer
-from google.cloud import pubsub
 from ztag.errors import IgnoreObject
 
 
@@ -109,6 +105,7 @@ class RedisQueue(Outgoing):
     BATCH_SIZE = 250
 
     def __init__(self, logger=None, destination=None, *args, **kwargs):
+        import redis
         super(RedisQueue, self).__init__(*args, **kwargs)
         host = os.environ.get('ZTAG_REDIS_HOST', 'localhost')
         port = int(os.environ.get('ZTAG_REDIS_PORT', 6379))
@@ -133,6 +130,7 @@ class RedisQueue(Outgoing):
         self.certificates = []
 
     def push(self, noretry=False):
+        import redis
         if self.queued == 0:
             return
         try:
@@ -168,6 +166,7 @@ class RedisQueue(Outgoing):
 class Kafka(Outgoing):
 
     def __init__(self, logger=None, destination=None, *args, **kwargs):
+        from kafka import KafkaProducer
         if destination == "full_ipv4":
             self.topic = "ipv4"
         elif destination == "alexa_top1mil":
@@ -193,6 +192,8 @@ class Kafka(Outgoing):
 class Pubsub(Outgoing):
 
     def __init__(self, logger=None, destination=None, *args, **kwargs):
+        import google
+        from google.cloud import pubsub
         self.topic_url = os.environ.get('PUBSUB_DATA_TOPIC_URL')
         self.cert_topic_url = os.environ.get('PUBSUB_CERT_TOPIC_URL')
         if not self.topic_url:

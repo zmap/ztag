@@ -7,9 +7,12 @@ python:
   - "pypy-5.4.1"
 
 install:
-  - python setup.py install
+  - pip install -r dev-requirements.txt
+  - pip install zschema
 
 script:
   - nosetests ztag
   - ztag -t
+  - zschema json ztag/schema.py:ipv4host
+  - zschema json ztag/schema.py:website
 

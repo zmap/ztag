@@ -22,17 +22,23 @@ setup(
   include_package_data=True,
   zip_safe=False,
   install_requires = [
-      "redis",
       "python-dateutil>=2.6.0",
       "zsearch_definitions>=0.1.26,<0.2",
-      "kafka-python>=1.3.2",
-      "lz4tools>=1.3.1.2,<1.4",
-      "xxhash>=1.0.1,<1.1",
-      "google-cloud-pubsub",
   ],
   extras_requires = {
+      "redis": [
+          "redis",
+      ],
+      "gcp": [
+          "google-cloud-pubsub",
+      ],
+      "kafka": [
+          "kafka-python>=1.3.2",
+          "lz4tools>=1.3.1.2,<1.4",
+          "xxhash>=1.0.1,<1.1",
+      ],
       "schemas": [
-          "zschema",
+          "zschema>=0.9.0",
           "zgrab2_schemas",
           "zcrypto_schemas",
       ],
