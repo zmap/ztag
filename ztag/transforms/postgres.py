@@ -26,8 +26,6 @@ class PostgresTransform(ZGrab2Transform):
             zout.transformed["startup_error"] = results["startup_error"]
         if "is_ssl" in results:
             zout.transformed["is_ssl"] = bool(results.get("is_ssl", False))
-        if "server_parameters" in results:
-            zout.transformed["server_parameters"] = results["server_parameters"]
         if "authentication_mode" in results:
             zout.transformed["authentication_mode"] = [
                 x["mode"] for x in results["authentication_mode"]
