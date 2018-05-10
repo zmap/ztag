@@ -13,7 +13,7 @@ import zgrab2_schemas.zgrab2.ssh as zgrab2_ssh
 
 class CensysString(WhitespaceAnalyzedString):
     "default type for any strings in Censys"
-    INCLUDE_RAW = True
+    ES_INCLUDE_RAW = True
 
 
 def remove_strings(schema):
