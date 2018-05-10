@@ -1299,7 +1299,8 @@ website = Record({
             "notes":EnglishString(es_include_raw=True),
             "domain":String(category="Basic Information"),
             "alexa_rank":Unsigned32BitInteger(doc="Rank in the Alexa Top 1 Million. "
-                    "Null if not currently in the Top 1 Million sites."),
+                    "Null if not currently in the Top 1 Million sites.",
+                    category="Basic Information"),
             "updated_at":Timestamp(),
             "zdb_version":Unsigned32BitInteger(),
             "protocols":ListOf(String(), category="Basic Information"),
