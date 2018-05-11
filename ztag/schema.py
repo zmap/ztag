@@ -81,8 +81,12 @@ zgrab_certificate_trust = SubRecord({
     "was_valid":Boolean(doc="was this certificate ever valid in this browser")
 })
 
+_zcrypto_parsed_cert = zcrypto.ParsedCertificate()
+
 zgrab_certificate = SubRecord({
-    "parsed": zcrypto.ParsedCertificate(),
+    "parsed": SubRecord({
+        "__expanded_names": ListOf(CensysString()),
+    }, extends=_zcrypto_parsed_cert),
     "validation":SubRecord({
         "nss":zgrab_certificate_trust.new(category="NSS (Firefox) Validation"),
         "apple":zgrab_certificate_trust.new(category="Apple Validation"),
@@ -180,7 +184,7 @@ ztag_mail_starttls = SubRecord({
     "banner": CensysString(),
     "starttls": CensysString(),
     "tls": ztag_tls,
-    "metadata":local_metadata,
+    "metadata": local_metadata,
     "timestamp":Timestamp(),
 })
 
