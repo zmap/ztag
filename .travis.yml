@@ -7,14 +7,12 @@ python:
   - "pypy-5.4.1"
 
 install:
-  - python setup.py install
+  - pip install -r dev-requirements.txt
+  - pip install zschema
 
 script:
   - nosetests ztag
   - ztag -t
+  - zschema json ztag/schema.py:ipv4host
+  - zschema json ztag/schema.py:website
 
-notifications:
-  email:
-  - zmap-devel@umich.edu
-  slack:
-    secure: gLiX4zUhlYMJ0l7kJlb5Wf5CmAynj+WQufThSBPP7XlLZddl6Vql72sJuqwl1ZV75xEsqP05QDulBMJc9AaED7BP53vhngHHgWLwjt026ne5sbA/s98U735jT/qwwFvKWBCYPZ5BQdTmJO3KCyuBJH+tQnptiolog9abksG1WZk=

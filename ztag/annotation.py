@@ -376,8 +376,9 @@ class Annotation(object):
         "revision",
         "os",
         "os_version",
+        "os_description",
         "device_type",
-        "description"
+        "description",
     ]
 
     port = None

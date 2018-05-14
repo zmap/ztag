@@ -1,13 +1,9 @@
-import time
-import sys
-import os
 import csv
+import os
+import sys
+import time
 
 from ztag.errors import IgnoreObject
-
-import redis
-
-from kafka import KafkaProducer
 
 
 class Stream(object):
@@ -35,6 +31,7 @@ class Stream(object):
                 if self.logger:
                     self.logger.debug(e.original_exception)
                     self.logger.trace(obj)
+                skipped += 1
                 continue
         self.outgoing.cleanup()
         return (handled, skipped)
@@ -109,6 +106,7 @@ class RedisQueue(Outgoing):
     BATCH_SIZE = 250
 
     def __init__(self, logger=None, destination=None, *args, **kwargs):
+        import redis
         super(RedisQueue, self).__init__(*args, **kwargs)
         host = os.environ.get('ZTAG_REDIS_HOST', 'localhost')
         port = int(os.environ.get('ZTAG_REDIS_PORT', 6379))
@@ -133,6 +131,7 @@ class RedisQueue(Outgoing):
         self.certificates = []
 
     def push(self, noretry=False):
+        import redis
         if self.queued == 0:
             return
         try:
@@ -168,6 +167,7 @@ class RedisQueue(Outgoing):
 class Kafka(Outgoing):
 
     def __init__(self, logger=None, destination=None, *args, **kwargs):
+        from kafka import KafkaProducer
         if destination == "full_ipv4":
             self.topic = "ipv4"
         elif destination == "alexa_top1mil":
@@ -188,3 +188,32 @@ class Kafka(Outgoing):
             self.main_producer.flush()
         if self.cert_producer:
             self.cert_producer.flush()
+
+
+class Pubsub(Outgoing):
+
+    def __init__(self, logger=None, destination=None, *args, **kwargs):
+        import google
+        from google.cloud import pubsub
+        self.topic_url = os.environ.get('PUBSUB_DATA_TOPIC_URL')
+        self.cert_topic_url = os.environ.get('PUBSUB_CERT_TOPIC_URL')
+        if not self.topic_url:
+            raise Exception('missing $PUBSUB_DATA_TOPIC_URL')
+        if not self.cert_topic_url:
+            raise Exception('missing $PUBSUB_CERT_TOPIC_URL')
+        self.publisher = pubsub.PublisherClient()
+        try:
+            self.publisher.get_topic(self.topic_url)
+            self.publisher.get_topic(self.cert_topic_url)
+        except google.api_core.exceptions.GoogleAPICallError as e:
+            logger.error(e.message)
+            raise
+
+    def take(self, pbout):
+        for certificate in pbout.certificates:
+            self.publisher.publish(self.cert_topic_url, certificate)
+        self.publisher.publish(self.topic_url, pbout.transformed)
+
+    def cleanup(self):
+        # Not needed
+        pass
