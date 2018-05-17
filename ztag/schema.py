@@ -538,39 +538,58 @@ ztag_upnp_discovery = SubRecord({
     "metadata": local_metadata,
 })
 
+# Add the common zgrab2 fields to the results schema which are added by
+# ZGrab2Transform._transform_object().
+def ztag_zgrab2_transformed(service, results):
+    results["supported"] = Boolean(doc="If true, %s was detected on this machine." % service)
+    return results
+
 # The oracle ztag transform is a plain copy of the "handshake" field.
-ztag_oracle = zgrab2_oracle.oracle_scan_response["result"]["handshake"] | remove_strings
+ztag_oracle = ztag_zgrab2_transformed(service="Oracle", results=zgrab2_oracle.oracle_scan_response["result"]["handshake"] | remove_strings)
 
+ztag_mssql = ztag_zgrab2_transformed(service="MSSQL", results=SubRecord({
+    "version": CensysString(doc="The MSSQL version returned by the server in "
+                                "the PRELOGIN response. Its format is "
+                                "'MAJOR.MINOR.BUILD_NUMBER'."),
+    "instance_name": CensysString(doc="The value of the INSTANCE field "
+                                      "returned by the server in the PRELOGIN "
+                                      "response."),
+    "encrypt_mode": Enum(values=zgrab2_mssql.ENCRYPT_MODES,
+                         doc="The negotiated encryption mode for the session. "
+                             "See https://msdn.microsoft.com/en-us/library/dd357559.aspx "
+                             "for details."),
+    "tls": zcrypto.TLSHandshake(doc="The TLS handshake with the server (for "
+                                    "non-encrypted connections, this used only "
+                                    "for the authentication phase).")
+}))
 
-ztag_mssql = SubRecord({
-    "version": CensysString(),
-    "instance_name": CensysString(),
-    "encrypt_mode": Enum(values=zgrab2_mssql.ENCRYPT_MODES),
-    "tls": zcrypto.TLSHandshake(doc="The TLS handshake with the server (for non-encrypted connections, this used only for the authentication phase).")
-})
-
-
-ztag_mysql = SubRecord({
+ztag_mysql = ztag_zgrab2_transformed(service="MySQL", results=SubRecord({
     "protocol_version": zgrab2.mysql.mysql_scan_response["result"]["protocol_version"] | remove_strings,
     "server_version": zgrab2.mysql.mysql_scan_response["result"]["server_version"] | remove_strings,
     "capability_flags": zgrab2.mysql.mysql_capability_flags | remove_strings,
     "status_flags": zgrab2.mysql.mysql_server_status_flags | remove_strings,
     "error_code": zgrab2.mysql.mysql_scan_response["result"]["error_code"] | remove_strings,
     "error_message": zgrab2.mysql.mysql_scan_response["result"]["error_message"] | remove_strings,
-    "tls": zcrypto.TLSHandshake(doc="TODO"),
-})
+    "tls": zcrypto.TLSHandshake(doc="If the server allows upgrading the "
+                                    "session to use TLS, this is the log of "
+                                    "the handshake."),
+}))
 
-
-ztag_postgres = SubRecord({
-    "supported_versions": CensysString(),
+ztag_postgres = ztag_zgrab2_transformed(service="PostgreSQL", results=SubRecord({
+    "supported_versions": CensysString(doc="The error string returned by the "
+                                           "server in response to a "
+                                           "StartupMessage with "
+                                           "ProtocolVersion = 0.0"),
     "protocol_error": zgrab2.postgres.postgres_error | remove_strings,
     "startup_error": zgrab2.postgres.postgres_error | remove_strings,
-    "is_ssl": Boolean(),
+    "is_ssl": Boolean(doc="If the server supports TLS and the session was "
+                          "updated to use TLS, this is true."),
     "authentication_mode": zgrab2.postgres.postgres_auth_mode["mode"] | remove_strings,
     "backend_key_data": zgrab2.postgres.postgres_key_data | remove_strings,
-    "tls": zcrypto.TLSHandshake(doc="TODO"),
-})
-
+    "tls": zcrypto.TLSHandshake(doc="If the server allows upgrading the "
+                                    "session to use TLS, this is the log of "
+                                    "the handshake."),
+}))
 
 
 ztag_schemas = [
