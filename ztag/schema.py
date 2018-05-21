@@ -542,6 +542,7 @@ ztag_upnp_discovery = SubRecord({
 # ZGrab2Transform._transform_object().
 def ztag_zgrab2_transformed(service, results):
     results["supported"] = Boolean(doc="If true, %s was detected on this machine." % service)
+    results["metadata"] = local_metadata
     return results
 
 # The oracle ztag transform is a plain copy of the "handshake" field.
@@ -569,6 +570,7 @@ ztag_mysql = ztag_zgrab2_transformed(service="MySQL", results=SubRecord({
     "capability_flags": zgrab2.mysql.mysql_capability_flags | remove_strings,
     "status_flags": zgrab2.mysql.mysql_server_status_flags | remove_strings,
     "error_code": zgrab2.mysql.mysql_scan_response["result"]["error_code"] | remove_strings,
+    "error_id": zgrab2.mysql.mysql_scan_response["result"]["error_id"] | remove_strings,
     "error_message": zgrab2.mysql.mysql_scan_response["result"]["error_message"] | remove_strings,
     "tls": zcrypto.TLSHandshake(doc="If the server allows upgrading the "
                                     "session to use TLS, this is the log of "
