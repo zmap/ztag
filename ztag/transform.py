@@ -352,16 +352,26 @@ class ZGrab2Transform(ZMapTransform):
         status = self.get(scan_data, "status")
         if status not in self.STATUSES:
             self.invalid_result(obj, "%s is not a valid status", status)
+        # TODO: Store status?
+
         out.transformed["timestamp"] = scan_data["timestamp"]
+
+        # By definition, the the service is detected iff the result field is
+        # present in the response.
+        if self.optget(scan_data, "result") is not None:
+            out.transformed["supported"] = True
+        else:
+            out.transformed["supported"] = False
 
         # TODO: Do anything with scan_data["error"]?
         if tls:
-            tls_record = self.optget(scan_data, "result", "tls", "handshake_log")
+            tls_record = self.optget(scan_data, "result", "tls",
+                                     "handshake_log")
             if tls_record is not None:
                 from ztag.transforms import HTTPSTransform
-                tls_out, tls_certificates = HTTPSTransform.make_tls_obj(tls_record)
+                tls_out, tls_certs = HTTPSTransform.make_tls_obj(tls_record)
                 out.transformed["tls"] = tls_out
-                out.certificates = out.certificates + tls_certificates
+                out.certificates = out.certificates + tls_certs
 
         return out
 
