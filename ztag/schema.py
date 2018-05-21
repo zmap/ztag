@@ -545,8 +545,12 @@ def ztag_zgrab2_transformed(service, results):
     results["metadata"] = local_metadata
     return results
 
+ztag_tls_type = ztag_tls.with_args()
+
 # The oracle ztag transform is a plain copy of the "handshake" field.
 ztag_oracle = ztag_zgrab2_transformed(service="Oracle", results=zgrab2_oracle.oracle_scan_response["result"]["handshake"] | remove_strings)
+
+ztag_oracle["tls"] = ztag_tls_type(doc="The TLS handshake with the server (if applicable).")
 
 ztag_mssql = ztag_zgrab2_transformed(service="MSSQL", results=SubRecord({
     "version": CensysString(doc="The MSSQL version returned by the server in "
@@ -559,9 +563,9 @@ ztag_mssql = ztag_zgrab2_transformed(service="MSSQL", results=SubRecord({
                          doc="The negotiated encryption mode for the session. "
                              "See https://msdn.microsoft.com/en-us/library/dd357559.aspx "
                              "for details."),
-    "tls": zcrypto.TLSHandshake(doc="The TLS handshake with the server (for "
-                                    "non-encrypted connections, this used only "
-                                    "for the authentication phase).")
+    "tls": ztag_tls_type(doc="The TLS handshake with the server (for "
+                             "non-encrypted connections, this used only "
+                             "for the authentication phase).")
 }))
 
 ztag_mysql = ztag_zgrab2_transformed(service="MySQL", results=SubRecord({
@@ -572,9 +576,9 @@ ztag_mysql = ztag_zgrab2_transformed(service="MySQL", results=SubRecord({
     "error_code": zgrab2.mysql.mysql_scan_response["result"]["error_code"] | remove_strings,
     "error_id": zgrab2.mysql.mysql_scan_response["result"]["error_id"] | remove_strings,
     "error_message": zgrab2.mysql.mysql_scan_response["result"]["error_message"] | remove_strings,
-    "tls": zcrypto.TLSHandshake(doc="If the server allows upgrading the "
-                                    "session to use TLS, this is the log of "
-                                    "the handshake."),
+    "tls": ztag_tls_type(doc="If the server allows upgrading the "
+                             "session to use TLS, this is the log of "
+                             "the handshake."),
 }))
 
 ztag_postgres = ztag_zgrab2_transformed(service="PostgreSQL", results=SubRecord({
@@ -588,9 +592,9 @@ ztag_postgres = ztag_zgrab2_transformed(service="PostgreSQL", results=SubRecord(
                           "updated to use TLS, this is true."),
     "authentication_mode": zgrab2.postgres.postgres_auth_mode["mode"] | remove_strings,
     "backend_key_data": zgrab2.postgres.postgres_key_data | remove_strings,
-    "tls": zcrypto.TLSHandshake(doc="If the server allows upgrading the "
-                                    "session to use TLS, this is the log of "
-                                    "the handshake."),
+    "tls": ztag_tls_type(doc="If the server allows upgrading the "
+                             "session to use TLS, this is the log of "
+                             "the handshake."),
 }))
 
 
