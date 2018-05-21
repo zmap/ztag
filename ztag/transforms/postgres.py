@@ -12,6 +12,9 @@ class PostgresTransform(ZGrab2Transform):
     def __init__(self, *args, **kwargs):
         super(PostgresTransform, self).__init__(*args, **kwargs)
 
+    def clean_error(self, err):
+        return {k: self.clean_banner(v) for k, v in err.items()}
+
     def _transform_object(self, obj):
         zout = super(PostgresTransform, self)._transform_object(obj)
         results = self.get_scan_results(obj)
@@ -19,11 +22,11 @@ class PostgresTransform(ZGrab2Transform):
             return zout
 
         if "supported_versions" in results:
-            zout.transformed["supported_versions"] = results["supported_versions"]
+            zout.transformed["supported_versions"] = self.clean_banner(results["supported_versions"])
         if "protocol_error" in results:
-            zout.transformed["protocol_error"] = results["protocol_error"]
+            zout.transformed["protocol_error"] = self.clean_error(results["protocol_error"])
         if "startup_error" in results:
-            zout.transformed["startup_error"] = results["startup_error"]
+            zout.transformed["startup_error"] = self.clean_error(results["startup_error"])
         if "is_ssl" in results:
             zout.transformed["is_ssl"] = bool(results.get("is_ssl", False))
         if "authentication_mode" in results:
