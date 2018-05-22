@@ -22,11 +22,18 @@ def remove_strings(schema):
 
 
 def _recurse_object(v):
+    # Attempt to retain attributes (required/doc/etc)
+    from copy import deepcopy
+
     if type(v) == zschema.leaves.String:
-        return CensysString()
+        out = copy.deepcopy(v)
+        out.es_include_raw = True
+        out.es_analyzer = "lower_whitespace"
+        return out
     elif isinstance(v, ListOf):
-        _recurse_object(v.object_)
-        return v
+        out = deepcopy(v)
+        out.object_ =_recurse_object(v.object_)
+        return out
     elif isinstance(v, SubRecord):
         return _remove_strings(v)
     return v
