@@ -25,7 +25,8 @@ def _recurse_object(v):
     if type(v) == zschema.leaves.String:
         return CensysString()
     elif isinstance(v, ListOf):
-        return _recurse_object(v.object_)
+        _recurse_object(v.object_)
+        return v
     elif isinstance(v, SubRecord):
         return _remove_strings(v)
     return v
