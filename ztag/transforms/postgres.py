@@ -21,18 +21,27 @@ class PostgresTransform(ZGrab2Transform):
         if not results:
             return zout
 
-        if "supported_versions" in results:
-            zout.transformed["supported_versions"] = self.clean_banner(results["supported_versions"])
-        if "protocol_error" in results:
-            zout.transformed["protocol_error"] = self.clean_error(results["protocol_error"])
-        if "startup_error" in results:
-            zout.transformed["startup_error"] = self.clean_error(results["startup_error"])
+        to_copy = ["supported_versions", "protocol_error", "startup_error",
+                   "backend_key_data"]
+
+        for f in to_copy:
+            if results.get(f) is not None:
+                zout.transformed[f] = results[f]
+
+        to_clean = ["supported_versions", "protocol_error", "startup_error"]
+        for f in to_clean:
+            if f in zout.transformed:
+                zout.transformed[f] = self.clean_banner(zout.transformed[f])
+
         if "is_ssl" in results:
             zout.transformed["is_ssl"] = bool(results.get("is_ssl", False))
-        if "authentication_mode" in results:
+
+        if results.get("authentication_mode") is not None:
             zout.transformed["authentication_mode"] = [
                 x["mode"] for x in results["authentication_mode"]
             ]
-        if "backend_key_data" in results:
+
+        if results.get("backend_key_data") is not None:
             zout.transformed["backend_key_data"] = results["backend_key_data"]
+
         return zout
