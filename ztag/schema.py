@@ -111,7 +111,7 @@ zgrab_server_certificate_valid = SubRecord({
     "error":CensysString()
 })
 
-ztag_tls = SubRecord({
+ztag_tls_type = SubRecordType({
     # This is server_hello.version.name
     "version": zcrypto.TLSVersionName(),
     # cipher_suite = { id: server_hello.cipher_suite.hex, name: server_hello.cipher_suite.name }
@@ -152,6 +152,8 @@ ztag_tls = SubRecord({
     "metadata": local_metadata,
     "timestamp": Timestamp(),
 })
+
+ztag_tls = ztag_tls_type()
 
 ztag_sslv2 = SubRecord({
     "support": Boolean(),
@@ -552,8 +554,6 @@ def ztag_zgrab2_transformed(service, results):
     results["supported"] = Boolean(doc="If true, %s was detected on this machine." % service)
     results["metadata"] = local_metadata
     return results
-
-ztag_tls_type = ztag_tls.with_args()
 
 # The oracle ztag transform is a plain copy of the "handshake" field.
 ztag_oracle = ztag_zgrab2_transformed(service="Oracle", results=zgrab2_oracle.oracle_scan_response["result"]["handshake"] | remove_strings)
