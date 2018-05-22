@@ -26,10 +26,9 @@ def _recurse_object(v):
     from copy import deepcopy
 
     if type(v) == zschema.leaves.String:
-        out = copy.deepcopy(v)
-        out.es_include_raw = True
-        out.es_analyzer = "lower_whitespace"
-        return out
+        # TODO; Find the right way to copy over all of v's attributes but just
+        # change its type to a CensysString()
+        return CensysString()
     elif isinstance(v, ListOf):
         out = deepcopy(v)
         out.object_ =_recurse_object(v.object_)
@@ -558,7 +557,8 @@ def ztag_zgrab2_transformed(service, results):
 # The oracle ztag transform is a plain copy of the "handshake" field.
 ztag_oracle = ztag_zgrab2_transformed(service="Oracle", results=zgrab2_oracle.oracle_scan_response["result"]["handshake"] | remove_strings)
 
-ztag_oracle["tls"] = ztag_tls_type(doc="The TLS handshake with the server (if applicable).")
+# FIXME: Workaround 2018/05/22 -- match previous schema
+ztag_oracle["tls"] = ztag_tls_type(doc="The TLS handshake with the server (if applicable).") | remove_strings
 
 ztag_mssql = ztag_zgrab2_transformed(service="MSSQL", results=SubRecord({
     "version": CensysString(doc="The MSSQL version returned by the server in "
@@ -573,7 +573,7 @@ ztag_mssql = ztag_zgrab2_transformed(service="MSSQL", results=SubRecord({
                              "for details."),
     "tls": ztag_tls_type(doc="The TLS handshake with the server (for "
                              "non-encrypted connections, this used only "
-                             "for the authentication phase).")
+                             "for the authentication phase).") | remove_strings, # FIXME: Workaround 2018/05/22 -- match previous schema
 }))
 
 ztag_mysql = ztag_zgrab2_transformed(service="MySQL", results=SubRecord({
@@ -586,7 +586,7 @@ ztag_mysql = ztag_zgrab2_transformed(service="MySQL", results=SubRecord({
     "error_message": zgrab2.mysql.mysql_scan_response["result"]["error_message"] | remove_strings,
     "tls": ztag_tls_type(doc="If the server allows upgrading the "
                              "session to use TLS, this is the log of "
-                             "the handshake."),
+                             "the handshake.") | remove_strings, # FIXME: Workaround 2018/05/22 -- match previous schema
 }))
 
 ztag_postgres = ztag_zgrab2_transformed(service="PostgreSQL", results=SubRecord({
@@ -602,7 +602,7 @@ ztag_postgres = ztag_zgrab2_transformed(service="PostgreSQL", results=SubRecord(
     "backend_key_data": zgrab2.postgres.postgres_key_data | remove_strings,
     "tls": ztag_tls_type(doc="If the server allows upgrading the "
                              "session to use TLS, this is the log of "
-                             "the handshake."),
+                             "the handshake.") | remove_strings, # FIXME: Workaround 2018/05/22 -- match previous schema
 }))
 
 
