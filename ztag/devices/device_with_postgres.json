@@ -1,0 +1,152 @@
+{
+    "5432": {
+        "postgres": {
+            "banner": {
+                "supported_versions": "FATAL:  unsupported frontend protocol 0.0: server supports 2.0 to 3.0",
+                "protocol_error": {
+                    "code": "0A000",
+                    "file": "postmaster.c",
+                    "line": "2065",
+                    "message": "unsupported frontend protocol 255.255: server supports 2.0 to 3.0",
+                    "routine": "ProcessStartupPacket",
+                    "severity": "FATAL",
+                    "severity_v": "FATAL"
+                },
+                "startup_error": {
+                    "code": "28000",
+                    "file": "postmaster.c",
+                    "line": "2175",
+                    "message": "no PostgreSQL user name specified in startup packet",
+                    "routine": "ProcessStartupPacket",
+                    "severity": "FATAL",
+                    "severity_v": "FATAL"
+                },
+                "is_ssl": false,
+                "authentication_mode": "ok",
+                "backend_key_data": {
+                    "process_id": 123,
+                    "secret_key": 456
+                },
+                "tls": {
+                    "certificate": {
+                        "parsed": {
+                            "fingerprint_sha1": "081fff8c274068fa21ee074a83ca589fa8f2fd75",
+                            "subject_dn": "C=US, ST=Texas, L=Plano, O=Perot Systems, OU=Healthcare, OU=Terms of use at www.verisign.com/rpa (c)01, CN=www.svhealthplan.com",
+                            "issuer": {
+                                "country": [
+                                    "US"
+                                ],
+                                "organizational_unit": [
+                                    "Secure Server Certification Authority"
+                                ],
+                                "organization": [
+                                    "RSA Data Security, Inc."
+                                ]
+                            },
+                            "signature": {
+                                "self_signed": false,
+                                "valid": false,
+                                "value": "aVgnOfGlm2qLpnWnucrDVA/qSkT/XOMwL/B4IwNHqgnkRRZFhYys2oG/8Hph6gSvcGVKip8UU7SCVYUmgTBOrbXYaaEFqknEuxvWk1+tJRVGSURTdQQVKAsJZFBYm79IHHef9z/+qBqVJo+rmB18xegAz9XNPes7eRWxJa8=",
+                                "signature_algorithm": {
+                                    "oid": "1.2.840.113549.1.1.5",
+                                    "name": "SHA1WithRSA"
+                                }
+                            },
+                            "serial_number": "4079887792206933307049062159720205482",
+                            "validity": {
+                                "start": "2004-10-20T00:00:00Z",
+                                "end": "2006-10-21T23:59:59Z"
+                            },
+                            "issuer_dn": "C=US, O=RSA Data Security, Inc., OU=Secure Server Certification Authority",
+                            "fingerprint_sha256": "04a476c3999e931055d72b816890be14877fc77cbab9fa0c513dcb12d7904413",
+                            "version": 3,
+                            "extensions": {
+                                "certificate_policies": [
+                                    "2.16.840.1.113733.1.7.23.3"
+                                ],
+                                "extended_key_usage": [
+                                    1,
+                                    2
+                                ],
+                                "authority_info_access": {
+                                    "ocsp_urls": [
+                                        "http://ocsp.verisign.com"
+                                    ]
+                                },
+                                "basic_constraints": {
+                                    "is_ca": false
+                                },
+                                "crl_distribution_points": [
+                                    "http://SVRSecure-crl.verisign.com/SVRSecure.crl"
+                                ],
+                                "key_usage": {
+                                    "key_encipherment": true,
+                                    "digital_signature": true,
+                                    "value": 5
+                                }
+                            },
+                            "signature_algorithm": {
+                                "oid": "1.2.840.113549.1.1.5",
+                                "name": "SHA1WithRSA"
+                            },
+                            "unknown_extensions": [
+                                {
+                                    "critical": false,
+                                    "id": "1.3.6.1.5.5.7.1.12",
+                                    "value": "MF+hXaBbMFkwVzBVFglpbWFnZS9naWYwITAfMAcGBSsOAwIaBBSP5dMahqyNjmvDz4Bq1EgYLHsZLjAlFiNodHRwOi8vbG9nby52ZXJpc2lnbi5jb20vdnNsb2dvLmdpZg=="
+                                }
+                            ],
+                            "fingerprint_md5": "f4cde3f9e017c60d544b950872921a04",
+                            "subject_key_info": {
+                                "key_algorithm": {
+                                    "oid": "",
+                                    "name": "RSA"
+                                },
+                                "rsa_public_key": {
+                                    "length": 512,
+                                    "modulus": "oJOL/zvgZzDmrTLlPjbGbNUMafWMgrcbVaY0BeZvxZ6OozVyZIFJVNMK8X18oQD13k42vrZ3BBEhl8iXOnVEHQ==",
+                                    "exponent": 65537
+                                }
+                            },
+                            "subject": {
+                                "province": [
+                                    "Texas"
+                                ],
+                                "locality": [
+                                    "Plano"
+                                ],
+                                "country": [
+                                    "US"
+                                ],
+                                "organizational_unit": [
+                                    "Healthcare",
+                                    "Terms of use at www.verisign.com/rpa (c)01"
+                                ],
+                                "common_name": [
+                                    "www.svhealthplan.com"
+                                ],
+                                "organization": [
+                                    "Perot Systems"
+                                ]
+                            }
+                        }
+                    },
+                    "cipher_suite": {
+                        "id": "0x0004",
+                        "name": "TLS_RSA_WITH_RC4_128_MD5"
+                    },
+                    "version": "TLSv1.0",
+                    "ocsp_stapling": false,
+                    "validation": {
+                        "browser_trusted": false,
+                        "browser_error": "x509: certificate has expired or is not yet valid"
+                    },
+                    "metadata": {
+                        "product": "MySQL Server",
+                        "manufacturer": "MySQL"
+                    }
+                }
+            }
+        }
+    }
+}

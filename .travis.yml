@@ -13,6 +13,7 @@ install:
 script:
   - nosetests ztag
   - ztag -t
-  - zschema json ztag/schema.py:ipv4host
-  - zschema json ztag/schema.py:website
+  # Travis fails if output is longer than 4MB, so without piping these, it fails.
+  - zschema json ztag/schema.py:ipv4host > ipv4host.tmp
+  - zschema json ztag/schema.py:website > website.tmp
 

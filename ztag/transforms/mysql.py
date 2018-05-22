@@ -29,6 +29,6 @@ class MySQLTransform(ZGrab2Transform):
         if "error_code" in results:
             zout.transformed["error_code"] = results["error_code"]
         if "error_message" in results:
-            zout.transformed["error_message"] = results["error_message"]
+            zout.transformed["error_message"] = self.clean_banner(results["error_message"])
 
         return zout
