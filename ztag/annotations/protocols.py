@@ -34,10 +34,10 @@ PROTOCOLS = [
     (protocols.CWMP, protocols.CWMP.GET, {"device_with_cwmp": {"tags":["cwmp",]}}),
     (protocols.SMB, protocols.SMB.BANNER, {"device_with_smb": {"tags":["smb",]}}),
     (protocols.UPNP, protocols.UPNP.DISCOVERY, {"device_with_upnp": {"tags":["upnp",]}}),
-    (protocols.MYSQL, protocols.MYSQL.BANNER, {"device_with_mysql": {"tags":["mysql",]}}),
-    (protocols.MSSQL, protocols.MSSQL.BANNER, {"device_with_mssql": {"tags":["mssql",]}}),
-    (protocols.POSTGRES, protocols.POSTGRES.BANNER, {"device_with_postgres": {"tags":["postgres",]}}),
-    (protocols.ORACLE, protocols.ORACLE.BANNER, {"device_with_oracle": {"tags":["oracle",]}}),
+    (protocols.MYSQL, protocols.MYSQL.BANNER, {"device_with_mysql": {"tags":["database", "mysql",]}}),
+    (protocols.MSSQL, protocols.MSSQL.BANNER, {"device_with_mssql": {"tags":["database", "mssql",]}}),
+    (protocols.POSTGRES, protocols.POSTGRES.BANNER, {"device_with_postgres": {"tags":["database", "postgres",]}}),
+    (protocols.ORACLE, protocols.ORACLE.BANNER, {"device_with_oracle": {"tags":["database", "oracle",]}}),
 
 ]
 
