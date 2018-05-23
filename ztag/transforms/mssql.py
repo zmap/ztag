@@ -13,7 +13,7 @@ class MSSQLTransform(ZGrab2Transform):
         super(MSSQLTransform, self).__init__(*args, **kwargs)
 
     def load_prelogin_options(self, prelogin, zout):
-        if "encrypt_mode" in prelogin:
+        if prelogin.get("encrypt_mode") is not None:
             zout.transformed["encrypt_mode"] = prelogin["encrypt_mode"]
 
     def _transform_object(self, obj):
@@ -22,12 +22,15 @@ class MSSQLTransform(ZGrab2Transform):
         if not results:
             return zout
 
-        # Version is required, ignore this record if it isn't present.
-        zout.transformed["version"] = results["version"]
+        to_copy = ["version", "instance_name", "encrypt_mode"]
 
-        if "instance_name" in results:
-            zout.transformed["instance_name"] = results["instance_name"]
-        if "prelogin_options" in results:
-            self.load_prelogin_options(results["prelogin_options"], zout)
+        for f in to_copy:
+            if results.get(f) is not None:
+                zout.transformed[f] = results[f]
+
+        # If we don't have a root encrypt_mode, fall back to prelogin_options
+        if zout.transformed.get("encrypt_mode") is None:
+            if results.get("prelogin_options") is not None:
+                self.load_prelogin_options(results["prelogin_options"], zout)
 
         return zout
