@@ -25,7 +25,7 @@ def _recurse_object(v):
     # Attempt to retain attributes (required/doc/etc)
     from copy import deepcopy
 
-    if type(v) == zschema.leaves.String:
+    if type(v) == zschema.leaves.String or type(v) == zschema.leaves.HexString:
         # TODO; Find the right way to copy over all of v's attributes but just
         # change its type to a CensysString()
         return CensysString()
