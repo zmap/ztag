@@ -29,7 +29,7 @@ class MSSQLTransform(ZGrab2Transform):
                 zout.transformed[f] = results[f]
 
         # If we don't have a root encrypt_mode, fall back to prelogin_options
-        if zout.transformed.get("encrypt_mode") is not None:
+        if zout.transformed.get("encrypt_mode") is None:
             if results.get("prelogin_options") is not None:
                 self.load_prelogin_options(results["prelogin_options"], zout)
 

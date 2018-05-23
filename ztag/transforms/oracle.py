@@ -28,11 +28,11 @@ class OracleTransform(ZGrab2Transform):
 
         # Otherwise, just copy everything from handshake into the root.
         for k, v in results["handshake"].items():
-            if v is not None:
-                if k == "refuse_error_raw":
-                    v = self.clean_banner(v)
-                elif k == "refuse_error":
-                    v = self.clean_descriptor(v)
-                zout.transformed[k] = v
+            if v is None: continue
+            if k == "refuse_error_raw":
+                v = self.clean_banner(v)
+            elif k == "refuse_error":
+                v = self.clean_descriptor(v)
+            zout.transformed[k] = v
 
         return zout
