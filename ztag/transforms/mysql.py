@@ -18,17 +18,15 @@ class MySQLTransform(ZGrab2Transform):
         if not results:
             return zout
 
-        if "protocol_version" in results:
-            zout.transformed["protocol_version"] = results["protocol_version"]
-        if "server_version" in results:
-            zout.transformed["server_version"] = results["server_version"]
-        if "capability_flags" in results:
-            zout.transformed["capability_flags"] = results["capability_flags"]
-        if "status_flags" in results:
-            zout.transformed["status_flags"] = results["status_flags"]
-        if "error_code" in results:
-            zout.transformed["error_code"] = results["error_code"]
-        if "error_message" in results:
-            zout.transformed["error_message"] = self.clean_banner(results["error_message"])
+        to_copy = ["protocol_version", "server_version", "capability_flags",
+                   "status_flags", "error_code", "error_message"]
+        for f in to_copy:
+            if results.get(f) is not None:
+                zout.transformed[f] = results[f]
+
+        to_clean = ["error_message"]
+        for f in to_clean:
+            if f in zout.transformed:
+                zout.transformed[f] = self.clean_banner(zout.transformed[f])
 
         return zout

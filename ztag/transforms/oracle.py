@@ -17,8 +17,7 @@ class OracleTransform(ZGrab2Transform):
         return [{
             "key": entry["key"],
             "value": self.clean_banner(entry["value"])
-        } for entry in desc ]
-
+        } for entry in desc]
 
     def _transform_object(self, obj):
         # There shouldn't be a TLS object in this scan.
@@ -29,6 +28,7 @@ class OracleTransform(ZGrab2Transform):
 
         # Otherwise, just copy everything from handshake into the root.
         for k, v in results["handshake"].items():
+            if v is None: continue
             if k == "refuse_error_raw":
                 v = self.clean_banner(v)
             elif k == "refuse_error":
