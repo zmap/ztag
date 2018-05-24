@@ -361,7 +361,7 @@ class ZGrab2Transform(ZMapTransform):
         if self.optget(scan_data, "result") is not None:
             out.transformed["supported"] = True
         else:
-            out.transformed["supported"] = False
+            raise IgnoreObject("no zgrab2.result")
 
         # TODO: Do anything with scan_data["error"]?
         if tls:
