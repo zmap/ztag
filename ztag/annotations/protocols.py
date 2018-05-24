@@ -6,7 +6,6 @@ from ztag import protocols
 
 CATEGORY_TAGS = {
     "scada": set(["dnp", "modbus", "bacnet", "fox", "dnp3", "s7"]),
-    "database": set(["mssql", "mysql", "oracle", "postgres" ]),
 }
 
 def __process(self, obj, meta):
@@ -38,11 +37,6 @@ PROTOCOLS = [
     (protocols.CWMP, protocols.CWMP.GET, {"device_with_cwmp": {"tags":["cwmp",]}}),
     (protocols.SMB, protocols.SMB.BANNER, {"device_with_smb": {"tags":["smb",]}}),
     (protocols.UPNP, protocols.UPNP.DISCOVERY, {"device_with_upnp": {"tags":["upnp",]}}),
-    (protocols.MYSQL, protocols.MYSQL.BANNER, {"device_with_mysql": {"tags":["database", "mysql",]}}),
-    (protocols.MSSQL, protocols.MSSQL.BANNER, {"device_with_mssql": {"tags":["database", "mssql",]}}),
-    (protocols.POSTGRES, protocols.POSTGRES.BANNER, {"device_with_postgres": {"tags":["database", "postgres",]}}),
-    (protocols.ORACLE, protocols.ORACLE.BANNER, {"device_with_oracle": {"tags":["database", "oracle",]}}),
-
 ]
 
 for proto, subproto, tests in PROTOCOLS:

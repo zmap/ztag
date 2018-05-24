@@ -5,6 +5,7 @@
                 "version": "1.2.3",
                 "instance_name": "THEINSTANCE",
                 "encrypt_mode": "ENCRYPT_ON",
+                "supported": true,
                 "tls": {
                     "certificate": {
                         "parsed": {
