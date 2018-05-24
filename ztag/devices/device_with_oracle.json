@@ -2,6 +2,7 @@
     "1521": {
         "oracle": {
             "banner": {
+                "supported": true,
                 "accept_version": 312,
                 "connect_flags0": {
                     "SERVICES_WANTED": true,

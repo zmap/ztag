@@ -2,6 +2,7 @@
     "5432": {
         "postgres": {
             "banner": {
+                "supported": true,
                 "supported_versions": "FATAL:  unsupported frontend protocol 0.0: server supports 2.0 to 3.0",
                 "protocol_error": {
                     "code": "0A000",
