@@ -9,6 +9,7 @@
                 "error_code": 123,
                 "error_id": "ER_SOME_ERROR",
                 "error_message": "Some error message",
+                "supported": true,
                 "tls": {
                     "certificate": {
                         "parsed": {
