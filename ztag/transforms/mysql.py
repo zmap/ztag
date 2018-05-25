@@ -19,7 +19,7 @@ class MySQLTransform(ZGrab2Transform):
             return zout
 
         to_copy = ["protocol_version", "server_version", "capability_flags",
-                   "status_flags", "error_code", "error_message"]
+                   "status_flags", "error_code", "error_message", "error_id"]
         for f in to_copy:
             if results.get(f) is not None:
                 zout.transformed[f] = results[f]
