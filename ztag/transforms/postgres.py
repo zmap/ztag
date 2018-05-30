@@ -28,8 +28,13 @@ class PostgresTransform(ZGrab2Transform):
             if results.get(f) is not None:
                 zout.transformed[f] = results[f]
 
-        to_clean = ["supported_versions", "protocol_error", "startup_error"]
-        for f in to_clean:
+        to_clean_error = ["protocol_error", "startup_error"]
+        for f in to_clean_error:
+            if f in zout.transformed:
+                zout.transformed[f] = self.clean_error(zout.transformed[f])
+
+        to_clean_banner = ["supported_versions"]
+        for f in to_clean_banner:
             if f in zout.transformed:
                 zout.transformed[f] = self.clean_banner(zout.transformed[f])
 
