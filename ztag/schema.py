@@ -345,7 +345,7 @@ ztag_ssh_v2 = SubRecord({
             "key": zgrab2_ssh.SSHPublicKey(),
             "serial": String(),
             # "cert_type" is renamed to "type"
-            "type": zgrab2_ssh.CertType(),
+            "type": zgrab2_ssh.CertType(exclude=["bigquery"]),
             "key_id": String(),
             "valid_principals": ListOf(String()),
             "validity": SubRecord({
