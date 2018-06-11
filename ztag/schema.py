@@ -714,11 +714,10 @@ CTServerStatus = SubRecord({
     "sct":Binary(),
 })
 
+
 CTStatus = SubRecord({
-    # Censys (reserved)
-    "censys_dev":CTServerStatus,
     "censys":CTServerStatus,
-    # Google
+    "censys_dev":CTServerStatus,
     "google_aviator":CTServerStatus,
     "google_pilot":CTServerStatus,
     "google_rocketeer":CTServerStatus,
@@ -727,59 +726,73 @@ CTStatus = SubRecord({
     "google_icarus":CTServerStatus,
     "google_skydiver":CTServerStatus,
     "google_daedalus":CTServerStatus,
-    # Google Argon
+    "digicert_ct1":CTServerStatus,
+    "izenpe_com_ct":CTServerStatus,
+    "izenpe_eus_ct":CTServerStatus,
+    "symantec_ws_ct":CTServerStatus,
+    "symantec_ws_vega":CTServerStatus,
+    "wosign_ctlog":CTServerStatus,
+    "wosign_ct":CTServerStatus,
+    "cnnic_ctserver":CTServerStatus,
+    "gdca_ct":CTServerStatus,
+    "startssl_ct":CTServerStatus,
+    "certly_log":CTServerStatus,
+    "venafi_api_ctlog":CTServerStatus,
+    "symantec_ws_deneb":CTServerStatus,
+    "nordu_ct_plausible":CTServerStatus,
+    "comodo_dodo":CTServerStatus,
+    "comodo_mammoth":CTServerStatus,
+    "gdca_ctlog":CTServerStatus,
+    "symantec_ws_sirius":CTServerStatus,
+    "certificatetransparency_cn_ct":CTServerStatus,
+    "venafi_api_ctlog_gen2":CTServerStatus,
+    "digicert_ct2":CTServerStatus,
+    "comodo_sabre":CTServerStatus,
+    "sheca_ct":CTServerStatus,
+    "letsencrypt_ct_clicky":CTServerStatus,
+    "behind_the_sofa":CTServerStatus,
+    "gdca_log":CTServerStatus,
+    "gdca_log2":CTServerStatus,
+    "wotrus_ctlog":CTServerStatus,
+    "wotrus_ctlog3":CTServerStatus,
+    "akamai_ct":CTServerStatus,
     "google_argon_2017":CTServerStatus,
     "google_argon_2018":CTServerStatus,
     "google_argon_2019":CTServerStatus,
     "google_argon_2020":CTServerStatus,
     "google_argon_2021":CTServerStatus,
-    # Cloudflare
+    "google_xenon_2018":CTServerStatus,
+    "google_xenon_2019":CTServerStatus,
+    "google_xenon_2020":CTServerStatus,
+    "google_xenon_2021":CTServerStatus,
+    "google_xenon_2022":CTServerStatus,
     "cloudflare_nimbus_2017":CTServerStatus,
     "cloudflare_nimbus_2018":CTServerStatus,
     "cloudflare_nimbus_2019":CTServerStatus,
     "cloudflare_nimbus_2020":CTServerStatus,
     "cloudflare_nimbus_2021":CTServerStatus,
-    # Digicert
-    "digicert_ct1":CTServerStatus,
-    "digicert_ct2":CTServerStatus,
-    # Izenpe
-    "izenpe_com_ct":CTServerStatus,
-    "izenpe_eus_ct":CTServerStatus,
-    # Symantec
-    "symantec_ws_ct":CTServerStatus,
-    "symantec_ws_vega":CTServerStatus,
-    "symantec_ws_sirius":CTServerStatus,
-    "symantec_ws_deneb":CTServerStatus,
-    # Comodo
-    "comodo_dodo":CTServerStatus,
-    "comodo_mammoth":CTServerStatus,
-    "comodo_sabre":CTServerStatus,
-    # Wosign, StartCom, Wotrus
-    "wosign_ctlog":CTServerStatus,
-    "wosign_ct":CTServerStatus,
-    "startssl_ct":CTServerStatus,
-    "wotrus_ctlog":CTServerStatus,
-    "wotrus_ctlog3":CTServerStatus,
-    # GDCA
-    "gdca_ct":CTServerStatus,
-    "gdca_ctlog":CTServerStatus,
-    "gdca_log":CTServerStatus,
-    "gdca_log2":CTServerStatus,
-    # Venafi
-    "venafi_api_ctlog":CTServerStatus,
-    "venafi_api_ctlog_gen2":CTServerStatus,
-    # Nordu
-    "nordu_ct_plausible":CTServerStatus,
-    # Let's Encrypt
-    "letsencrypt_ct_clicky":CTServerStatus,
-    # Other
-    "cnnic_ctserver":CTServerStatus,
-    "certly_log":CTServerStatus,
-    "sheca_ct":CTServerStatus,
-    "behind_the_sofa":CTServerStatus,
-    "certificatetransparency_cn_ct":CTServerStatus,
-
+    "digicert_nessie_2018":CTServerStatus,
+    "digicert_nessie_2019":CTServerStatus,
+    "digicert_nessie_2020":CTServerStatus,
+    "digicert_nessie_2021":CTServerStatus,
+    "digicert_nessie_2022":CTServerStatus,
+    "digicert_yeti_2018":CTServerStatus,
+    "digicert_yeti_2019":CTServerStatus,
+    "digicert_yeti_2020":CTServerStatus,
+    "digicert_yeti_2021":CTServerStatus,
+    "digicert_yeti_2022":CTServerStatus,
+    "digicert_golem":CTServerStatus,
+    "izenpe_com_pilot":CTServerStatus,
+    "letsencrypt_ct_birch":CTServerStatus,
+    "letsencrypt_ct_faux":CTServerStatus,
+    "letsencrypt_ct_oak":CTServerStatus,
+    "nordu_ct_flimsy":CTServerStatus,
+    "sheca_ctlog":CTServerStatus,
+    "wosign_ctlog2":CTServerStatus,
+    "wosign_ctlog3":CTServerStatus,
+    "ctlogs_alpha":CTServerStatus,
 })
+
 
 CertificateAudit = SubRecord({
     "ccadb":SubRecord({
