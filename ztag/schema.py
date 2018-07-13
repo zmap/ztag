@@ -1285,6 +1285,7 @@ ipv4_host = Record({
             "__restricted_location":zdb_restricted_location,
             "autonomous_system":zdb_as.new(category="Basic Information"),
             "notes":CensysString(),
+            "domain":String(category="Basic Information"),
             "ip":IPv4Address(required=True, category="Basic Information"),
             "ipint":Unsigned32BitInteger(required=True, doc="Integer value of IP address in host order"),
             "updated_at":Timestamp(),
