@@ -616,9 +616,6 @@ ztag_ipp = ztag_zgrab2_transformed(service="IPP", results=SubRecord({
     "tls": ztag_tls_type(doc="If the server allows upgrading the "
                              "session to use TLS, this is the log of "
                              "the handshake."),
-    "global_metadata": SubRecord({}),
-    "local_metadata": SubRecord({}),
-    "timestamp": Timestamp(required=True),
 }))
 
 ztag_schemas = [
