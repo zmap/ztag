@@ -18,7 +18,7 @@ class IPPTransform(ZGrab2Transform):
         if not results:
             return zout
 
-        to_copy = ["version_major", "version_minor", "version_string", "cups_version", "attributes", "attr_cups_version", "attr_ipp_versions", "attr_printer_uris", "tls"]
+        to_copy = ["version_major", "version_minor", "version_string", "cups_version", "attributes", "attr_cups_version", "attr_ipp_versions", "attr_printer_uris"]
 
         for f in to_copy:
             if results.get(f) is not None:
