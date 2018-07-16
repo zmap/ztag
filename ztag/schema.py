@@ -20,7 +20,6 @@ def remove_strings(schema):
     out = _remove_strings(schema)
     return out
 
-
 def _recurse_object(v):
     # Attempt to retain attributes (required/doc/etc)
     from copy import deepcopy
@@ -51,66 +50,71 @@ def _remove_strings(schema):
 __local_metadata = {}
 for key in Annotation.LOCAL_METADATA_KEYS:
     __local_metadata[key] = CensysString()
-local_metadata = SubRecord(__local_metadata)
+local_metadata = SubRecord(__local_metadata, type_name="local_metadata")
 
-ztag_dh_export = SubRecord({
+# The probe_* types roughly correspond to individual probe connections
+# with the target service (or, in old-sytle ZGrab, a single grab with
+# particular parameters).  Some may occasionally fail to be populated
+# due to intermittent network problems.
+
+probe_tls_dh_export_type = SubRecordType({
     "dh_params": zcrypto.DHParams(doc="The parameters for the key."),
     "support": Boolean(),
     "metadata": local_metadata,
     "timestamp": Timestamp(),
-})
+}, type_name="probe_tls_dh_export")
 
-ztag_dh = SubRecord({
+probe_tls_dh_type = SubRecordType({
     "dh_params": zcrypto.DHParams(doc="The parameters for the key."),
     "support": Boolean(),
     "metadata": local_metadata,
     "timestamp": Timestamp(),
-})
+}, type_name="probe_tls_dh")
 
-ztag_rsa_export = SubRecord({
+probe_tls_rsa_export_type = SubRecordType({
     "rsa_params":zcrypto.RSAPublicKey(),
     "support":Boolean(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
-})
+}, type_name="probe_tls_rsa_export")
 
-ztag_ecdh = SubRecord({
+probe_tls_ecdh_type = SubRecordType({
     "ecdh_params":zcrypto.ECDHParams(),
     "support":Boolean(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
-})
+}, type_name="probe_tls_ecdh")
 
-zgrab_certificate_trust = SubRecord({
+certificate_trust_type = SubRecordType({
     "type":Enum(doc="root, intermediate, or leaf certificate"),
     "trusted_path":Boolean(doc="Does certificate chain up to browser root store"),
     "valid":Boolean(doc="is this certificate currently valid in this browser"),
     "was_valid":Boolean(doc="was this certificate ever valid in this browser")
-})
+}, type_name="certificate_trust")
 
 _zcrypto_parsed_cert = zcrypto.ParsedCertificate()
 
-zgrab_certificate = SubRecord({
+certificate_type = SubRecordType({
     "parsed": SubRecord({
         "__expanded_names": ListOf(CensysString()),
     }, extends=_zcrypto_parsed_cert),
     "validation":SubRecord({
-        "nss":zgrab_certificate_trust.new(category="NSS (Firefox) Validation"),
-        "apple":zgrab_certificate_trust.new(category="Apple Validation"),
-        "microsoft":zgrab_certificate_trust.new(category="Microsoft Validation"),
-        "android":zgrab_certificate_trust,
-        "java":zgrab_certificate_trust,
+        "nss":certificate_trust_type(category="NSS (Firefox) Validation"),
+        "apple":certificate_trust_type(category="Apple Validation"),
+        "microsoft":certificate_trust_type(category="Microsoft Validation"),
+        "android":certificate_trust_type(),
+        "java":certificate_trust_type(),
     }),
-})
+}, type_name="certificate")
 
 
-zgrab_server_certificate_valid = SubRecord({
+server_certificate_valid = SubRecord({
     "complete_chain":Boolean(doc="does server provide a chain up to a root"),
     "valid":Boolean(doc="is this certificate currently valid in this browser"),
     "error":CensysString()
 })
 
-ztag_tls_type = SubRecordType({
+probe_tls_type = SubRecordType({
     # This is server_hello.version.name
     "version": zcrypto.TLSVersionName(),
     # cipher_suite = { id: server_hello.cipher_suite.hex, name: server_hello.cipher_suite.name }
@@ -126,9 +130,9 @@ ztag_tls_type = SubRecordType({
     # server_hello.secure_renegotiation
     "secure_renegotiation": Boolean(),
     # certificate.parsed = server_certificates.certificate.parsed
-    "certificate": zgrab_certificate,
+    "certificate": certificate_type(),
     # chain.parsed = [ elt.parsed for elt in server_certificates.chain ]
-    "chain": ListOf(zgrab_certificate),
+    "chain": ListOf(certificate_type()),
     # server_hello.scts
     "scts": ListOf(zcrypto.SCTRecord()),
     # session_ticket = { key: session_ticket[key] for key in ("length, "lifetime_hint") }
@@ -150,66 +154,66 @@ ztag_tls_type = SubRecordType({
     }),
     "metadata": local_metadata,
     "timestamp": Timestamp(),
-})
+}, type_name = "probe_tls")
 
-ztag_tls = ztag_tls_type()
+probe_tls = probe_tls_type()
 
-ztag_sslv2 = SubRecord({
+probe_tls_sslv2_type = SubRecordType({
     "support": Boolean(),
     "extra_clear": Boolean(),
     "export": Boolean(),
-    "certificate": zgrab_certificate,
+    "certificate": certificate_type(),
     "ciphers": ListOf(SubRecord({
         "name": String(),
         "id": Unsigned32BitInteger(),
     })),
     "metadata": local_metadata,
     "timestamp":Timestamp(),
-})
+}, type_name="probe_tls_sslv2")
 
-ztag_heartbleed = SubRecord({
+probe_tls_heartbleed_type = SubRecordType({
     "heartbeat_enabled":Boolean(),
     "heartbleed_vulnerable":Boolean(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
-})
+}, type_name="probe_tls_heartbleed")
 
-ztag_extended_random = SubRecord({
+probe_tls_extended_random_type = SubRecordType({
     "extended_random_support": Boolean(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
-})
+}, type_name="probe_tls_extended_random")
 
-ztag_smtp_starttls = SubRecord({
+probe_smtp_starttls_banner_type = SubRecordType({
     "banner": CensysString(),
     "ehlo": CensysString(),
     "starttls": CensysString(),
-    "tls": ztag_tls,
+    "tls": probe_tls_type(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
-})
+}, type_name = "probe_smtp_startls_banner")
 
-ztag_mail_starttls = SubRecord({
+probe_mail_starttls_banner_type = SubRecordType({
     "banner": CensysString(),
     "starttls": CensysString(),
-    "tls": ztag_tls,
+    "tls": probe_tls_type(),
     "metadata": local_metadata,
     "timestamp":Timestamp(),
-})
+}, type_name = "probe_mail_starttls_banner")
 
-ztag_mail_tls = SubRecord({
-    "tls":ztag_tls,
+probe_mail_tls_banner_type = SubRecordType({
+    "tls": probe_tls_type(),
     "banner": CensysString(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
-})
+}, type_name="probe_mail_tls_banner")
 
-zgrab_unknown_http_header = SubRecord({
+http_unknown_header_type = SubRecordType({
     "key":String(),
     "value":CensysString()
 })
 
-zgrab_http_headers = SubRecord({
+http_headers_type = SubRecordType({
     "access_control_allow_origin":CensysString(),
     "accept_patch":CensysString(),
     "accept_ranges":CensysString(),
@@ -263,44 +267,44 @@ zgrab_http_headers = SubRecord({
     "x_content_duration":CensysString(),
     "x_forwarded_for":CensysString(),
     "proxy_agent":CensysString(),
-    "unknown":ListOf(zgrab_unknown_http_header)
-})
+    "unknown":ListOf(http_unknown_header_type())
+}, type_name="http_headers")
 
-ztag_http = SubRecord({
+probe_http_request_type = SubRecordType({
     "status_code":Unsigned16BitInteger(),
     "status_line":CensysString(),
     "body":HTML(),
-    "headers":zgrab_http_headers,
+    "headers":http_headers_type(),
     "body_sha256":HexString(validation_policy="warn"),
     "title":CensysString(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
-})
+}, type_name="probe_http_request")
 
-golang_crypto_param = SubRecord({
-    "value":IndexedBinary(),
-    "length":Unsigned32BitInteger()
-})
+# golang_crypto_param = SubRecord({
+#     "value":IndexedBinary(),
+#     "length":Unsigned32BitInteger()
+# })
 
 #ztag_open_proxy = SubRecord({
 #    "connect":SubRecord({
 #      "status_code":Integer(),
 #      "status_line":CensysString(),
 #      "body":CensysString(),
-#      "headers":zgrab_http_headers
+#      "headers":http_headers_type()
 #    }),
 #    "get":SubRecord({
 #      "status_code":Integer(),
 #      "status_line":CensysString(),
 #      "body":CensysString(),
-#      "headers":zgrab_http_headers,
+#      "headers":http_headers_type(),
 #      "random_present":Boolean(),
 #      "body_sha256":HexString()
 #    }),
 #    "metadata":local_metadata
 #})
 
-ztag_ssh_v2 = SubRecord({
+probe_ssh_v2_type = SubRecordType({
     "metadata": local_metadata,
     "timestamp": Timestamp(),
     "banner": zgrab2_ssh.AnalyzedEndpointID(),
@@ -387,31 +391,31 @@ ztag_ssh_v2 = SubRecord({
             }),
         }),
     }),
-})
+}, type_name="probe_ssh_v2")
 
-ztag_ftp = SubRecord({
+probe_ftp_banner_type = SubRecordType({
     "banner":CensysString(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
-})
+}, type_name="probe_ftp_banner")
 
-telnet_caps_list = ListOf(SubRecord({
+telnet_cap_type = SubRecordType({
     "name":String(),
     "value":Unsigned32BitInteger()
-}))
+}, type_name="telnet_cap")
 
-ztag_telnet = SubRecord({
+probe_telnet_banner_type = SubRecordType({
     "support":Boolean(),
     "banner":CensysString(),
-    "will":telnet_caps_list,
-    "wont":telnet_caps_list,
-    "do":telnet_caps_list,
-    "dont":telnet_caps_list,
+    "will": ListOf(telnet_cap_type()),
+    "wont": ListOf(telnet_cap_type()),
+    "do": ListOf(telnet_cap_type()),
+    "dont": ListOf(telnet_cap_type()),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
-})
+}, type_name="probe_telnet_banner")
 
-ztag_modbus = SubRecord({
+probe_modbus_device_id_type = SubRecordType({
     "support":Boolean(),
     "function_code":Unsigned16BitInteger(),
     "mei_response":SubRecord({
@@ -428,9 +432,9 @@ ztag_modbus = SubRecord({
     }),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
-})
+}, type_name="probe_modbus_device_id")
 
-ztag_bacnet = SubRecord({
+probe_bacnet_device_id_type = SubRecordType({
     "support":Boolean(),
     "instance_number": Signed32BitInteger(),
     "vendor": SubRecord({
@@ -446,40 +450,39 @@ ztag_bacnet = SubRecord({
     "location":CensysString(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
-})
+}, type_name="probe_bacnet_device_id")
 
-ztag_dns_question = SubRecord({
+dns_question_type = SubRecordType({
     "name":String(),
     "type":String()
-})
+}, type_name="dns_question")
 
-
-ztag_dns_answer = SubRecord({
+dns_answer_type = SubRecordType({
     "name":String(),
     "response":CensysString(),
     "type":String()
-})
+}, type_name="dns_answer")
 
-ztag_dns_lookup = SubRecord({
+probe_dns_lookup_type = SubRecordType({
     "support":Boolean(),
     "errors":Boolean(),
     "open_resolver":Boolean(),
     "resolves_correctly":Boolean(),
-    "answers":ListOf(ztag_dns_answer),
-    "authorities":ListOf(ztag_dns_answer),
-    "additionals":ListOf(ztag_dns_answer),
-    "questions":ListOf(ztag_dns_question),
+    "answers":ListOf(dns_answer_type()),
+    "authorities":ListOf(dns_answer_type()),
+    "additionals":ListOf(dns_answer_type()),
+    "questions":ListOf(dns_question_type()),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
-})
+}, type_name="probe_dns_lookup")
 
-ztag_tls_support = SubRecord({
+probe_tls_support_type = SubRecordType({
     "support": Boolean(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
-})
+}, type_name="probe_tls_support")
 
-ztag_fox = SubRecord({
+probe_fox_device_id_type = SubRecordType({
     "support":Boolean(),
     "version":CensysString(),
     "id":Signed32BitInteger(),
@@ -501,16 +504,16 @@ ztag_fox = SubRecord({
     "auth_agent_type":String(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
-})
+}, type_name="probe_fox_device_id")
 
-ztag_dnp3 = SubRecord({
+probe_dnp3_status_type = SubRecordType({
     "support":Boolean(),
     "raw_response":Binary(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
-})
+}, type_name="probe_dnp3_status")
 
-ztag_s7 = SubRecord({
+probe_s7_szl_type = SubRecordType({
     "support":Boolean(),
     "system":CensysString(),
     "module":CensysString(),
@@ -528,14 +531,14 @@ ztag_s7 = SubRecord({
     "firmware":CensysString(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
-})
+}, type_name = "probe_s7_szl")
 
-ztag_smb = SubRecord({
+probe_smb_banner_type = SubRecordType({
     "smbv1_support":Boolean(),
     "metadata":local_metadata,
-})
+}, type_name = "smb_banner")
 
-ztag_upnp_discovery = SubRecord({
+probe_upnp_discovery_type = SubRecordType({
     "usn": String(),
     "agent": String(),
     "st": String(),
@@ -545,7 +548,7 @@ ztag_upnp_discovery = SubRecord({
     "cache_control": String(),
     "x_user_agent": String(),
     "metadata": local_metadata,
-})
+}, type_name = "probe_upnp_discovery")
 
 # Add the common zgrab2 fields to the results schema which are added by
 # ZGrab2Transform._transform_object().
@@ -557,7 +560,7 @@ def ztag_zgrab2_transformed(service, results):
 # The oracle ztag transform is a plain copy of the "handshake" field.
 ztag_oracle = ztag_zgrab2_transformed(service="Oracle", results=zgrab2_oracle.oracle_scan_response["result"]["handshake"] | remove_strings)
 
-ztag_oracle["tls"] = ztag_tls_type(doc="The TLS handshake with the server (if applicable).")
+ztag_oracle["tls"] = probe_tls_type(doc="The TLS handshake with the server (if applicable).")
 
 ztag_mssql = ztag_zgrab2_transformed(service="MSSQL", results=SubRecord({
     "version": CensysString(doc="The MSSQL version returned by the server in "
@@ -570,7 +573,7 @@ ztag_mssql = ztag_zgrab2_transformed(service="MSSQL", results=SubRecord({
                          doc="The negotiated encryption mode for the session. "
                              "See https://msdn.microsoft.com/en-us/library/dd357559.aspx "
                              "for details."),
-    "tls": ztag_tls_type(doc="The TLS handshake with the server (for "
+    "tls": probe_tls_type(doc="The TLS handshake with the server (for "
                              "non-encrypted connections, this used only "
                              "for the authentication phase).")
 }))
@@ -583,7 +586,7 @@ ztag_mysql = ztag_zgrab2_transformed(service="MySQL", results=SubRecord({
     "error_code": zgrab2.mysql.mysql_scan_response["result"]["error_code"] | remove_strings,
     "error_id": zgrab2.mysql.mysql_scan_response["result"]["error_id"] | remove_strings,
     "error_message": zgrab2.mysql.mysql_scan_response["result"]["error_message"] | remove_strings,
-    "tls": ztag_tls_type(doc="If the server allows upgrading the "
+    "tls": probe_tls_type(doc="If the server allows upgrading the "
                              "session to use TLS, this is the log of "
                              "the handshake.")
 }))
@@ -599,50 +602,51 @@ ztag_postgres = ztag_zgrab2_transformed(service="PostgreSQL", results=SubRecord(
                           "updated to use TLS, this is true."),
     "authentication_mode": zgrab2.postgres.postgres_auth_mode["mode"] | remove_strings,
     "backend_key_data": zgrab2.postgres.postgres_key_data | remove_strings,
-    "tls": ztag_tls_type(doc="If the server allows upgrading the "
+    "tls": probe_tls_type(doc="If the server allows upgrading the "
                              "session to use TLS, this is the log of "
                              "the handshake.")
 }))
 
-
 ztag_schemas = [
-    ("ztag_https", ztag_tls),
-    ("ztag_heartbleed", ztag_heartbleed),
-    ("ztag_smtp_starttls", ztag_smtp_starttls),
-    ("ztag_imap_starttls", ztag_mail_starttls),
-    ("ztag_pop3_starttls", ztag_mail_starttls),
-    ("ztag_imap_tls", ztag_mail_tls),
-    ("ztag_pop3_tls", ztag_mail_tls),
-    ("ztag_http", ztag_http),
-    ("ztag_ftp", ztag_ftp),
-    ("ztag_dh", ztag_dh),
-    ("ztag_dh_export", ztag_dh_export),
-    ("ztag_rsa_export", ztag_rsa_export),
-    ("ztag_ecdh", ztag_ecdh),
-    ("ztag_sslv2", ztag_sslv2),
-    ("ztag_sslv3", ztag_tls_support),
-    ("ztag_tls1", ztag_tls_support),
-    ("ztag_tls2", ztag_tls_support),
-    ("ztag_tls3", ztag_tls_support),
-    ("ztag_modbus", ztag_modbus),
-    ("ztag_extended_random", ztag_extended_random),
-    ("ztag_ssh_v2", ztag_ssh_v2),
-    ("ztag_dns_lookup", ztag_dns_lookup),
-    ("ztag_bacnet", ztag_bacnet),
-    ("ztag_fox", ztag_fox),
-    ("ztag_dnp3", ztag_dnp3),
-    ("ztag_s7", ztag_s7),
-    ("ztag_smb", ztag_smb),
-    ("ztag_upnp_discovery", ztag_upnp_discovery),
+    ("ztag_https", probe_tls_type()),
+    ("ztag_heartbleed", probe_tls_heartbleed_type()),
+    ("ztag_smtp_starttls", probe_smtp_starttls_banner_type()),
+    ("ztag_imap_starttls", probe_mail_starttls_banner_type()),
+    ("ztag_pop3_starttls", probe_mail_starttls_banner_type()),
+    ("ztag_imap_tls", probe_mail_tls_banner_type()),
+    ("ztag_pop3_tls", probe_mail_tls_banner_type()),
+    ("ztag_http", probe_http_request_type()),
+    ("ztag_ftp", probe_ftp_banner_type()),
+    ("ztag_dh", probe_tls_dh_type()),
+    ("ztag_dh_export", probe_tls_dh_export_type()),
+    ("ztag_rsa_export", probe_tls_rsa_export_type()),
+    ("ztag_ecdh", probe_tls_ecdh_type()),
+    ("ztag_sslv2", probe_tls_sslv2_type()),
+    ("ztag_sslv3", probe_tls_support_type()),
+    ("ztag_tls1", probe_tls_support_type()),
+    ("ztag_tls2", probe_tls_support_type()),
+    ("ztag_tls3", probe_tls_support_type()),
+    ("ztag_modbus", probe_modbus_device_id_type()),
+    ("ztag_extended_random", probe_tls_extended_random_type()),
+    ("ztag_ssh_v2", probe_ssh_v2_type()),
+    ("ztag_dns_lookup", probe_dns_lookup_type()),
+    ("ztag_bacnet", probe_bacnet_device_id_type()),
+    ("ztag_fox", probe_fox_device_id_type()),
+    ("ztag_dnp3", probe_dnp3_status_type()),
+    ("ztag_s7", probe_s7_szl_type()),
+    ("ztag_smb", probe_smb_banner_type()),
+    ("ztag_upnp_discovery", probe_upnp_discovery_type()),
     ("ztag_oracle", ztag_oracle),
     ("ztag_mssql", ztag_mssql),
+    ("ztag_mysql", ztag_mysql),
+    ("ztag_telnet", probe_telnet_banner_type()),
 ]
 for (name, schema) in ztag_schemas:
     x = Record({
         "ip_address":IPAddress(required=True),
         #"timestamp":Timestamp(required=True),
         "tags":ListOf(String()),
-        "metadata": SubRecord({}, allow_unknown=True),
+        "metadata": SubRecord({}, allow_unknown=True, type_name="metadata"),
     }, extends=schema)
     zschema.registry.register_schema("%s" % name, x)
 
@@ -704,7 +708,7 @@ zdb_as = SubRecord({
 __metadata = {}
 for key in Annotation.GLOBAL_METADATA_KEYS:
     __metadata[key] = CensysString()
-zdb_metadata = SubRecord(__metadata)
+zdb_metadata = SubRecord(__metadata, type_name="zdb_metadata")
 
 CTServerStatus = SubRecord({
     "index":Signed64BitInteger(),
@@ -855,11 +859,11 @@ class LintBool(String):
 # }
 # This is horrible to schema, so define a custom type
 Lints = SubRecord({
-    "e_basic_constraints_not_critical":LintBool(),
-    "e_ca_common_name_missing":LintBool(),
-    "e_ca_country_name_invalid":LintBool(),
-    "e_ca_country_name_missing":LintBool(),
-    "e_ca_crl_sign_not_set":LintBool(),
+    "e_basic_constraints_not_critical":LintBool(pr_index=1),
+    "e_ca_common_name_missing":LintBool(pr_index=2),
+    "e_ca_country_name_invalid":LintBool(pr_index=3),
+    "e_ca_country_name_missing":LintBool(pr_index=4),
+    "e_ca_crl_sign_not_set":LintBool(pr_index=5),
     "e_ca_is_ca":LintBool(),
     "e_ca_key_cert_sign_not_set":LintBool(),
     "e_ca_key_usage_missing":LintBool(),
@@ -926,7 +930,7 @@ Lints = SubRecord({
     "e_ext_name_constraints_not_critical":LintBool(),
     "e_ext_name_constraints_not_in_ca":LintBool(),
     "e_ext_policy_constraints_empty":LintBool(),
-    "e_ext_policy_constraints_not_critical":LintBool(),
+    "e_ext_policy_constraints_not_critical":LintBool(pr_index=99),
     "e_ext_policy_map_any_policy":LintBool(),
     "e_ext_san_contains_reserved_ip":LintBool(),
     "e_ext_san_directory_name_present":LintBool(),
@@ -1126,158 +1130,191 @@ certificate = Record({
 
 zschema.registry.register_schema("certificate", certificate)
 
+#
+# The protocol_* types are the primary encodings emitted by
+# Grab. Think of them as the entirety of what we collect when we
+# discover that a particular service exists, anywhere.
+#
+
+protocol_http_type = SubRecordType({
+    "get": probe_http_request_type(),
+}, type_name="protocol_http")
+
+protocol_https_type = SubRecordType({
+    "tls": probe_tls_type(),
+    "heartbleed": probe_tls_heartbleed_type(),
+    "dhe": probe_tls_dh_type(),
+    "rsa_export": probe_tls_rsa_export_type(),
+    "dhe_export": probe_tls_dh_export_type(),
+    #"ssl_2": probe_tls_sslv2_type(), # XXX
+    "ssl_3": probe_tls_support_type(),
+    "tls_1_1": probe_tls_support_type(),
+    "tls_1_2": probe_tls_support_type(),
+    #"tls_1_3": probe_tls_support_type(),
+    "ecdhe": probe_tls_ecdh_type(),
+    #"extended_random": probe_tls_extended_random_type(),
+}, type_name="protocol_https")
+
+protocol_smtp_type = SubRecordType({
+    "starttls": probe_smtp_starttls_banner_type(),
+    #"ssl_2": probe_tls_sslv2_type(), # XXX
+}, type_name = "protocol_smtp")
+
+protocol_telnet_type = SubRecordType({
+    "banner": probe_telnet_banner_type(),
+}, type_name = "protocol_telnet")
+
+protocol_ftp_type = SubRecordType({
+    "banner": probe_ftp_banner_type(),
+}, type_name = "protocol_ftp")
+
+protocol_s7_type = SubRecordType({
+    "szl": probe_s7_szl_type(),
+}, type_name = "protocol_s7")
+
+protocol_pop3_type = SubRecordType({
+    "starttls": probe_mail_starttls_banner_type(),
+    #"ssl_2": probe_sslv2, # XXX
+}, type_name = "protocol_pop3")
+
+protocol_imap_type = SubRecordType({
+    "starttls": probe_mail_starttls_banner_type(),
+    #"ssl_2": probe_sslv2, # XXX
+}, type_name = "protocol_imap") 
+
+protocol_smb_type = SubRecordType({
+    "banner": probe_smb_banner_type(),
+}, type_name = "protocol_smb")
+
+protocol_modbus_type = SubRecordType({
+    "device_id": probe_modbus_device_id_type()
+}, type_name = "protocol_modbus")
+
+protocol_ssh_type = SubRecordType({
+    "v2": probe_ssh_v2_type(),
+}, type_name = "protocol_ssh")
+
+protocol_dns_type = SubRecordType({
+    "lookup": probe_dns_lookup_type(),
+}, type_name = "protocol_dns")
+
+protocol_bacnet_type = SubRecordType({
+    "device_id": probe_bacnet_device_id_type(),
+}, type_name = "protocol_bacnet")
+
+protocol_fox_type = SubRecordType({
+    "device_id":probe_fox_device_id_type(),
+}, type_name = "protocol_fox")
+
+protocol_dnp3_type = SubRecordType({
+    "status":probe_dnp3_status_type(),
+}, type_name = "protocol_dnp3")
+
+protocol_cwmp_type = SubRecordType({
+    "get": probe_http_request_type(),
+}, type_name = "protocol_cwmp")
+
+protocol_upnp_type = SubRecordType({
+    "discovery": probe_upnp_discovery_type(),
+}, type_name = "protocol_upnp") 
+
+protocol_oracle_type = SubRecordType({
+    "banner": ztag_oracle,
+}, type_name = "protocol_oracle")
+
+protocol_mssql_type = SubRecordType({
+    "banner": ztag_mssql,
+}, type_name = "protocol_mssql")
+
+protocol_mysql_type = SubRecordType({
+    "banner": ztag_mysql,
+}, type_name = "protocol_mysql")
+
+protocol_postgres_type = SubRecordType({
+    "banner": ztag_postgres,
+}, type_name = "protocol_postgres")
+
 ipv4_host = Record({
             Port(443):SubRecord({
-                "https":SubRecord({
-                    "tls":ztag_tls,
-                    "heartbleed":ztag_heartbleed,
-                    "dhe": ztag_dh,
-                    "rsa_export": ztag_rsa_export,
-                    "dhe_export": ztag_dh_export,
-                    #"ssl_2": ztag_sslv2, # XXX
-                    "ssl_3": ztag_tls_support,
-                    "tls_1_1": ztag_tls_support,
-                    "tls_1_2": ztag_tls_support,
-                    #"tls_1_3": ztag_tls_support,
-                    "ecdhe": ztag_ecdh,
-                    #"extended_random":ztag_extended_random,
-                }, category="443/HTTPS")
+                "https": protocol_https_type(category="443/HTTPS"),
             }),
             Port(80):SubRecord({
-                "http":SubRecord({
-                    "get":ztag_http,
-                }, category="80/HTTP"),
+                "http": protocol_http_type(category="80/HTTP"),
             }),
             Port(8080):SubRecord({
-                "http":SubRecord({
-                    "get":ztag_http,
-                }, category="8080/HTTP"),
+                "http": protocol_http_type(category="8080/HTTP"),
             }),
             Port(8888):SubRecord({
-                "http":SubRecord({
-                    "get":ztag_http,
-                }, category="8888/HTTP"),
+                "http": protocol_http_type(category="8888/HTTP"),
             }),
             Port(25):SubRecord({
-                "smtp":SubRecord({
-                    "starttls": ztag_smtp_starttls,
-                    #"ssl_2": ztag_sslv2, # XXX
-                }, category="25/SMTP"),
+                "smtp": protocol_smtp_type(category="25/SMTP"),
             }),
             Port(23):SubRecord({
-                "telnet":SubRecord({
-                    "banner":ztag_telnet
-                }, category="23/Telnet")
+                "telnet": protocol_telnet_type(category="23/Telnet"),
             }),
             Port(2323):SubRecord({
-                "telnet":SubRecord({
-                    "banner":ztag_telnet
-                }, category="2323/Telnet")
+                "telnet": protocol_telnet_type(category="2323/Telnet"),
             }),
             Port(21):SubRecord({
-                "ftp":SubRecord({
-                  "banner":ztag_ftp,
-                }, category="21/FTP")
+                "ftp": protocol_ftp_type(category="21/FTP"),
             }),
             Port(102):SubRecord({
-                "s7":SubRecord({
-                    "szl":ztag_s7
-                }, category="102/S7")
+                "s7": protocol_s7_type(category="102/S7"),
             }),
             Port(110):SubRecord({
-                "pop3":SubRecord({
-                    "starttls":ztag_mail_starttls,
-                    #"ssl_2": ztag_sslv2, # XXX
-                }, category="110/POP3")
+                "pop3": protocol_pop3_type(category="110/POP3"),
             }),
-            Port(143):SubRecord({
-                "imap":SubRecord({
-                    "starttls":ztag_mail_starttls,
-                    #"ssl_2": ztag_sslv2, # XXX
-                }, category="143/IMAP")
+            Port(143): SubRecord({
+                "imap": protocol_imap_type(category="143/IMAP"),
             }),
             Port(445):SubRecord({
-                "smb":SubRecord({
-                    "banner":ztag_smb
-                }, category="445/SMB", validation_policy="error")
+                "smb": protocol_smb_type(category="445/SMB", validation_policy="error"),
             }),
             Port(993):SubRecord({
-                "imaps":SubRecord({
-                    "tls":ztag_mail_tls,
-                    #"ssl_2": ztag_sslv2, # XXX
-                }, category="993/IMAPS")
+                "imaps": protocol_imap_type(category="993/IMAPS"),
             }),
             Port(995):SubRecord({
-                "pop3s":SubRecord({
-                    "tls":ztag_mail_tls,
-                    #"ssl_2": ztag_sslv2, # XXX
-                }, category="995/POP3S")
+                "pop3s": protocol_pop3_type(category="995/POP3S"),
             }),
             Port(587):SubRecord({
-                "smtp":SubRecord({
-                    "starttls": ztag_smtp_starttls,
-                    #"ssl_2": ztag_sslv2,  # XXX
-                }, category="587/SMTP")
+                "smtp": protocol_smtp_type(category="587/SMTP"),
             }),
             Port(502):SubRecord({
-                "modbus":SubRecord({
-                    "device_id":ztag_modbus
-                }, category="502/Modbus")
+                "modbus": protocol_modbus_type(category="502/Modbus"),
             }),
             Port(22):SubRecord({
-                "ssh":SubRecord({
-                    "v2": ztag_ssh_v2
-                }, category="22/SSH"),
+                "ssh": protocol_ssh_type(category="22/SSH"),
             }),
             Port(53):SubRecord({
-                "dns":SubRecord({
-                    "lookup":ztag_dns_lookup
-                }, category="53/DNS")
+                "dns": protocol_dns_type(category="53/DNS"),
             }),
             Port(47808):SubRecord({
-                "bacnet":SubRecord({
-                    "device_id":ztag_bacnet
-                }, category="47808/BACNET")
+                "bacnet": protocol_bacnet_type(category="47808/BACNET"),
             }),
             Port(1911):SubRecord({
-                "fox":SubRecord({
-                    "device_id":ztag_fox
-                }, category="1911/Fox")
+                "fox": protocol_fox_type(category="1911/Fox"),
             }),
             Port(20000):SubRecord({
-                "dnp3":SubRecord({
-                    "status":ztag_dnp3,
-                }, category="20000/DNP3")
+                "dnp3": protocol_dnp3_type(category="20000/DNP3"),
             }),
             Port(7547):SubRecord({
-                "cwmp":SubRecord({
-                    "get":ztag_http,
-                }, category="7547/CWMP")
+                "cwmp": protocol_cwmp_type(category="7547/CWMP"),
             }),
             Port(1900):SubRecord({
-                "upnp":SubRecord({
-                    "discovery":ztag_upnp_discovery,
-                }, category="1900/UPnP")
+                "upnp": protocol_upnp_type(category="1900/UPnP"),
             }),
             Port(1521):SubRecord({
-                "oracle":SubRecord({
-                    "banner": ztag_oracle,
-                }, category="1521/Oracle"),
+                "oracle": protocol_oracle_type(category="1521/Oracle"),
             }),
             Port(1433):SubRecord({
-                "mssql":SubRecord({
-                    "banner": ztag_mssql,
-                }, category="1433/MSSQL"),
+                "mssql": protocol_mssql_type(category="1433/MSSQL"),
             }),
             Port(3306): SubRecord({
-                "mysql": SubRecord({
-                    "banner": ztag_mysql,
-                }, category="3306/MySQL"),
+                "mysql": protocol_mysql_type(category="3306/MySQL"),
             }),
             Port(5432): SubRecord({
-                "postgres": SubRecord({
-                    "banner": ztag_postgres,
-                }, category="5432/Postgres"),
+                "postgres": protocol_postgres_type(category="5432/Postgres"),
             }),
             "tags":ListOf(CensysString(), category="Basic Information"),
             "metadata":zdb_metadata,
@@ -1295,39 +1332,24 @@ ipv4_host = Record({
 
 website = Record({
             Port(443):SubRecord({
-                "https":SubRecord({
-                    "tls":ztag_tls,
-                    "heartbleed":ztag_heartbleed,
-                    "dhe": ztag_dh,
-                    "rsa_export": ztag_rsa_export,
-                    "dhe_export": ztag_dh_export,
-                    "tls_1_1": ztag_tls_support,
-                    "tls_1_2": ztag_tls_support,
-                    "ecdhe": ztag_ecdh,
-                }),
-                "https_www":SubRecord({
-                    "tls":ztag_tls,
+                "https": protocol_https_type(),
+                "https_www": SubRecord({
+                    "tls": probe_tls_type(),
                 })
             }, category="443/HTTPS"),
             Port(80):SubRecord({
-                "http":SubRecord({
-                    "get":ztag_http,
-                }),
-                "http_www":SubRecord({
-                    "get":ztag_http,
-                }),
+                "http": protocol_http_type(),
+                "http_www": protocol_http_type(),
             }, category="80/HTTP"),
             Port(25):SubRecord({
-                "smtp":SubRecord({
-                    "starttls": ztag_smtp_starttls,
-                })
+                "smtp": protocol_smtp_type(),
             }, category="25/SMTP"),
             Port(0):SubRecord({
                 "lookup":SubRecord({
                     "spf":ztag_lookup_spf,
                     "dmarc":ztag_lookup_dmarc,
                     "axfr":ztag_lookup_axfr,
-                })
+                }),
             }, category="Basic Information"),
 
             "tags":ListOf(CensysString(), category="Basic Information"),
@@ -1342,7 +1364,6 @@ website = Record({
             "protocols":ListOf(String(), category="Basic Information"),
             "ports":ListOf(Unsigned16BitInteger())
 })
-
 
 DROP_KEYS = {'ip_address', 'metadata', 'tags', 'timestamp'}
 
