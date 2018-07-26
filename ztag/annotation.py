@@ -220,7 +220,7 @@ class Manufacturer(object):
     FIBERCOM = "Fiberhome Telecom Tech"
     FLEXIM = "Flexim"
     FULLRATE = "FullRate"
-    HUAWEI = "Huwawei"
+    HUAWEI = "Huawei"
     HIKVISION = "Hikvision"
     HONEYWELL = "Honeywell"
     HP = "HP"
