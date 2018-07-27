@@ -239,7 +239,7 @@ zgrab_http_headers = SubRecord({
     "public_key_pins":CensysString(),
     "refresh":CensysString(),
     # Currently misindexed in IPv4 schema
-    #"referer":CensysString(),
+    "referer":CensysString(),
     "retry_after":CensysString(),
     "server":CensysString(),
     "set_cookie":CensysString(),
@@ -262,6 +262,7 @@ zgrab_http_headers = SubRecord({
     "x_ua_compatible":CensysString(),
     "x_content_duration":CensysString(),
     "x_forwarded_for":CensysString(),
+    "x_real_ip":CensysString(),
     "proxy_agent":CensysString(),
     "unknown":ListOf(zgrab_unknown_http_header)
 })
@@ -658,10 +659,13 @@ ztag_lookup_dmarc = SubRecord({
 
 ztag_lookup_axfr = SubRecord({
     "servers":ListOf(SubRecord({
+        "server":String,
+        "status":String,
         "name":FQDN(),
         "support":Boolean(),
         "error":CensysString(),
         "records":ListOf(SubRecord({
+            "class":String(),
             "name":FQDN(),
             "type":String(),
             "data":CensysString(),
@@ -1301,6 +1305,7 @@ website = Record({
                     "dhe": ztag_dh,
                     "rsa_export": ztag_rsa_export,
                     "dhe_export": ztag_dh_export,
+                    "ssl_3": ztag_tls_support,
                     "tls_1_1": ztag_tls_support,
                     "tls_1_2": ztag_tls_support,
                     "ecdhe": ztag_ecdh,
