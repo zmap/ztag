@@ -659,8 +659,8 @@ ztag_lookup_dmarc = SubRecord({
 
 ztag_lookup_axfr = SubRecord({
     "servers":ListOf(SubRecord({
-        "server":String,
-        "status":String,
+        "server":String(),
+        "status":String(),
         "name":FQDN(),
         "support":Boolean(),
         "error":CensysString(),
