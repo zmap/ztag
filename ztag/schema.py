@@ -659,7 +659,7 @@ ztag_lookup_dmarc = SubRecord({
 
 ztag_lookup_axfr = SubRecord({
     "servers":ListOf(SubRecord({
-        "server":String(),
+        "server":IPAddress(),
         "status":String(),
         "name":FQDN(),
         "support":Boolean(),
