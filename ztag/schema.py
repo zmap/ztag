@@ -1293,7 +1293,7 @@ ipv4_host = Record({
             "ipint":Unsigned32BitInteger(required=True, doc="Integer value of IP address in host order"),
             "updated_at":Timestamp(),
             "zdb_version":Unsigned32BitInteger(),
-            "protocols":ListOf(CensysString(exclude=["bigquery"]), category="Basic Information"),
+            "protocols":ListOf(String(), category="Basic Information"),
             "ports":ListOf(Unsigned16BitInteger())
 })
 
