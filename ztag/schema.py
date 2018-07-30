@@ -154,28 +154,9 @@ ztag_tls_type = SubRecordType({
 
 ztag_tls = ztag_tls_type()
 
-ztag_sslv2 = SubRecord({
-    "support": Boolean(),
-    "extra_clear": Boolean(),
-    "export": Boolean(),
-    "certificate": zgrab_certificate,
-    "ciphers": ListOf(SubRecord({
-        "name": String(),
-        "id": Unsigned32BitInteger(),
-    })),
-    "metadata": local_metadata,
-    "timestamp":Timestamp(),
-})
-
 ztag_heartbleed = SubRecord({
     "heartbeat_enabled":Boolean(),
     "heartbleed_vulnerable":Boolean(),
-    "metadata":local_metadata,
-    "timestamp":Timestamp(),
-})
-
-ztag_extended_random = SubRecord({
-    "extended_random_support": Boolean(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
 })
@@ -238,7 +219,6 @@ zgrab_http_headers = SubRecord({
     "proxy_authenticate":CensysString(),
     "public_key_pins":CensysString(),
     "refresh":CensysString(),
-    # Currently misindexed in IPv4 schema
     "referer":CensysString(),
     "retry_after":CensysString(),
     "server":CensysString(),
@@ -355,7 +335,7 @@ ztag_ssh_v2 = SubRecord({
                 "valid_before": Timestamp(doc="Timestamp of when certificate expires. Timezone is UTC."),
                 "length": Signed64BitInteger(),
             }),
-            # "reserved": Binary(),
+            "reserved": Binary(),
             "signature_key": SubRecord({
                 "key_algorithm": zgrab2_ssh.KeyAlgorithm(),
                 "fingerprint_sha256": HexString(),
@@ -537,14 +517,14 @@ ztag_smb = SubRecord({
 })
 
 ztag_upnp_discovery = SubRecord({
-    "usn": String(),
-    "agent": String(),
-    "st": String(),
-    "ext": String(),
-    "location": String(),
-    "server": String(),
-    "cache_control": String(),
-    "x_user_agent": String(),
+    "usn": CensysString(),
+    "agent": CensysString(),
+    "st": CensysString(),
+    "ext": CensysString(),
+    "location": CensysString(),
+    "server": CensysString(),
+    "cache_control": CensysString(),
+    "x_user_agent": CensysString(),
     "metadata": local_metadata,
 })
 
@@ -620,13 +600,11 @@ ztag_schemas = [
     ("ztag_dh_export", ztag_dh_export),
     ("ztag_rsa_export", ztag_rsa_export),
     ("ztag_ecdh", ztag_ecdh),
-    ("ztag_sslv2", ztag_sslv2),
     ("ztag_sslv3", ztag_tls_support),
     ("ztag_tls1", ztag_tls_support),
     ("ztag_tls2", ztag_tls_support),
     ("ztag_tls3", ztag_tls_support),
     ("ztag_modbus", ztag_modbus),
-    ("ztag_extended_random", ztag_extended_random),
     ("ztag_ssh_v2", ztag_ssh_v2),
     ("ztag_dns_lookup", ztag_dns_lookup),
     ("ztag_bacnet", ztag_bacnet),
@@ -807,26 +785,26 @@ CertificateAudit = SubRecord({
         "certificate_name":CensysString(),
         "certificate_policy":CensysString(),
         "certification_practice_statement":CensysString(),
-        "cp_same_as_parent":CensysString(), # TODO: Boolean
-        "audit_same_as_parent":CensysString(), # TODO: Boolean
+        "cp_same_as_parent":Boolean(),
+        "audit_same_as_parent":Boolean(),
         "standard_audit":CensysString(),
         "br_audit":CensysString(),
         "auditor":CensysString(),
         "standard_audit_statement_timestamp":Timestamp(),
         "management_assertions_by":CensysString(),
         "comments":EnglishString(es_include_raw=True),
-        #"ev_policy_oids":CensysString(), # TODO
-        #"approval_bug":CensysString(), # TODO
-        #"first_nss_release":CensysString(), # TODO
-        #"first_firefox_release":CensysString(), # TODO
-        #"ev_audit":CensysString(),
+        "ev_policy_oids":CensysString(),
+        "approval_bug":CensysString(),
+        "first_nss_release":CensysString(),
+        "first_firefox_release":CensysString(),
+        "ev_audit":CensysString(),
         "current_in_roots":Boolean(),
         "was_in_roots":Boolean(),
-        #"test_website_valid":CensysString(), # TODO
-        #"mozilla_applied_constraints":CensysString(), #TODO
-        #"company_website":CensysString(), # TODO
-        #"geographic_focus":CensysString(), # TODO
-        #"standard_audit_type":CensysString(), # TODO
+        "test_website_valid":CensysString(),
+        "mozilla_applied_constraints":CensysString(),
+        "company_website":CensysString(),
+        "geographic_focus":CensysString(),
+        "standard_audit_type":CensysString(),
      }, category="CCADB Audit")
 })
 
@@ -1151,13 +1129,10 @@ ipv4_host = Record({
                     "dhe": ztag_dh,
                     "rsa_export": ztag_rsa_export,
                     "dhe_export": ztag_dh_export,
-                    #"ssl_2": ztag_sslv2, # XXX
                     "ssl_3": ztag_tls_support,
                     "tls_1_1": ztag_tls_support,
                     "tls_1_2": ztag_tls_support,
-                    #"tls_1_3": ztag_tls_support,
                     "ecdhe": ztag_ecdh,
-                    #"extended_random":ztag_extended_random,
                 }, category="443/HTTPS")
             }),
             Port(80):SubRecord({
@@ -1178,7 +1153,6 @@ ipv4_host = Record({
             Port(25):SubRecord({
                 "smtp":SubRecord({
                     "starttls": ztag_smtp_starttls,
-                    #"ssl_2": ztag_sslv2, # XXX
                 }, category="25/SMTP"),
             }),
             Port(23):SubRecord({
@@ -1204,13 +1178,11 @@ ipv4_host = Record({
             Port(110):SubRecord({
                 "pop3":SubRecord({
                     "starttls":ztag_mail_starttls,
-                    #"ssl_2": ztag_sslv2, # XXX
                 }, category="110/POP3")
             }),
             Port(143):SubRecord({
                 "imap":SubRecord({
                     "starttls":ztag_mail_starttls,
-                    #"ssl_2": ztag_sslv2, # XXX
                 }, category="143/IMAP")
             }),
             Port(445):SubRecord({
@@ -1221,19 +1193,16 @@ ipv4_host = Record({
             Port(993):SubRecord({
                 "imaps":SubRecord({
                     "tls":ztag_mail_tls,
-                    #"ssl_2": ztag_sslv2, # XXX
                 }, category="993/IMAPS")
             }),
             Port(995):SubRecord({
                 "pop3s":SubRecord({
                     "tls":ztag_mail_tls,
-                    #"ssl_2": ztag_sslv2, # XXX
                 }, category="995/POP3S")
             }),
             Port(587):SubRecord({
                 "smtp":SubRecord({
                     "starttls": ztag_smtp_starttls,
-                    #"ssl_2": ztag_sslv2,  # XXX
                 }, category="587/SMTP")
             }),
             Port(502):SubRecord({
