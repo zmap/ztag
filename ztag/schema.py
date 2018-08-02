@@ -647,7 +647,8 @@ ztag_lookup_axfr = SubRecord({
             "name":FQDN(),
             "type":String(),
             "data":CensysString(),
-            "ttl":Unsigned32BitInteger()
+            "ttl":Unsigned32BitInteger(),
+            "expire":Unsigned32BitInteger(),
         })),
     })),
     "truncated":Boolean(),
