@@ -649,7 +649,7 @@ ztag_lookup_axfr = SubRecord({
             "data":CensysString(),
             "ttl":Unsigned32BitInteger(),
             "mbox":FQDN(),
-            "serial":Usnigned32BitInteger(),
+            "serial":Unsigned32BitInteger(),
             "refresh":Signed32BitInteger(),
             "retry":Signed32BitInteger(),
             "expire":Signed32BitInteger(),
