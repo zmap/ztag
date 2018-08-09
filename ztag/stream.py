@@ -195,10 +195,13 @@ class Pubsub(Outgoing):
     def __init__(self, logger=None, destination=None, *args, **kwargs):
         import google
         from google.cloud import pubsub
-        self.topic_url = os.environ.get('PUBSUB_DATA_TOPIC_URL')
+        if destination == "full_ipv4":
+            self.topic_url = os.environ.get('PUBSUB_IPV4_TOPIC_URL')
+        elif destination == "alexa_top1mil":
+            self.topic_url = os.environ.get('PUBSUB_ALEXA_TOPIC_URL')
         self.cert_topic_url = os.environ.get('PUBSUB_CERT_TOPIC_URL')
         if not self.topic_url:
-            raise Exception('missing $PUBSUB_DATA_TOPIC_URL')
+            raise Exception('missing $PUBSUB_[IPV4|ALEXA]_TOPIC_URL')
         if not self.cert_topic_url:
             raise Exception('missing $PUBSUB_CERT_TOPIC_URL')
         self.publisher = pubsub.PublisherClient()
