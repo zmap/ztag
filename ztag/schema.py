@@ -670,8 +670,6 @@ CTServerStatus = SubRecord({
 
 
 CTStatus = SubRecord({
-    "censys":CTServerStatus,
-    "censys_dev":CTServerStatus,
     "google_aviator":CTServerStatus,
     "google_pilot":CTServerStatus,
     "google_rocketeer":CTServerStatus,
