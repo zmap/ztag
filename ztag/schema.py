@@ -55,7 +55,7 @@ _zcrypto_parsed_cert = zcrypto.ParsedCertificate()
 
 zgrab_certificate = SubRecord({
     "parsed": SubRecord({
-        "__expanded_names": ListOf(WhitespaceAnalyzedString()),
+        "__expanded_names": ListOf(String()),
     }, extends=_zcrypto_parsed_cert),
     "validation":SubRecord({
         "nss":zgrab_certificate_trust.new(category="NSS (Firefox) Validation"),
@@ -1056,8 +1056,12 @@ ZLint = SubRecord({
     "lints":Lints,
 })
 
+
+
 certificate = Record({
-    "parsed": zcrypto.ParsedCertificate(),
+    "parsed": SubRecord({
+        "__expanded_names": ListOf(String()),
+    }, extends=zcrypto.ParsedCertificate()),
     "raw":Binary(),
     "fingerprint_sha256":HexString(),
     "tags":ListOf(WhitespaceAnalyzedString()),
