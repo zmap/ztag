@@ -1088,7 +1088,8 @@ certificate = Record({
         #"google_ct_submariner":ztag_certificate_validation,
     }),
     "ct":CTStatus.new(category="Certificate Transparency Logs"),
-    "audit":CertificateAudit,
+    # TODO: 2018/08/14 -- ccadb data is not being loaded, so hold off on creating this schema.
+    # "audit":CertificateAudit,
     "zlint":ZLint.new(category="ZLint"),
     "precert":Boolean(category="Misc")
 })
