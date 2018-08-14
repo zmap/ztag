@@ -311,7 +311,7 @@ ztag_ssh_v2 = SubRecord({
                 "signature_algorithm": SubRecord({
                     "name": zgrab2_ssh.KeyAlgorithm(),
                 }),
-                "value": IndexedBinary(),
+                "value": Binary(),
             }),
             "parse_error": String(),
             # Flattens known/unknown
