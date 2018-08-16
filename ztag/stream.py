@@ -194,7 +194,7 @@ class Pubsub(Outgoing):
 
     def __init__(self, logger=None, destination=None, *args, **kwargs):
         import google
-        from google.cloud import pubsub
+        from google.cloud import pubsub, pubsub_v1
         if destination == "full_ipv4":
             self.topic_url = os.environ.get('PUBSUB_IPV4_TOPIC_URL')
         elif destination == "alexa_top1mil":
@@ -204,19 +204,27 @@ class Pubsub(Outgoing):
             raise Exception('missing $PUBSUB_[IPV4|ALEXA]_TOPIC_URL')
         if not self.cert_topic_url:
             raise Exception('missing $PUBSUB_CERT_TOPIC_URL')
-        self.publisher = pubsub.PublisherClient()
+        batch_settings = pubsub_v1.types.BatchSettings(
+            # "The entire request including one or more messages must
+            #  be smaller than 10MB, after decoding.""
+            max_bytes=8192000,  # 8 MB
+            max_latency=15,  # 15 seconds
+        )
+        self.publisher = pubsub.PublisherClient(batch_settings)
         try:
             self.publisher.get_topic(self.topic_url)
             self.publisher.get_topic(self.cert_topic_url)
         except google.api_core.exceptions.GoogleAPICallError as e:
             logger.error(e.message)
             raise
+        self.last_publish_future = None
 
     def take(self, pbout):
         for certificate in pbout.certificates:
             self.publisher.publish(self.cert_topic_url, certificate)
-        self.publisher.publish(self.topic_url, pbout.transformed)
+        self.last_publish_future = self.publisher.publish(self.topic_url,
+                                                          pbout.transformed)
 
     def cleanup(self):
-        # Not needed
-        pass
+        if self.last_publish_future:
+            self.last_publish_future.result()
