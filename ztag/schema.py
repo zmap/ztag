@@ -798,7 +798,7 @@ ztag_certificate_validation = SubRecord({
     "whitelisted":Boolean(doc="True if the certificate is explicitly whitelisted, "
                               "e.g. the set of trusted WoSign certificates Apple uses."),
     "type":Enum(["leaf","intermediate","root","unknown"], doc="Indicates if the certificate is a root, intermediate, or leaf."),
-    "paths":NestedListOf(HexString(), "path"),
+    "paths":NestedListOf(HexString(), "path", validation_policy="ignore"),
     "in_revocation_set":Boolean(doc="True if the certificate is in the revocation set (e.g. OneCRL) associated with this root store."),
     "parents":ListOf(HexString()),
 })
