@@ -206,9 +206,9 @@ class Pubsub(Outgoing):
             raise Exception('missing $PUBSUB_CERT_TOPIC_URL')
         batch_settings = pubsub_v1.types.BatchSettings(
             # "The entire request including one or more messages must
-            #  be smaller than 10MB, after decoding.""
+            #  be smaller than 10MB, after decoding."
             max_bytes=8192000,  # 8 MB
-            max_latency=15,  # 15 seconds
+            max_latency=15,     # 15 seconds
         )
         self.publisher = pubsub.PublisherClient(batch_settings)
         try:
