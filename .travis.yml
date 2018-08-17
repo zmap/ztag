@@ -4,11 +4,10 @@ language: python
 
 python:
   - "2.7"
-  - "pypy-5.4.1"
 
 install:
   - pip install -r dev-requirements.txt
-  - pip install zschema
+  - pip install zschema==0.10.1
 
 script:
   - nosetests ztag
