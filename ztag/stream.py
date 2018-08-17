@@ -192,9 +192,11 @@ class Kafka(Outgoing):
 
 class Pubsub(Outgoing):
 
+    MAX_ATTEMPTS = 5
+
     def __init__(self, logger=None, destination=None, *args, **kwargs):
         import google
-        from google.cloud import pubsub
+        from google.cloud import pubsub, pubsub_v1
         if destination == "full_ipv4":
             self.topic_url = os.environ.get('PUBSUB_IPV4_TOPIC_URL')
         elif destination == "alexa_top1mil":
@@ -204,19 +206,49 @@ class Pubsub(Outgoing):
             raise Exception('missing $PUBSUB_[IPV4|ALEXA]_TOPIC_URL')
         if not self.cert_topic_url:
             raise Exception('missing $PUBSUB_CERT_TOPIC_URL')
-        self.publisher = pubsub.PublisherClient()
+        batch_settings = pubsub_v1.types.BatchSettings(
+            # "The entire request including one or more messages must
+            #  be smaller than 10MB, after decoding."
+            max_bytes=8192000,  # 8 MB
+            max_latency=15,     # 15 seconds
+        )
+        self.publisher = pubsub.PublisherClient(batch_settings)
         try:
             self.publisher.get_topic(self.topic_url)
             self.publisher.get_topic(self.cert_topic_url)
         except google.api_core.exceptions.GoogleAPICallError as e:
             logger.error(e.message)
             raise
+        self.last_publish_future = None
+
+    def _make_done_callback(self, topic, data, attempt, done):
+        def done_callback(future):
+            exception = future.exception()
+            if not exception:
+                done.set_result(True)
+                return
+            if attempt >= self.MAX_ATTEMPTS:
+                done.set_exception(exception)
+                raise exception
+            f = self.publisher.publish(topic, data)
+            cb = self._make_done_callback(topic, data, attempt + 1, done)
+            f.add_done_callback(cb)
+        return done_callback
+
+    def _publish_with_callback(topic, data):
+        from concurrent.futures import Future
+        f = Future()
+        cb = self._make_done_callback(topic, data, 0, done=f)
+        publish_future = self.publisher.publish(topic, data)
+        publish_future.add_done_callback(cb)
+        return f
 
     def take(self, pbout):
         for certificate in pbout.certificates:
-            self.publisher.publish(self.cert_topic_url, certificate)
-        self.publisher.publish(self.topic_url, pbout.transformed)
+            self._publish_with_callback(self.cert_topic_url, certificate)
+        self.last_publish_future = self._publish_with_callback(
+                self.topic_url, pbout.transformed)
 
     def cleanup(self):
-        # Not needed
-        pass
+        if self.last_publish_future:
+            self.last_publish_future.result()
