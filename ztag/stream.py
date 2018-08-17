@@ -235,7 +235,7 @@ class Pubsub(Outgoing):
             f.add_done_callback(cb)
         return done_callback
 
-    def _publish_with_callback(topic, data):
+    def _publish_with_callback(self, topic, data):
         from concurrent.futures import Future
         f = Future()
         cb = self._make_done_callback(topic, data, 0, done=f)
