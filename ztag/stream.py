@@ -192,6 +192,8 @@ class Kafka(Outgoing):
 
 class Pubsub(Outgoing):
 
+    MAX_ATTEMPTS = 5
+
     def __init__(self, logger=None, destination=None, *args, **kwargs):
         import google
         from google.cloud import pubsub, pubsub_v1
@@ -219,11 +221,33 @@ class Pubsub(Outgoing):
             raise
         self.last_publish_future = None
 
+    def _make_done_callback(self, topic, data, attempt, done):
+        def done_callback(future):
+            exception = future.exception()
+            if not exception:
+                done.set_result(True)
+                return
+            if attempt >= self.MAX_ATTEMPTS:
+                done.set_exception(exception)
+                raise exception
+            f = self.publisher.publish(topic, data)
+            cb = self._make_done_callback(topic, data, attempt + 1, done)
+            f.add_done_callback(cb)
+        return done_callback
+
+    def _publish_with_callback(topic, data):
+        from concurrent.futures import Future
+        f = Future()
+        cb = self._make_done_callback(topic, data, 0, done=f)
+        publish_future = self.publisher.publish(topic, data)
+        publish_future.add_done_callback(cb)
+        return f
+
     def take(self, pbout):
         for certificate in pbout.certificates:
-            self.publisher.publish(self.cert_topic_url, certificate)
-        self.last_publish_future = self.publisher.publish(self.topic_url,
-                                                          pbout.transformed)
+            self._publish_with_callback(self.cert_topic_url, certificate)
+        self.last_publish_future = self._publish_with_callback(
+                self.topic_url, pbout.transformed)
 
     def cleanup(self):
         if self.last_publish_future:
