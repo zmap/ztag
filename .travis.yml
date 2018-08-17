@@ -7,7 +7,7 @@ python:
 
 install:
   - pip install -r dev-requirements.txt
-  - pip install zschema
+  - pip install zschema==0.10.1
 
 script:
   - nosetests ztag
