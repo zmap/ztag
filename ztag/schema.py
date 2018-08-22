@@ -629,6 +629,7 @@ ztag_lookup_axfr = SubRecord({
             "tag":String(),
             "type":String(),
             "ttl":Unsigned32BitInteger(),
+            "value":String(),
         })),
     })),
     "truncated":Boolean(),
