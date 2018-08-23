@@ -25,7 +25,7 @@ setup(
       "python-dateutil>=2.6.0",
       "zsearch_definitions>=0.1.26,<0.2",
   ],
-  extras_requires = {
+  extras_require = {
       "redis": [
           "redis",
       ],
