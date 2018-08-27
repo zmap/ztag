@@ -532,6 +532,31 @@ ztag_mysql = ztag_zgrab2_transformed(service="MySQL", results=SubRecord({
                              "the handshake.")
 }))
 
+ztag_mongodb = ztag_zgrab2_transformed(service="MongoDB", results=SubRecord({
+        "build_info": SubRecord({
+            "version": String(doc="Version of mongodb server"),
+            "git_version": String(doc="Git Version of mongodb server"),
+            "max_wire_version": Signed32BitInteger(),
+            "build_environment": SubRecord({
+                "dist_mod": String(),
+                "dist_arch": String(),
+                "cc": String(),
+                "cc_flags": String(),
+                "cxx": String(),
+                "cxx_flags": String(),
+                "link_flags": String(),
+                "target_arch": String(),
+                "target_os": String()})}),
+        "is_master": SubRecord({
+            "is_master": Boolean(),
+            "max_wire_version": Signed32BitInteger(),
+            "min_wire_version": Signed32BitInteger(),
+            "max_bson_object_size": Signed32BitInteger(),
+            "max_write_batch_size": Signed32BitInteger(),
+            "logical_session_timeout_minutes": Signed32BitInteger(),
+            "max_message_size_bytes": Signed32BitInteger(),
+            "read_only": Boolean()})}))
+
 ztag_postgres = ztag_zgrab2_transformed(service="PostgreSQL", results=SubRecord({
     "supported_versions": WhitespaceAnalyzedString(doc="The error string returned by the "
                                            "server in response to a "
@@ -578,6 +603,7 @@ ztag_schemas = [
     ("ztag_upnp_discovery", ztag_upnp_discovery),
     ("ztag_oracle", ztag_oracle),
     ("ztag_mssql", ztag_mssql),
+    ("ztag_mongodb", ztag_mongodb),
 ]
 for (name, schema) in ztag_schemas:
     x = Record({
@@ -1244,6 +1270,11 @@ ipv4_host = Record({
                 "mysql": SubRecord({
                     "banner": ztag_mysql,
                 }, category="3306/MySQL"),
+            }),
+            Port(27017): SubRecord({
+                "mongodb": SubRecord({
+                    "banner": ztag_mongodb ,
+                }, category="27017/MongoDB"),
             }),
             Port(5432): SubRecord({
                 "postgres": SubRecord({
