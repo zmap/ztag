@@ -23,7 +23,7 @@ setup(
   zip_safe=False,
   install_requires = [
       "python-dateutil>=2.6.0",
-      "zsearch_definitions>=0.1.26,<0.2",
+      "zsearch_definitions>=0.1.29,<0.2",
   ],
   extras_require = {
       "redis": [
