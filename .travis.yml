@@ -7,6 +7,7 @@ python:
 
 install:
   - pip install -r dev-requirements.txt
+  - pip install git+https://github.com/censys/censys-definitions#egg=zsearch&subdirectory=python
   - pip install zschema==0.10.1
 
 script:
