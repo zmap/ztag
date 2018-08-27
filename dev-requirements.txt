@@ -1,3 +1,4 @@
 -e .[schemas]
+git+https://github.com/censys/censys-definitions#egg=zsearch&subdirectory=python
 git+https://github.com/zmap/zcrypto#egg=zcrypto_schemas
 git+https://github.com/zmap/zgrab2#egg=zgrab2_schemas
