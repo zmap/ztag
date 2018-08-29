@@ -546,7 +546,9 @@ ztag_mongodb = ztag_zgrab2_transformed(service="MongoDB", results=SubRecord({
                 "cxx_flags": WhitespaceAnalyzedString(),
                 "link_flags": WhitespaceAnalyzedString(),
                 "target_arch": WhitespaceAnalyzedString(),
-                "target_os": WhitespaceAnalyzedString()})}),
+                "target_os": WhitespaceAnalyzedString()
+            })
+        }),
         "is_master": SubRecord({
             "is_master": Boolean(),
             "max_wire_version": Signed32BitInteger(),
@@ -555,7 +557,9 @@ ztag_mongodb = ztag_zgrab2_transformed(service="MongoDB", results=SubRecord({
             "max_write_batch_size": Signed32BitInteger(),
             "logical_session_timeout_minutes": Signed32BitInteger(),
             "max_message_size_bytes": Signed32BitInteger(),
-            "read_only": Boolean()})}))
+            "read_only": Boolean()
+        })
+}))
 
 ztag_postgres = ztag_zgrab2_transformed(service="PostgreSQL", results=SubRecord({
     "supported_versions": WhitespaceAnalyzedString(doc="The error string returned by the "
