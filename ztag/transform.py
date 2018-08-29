@@ -122,8 +122,11 @@ class ZMapTransform(Transform):
     incoming = None
     decoder = None
 
-    _hostname_regex = re.compile(r"researchscan[0-9]+\.eecs\.umich\.edu")
-    _ip_regex = re.compile(r"141\.212\.12[1-2]\.[0-9]+")
+    _hostname_regex = re.compile(r"researchscan[0-9]+\.eecs\.umich\.edu" +
+                                 r"|worker\-[0-9]+\.sfj\.corp\.censys\.io")
+
+    _ip_regex = re.compile(r"141\.212\.12[1-2]\.[0-9]{1,3}" +
+                           r"|198\.108\.66\.[0-9]{1,3}")
 
     def __init__(self, port=None, protocol=None, subprotocol=None,
                  scan_id=None, *args, **kwargs):
