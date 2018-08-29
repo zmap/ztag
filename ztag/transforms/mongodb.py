@@ -21,9 +21,4 @@ class MongoDBTransform(ZGrab2Transform):
 
         zout.transformed = copy.deepcopy(results)
 
-        to_clean = ["error_message"]
-        for f in to_clean:
-            if f in zout.transformed:
-                zout.transformed[f] = self.clean_banner(zout.transformed[f])
-
         return zout
