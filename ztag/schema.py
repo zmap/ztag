@@ -534,19 +534,19 @@ ztag_mysql = ztag_zgrab2_transformed(service="MySQL", results=SubRecord({
 
 ztag_mongodb = ztag_zgrab2_transformed(service="MongoDB", results=SubRecord({
         "build_info": SubRecord({
-            "version": String(doc="Version of mongodb server"),
-            "git_version": String(doc="Git Version of mongodb server"),
+            "version": WhitespaceAnalyzedString(doc="Version of mongodb server"),
+            "git_version": WhitespaceAnalyzedString(doc="Git Version of mongodb server"),
             "max_wire_version": Signed32BitInteger(),
             "build_environment": SubRecord({
-                "dist_mod": String(),
-                "dist_arch": String(),
-                "cc": String(),
-                "cc_flags": String(),
-                "cxx": String(),
-                "cxx_flags": String(),
-                "link_flags": String(),
-                "target_arch": String(),
-                "target_os": String()})}),
+                "dist_mod": WhitespaceAnalyzedString(),
+                "dist_arch": WhitespaceAnalyzedString(),
+                "cc": WhitespaceAnalyzedString(),
+                "cc_flags": WhitespaceAnalyzedString(),
+                "cxx": WhitespaceAnalyzedString(),
+                "cxx_flags": WhitespaceAnalyzedString(),
+                "link_flags": WhitespaceAnalyzedString(),
+                "target_arch": WhitespaceAnalyzedString(),
+                "target_os": WhitespaceAnalyzedString()})}),
         "is_master": SubRecord({
             "is_master": Boolean(),
             "max_wire_version": Signed32BitInteger(),
