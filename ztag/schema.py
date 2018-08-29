@@ -548,7 +548,7 @@ ztag_mongodb = ztag_zgrab2_transformed(service="MongoDB", results=SubRecord({
                 "target_arch": WhitespaceAnalyzedString(),
                 "target_os": WhitespaceAnalyzedString()
             })
-        }),
+        }, doc="Result of issuing the buildInfo command see https://docs.mongodb.com/manual/reference/command/buildInfo"),
         "is_master": SubRecord({
             "is_master": Boolean(),
             "max_wire_version": Signed32BitInteger(),
@@ -558,7 +558,7 @@ ztag_mongodb = ztag_zgrab2_transformed(service="MongoDB", results=SubRecord({
             "logical_session_timeout_minutes": Signed32BitInteger(),
             "max_message_size_bytes": Signed32BitInteger(),
             "read_only": Boolean()
-        })
+        }, doc="Result of issuing the isMaster command see https://docs.mongodb.com/manual/reference/command/isMaster")
 }))
 
 ztag_postgres = ztag_zgrab2_transformed(service="PostgreSQL", results=SubRecord({
