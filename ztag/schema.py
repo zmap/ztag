@@ -1084,7 +1084,7 @@ Lints = SubRecord({
     "w_sub_cert_sha1_expiration_too_long":LintBool(),
     "w_subject_dn_leading_whitespace":LintBool(),
     "w_subject_dn_trailing_whitespace":LintBool(),
-})
+}, validation_policy="ignore")
 
 
 ZLint = SubRecord({
