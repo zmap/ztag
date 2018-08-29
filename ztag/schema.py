@@ -1084,11 +1084,12 @@ Lints = SubRecord({
     "w_sub_cert_sha1_expiration_too_long":LintBool(),
     "w_subject_dn_leading_whitespace":LintBool(),
     "w_subject_dn_trailing_whitespace":LintBool(),
-})
+}, validation_policy="ignore")
 
 
 ZLint = SubRecord({
-    "version":Unsigned16BitInteger(),
+    # version is an int64 in the protobuf
+    "version":Unsigned16BitInteger(validation_policy="ignore"),
     "notices_present":Boolean(),
     "warnings_present":Boolean(),
     "errors_present":Boolean(),
