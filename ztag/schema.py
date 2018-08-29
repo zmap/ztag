@@ -1088,7 +1088,8 @@ Lints = SubRecord({
 
 
 ZLint = SubRecord({
-    "version":Unsigned16BitInteger(),
+    # version is an int64 in the protobuf
+    "version":Unsigned16BitInteger(validation_policy="ignore"),
     "notices_present":Boolean(),
     "warnings_present":Boolean(),
     "errors_present":Boolean(),
