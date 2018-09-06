@@ -11,46 +11,9 @@ import zgrab2_schemas.zgrab2.mssql as zgrab2_mssql
 import zgrab2_schemas.zgrab2.oracle as zgrab2_oracle
 import zgrab2_schemas.zgrab2.ssh as zgrab2_ssh
 
-class CensysString(WhitespaceAnalyzedString):
-    "default type for any strings in Censys"
-    ES_INCLUDE_RAW = True
-
-
-def remove_strings(schema):
-    out = _remove_strings(schema)
-    return out
-
-
-def _recurse_object(v):
-    # Attempt to retain attributes (required/doc/etc)
-    from copy import deepcopy
-
-    if type(v) == zschema.leaves.String:
-        # TODO; Find the right way to copy over all of v's attributes but just
-        # change its type to a CensysString()
-        return CensysString()
-    elif isinstance(v, ListOf):
-        out = deepcopy(v)
-        out.object_ =_recurse_object(v.object_)
-        return out
-    elif isinstance(v, SubRecord):
-        return _remove_strings(v)
-    return v
-
-
-def _remove_strings(schema):
-    if not isinstance(schema, SubRecord):
-        return schema
-    out = schema.new()
-    for k, v in schema.definition.iteritems():
-        out.definition[k] = _recurse_object(v)
-    return out
-
-
-
 __local_metadata = {}
 for key in Annotation.LOCAL_METADATA_KEYS:
-    __local_metadata[key] = CensysString()
+    __local_metadata[key] = WhitespaceAnalyzedString()
 local_metadata = SubRecord(__local_metadata)
 
 ztag_dh_export = SubRecord({
@@ -92,7 +55,7 @@ _zcrypto_parsed_cert = zcrypto.ParsedCertificate()
 
 zgrab_certificate = SubRecord({
     "parsed": SubRecord({
-        "__expanded_names": ListOf(CensysString()),
+        "__expanded_names": ListOf(String()),
     }, extends=_zcrypto_parsed_cert),
     "validation":SubRecord({
         "nss":zgrab_certificate_trust.new(category="NSS (Firefox) Validation"),
@@ -107,7 +70,7 @@ zgrab_certificate = SubRecord({
 zgrab_server_certificate_valid = SubRecord({
     "complete_chain":Boolean(doc="does server provide a chain up to a root"),
     "valid":Boolean(doc="is this certificate currently valid in this browser"),
-    "error":CensysString()
+    "error":WhitespaceAnalyzedString()
 })
 
 ztag_tls_type = SubRecordType({
@@ -116,7 +79,7 @@ ztag_tls_type = SubRecordType({
     # cipher_suite = { id: server_hello.cipher_suite.hex, name: server_hello.cipher_suite.name }
     "cipher_suite": SubRecord({
         "id": String(doc="The hexadecimal string representation of the numeric cipher algorithm identifier."),
-        "name": CensysString(
+        "name": WhitespaceAnalyzedString(
             doc="The algorithm identifier for the cipher algorithm identifier, see e.g. https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml.",
             examples=["unknown", "TLS_RSA_WITH_RC4_128_MD5", "TLS_KRB5_WITH_3DES_EDE_CBC_SHA", "TLS_ECDHE_PSK_WITH_AES_128_GCM_SHA256"],
         ),
@@ -142,7 +105,7 @@ ztag_tls_type = SubRecordType({
         # ... = signature.valid
         "valid": Boolean(),
         # ... = signature.signature_error
-        "signature_error": CensysString(),
+        "signature_error": WhitespaceAnalyzedString(),
         # ... = signature.signature_and_hash_type.signature_algorithm
         "signature_algorithm": String(),
         # ... = signature.signature_and_hash_type.hash_algorithm
@@ -154,19 +117,6 @@ ztag_tls_type = SubRecordType({
 
 ztag_tls = ztag_tls_type()
 
-ztag_sslv2 = SubRecord({
-    "support": Boolean(),
-    "extra_clear": Boolean(),
-    "export": Boolean(),
-    "certificate": zgrab_certificate,
-    "ciphers": ListOf(SubRecord({
-        "name": String(),
-        "id": Unsigned32BitInteger(),
-    })),
-    "metadata": local_metadata,
-    "timestamp":Timestamp(),
-})
-
 ztag_heartbleed = SubRecord({
     "heartbeat_enabled":Boolean(),
     "heartbleed_vulnerable":Boolean(),
@@ -174,24 +124,18 @@ ztag_heartbleed = SubRecord({
     "timestamp":Timestamp(),
 })
 
-ztag_extended_random = SubRecord({
-    "extended_random_support": Boolean(),
-    "metadata":local_metadata,
-    "timestamp":Timestamp(),
-})
-
 ztag_smtp_starttls = SubRecord({
-    "banner": CensysString(),
-    "ehlo": CensysString(),
-    "starttls": CensysString(),
+    "banner": WhitespaceAnalyzedString(),
+    "ehlo": WhitespaceAnalyzedString(),
+    "starttls": WhitespaceAnalyzedString(),
     "tls": ztag_tls,
     "metadata":local_metadata,
     "timestamp":Timestamp(),
 })
 
 ztag_mail_starttls = SubRecord({
-    "banner": CensysString(),
-    "starttls": CensysString(),
+    "banner": WhitespaceAnalyzedString(),
+    "starttls": WhitespaceAnalyzedString(),
     "tls": ztag_tls,
     "metadata": local_metadata,
     "timestamp":Timestamp(),
@@ -199,81 +143,80 @@ ztag_mail_starttls = SubRecord({
 
 ztag_mail_tls = SubRecord({
     "tls":ztag_tls,
-    "banner": CensysString(),
+    "banner": WhitespaceAnalyzedString(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
 })
 
 zgrab_unknown_http_header = SubRecord({
     "key":String(),
-    "value":CensysString()
+    "value":WhitespaceAnalyzedString()
 })
 
 zgrab_http_headers = SubRecord({
-    "access_control_allow_origin":CensysString(),
-    "accept_patch":CensysString(),
-    "accept_ranges":CensysString(),
-    "age":CensysString(),
-    "allow":CensysString(),
-    "alt_svc":CensysString(),
-    "alternate_protocol":CensysString(),
-    "cache_control":CensysString(),
-    "connection":CensysString(),
-    "content_disposition":CensysString(),
-    "content_encoding":CensysString(),
-    "content_language":CensysString(),
-    "content_length":CensysString(),
-    "content_location":CensysString(),
-    "content_md5":CensysString(),
-    "content_range":CensysString(),
-    "content_type":CensysString(),
-    "date":CensysString(),
-    "etag":CensysString(),
-    "expires":CensysString(),
-    "last_modified":CensysString(),
-    "link":CensysString(),
-    "location":CensysString(),
-    "p3p":CensysString(),
-    "pragma":CensysString(),
-    "proxy_authenticate":CensysString(),
-    "public_key_pins":CensysString(),
-    "refresh":CensysString(),
-    # Currently misindexed in IPv4 schema
-    "referer":CensysString(),
-    "retry_after":CensysString(),
-    "server":CensysString(),
-    "set_cookie":CensysString(),
-    "status":CensysString(),
-    "strict_transport_security":CensysString(),
-    "trailer":CensysString(),
-    "transfer_encoding":CensysString(),
-    "upgrade":CensysString(),
-    "vary":CensysString(),
-    "via":CensysString(),
-    "warning":CensysString(),
-    "www_authenticate":CensysString(),
-    "x_frame_options":CensysString(),
-    "x_xss_protection":CensysString(),
-    "content_security_policy":CensysString(),
-    "x_content_security_policy":CensysString(),
-    "x_webkit_csp":CensysString(),
-    "x_content_type_options":CensysString(),
-    "x_powered_by":CensysString(),
-    "x_ua_compatible":CensysString(),
-    "x_content_duration":CensysString(),
-    "x_forwarded_for":CensysString(),
-    "x_real_ip":CensysString(),
-    "proxy_agent":CensysString(),
+    "access_control_allow_origin":WhitespaceAnalyzedString(),
+    "accept_patch":WhitespaceAnalyzedString(),
+    "accept_ranges":WhitespaceAnalyzedString(),
+    "age":WhitespaceAnalyzedString(),
+    "allow":WhitespaceAnalyzedString(),
+    "alt_svc":WhitespaceAnalyzedString(),
+    "alternate_protocol":WhitespaceAnalyzedString(),
+    "cache_control":WhitespaceAnalyzedString(),
+    "connection":WhitespaceAnalyzedString(),
+    "content_disposition":WhitespaceAnalyzedString(),
+    "content_encoding":WhitespaceAnalyzedString(),
+    "content_language":WhitespaceAnalyzedString(),
+    "content_length":WhitespaceAnalyzedString(),
+    "content_location":WhitespaceAnalyzedString(),
+    "content_md5":WhitespaceAnalyzedString(),
+    "content_range":WhitespaceAnalyzedString(),
+    "content_type":WhitespaceAnalyzedString(),
+    "date":WhitespaceAnalyzedString(),
+    "etag":WhitespaceAnalyzedString(),
+    "expires":WhitespaceAnalyzedString(),
+    "last_modified":WhitespaceAnalyzedString(),
+    "link":WhitespaceAnalyzedString(),
+    "location":WhitespaceAnalyzedString(),
+    "p3p":WhitespaceAnalyzedString(),
+    "pragma":WhitespaceAnalyzedString(),
+    "proxy_authenticate":WhitespaceAnalyzedString(),
+    "public_key_pins":WhitespaceAnalyzedString(),
+    "refresh":WhitespaceAnalyzedString(),
+    "referer":WhitespaceAnalyzedString(),
+    "retry_after":WhitespaceAnalyzedString(),
+    "server":WhitespaceAnalyzedString(),
+    "set_cookie":WhitespaceAnalyzedString(),
+    "status":WhitespaceAnalyzedString(),
+    "strict_transport_security":WhitespaceAnalyzedString(),
+    "trailer":WhitespaceAnalyzedString(),
+    "transfer_encoding":WhitespaceAnalyzedString(),
+    "upgrade":WhitespaceAnalyzedString(),
+    "vary":WhitespaceAnalyzedString(),
+    "via":WhitespaceAnalyzedString(),
+    "warning":WhitespaceAnalyzedString(),
+    "www_authenticate":WhitespaceAnalyzedString(),
+    "x_frame_options":WhitespaceAnalyzedString(),
+    "x_xss_protection":WhitespaceAnalyzedString(),
+    "content_security_policy":WhitespaceAnalyzedString(),
+    "x_content_security_policy":WhitespaceAnalyzedString(),
+    "x_webkit_csp":WhitespaceAnalyzedString(),
+    "x_content_type_options":WhitespaceAnalyzedString(),
+    "x_powered_by":WhitespaceAnalyzedString(),
+    "x_ua_compatible":WhitespaceAnalyzedString(),
+    "x_content_duration":WhitespaceAnalyzedString(),
+    "x_forwarded_for":WhitespaceAnalyzedString(),
+    "x_real_ip":WhitespaceAnalyzedString(),
+    "proxy_agent":WhitespaceAnalyzedString(),
     "unknown":ListOf(zgrab_unknown_http_header)
 })
 
 ztag_http = SubRecord({
     "status_code":Unsigned16BitInteger(),
-    "status_line":CensysString(),
+    "status_line":WhitespaceAnalyzedString(),
     "body":HTML(),
     "headers":zgrab_http_headers,
     "body_sha256":HexString(validation_policy="warn"),
-    "title":CensysString(),
+    "title":WhitespaceAnalyzedString(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
 })
@@ -286,14 +229,14 @@ golang_crypto_param = SubRecord({
 #ztag_open_proxy = SubRecord({
 #    "connect":SubRecord({
 #      "status_code":Integer(),
-#      "status_line":CensysString(),
-#      "body":CensysString(),
+#      "status_line":WhitespaceAnalyzedString(),
+#      "body":WhitespaceAnalyzedString(),
 #      "headers":zgrab_http_headers
 #    }),
 #    "get":SubRecord({
 #      "status_code":Integer(),
-#      "status_line":CensysString(),
-#      "body":CensysString(),
+#      "status_line":WhitespaceAnalyzedString(),
+#      "body":WhitespaceAnalyzedString(),
 #      "headers":zgrab_http_headers,
 #      "random_present":Boolean(),
 #      "body_sha256":HexString()
@@ -355,7 +298,7 @@ ztag_ssh_v2 = SubRecord({
                 "valid_before": Timestamp(doc="Timestamp of when certificate expires. Timezone is UTC."),
                 "length": Signed64BitInteger(),
             }),
-            # "reserved": Binary(),
+            "reserved": Binary(),
             "signature_key": SubRecord({
                 "key_algorithm": zgrab2_ssh.KeyAlgorithm(),
                 "fingerprint_sha256": HexString(),
@@ -368,7 +311,7 @@ ztag_ssh_v2 = SubRecord({
                 "signature_algorithm": SubRecord({
                     "name": zgrab2_ssh.KeyAlgorithm(),
                 }),
-                "value": IndexedBinary(),
+                "value": Binary(),
             }),
             "parse_error": String(),
             # Flattens known/unknown
@@ -391,7 +334,7 @@ ztag_ssh_v2 = SubRecord({
 })
 
 ztag_ftp = SubRecord({
-    "banner":CensysString(),
+    "banner":WhitespaceAnalyzedString(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
 })
@@ -403,7 +346,7 @@ telnet_caps_list = ListOf(SubRecord({
 
 ztag_telnet = SubRecord({
     "support":Boolean(),
-    "banner":CensysString(),
+    "banner":WhitespaceAnalyzedString(),
     "will":telnet_caps_list,
     "wont":telnet_caps_list,
     "do":telnet_caps_list,
@@ -418,13 +361,13 @@ ztag_modbus = SubRecord({
     "mei_response":SubRecord({
       "conformity_level":Signed32BitInteger(),
       "objects":SubRecord({
-        "vendor":CensysString(),
-        "product_code":CensysString(),
-        "revision":CensysString(),
+        "vendor":WhitespaceAnalyzedString(),
+        "product_code":WhitespaceAnalyzedString(),
+        "revision":WhitespaceAnalyzedString(),
         "vendor_url":URL(),
-        "product_name":CensysString(),
-        "model_name":CensysString(),
-        "user_application_name":CensysString(),
+        "product_name":WhitespaceAnalyzedString(),
+        "model_name":WhitespaceAnalyzedString(),
+        "user_application_name":WhitespaceAnalyzedString(),
       })
     }),
     "metadata":local_metadata,
@@ -436,15 +379,15 @@ ztag_bacnet = SubRecord({
     "instance_number": Signed32BitInteger(),
     "vendor": SubRecord({
         "id": Signed32BitInteger(),
-        "reported_name":CensysString(),
-        "official_name":CensysString(),
+        "reported_name":WhitespaceAnalyzedString(),
+        "official_name":WhitespaceAnalyzedString(),
     }),
     "firmware_revision": String(),
     "application_software_revision":String(),
-    "object_name":CensysString(),
-    "model_name":CensysString(),
-    "description":CensysString(),
-    "location":CensysString(),
+    "object_name":WhitespaceAnalyzedString(),
+    "model_name":WhitespaceAnalyzedString(),
+    "description":WhitespaceAnalyzedString(),
+    "location":WhitespaceAnalyzedString(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
 })
@@ -457,7 +400,7 @@ ztag_dns_question = SubRecord({
 
 ztag_dns_answer = SubRecord({
     "name":String(),
-    "response":CensysString(),
+    "response":WhitespaceAnalyzedString(),
     "type":String()
 })
 
@@ -482,23 +425,23 @@ ztag_tls_support = SubRecord({
 
 ztag_fox = SubRecord({
     "support":Boolean(),
-    "version":CensysString(),
+    "version":WhitespaceAnalyzedString(),
     "id":Signed32BitInteger(),
-    "hostname":CensysString(),
-    "host_address":CensysString(),
-    "app_name":CensysString(),
-    "app_version":CensysString(),
-    "vm_name":CensysString(),
-    "vm_version":CensysString(),
-    "os_name":CensysString(),
-    "os_version":CensysString(),
-    "station_name":CensysString(),
-    "language":CensysString(),
-    "time_zone":CensysString(),
-    "host_id":CensysString(),
-    "vm_uuid":CensysString(),
-    "brand_id":CensysString(),
-    "sys_info":CensysString(),
+    "hostname":WhitespaceAnalyzedString(),
+    "host_address":WhitespaceAnalyzedString(),
+    "app_name":WhitespaceAnalyzedString(),
+    "app_version":WhitespaceAnalyzedString(),
+    "vm_name":WhitespaceAnalyzedString(),
+    "vm_version":WhitespaceAnalyzedString(),
+    "os_name":WhitespaceAnalyzedString(),
+    "os_version":WhitespaceAnalyzedString(),
+    "station_name":WhitespaceAnalyzedString(),
+    "language":WhitespaceAnalyzedString(),
+    "time_zone":WhitespaceAnalyzedString(),
+    "host_id":WhitespaceAnalyzedString(),
+    "vm_uuid":WhitespaceAnalyzedString(),
+    "brand_id":WhitespaceAnalyzedString(),
+    "sys_info":WhitespaceAnalyzedString(),
     "auth_agent_type":String(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
@@ -513,20 +456,20 @@ ztag_dnp3 = SubRecord({
 
 ztag_s7 = SubRecord({
     "support":Boolean(),
-    "system":CensysString(),
-    "module":CensysString(),
-    "plant_id":CensysString(),
-    "copyright":CensysString(),
-    "serial_number":CensysString(),
-    "reserved_for_os":CensysString(),
-    "module_type":CensysString(),
-    "memory_serial_number":CensysString(),
-    "cpu_profile":CensysString(),
-    "oem_id":CensysString(),
-    "location":CensysString(),
-    "module_id":CensysString(),
-    "hardware":CensysString(),
-    "firmware":CensysString(),
+    "system":WhitespaceAnalyzedString(),
+    "module":WhitespaceAnalyzedString(),
+    "plant_id":WhitespaceAnalyzedString(),
+    "copyright":WhitespaceAnalyzedString(),
+    "serial_number":WhitespaceAnalyzedString(),
+    "reserved_for_os":WhitespaceAnalyzedString(),
+    "module_type":WhitespaceAnalyzedString(),
+    "memory_serial_number":WhitespaceAnalyzedString(),
+    "cpu_profile":WhitespaceAnalyzedString(),
+    "oem_id":WhitespaceAnalyzedString(),
+    "location":WhitespaceAnalyzedString(),
+    "module_id":WhitespaceAnalyzedString(),
+    "hardware":WhitespaceAnalyzedString(),
+    "firmware":WhitespaceAnalyzedString(),
     "metadata":local_metadata,
     "timestamp":Timestamp(),
 })
@@ -537,14 +480,14 @@ ztag_smb = SubRecord({
 })
 
 ztag_upnp_discovery = SubRecord({
-    "usn": String(),
-    "agent": String(),
-    "st": String(),
-    "ext": String(),
-    "location": String(),
-    "server": String(),
-    "cache_control": String(),
-    "x_user_agent": String(),
+    "usn": WhitespaceAnalyzedString(),
+    "agent": WhitespaceAnalyzedString(),
+    "st": WhitespaceAnalyzedString(),
+    "ext": WhitespaceAnalyzedString(),
+    "location": WhitespaceAnalyzedString(),
+    "server": WhitespaceAnalyzedString(),
+    "cache_control": WhitespaceAnalyzedString(),
+    "x_user_agent": WhitespaceAnalyzedString(),
     "metadata": local_metadata,
 })
 
@@ -556,15 +499,15 @@ def ztag_zgrab2_transformed(service, results):
     return results
 
 # The oracle ztag transform is a plain copy of the "handshake" field.
-ztag_oracle = ztag_zgrab2_transformed(service="Oracle", results=zgrab2_oracle.oracle_scan_response["result"]["handshake"] | remove_strings)
+ztag_oracle = ztag_zgrab2_transformed(service="Oracle", results=zgrab2_oracle.oracle_scan_response["result"]["handshake"])
 
 ztag_oracle["tls"] = ztag_tls_type(doc="The TLS handshake with the server (if applicable).")
 
 ztag_mssql = ztag_zgrab2_transformed(service="MSSQL", results=SubRecord({
-    "version": CensysString(doc="The MSSQL version returned by the server in "
+    "version": WhitespaceAnalyzedString(doc="The MSSQL version returned by the server in "
                                 "the PRELOGIN response. Its format is "
                                 "'MAJOR.MINOR.BUILD_NUMBER'."),
-    "instance_name": CensysString(doc="The value of the INSTANCE field "
+    "instance_name": WhitespaceAnalyzedString(doc="The value of the INSTANCE field "
                                       "returned by the server in the PRELOGIN "
                                       "response."),
     "encrypt_mode": Enum(values=zgrab2_mssql.ENCRYPT_MODES,
@@ -577,29 +520,58 @@ ztag_mssql = ztag_zgrab2_transformed(service="MSSQL", results=SubRecord({
 }))
 
 ztag_mysql = ztag_zgrab2_transformed(service="MySQL", results=SubRecord({
-    "protocol_version": zgrab2.mysql.mysql_scan_response["result"]["protocol_version"] | remove_strings,
-    "server_version": zgrab2.mysql.mysql_scan_response["result"]["server_version"] | remove_strings,
-    "capability_flags": zgrab2.mysql.mysql_capability_flags | remove_strings,
-    "status_flags": zgrab2.mysql.mysql_server_status_flags | remove_strings,
-    "error_code": zgrab2.mysql.mysql_scan_response["result"]["error_code"] | remove_strings,
-    "error_id": zgrab2.mysql.mysql_scan_response["result"]["error_id"] | remove_strings,
-    "error_message": zgrab2.mysql.mysql_scan_response["result"]["error_message"] | remove_strings,
+    "protocol_version": zgrab2.mysql.mysql_scan_response["result"]["protocol_version"],
+    "server_version": zgrab2.mysql.mysql_scan_response["result"]["server_version"],
+    "capability_flags": zgrab2.mysql.mysql_capability_flags,
+    "status_flags": zgrab2.mysql.mysql_server_status_flags,
+    "error_code": zgrab2.mysql.mysql_scan_response["result"]["error_code"],
+    "error_id": zgrab2.mysql.mysql_scan_response["result"]["error_id"],
+    "error_message": zgrab2.mysql.mysql_scan_response["result"]["error_message"],
     "tls": ztag_tls_type(doc="If the server allows upgrading the "
                              "session to use TLS, this is the log of "
                              "the handshake.")
 }))
 
+ztag_mongodb = ztag_zgrab2_transformed(service="MongoDB", results=SubRecord({
+        "build_info": SubRecord({
+            "version": WhitespaceAnalyzedString(doc="Version of mongodb server"),
+            "git_version": WhitespaceAnalyzedString(doc="Git Version of mongodb server"),
+            "max_wire_version": Signed32BitInteger(),
+            "build_environment": SubRecord({
+                "dist_mod": WhitespaceAnalyzedString(),
+                "dist_arch": WhitespaceAnalyzedString(),
+                "cc": WhitespaceAnalyzedString(),
+                "cc_flags": WhitespaceAnalyzedString(),
+                "cxx": WhitespaceAnalyzedString(),
+                "cxx_flags": WhitespaceAnalyzedString(),
+                "link_flags": WhitespaceAnalyzedString(),
+                "target_arch": WhitespaceAnalyzedString(),
+                "target_os": WhitespaceAnalyzedString()
+            })
+        }, doc="Result of issuing the buildInfo command see https://docs.mongodb.com/manual/reference/command/buildInfo"),
+        "is_master": SubRecord({
+            "is_master": Boolean(),
+            "max_wire_version": Signed32BitInteger(),
+            "min_wire_version": Signed32BitInteger(),
+            "max_bson_object_size": Signed32BitInteger(),
+            "max_write_batch_size": Signed32BitInteger(),
+            "logical_session_timeout_minutes": Signed32BitInteger(),
+            "max_message_size_bytes": Signed32BitInteger(),
+            "read_only": Boolean()
+        }, doc="Result of issuing the isMaster command see https://docs.mongodb.com/manual/reference/command/isMaster")
+}))
+
 ztag_postgres = ztag_zgrab2_transformed(service="PostgreSQL", results=SubRecord({
-    "supported_versions": CensysString(doc="The error string returned by the "
+    "supported_versions": WhitespaceAnalyzedString(doc="The error string returned by the "
                                            "server in response to a "
                                            "StartupMessage with "
                                            "ProtocolVersion = 0.0"),
-    "protocol_error": zgrab2.postgres.postgres_error | remove_strings,
-    "startup_error": zgrab2.postgres.postgres_error | remove_strings,
+    "protocol_error": zgrab2.postgres.postgres_error,
+    "startup_error": zgrab2.postgres.postgres_error,
     "is_ssl": Boolean(doc="If the server supports TLS and the session was "
                           "updated to use TLS, this is true."),
-    "authentication_mode": zgrab2.postgres.postgres_auth_mode["mode"] | remove_strings,
-    "backend_key_data": zgrab2.postgres.postgres_key_data | remove_strings,
+    "authentication_mode": zgrab2.postgres.postgres_auth_mode["mode"],
+    "backend_key_data": zgrab2.postgres.postgres_key_data,
     "tls": ztag_tls_type(doc="If the server allows upgrading the "
                              "session to use TLS, this is the log of "
                              "the handshake.")
@@ -633,13 +605,11 @@ ztag_schemas = [
     ("ztag_dh_export", ztag_dh_export),
     ("ztag_rsa_export", ztag_rsa_export),
     ("ztag_ecdh", ztag_ecdh),
-    ("ztag_sslv2", ztag_sslv2),
     ("ztag_sslv3", ztag_tls_support),
     ("ztag_tls1", ztag_tls_support),
     ("ztag_tls2", ztag_tls_support),
     ("ztag_tls3", ztag_tls_support),
     ("ztag_modbus", ztag_modbus),
-    ("ztag_extended_random", ztag_extended_random),
     ("ztag_ssh_v2", ztag_ssh_v2),
     ("ztag_dns_lookup", ztag_dns_lookup),
     ("ztag_bacnet", ztag_bacnet),
@@ -651,6 +621,7 @@ ztag_schemas = [
     ("ztag_oracle", ztag_oracle),
     ("ztag_mssql", ztag_mssql),
     ("ztag_ipp", ztag_ipp),
+    ("ztag_mongodb", ztag_mongodb),
 ]
 for (name, schema) in ztag_schemas:
     x = Record({
@@ -663,27 +634,46 @@ for (name, schema) in ztag_schemas:
 
 
 ztag_lookup_spf = SubRecord({
-    "raw":CensysString(),
+    "raw":WhitespaceAnalyzedString(),
 })
 
 ztag_lookup_dmarc = SubRecord({
-    "raw":CensysString(),
+    "raw":WhitespaceAnalyzedString(),
     "p":String(),
 })
 
 ztag_lookup_axfr = SubRecord({
     "servers":ListOf(SubRecord({
-        "server":IPAddress(),
+        "server":String(),
         "status":String(),
         "name":FQDN(),
         "support":Boolean(),
-        "error":CensysString(),
+        "error":WhitespaceAnalyzedString(),
         "records":ListOf(SubRecord({
+            "algorithm":Unsigned16BitInteger(),
+            "answer":String(),
             "class":String(),
+            "data":WhitespaceAnalyzedString(),
+            "digest":WhitespaceAnalyzedString(),
+            "digest_type":Unsigned16BitInteger(),
+            "expire":Unsigned32BitInteger(),
+            "flag":Unsigned16BitInteger(),
+            "flags":Unsigned16BitInteger(),
+            "key_tag":Unsigned16BitInteger(),
+            "mbox":FQDN(),
+            "min_ttl":Unsigned32BitInteger(),
             "name":FQDN(),
+            "ns":FQDN(),
+            "preference":Signed16BitInteger(),
+            "protocol":Unsigned16BitInteger(),
+            "public_key":String(),
+            "refresh":Signed32BitInteger(),
+            "retry":Signed32BitInteger(),
+            "serial":Unsigned32BitInteger(),
+            "tag":String(),
             "type":String(),
-            "data":CensysString(),
-            "ttl":Unsigned32BitInteger()
+            "ttl":Unsigned32BitInteger(),
+            "value":String(),
         })),
     })),
     "truncated":Boolean(),
@@ -692,15 +682,15 @@ ztag_lookup_axfr = SubRecord({
 
 _zdb_location_fields = {
     "continent":String(),
-    "country":CensysString(),
+    "country":WhitespaceAnalyzedString(),
     "country_code":String(),
-    "city":CensysString(),
+    "city":WhitespaceAnalyzedString(),
     "postal_code":String(),
-    "timezone":CensysString(),
-    "province":CensysString(),
+    "timezone":WhitespaceAnalyzedString(),
+    "province":WhitespaceAnalyzedString(),
     "latitude":Double(),
     "longitude":Double(),
-    "registered_country":CensysString(),
+    "registered_country":WhitespaceAnalyzedString(),
     "registered_country_code":String(),
 }
 
@@ -709,19 +699,19 @@ zdb_restricted_location = SubRecord(_zdb_location_fields, exclude=["bigquery",])
 
 zdb_as = SubRecord({
     "asn":Unsigned32BitInteger(),
-    "description":CensysString(),
+    "description":WhitespaceAnalyzedString(),
     "path":ListOf(Unsigned32BitInteger()),
     "rir":String(),
     "routed_prefix":FQDN(),
-    "name":CensysString(),
+    "name":WhitespaceAnalyzedString(),
     "country_code":String(),
-    "organization":CensysString(),
+    "organization":WhitespaceAnalyzedString(),
 })
 
 
 __metadata = {}
 for key in Annotation.GLOBAL_METADATA_KEYS:
-    __metadata[key] = CensysString()
+    __metadata[key] = WhitespaceAnalyzedString()
 zdb_metadata = SubRecord(__metadata)
 
 CTServerStatus = SubRecord({
@@ -729,14 +719,11 @@ CTServerStatus = SubRecord({
     "added_to_ct_at":Timestamp(),
     "ct_to_censys_at":Timestamp(),
     "censys_to_ct_at":Timestamp(),
-    "sct":Binary(),
+    "sct":IndexedBinary(),
 })
 
+
 CTStatus = SubRecord({
-    # Censys (reserved)
-    "censys_dev":CTServerStatus,
-    "censys":CTServerStatus,
-    # Google
     "google_aviator":CTServerStatus,
     "google_pilot":CTServerStatus,
     "google_rocketeer":CTServerStatus,
@@ -745,89 +732,103 @@ CTStatus = SubRecord({
     "google_icarus":CTServerStatus,
     "google_skydiver":CTServerStatus,
     "google_daedalus":CTServerStatus,
-    # Google Argon
+    "digicert_ct1":CTServerStatus,
+    "izenpe_com_ct":CTServerStatus,
+    "izenpe_eus_ct":CTServerStatus,
+    "symantec_ws_ct":CTServerStatus,
+    "symantec_ws_vega":CTServerStatus,
+    "wosign_ctlog":CTServerStatus,
+    "wosign_ct":CTServerStatus,
+    "cnnic_ctserver":CTServerStatus,
+    "gdca_ct":CTServerStatus,
+    "startssl_ct":CTServerStatus,
+    "certly_log":CTServerStatus,
+    "venafi_api_ctlog":CTServerStatus,
+    "symantec_ws_deneb":CTServerStatus,
+    "nordu_ct_plausible":CTServerStatus,
+    "comodo_dodo":CTServerStatus,
+    "comodo_mammoth":CTServerStatus,
+    "gdca_ctlog":CTServerStatus,
+    "symantec_ws_sirius":CTServerStatus,
+    "certificatetransparency_cn_ct":CTServerStatus,
+    "venafi_api_ctlog_gen2":CTServerStatus,
+    "digicert_ct2":CTServerStatus,
+    "comodo_sabre":CTServerStatus,
+    "sheca_ct":CTServerStatus,
+    "letsencrypt_ct_clicky":CTServerStatus,
+    "behind_the_sofa":CTServerStatus,
+    "gdca_log":CTServerStatus,
+    "gdca_log2":CTServerStatus,
+    "wotrus_ctlog":CTServerStatus,
+    "wotrus_ctlog3":CTServerStatus,
+    "akamai_ct":CTServerStatus,
     "google_argon_2017":CTServerStatus,
     "google_argon_2018":CTServerStatus,
     "google_argon_2019":CTServerStatus,
     "google_argon_2020":CTServerStatus,
     "google_argon_2021":CTServerStatus,
-    # Cloudflare
+    "google_xenon_2018":CTServerStatus,
+    "google_xenon_2019":CTServerStatus,
+    "google_xenon_2020":CTServerStatus,
+    "google_xenon_2021":CTServerStatus,
+    "google_xenon_2022":CTServerStatus,
     "cloudflare_nimbus_2017":CTServerStatus,
     "cloudflare_nimbus_2018":CTServerStatus,
     "cloudflare_nimbus_2019":CTServerStatus,
     "cloudflare_nimbus_2020":CTServerStatus,
     "cloudflare_nimbus_2021":CTServerStatus,
-    # Digicert
-    "digicert_ct1":CTServerStatus,
-    "digicert_ct2":CTServerStatus,
-    # Izenpe
-    "izenpe_com_ct":CTServerStatus,
-    "izenpe_eus_ct":CTServerStatus,
-    # Symantec
-    "symantec_ws_ct":CTServerStatus,
-    "symantec_ws_vega":CTServerStatus,
-    "symantec_ws_sirius":CTServerStatus,
-    "symantec_ws_deneb":CTServerStatus,
-    # Comodo
-    "comodo_dodo":CTServerStatus,
-    "comodo_mammoth":CTServerStatus,
-    "comodo_sabre":CTServerStatus,
-    # Wosign, StartCom, Wotrus
-    "wosign_ctlog":CTServerStatus,
-    "wosign_ct":CTServerStatus,
-    "startssl_ct":CTServerStatus,
-    "wotrus_ctlog":CTServerStatus,
-    "wotrus_ctlog3":CTServerStatus,
-    # GDCA
-    "gdca_ct":CTServerStatus,
-    "gdca_ctlog":CTServerStatus,
-    "gdca_log":CTServerStatus,
-    "gdca_log2":CTServerStatus,
-    # Venafi
-    "venafi_api_ctlog":CTServerStatus,
-    "venafi_api_ctlog_gen2":CTServerStatus,
-    # Nordu
-    "nordu_ct_plausible":CTServerStatus,
-    # Let's Encrypt
-    "letsencrypt_ct_clicky":CTServerStatus,
-    # Other
-    "cnnic_ctserver":CTServerStatus,
-    "certly_log":CTServerStatus,
-    "sheca_ct":CTServerStatus,
-    "behind_the_sofa":CTServerStatus,
-    "certificatetransparency_cn_ct":CTServerStatus,
-
+    "digicert_nessie_2018":CTServerStatus,
+    "digicert_nessie_2019":CTServerStatus,
+    "digicert_nessie_2020":CTServerStatus,
+    "digicert_nessie_2021":CTServerStatus,
+    "digicert_nessie_2022":CTServerStatus,
+    "digicert_yeti_2018":CTServerStatus,
+    "digicert_yeti_2019":CTServerStatus,
+    "digicert_yeti_2020":CTServerStatus,
+    "digicert_yeti_2021":CTServerStatus,
+    "digicert_yeti_2022":CTServerStatus,
+    "digicert_golem":CTServerStatus,
+    "izenpe_com_pilot":CTServerStatus,
+    "letsencrypt_ct_birch":CTServerStatus,
+    "letsencrypt_ct_faux":CTServerStatus,
+    "letsencrypt_ct_oak":CTServerStatus,
+    "nordu_ct_flimsy":CTServerStatus,
+    "sheca_ctlog":CTServerStatus,
+    "wosign_ctlog2":CTServerStatus,
+    "wosign_ctlog3":CTServerStatus,
+    "ctlogs_alpha":CTServerStatus,
 })
+
 
 CertificateAudit = SubRecord({
     "ccadb":SubRecord({
         "current_in_intermediates":Boolean(),
         "was_in_intermediates":Boolean(),
-        "owner_name":CensysString(),
-        "parent_name":CensysString(),
-        "certificate_name":CensysString(),
-        "certificate_policy":CensysString(),
-        "certification_practice_statement":CensysString(),
-        "cp_same_as_parent":CensysString(), # TODO: Boolean
-        "audit_same_as_parent":CensysString(), # TODO: Boolean
-        "standard_audit":CensysString(),
-        "br_audit":CensysString(),
-        "auditor":CensysString(),
+        "owner_name":WhitespaceAnalyzedString(),
+        "parent_name":WhitespaceAnalyzedString(),
+        "certificate_name":WhitespaceAnalyzedString(),
+        "certificate_policy":WhitespaceAnalyzedString(),
+        "certification_practice_statement":WhitespaceAnalyzedString(),
+        "cp_same_as_parent":Boolean(),
+        "audit_same_as_parent":Boolean(),
+        "standard_audit":WhitespaceAnalyzedString(),
+        "br_audit":WhitespaceAnalyzedString(),
+        "auditor":WhitespaceAnalyzedString(),
         "standard_audit_statement_timestamp":Timestamp(),
-        "management_assertions_by":CensysString(),
+        "management_assertions_by":WhitespaceAnalyzedString(),
         "comments":EnglishString(es_include_raw=True),
-        #"ev_policy_oids":CensysString(), # TODO
-        #"approval_bug":CensysString(), # TODO
-        #"first_nss_release":CensysString(), # TODO
-        #"first_firefox_release":CensysString(), # TODO
-        #"ev_audit":CensysString(),
+        "ev_policy_oids":WhitespaceAnalyzedString(),
+        "approval_bug":WhitespaceAnalyzedString(),
+        "first_nss_release":WhitespaceAnalyzedString(),
+        "first_firefox_release":WhitespaceAnalyzedString(),
+        "ev_audit":WhitespaceAnalyzedString(),
         "current_in_roots":Boolean(),
         "was_in_roots":Boolean(),
-        #"test_website_valid":CensysString(), # TODO
-        #"mozilla_applied_constraints":CensysString(), #TODO
-        #"company_website":CensysString(), # TODO
-        #"geographic_focus":CensysString(), # TODO
-        #"standard_audit_type":CensysString(), # TODO
+        "test_website_valid":WhitespaceAnalyzedString(),
+        "mozilla_applied_constraints":WhitespaceAnalyzedString(),
+        "company_website":WhitespaceAnalyzedString(),
+        "geographic_focus":WhitespaceAnalyzedString(),
+        "standard_audit_type":WhitespaceAnalyzedString(),
      }, category="CCADB Audit")
 })
 
@@ -842,7 +843,7 @@ ztag_certificate_validation = SubRecord({
     "whitelisted":Boolean(doc="True if the certificate is explicitly whitelisted, "
                               "e.g. the set of trusted WoSign certificates Apple uses."),
     "type":Enum(["leaf","intermediate","root","unknown"], doc="Indicates if the certificate is a root, intermediate, or leaf."),
-    "paths":NestedListOf(HexString(), "path"),
+    "paths":NestedListOf(HexString(), "path", validation_policy="ignore"),
     "in_revocation_set":Boolean(doc="True if the certificate is in the revocation set (e.g. OneCRL) associated with this root store."),
     "parents":ListOf(HexString()),
 })
@@ -1097,11 +1098,12 @@ Lints = SubRecord({
     "w_sub_cert_sha1_expiration_too_long":LintBool(),
     "w_subject_dn_leading_whitespace":LintBool(),
     "w_subject_dn_trailing_whitespace":LintBool(),
-})
+}, validation_policy="ignore")
 
 
 ZLint = SubRecord({
-    "version":Unsigned16BitInteger(),
+    # version is an int64 in the protobuf
+    "version":Unsigned16BitInteger(validation_policy="ignore"),
     "notices_present":Boolean(),
     "warnings_present":Boolean(),
     "errors_present":Boolean(),
@@ -1109,11 +1111,15 @@ ZLint = SubRecord({
     "lints":Lints,
 })
 
+
+
 certificate = Record({
-    "parsed": zcrypto.ParsedCertificate(),
+    "parsed": SubRecord({
+        "__expanded_names": ListOf(String()),
+    }, extends=zcrypto.ParsedCertificate()),
     "raw":Binary(),
     "fingerprint_sha256":HexString(),
-    "tags":ListOf(CensysString()),
+    "tags":ListOf(WhitespaceAnalyzedString()),
     "metadata":SubRecord({
         "updated_at":Timestamp(),
         "added_at":Timestamp(),
@@ -1122,7 +1128,7 @@ certificate = Record({
         "seen_in_scan":Boolean(),
         "source":String(),
         "parse_version":Unsigned16BitInteger(),
-        "parse_error":CensysString(),
+        "parse_error":WhitespaceAnalyzedString(),
         "parse_status":String(),
     }, category="Metadata"),
     "parents":ListOf(String(), category="Misc"),
@@ -1137,7 +1143,8 @@ certificate = Record({
         #"google_ct_submariner":ztag_certificate_validation,
     }),
     "ct":CTStatus.new(category="Certificate Transparency Logs"),
-    "audit":CertificateAudit,
+    # TODO: 2018/08/14 -- ccadb data is not being loaded, so hold off on creating this schema.
+    # "audit":CertificateAudit,
     "zlint":ZLint.new(category="ZLint"),
     "precert":Boolean(category="Misc")
 })
@@ -1152,13 +1159,10 @@ ipv4_host = Record({
                     "dhe": ztag_dh,
                     "rsa_export": ztag_rsa_export,
                     "dhe_export": ztag_dh_export,
-                    #"ssl_2": ztag_sslv2, # XXX
                     "ssl_3": ztag_tls_support,
                     "tls_1_1": ztag_tls_support,
                     "tls_1_2": ztag_tls_support,
-                    #"tls_1_3": ztag_tls_support,
                     "ecdhe": ztag_ecdh,
-                    #"extended_random":ztag_extended_random,
                 }, category="443/HTTPS")
             }),
             Port(80):SubRecord({
@@ -1179,7 +1183,6 @@ ipv4_host = Record({
             Port(25):SubRecord({
                 "smtp":SubRecord({
                     "starttls": ztag_smtp_starttls,
-                    #"ssl_2": ztag_sslv2, # XXX
                 }, category="25/SMTP"),
             }),
             Port(23):SubRecord({
@@ -1205,13 +1208,11 @@ ipv4_host = Record({
             Port(110):SubRecord({
                 "pop3":SubRecord({
                     "starttls":ztag_mail_starttls,
-                    #"ssl_2": ztag_sslv2, # XXX
                 }, category="110/POP3")
             }),
             Port(143):SubRecord({
                 "imap":SubRecord({
                     "starttls":ztag_mail_starttls,
-                    #"ssl_2": ztag_sslv2, # XXX
                 }, category="143/IMAP")
             }),
             Port(445):SubRecord({
@@ -1222,19 +1223,16 @@ ipv4_host = Record({
             Port(993):SubRecord({
                 "imaps":SubRecord({
                     "tls":ztag_mail_tls,
-                    #"ssl_2": ztag_sslv2, # XXX
                 }, category="993/IMAPS")
             }),
             Port(995):SubRecord({
                 "pop3s":SubRecord({
                     "tls":ztag_mail_tls,
-                    #"ssl_2": ztag_sslv2, # XXX
                 }, category="995/POP3S")
             }),
             Port(587):SubRecord({
                 "smtp":SubRecord({
                     "starttls": ztag_smtp_starttls,
-                    #"ssl_2": ztag_sslv2,  # XXX
                 }, category="587/SMTP")
             }),
             Port(502):SubRecord({
@@ -1292,6 +1290,11 @@ ipv4_host = Record({
                     "banner": ztag_mysql,
                 }, category="3306/MySQL"),
             }),
+            Port(27017): SubRecord({
+                "mongodb": SubRecord({
+                    "banner": ztag_mongodb ,
+                }, category="27017/MongoDB"),
+            }),
             Port(5432): SubRecord({
                 "postgres": SubRecord({
                     "banner": ztag_postgres,
@@ -1302,12 +1305,12 @@ ipv4_host = Record({
                     "banner": ztag_ipp,
                 }, category="631/IPP"),
             }),
-            "tags":ListOf(CensysString(), category="Basic Information"),
+            "tags":ListOf(WhitespaceAnalyzedString(), category="Basic Information"),
             "metadata":zdb_metadata,
             "location":zdb_location,
             "__restricted_location":zdb_restricted_location,
             "autonomous_system":zdb_as.new(category="Basic Information"),
-            "notes":CensysString(),
+            "notes":WhitespaceAnalyzedString(),
             "ip":IPv4Address(required=True, category="Basic Information"),
             "ipint":Unsigned32BitInteger(required=True, doc="Integer value of IP address in host order"),
             "updated_at":Timestamp(),
@@ -1354,7 +1357,7 @@ website = Record({
                 })
             }, category="Basic Information"),
 
-            "tags":ListOf(CensysString(), category="Basic Information"),
+            "tags":ListOf(WhitespaceAnalyzedString(), category="Basic Information"),
             "metadata":zdb_metadata,
             "notes":EnglishString(es_include_raw=True),
             "domain":String(category="Basic Information"),

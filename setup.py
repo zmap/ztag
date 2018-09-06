@@ -23,9 +23,9 @@ setup(
   zip_safe=False,
   install_requires = [
       "python-dateutil>=2.6.0",
-      "zsearch_definitions>=0.1.26,<0.2",
+      "zsearch_definitions>=0.1.29,<0.2",
   ],
-  extras_requires = {
+  extras_require = {
       "redis": [
           "redis",
       ],
@@ -38,7 +38,7 @@ setup(
           "xxhash>=1.0.1,<1.1",
       ],
       "schemas": [
-          "zschema>=0.9.0",
+          "zschema>=0.10.1",
           "zgrab2_schemas",
           "zcrypto_schemas",
       ],
