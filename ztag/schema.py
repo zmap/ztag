@@ -532,6 +532,35 @@ ztag_mysql = ztag_zgrab2_transformed(service="MySQL", results=SubRecord({
                              "the handshake.")
 }))
 
+ztag_mongodb = ztag_zgrab2_transformed(service="MongoDB", results=SubRecord({
+        "build_info": SubRecord({
+            "version": WhitespaceAnalyzedString(doc="Version of mongodb server"),
+            "git_version": WhitespaceAnalyzedString(doc="Git Version of mongodb server"),
+            "max_wire_version": Signed32BitInteger(),
+            "build_environment": SubRecord({
+                "dist_mod": WhitespaceAnalyzedString(),
+                "dist_arch": WhitespaceAnalyzedString(),
+                "cc": WhitespaceAnalyzedString(),
+                "cc_flags": WhitespaceAnalyzedString(),
+                "cxx": WhitespaceAnalyzedString(),
+                "cxx_flags": WhitespaceAnalyzedString(),
+                "link_flags": WhitespaceAnalyzedString(),
+                "target_arch": WhitespaceAnalyzedString(),
+                "target_os": WhitespaceAnalyzedString()
+            })
+        }, doc="Result of issuing the buildInfo command see https://docs.mongodb.com/manual/reference/command/buildInfo"),
+        "is_master": SubRecord({
+            "is_master": Boolean(),
+            "max_wire_version": Signed32BitInteger(),
+            "min_wire_version": Signed32BitInteger(),
+            "max_bson_object_size": Signed32BitInteger(),
+            "max_write_batch_size": Signed32BitInteger(),
+            "logical_session_timeout_minutes": Signed32BitInteger(),
+            "max_message_size_bytes": Signed32BitInteger(),
+            "read_only": Boolean()
+        }, doc="Result of issuing the isMaster command see https://docs.mongodb.com/manual/reference/command/isMaster")
+}))
+
 ztag_postgres = ztag_zgrab2_transformed(service="PostgreSQL", results=SubRecord({
     "supported_versions": WhitespaceAnalyzedString(doc="The error string returned by the "
                                            "server in response to a "
@@ -548,6 +577,19 @@ ztag_postgres = ztag_zgrab2_transformed(service="PostgreSQL", results=SubRecord(
                              "the handshake.")
 }))
 
+ztag_ipp = ztag_zgrab2_transformed(service="IPP", results=SubRecord({
+    "version_major": zgrab2.ipp.ipp_scan_response["result"]["version_major"],
+    "version_minor": zgrab2.ipp.ipp_scan_response["result"]["version_minor"],
+    "version_string": zgrab2.ipp.ipp_scan_response["result"]["version_string"],
+    "cups_version": zgrab2.ipp.ipp_scan_response["result"]["cups_version"],
+    "attributes": zgrab2.ipp.ipp_scan_response["result"]["attributes"],
+    "attr_ipp_versions": zgrab2.ipp.ipp_scan_response["result"]["attr_ipp_versions"],
+    "attr_cups_version": zgrab2.ipp.ipp_scan_response["result"]["attr_cups_version"],
+    "attr_printer_uris": zgrab2.ipp.ipp_scan_response["result"]["attr_printer_uris"],
+    "tls": ztag_tls_type(doc="If the server allows upgrading the "
+                             "session to use TLS, this is the log of "
+                             "the handshake."),
+}))
 
 ztag_schemas = [
     ("ztag_https", ztag_tls),
@@ -578,6 +620,8 @@ ztag_schemas = [
     ("ztag_upnp_discovery", ztag_upnp_discovery),
     ("ztag_oracle", ztag_oracle),
     ("ztag_mssql", ztag_mssql),
+    ("ztag_ipp", ztag_ipp),
+    ("ztag_mongodb", ztag_mongodb),
 ]
 for (name, schema) in ztag_schemas:
     x = Record({
@@ -629,6 +673,7 @@ ztag_lookup_axfr = SubRecord({
             "tag":String(),
             "type":String(),
             "ttl":Unsigned32BitInteger(),
+            "value":String(),
         })),
     })),
     "truncated":Boolean(),
@@ -1053,11 +1098,12 @@ Lints = SubRecord({
     "w_sub_cert_sha1_expiration_too_long":LintBool(),
     "w_subject_dn_leading_whitespace":LintBool(),
     "w_subject_dn_trailing_whitespace":LintBool(),
-})
+}, validation_policy="ignore")
 
 
 ZLint = SubRecord({
-    "version":Unsigned16BitInteger(),
+    # version is an int64 in the protobuf
+    "version":Unsigned16BitInteger(validation_policy="ignore"),
     "notices_present":Boolean(),
     "warnings_present":Boolean(),
     "errors_present":Boolean(),
@@ -1244,10 +1290,20 @@ ipv4_host = Record({
                     "banner": ztag_mysql,
                 }, category="3306/MySQL"),
             }),
+            Port(27017): SubRecord({
+                "mongodb": SubRecord({
+                    "banner": ztag_mongodb ,
+                }, category="27017/MongoDB"),
+            }),
             Port(5432): SubRecord({
                 "postgres": SubRecord({
                     "banner": ztag_postgres,
                 }, category="5432/Postgres"),
+            }),
+            Port(631): SubRecord({
+                "ipp": SubRecord({
+                    "banner": ztag_ipp,
+                }, category="631/IPP"),
             }),
             "tags":ListOf(WhitespaceAnalyzedString(), category="Basic Information"),
             "metadata":zdb_metadata,
