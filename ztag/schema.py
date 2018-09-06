@@ -577,6 +577,19 @@ ztag_postgres = ztag_zgrab2_transformed(service="PostgreSQL", results=SubRecord(
                              "the handshake.")
 }))
 
+ztag_ipp = ztag_zgrab2_transformed(service="IPP", results=SubRecord({
+    "version_major": zgrab2.ipp.ipp_scan_response["result"]["version_major"],
+    "version_minor": zgrab2.ipp.ipp_scan_response["result"]["version_minor"],
+    "version_string": zgrab2.ipp.ipp_scan_response["result"]["version_string"],
+    "cups_version": zgrab2.ipp.ipp_scan_response["result"]["cups_version"],
+    "attributes": zgrab2.ipp.ipp_scan_response["result"]["attributes"],
+    "attr_ipp_versions": zgrab2.ipp.ipp_scan_response["result"]["attr_ipp_versions"],
+    "attr_cups_version": zgrab2.ipp.ipp_scan_response["result"]["attr_cups_version"],
+    "attr_printer_uris": zgrab2.ipp.ipp_scan_response["result"]["attr_printer_uris"],
+    "tls": ztag_tls_type(doc="If the server allows upgrading the "
+                             "session to use TLS, this is the log of "
+                             "the handshake."),
+}))
 
 ztag_schemas = [
     ("ztag_https", ztag_tls),
@@ -607,6 +620,7 @@ ztag_schemas = [
     ("ztag_upnp_discovery", ztag_upnp_discovery),
     ("ztag_oracle", ztag_oracle),
     ("ztag_mssql", ztag_mssql),
+    ("ztag_ipp", ztag_ipp),
     ("ztag_mongodb", ztag_mongodb),
 ]
 for (name, schema) in ztag_schemas:
@@ -1285,6 +1299,11 @@ ipv4_host = Record({
                 "postgres": SubRecord({
                     "banner": ztag_postgres,
                 }, category="5432/Postgres"),
+            }),
+            Port(631): SubRecord({
+                "ipp": SubRecord({
+                    "banner": ztag_ipp,
+                }, category="631/IPP"),
             }),
             "tags":ListOf(WhitespaceAnalyzedString(), category="Basic Information"),
             "metadata":zdb_metadata,
