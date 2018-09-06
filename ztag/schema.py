@@ -244,6 +244,14 @@ golang_crypto_param = SubRecord({
 #    "metadata":local_metadata
 #})
 
+# FIXME: Workaround for bad schema in ES; zcrypto was emitting uint32s for cert_type.id, so that led
+# to validation failures, but it seems to have been added ES with the string (keyword) type, leading
+# to `mapper [22.ssh.v2.key_exchange.server_host_key.certkey_public_key.cert_type.id] of different
+# type, current_type [keyword], merged_type [long]` errors when trying to load the updated schema.
+# This should override the ES_TYPE of id's Unsigned32BitInteger instance.
+hacked_ssh_cert_type = zgrab2_ssh.CertType(exclude=["bigquery"])
+hacked_ssh_cert_type["id"].set("es_type", "keyword")
+
 ztag_ssh_v2 = SubRecord({
     "metadata": local_metadata,
     "timestamp": Timestamp(),
@@ -289,7 +297,7 @@ ztag_ssh_v2 = SubRecord({
             "key": zgrab2_ssh.SSHPublicKey(),
             "serial": String(),
             # "cert_type" is renamed to "type"
-            "type": zgrab2_ssh.CertType(exclude=["bigquery"]),
+            "type": hacked_ssh_cert_type,
             "key_id": String(),
             "valid_principals": ListOf(String()),
             "validity": SubRecord({
