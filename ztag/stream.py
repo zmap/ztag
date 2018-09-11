@@ -215,6 +215,7 @@ class Pubsub(Outgoing):
     def __init__(self, logger=None, destination=None, *args, **kwargs):
         import google
         from google.cloud import pubsub, pubsub_v1
+        self.logger = logger
         if destination == "full_ipv4":
             self.topic_url = os.environ.get('PUBSUB_IPV4_TOPIC_URL')
         elif destination == "alexa_top1mil":
@@ -231,6 +232,7 @@ class Pubsub(Outgoing):
             max_latency=15,     # 15 seconds
         )
         self.publisher = pubsub.PublisherClient(batch_settings)
+        self.publish_count = {}
         try:
             self.publisher.get_topic(self.topic_url)
             self.publisher.get_topic(self.cert_topic_url)
@@ -241,10 +243,29 @@ class Pubsub(Outgoing):
 
     def _make_done_callback(self, topic, data, attempt, done):
         def done_callback(future):
+            count = self.publish_count.get(topic, 0) + 1
             exception = future.exception()
             if not exception:
+                self.publish_count[topic] = count
+                if self.logger:
+                    self.logger.debug("Publish attempt #{attempt}/{max} on topic '{topic}' "
+                                      "succeeded. #published={count}".format(attempt=attempt + 1,
+                                                                             max=self.MAX_ATTEMPTS,
+                                                                             topic=topic,
+                                                                             count=count))
                 done.set_result(True)
                 return
+
+            if self.logger:
+                self.logger.error("Publish attempt #{attempt}/{max} failed for data '{data}' on"
+                                  "topic '{topic}' ({count} published previously): {error}"
+                                  .format(attempt=attempt + 1,
+                                          max=self.MAX_ATTEMPTS,
+                                          data=data,
+                                          topic=topic,
+                                          error=str(exception),
+                                          count=count))
+
             if attempt >= self.MAX_ATTEMPTS:
                 done.set_exception(exception)
                 raise exception
@@ -269,4 +290,15 @@ class Pubsub(Outgoing):
 
     def cleanup(self):
         if self.last_publish_future:
+            if self.logger:
+                for topic, count in self.publish_count.items():
+                    self.logger.debug("Pubsub cleanup: published {count} records to {topic}"
+                                      .format(count=count, topic=topic))
+
+            if self.logger:
+                self.logger.debug("Pubsub cleanup: Waiting for final result...")
+
             self.last_publish_future.result()
+
+            if self.logger:
+                self.logger.debug("Pubsub cleanup: Finished.")
