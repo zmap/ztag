@@ -8,17 +8,33 @@ from ztag.errors import IgnoreObject
 
 class Stream(object):
 
-    def __init__(self, incoming, outgoing, transforms=None, logger=None):
+    def __init__(self, incoming, outgoing, transforms=None, logger=None, updates=None):
         super(Stream, self).__init__()
         self.incoming = incoming
         self.outgoing = outgoing
         self.transforms = transforms or list()
         self.logger = logger
+        self.updates = updates
+        self._updates_labels = False
+
+    def put_update(self, skipped, handled):
+        if not self.updates:
+            return
+
+        if not self._updates_labels:
+            self.updates.write("%s, %s\n" % ("skipped", "handled"))
+            self._updates_labels = True
+
+        self.updates.write("%d,%d\n" % (skipped, handled))
+        # don't flush every time
+        if (skipped + handled) % 1000 == 0:
+            self.updates.flush()
 
     def run(self):
         skipped = 0
         handled = 0
         for obj in self.incoming:
+            self.put_update(skipped, handled)
             try:
                 out = obj
                 for transformer in self.transforms:
@@ -34,6 +50,8 @@ class Stream(object):
                 skipped += 1
                 continue
         self.outgoing.cleanup()
+        if self.updates and not self.updates == sys.stderr:
+            self.updates.close()
         return (handled, skipped)
 
 
