@@ -269,9 +269,9 @@ class Pubsub(Outgoing):
             if attempt >= self.MAX_ATTEMPTS:
                 done.set_exception(exception)
                 raise exception
-            f = self.publisher.publish(topic, data)
             cb = self._make_done_callback(topic, data, attempt + 1, done)
-            f.add_done_callback(cb)
+            publish_future = self.publisher.publish(topic, data)
+            publish_future.add_done_callback(cb)
         return done_callback
 
     def _publish_with_callback(self, topic, data):
