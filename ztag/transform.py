@@ -1,6 +1,7 @@
 import json
 import re
 
+from ztag import errors
 from ztag.errors import IgnoreObject
 
 
@@ -372,9 +373,15 @@ class ZGrab2Transform(ZMapTransform):
                                      "handshake_log")
             if tls_record is not None:
                 from ztag.transforms import HTTPSTransform
-                tls_out, tls_certs = HTTPSTransform.make_tls_obj(tls_record)
-                out.transformed["tls"] = tls_out
-                out.certificates = out.certificates + tls_certs
+                try:
+                    tls_out, tls_certs = HTTPSTransform.make_tls_obj(tls_record)
+                    out.transformed["tls"] = tls_out
+                    out.certificates = out.certificates + tls_certs
+                except errors.IgnoreObject:
+                    # Just because the TLS field fails doesn't mean we want to throw away the rest
+                    # of the object.
+                    # TODO: It may still be useful to log these, though.
+                    pass
 
         return out
 
