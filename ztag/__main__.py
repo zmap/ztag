@@ -71,6 +71,8 @@ def main():
                         type=argparse.FileType('r'))
     parser.add_argument('-l', '--log-file', type=argparse.FileType('w'),
                         default=sys.stderr)
+    parser.add_argument('--updates-file', default=sys.stderr,
+                        type=argparse.FileType('w'))
     parser.add_argument('-v', '--log-level', type=int, default=Logger.INFO,
                         choices=range(0, Logger.TRACE + 1))
     parser.add_argument('-m', '--metadata-file', type=argparse.FileType('w'),
@@ -155,7 +157,7 @@ def main():
         tagger,
         encoder,
     ]
-    s = Stream(incoming, outgoing, transforms=transforms, logger=logger)
+    s = Stream(incoming, outgoing, transforms=transforms, logger=logger, updates=args.updates_file)
     start_time = datetime.utcnow()
 
     handled, skipped = s.run()
