@@ -244,6 +244,13 @@ golang_crypto_param = SubRecord({
 #    "metadata":local_metadata
 #})
 
+# 2018/09/07: Workaround for mis-typed CertType.id field in ES; actual type is uint32, current ES
+# type is keyword (string).
+ssh_certkey_public_key_type = zgrab2_ssh.CertType(exclude={"bigquery"})
+ssh_certkey_public_key_type["id"].set("exclude",
+                                      ssh_certkey_public_key_type["id"].exclude |
+                                      {"elasticsearch"})
+
 ztag_ssh_v2 = SubRecord({
     "metadata": local_metadata,
     "timestamp": Timestamp(),
@@ -289,7 +296,7 @@ ztag_ssh_v2 = SubRecord({
             "key": zgrab2_ssh.SSHPublicKey(),
             "serial": String(),
             # "cert_type" is renamed to "type"
-            "type": zgrab2_ssh.CertType(exclude=["bigquery"]),
+            "type": ssh_certkey_public_key_type,
             "key_id": String(),
             "valid_principals": ListOf(String()),
             "validity": SubRecord({
