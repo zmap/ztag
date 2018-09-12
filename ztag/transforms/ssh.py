@@ -113,8 +113,10 @@ class SSHV2Transform(ZGrabTransform):
             # current ES type is keyword (string). Added 'exclude={elasticsearch}' to the schema,
             # but to prevent attempted insertions of mistyped values, we need to actually remove the
             # id field as well.
-            cert_type = certkey_public_key['type']
-            del_key(cert_type, 'id')
+            if 'type' in certkey_public_key:
+                cert_type = certkey_public_key['type']
+                del_key(cert_type, 'id')
+
             del_key(certkey_public_key, 'reserved')
 
             signature_key = certkey_public_key.get('signature_key')
