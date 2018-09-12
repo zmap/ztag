@@ -109,6 +109,14 @@ class SSHV2Transform(ZGrabTransform):
         certkey_public_key = grab['key_exchange']['server_host_key']['certkey_public_key'].resolve()
         if certkey_public_key is not None:
             rename_key(certkey_public_key, 'cert_type', 'type')
+            # 2018/09/11: Workaround for mis-typed CertType.id field in ES; actual type is uint32,
+            # current ES type is keyword (string). Added 'exclude={elasticsearch}' to the schema,
+            # but to prevent attempted insertions of mistyped values, we need to actually remove the
+            # id field as well.
+            if 'type' in certkey_public_key:
+                cert_type = certkey_public_key['type']
+                del_key(cert_type, 'id')
+
             del_key(certkey_public_key, 'reserved')
 
             signature_key = certkey_public_key.get('signature_key')
