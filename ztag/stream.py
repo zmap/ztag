@@ -1,7 +1,10 @@
 import csv
 import os
 import sys
-from time import time as unix_time
+import time
+import collections
+import threading
+import logging
 
 from ztag.errors import IgnoreObject
 
@@ -50,7 +53,7 @@ class UpdateRow(object):
     """
     ORDER = ("skipped", "handled", "delta_skipped", "delta_handled")
 
-    def __init__(self, skipped, handled, time=None, prev=None):
+    def __init__(self, skipped, handled, updated_at=None, prev=None):
         """
         Construct a new row with the given number of skipped / handled entries, and calculate the
         deltas from prev (or set them to 0). Also sets time to now.
@@ -58,7 +61,7 @@ class UpdateRow(object):
         :param handled: current total number of handled records
         :param prev: the previous UpdateRow
         """
-        self.time = time or unix_time()
+        self.time = updated_at or time.time()
         self.skipped = skipped
         self.handled = handled
         if prev:
@@ -272,6 +275,55 @@ class Kafka(Outgoing):
         if self.cert_producer:
             self.cert_producer.flush()
 
+failed_msg_t = collections.namedtuple('failed_msg_t', 'topic msg attempt')
+
+class PubsubState():
+    '''
+    Hold state with single course-grained lock. Restrict to safe operations
+    on shared memory.
+    '''
+
+    def __init__(self):
+        self._lock = threading.Lock()
+        self._npending_msgs = 0
+        self._failed_msgs = []
+
+        # An individual thread raising an exception or calling
+        # sys.exit() will only end that thread. Use this to
+        # signal the rest of the threads to exit.
+        self.exit_exception = None
+
+    def inc_npending(self):
+        self._lock.acquire()
+        self._npending_msgs += 1
+        self._lock.release()
+
+    def dec_npending(self):
+        self._lock.acquire()
+        self._npending_msgs -= 1
+        self._lock.release()
+
+    def get_npending(self):
+        '''
+        No lock required to simply read int; no direct writes allowed.
+        '''
+        return self._npending_msgs
+
+    def add_failed_msg(self, topic, msg, attempt):
+        self._lock.acquire()
+        self._failed_msgs.append(failed_msg_t(topic, msg, attempt))
+        self._lock.release()
+
+    def retrieve_failed_msgs(self):
+        '''
+        Retrieve list of failed messages and reset running list. Returned
+        value is no longer shared data.
+        '''
+        self._lock.acquire()
+        retval = self._failed_msgs
+        self._failed_msgs = []
+        self._lock.release()
+        return retval
 
 class Pubsub(Outgoing):
 
@@ -281,6 +333,9 @@ class Pubsub(Outgoing):
         import google
         from google.cloud import pubsub, pubsub_v1
         self.logger = logger
+        if logger is None:
+            self.logger = logging.getLogger('null-logger')
+            self.logger.setLevel(9999)
         if destination == "full_ipv4":
             self.topic_url = os.environ.get('PUBSUB_IPV4_TOPIC_URL')
         elif destination == "alexa_top1mil":
@@ -304,66 +359,58 @@ class Pubsub(Outgoing):
         except google.api_core.exceptions.GoogleAPICallError as e:
             logger.error(e.message)
             raise
-        self.last_publish_future = None
+        self._state = PubsubState()
 
-    def _make_done_callback(self, topic, data, attempt, done):
+    def _make_done_callback(self, topic, data, attempt):
         def done_callback(future):
-            count = self.publish_count.get(topic, 0) + 1
+            if self._state.exit_exception:
+                sys.exit(1)
             exception = future.exception()
             if not exception:
-                self.publish_count[topic] = count
-                if self.logger:
-                    self.logger.debug("Publish attempt #{attempt}/{max} on topic '{topic}' "
-                                      "succeeded. #published={count}".format(attempt=attempt + 1,
-                                                                             max=self.MAX_ATTEMPTS,
-                                                                             topic=topic,
-                                                                             count=count))
-                done.set_result(True)
-                return
-
-            if self.logger:
+                self.logger.debug("Publish attempt #{attempt}/{max} on topic '{topic}' "
+                                  "succeeded.".format(attempt=attempt + 1,
+                                                      max=self.MAX_ATTEMPTS,
+                                                      topic=topic))
+                self._state.dec_npending()
+            else:
                 self.logger.error("Publish attempt #{attempt}/{max} failed for data '{data}' on"
-                                  "topic '{topic}' ({count} published previously): {error}"
+                                  "topic '{topic}' {error}"
                                   .format(attempt=attempt + 1,
                                           max=self.MAX_ATTEMPTS,
                                           data=data,
                                           topic=topic,
-                                          error=str(exception),
-                                          count=count))
+                                          error=str(exception)))
+                if attempt >= self.MAX_ATTEMPTS:
+                    self._state.exit_exception = exception
+                    sys.exit(1)
+                self._state.add_failed_msg(topic, data, attempt + 1)
 
-            if attempt >= self.MAX_ATTEMPTS:
-                done.set_exception(exception)
-                raise exception
-            cb = self._make_done_callback(topic, data, attempt + 1, done)
-            publish_future = self.publisher.publish(topic, data)
-            publish_future.add_done_callback(cb)
         return done_callback
 
-    def _publish_with_callback(self, topic, data):
-        from concurrent.futures import Future
-        f = Future()
-        cb = self._make_done_callback(topic, data, 0, done=f)
+    def _publish_with_callback(self, topic, data, attempt):
+        if attempt == 0:
+            self._state.inc_npending()
+        cb = self._make_done_callback(topic, data, attempt)
         publish_future = self.publisher.publish(topic, data)
         publish_future.add_done_callback(cb)
-        return f
 
     def take(self, pbout):
         for certificate in pbout.certificates:
-            self._publish_with_callback(self.cert_topic_url, certificate)
-        self.last_publish_future = self._publish_with_callback(
-                self.topic_url, pbout.transformed)
+            self._publish_with_callback(self.cert_topic_url, certificate, 0)
+        self._publish_with_callback(self.topic_url, pbout.transformed, 0)
 
     def cleanup(self):
-        if self.last_publish_future:
-            if self.logger:
-                for topic, count in self.publish_count.items():
-                    self.logger.debug("Pubsub cleanup: published {count} records to {topic}"
-                                      .format(count=count, topic=topic))
-
-            if self.logger:
-                self.logger.debug("Pubsub cleanup: Waiting for final result...")
-
-            self.last_publish_future.result()
-
-            if self.logger:
-                self.logger.debug("Pubsub cleanup: Finished.")
+        while self._state.get_npending() > 0:
+            time.sleep(10)
+            if self._state.exit_exception:
+                self.logger.error("Max attempts exceeded; raising most recent exception.")
+                raise self._state.exit_exception
+            failed_msgs = self._state.retrieve_failed_msgs()
+            self.logger.debug("Failed message queuelen: {}, "
+                              "messages pending: {}"
+                              .format(len(failed_msgs),
+                                      self._state.get_npending()))
+            for failed in failed_msgs:
+                self._publish_with_callback(failed.topic, failed.msg,
+                                            failed.attempt + 1)
+        self.logger.debug("Pubsub cleanup: Finished.")
