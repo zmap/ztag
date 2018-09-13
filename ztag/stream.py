@@ -50,7 +50,7 @@ class UpdateRow(object):
     """
     ORDER = ("skipped", "handled", "delta_skipped", "delta_handled")
 
-    def __init__(self, skipped, handled, prev=None):
+    def __init__(self, skipped, handled, time=None, prev=None):
         """
         Construct a new row with the given number of skipped / handled entries, and calculate the
         deltas from prev (or set them to 0). Also sets time to now.
@@ -58,7 +58,7 @@ class UpdateRow(object):
         :param handled: current total number of handled records
         :param prev: the previous UpdateRow
         """
-        self.time = time.time()
+        self.time = time or time.time()
         self.skipped = skipped
         self.handled = handled
         if prev:
