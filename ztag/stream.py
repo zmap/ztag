@@ -1,9 +1,79 @@
 import csv
 import os
 import sys
-import time
+from time import time as unix_time
 
 from ztag.errors import IgnoreObject
+
+
+class Updater(object):
+    """
+    Updater encapsulates the behavior for the updates.csv file; put_update() is called with each
+    update, but output is only written every :frequency: seconds.
+    """
+    def __init__(self, output=None, frequency=1.0, logger=None):
+        self.output = output
+        self.frequency = frequency
+        self.logger = logger
+        self.prev = None
+        self._wrote_labels = False
+
+    def put_update(self, row):
+        if not self.output:
+            return
+
+        if self.prev and (row.time - self.prev.time) < self.frequency:
+            return
+
+        self.prev = row
+
+        if not self._wrote_labels:
+            self.output.write(row.get_csv_labels() + "\n")
+            self._wrote_labels = True
+
+        self.output.write(row.get_csv() + "\n")
+        self.output.flush()
+
+    def close(self):
+        if self.output and self.output != sys.stderr:
+            try:
+                self.output.close()
+            except BaseException as e:
+                if self.logger:
+                    self.logger.warn("Failed to close updates CSV stream: %s", str(e))
+
+
+class UpdateRow(object):
+    """
+    UpdateRow encapsulates the information for a single update and the logic for outputting it as
+    a CSV row.
+    """
+    ORDER = ("skipped", "handled", "delta_skipped", "delta_handled")
+
+    def __init__(self, skipped, handled, time=None, prev=None):
+        """
+        Construct a new row with the given number of skipped / handled entries, and calculate the
+        deltas from prev (or set them to 0). Also sets time to now.
+        :param skipped: current total number of skipped records
+        :param handled: current total number of handled records
+        :param prev: the previous UpdateRow
+        """
+        self.time = time or unix_time()
+        self.skipped = skipped
+        self.handled = handled
+        if prev:
+            self.delta_skipped = skipped - prev.skipped
+            self.delta_handled = handled - prev.handled
+        else:
+            self.delta_skipped = 0
+            self.delta_handled = 0
+
+    @classmethod
+    def get_csv_labels(cls):
+        return ",".join(cls.ORDER)
+
+    def get_csv(self):
+        return ",".join(str(getattr(self, label)) for label in self.ORDER)
 
 
 class Stream(object):
@@ -14,27 +84,22 @@ class Stream(object):
         self.outgoing = outgoing
         self.transforms = transforms or list()
         self.logger = logger
-        self.updates = updates
-        self._updates_labels = False
+        if updates:
+            self.updater = Updater(output=updates, frequency=1.0, logger=logger)
+        else:
+            self.updater = None
 
     def put_update(self, skipped, handled):
-        if not self.updates:
+        if not self.updater:
             return
-
-        if not self._updates_labels:
-            self.updates.write("%s, %s\n" % ("skipped", "handled"))
-            self._updates_labels = True
-
-        self.updates.write("%d,%d\n" % (skipped, handled))
-        # don't flush every time
-        if (skipped + handled) % 1000 == 0:
-            self.updates.flush()
+        this_update = UpdateRow(skipped=skipped, handled=handled, prev=self.updater.prev)
+        self.updater.put_update(this_update)
 
     def run(self):
         skipped = 0
         handled = 0
         for obj in self.incoming:
-            self.put_update(skipped, handled)
+            self.put_update(handled=handled, skipped=skipped)
             try:
                 out = obj
                 for transformer in self.transforms:
@@ -50,8 +115,8 @@ class Stream(object):
                 skipped += 1
                 continue
         self.outgoing.cleanup()
-        if self.updates and not self.updates == sys.stderr:
-            self.updates.close()
+        if self.updater:
+            self.updater.close()
         return (handled, skipped)
 
 
