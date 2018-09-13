@@ -1,7 +1,7 @@
 import csv
 import os
 import sys
-import time
+from time import time as unix_time
 
 from ztag.errors import IgnoreObject
 
@@ -58,7 +58,7 @@ class UpdateRow(object):
         :param handled: current total number of handled records
         :param prev: the previous UpdateRow
         """
-        self.time = time or time.time()
+        self.time = time or unix_time()
         self.skipped = skipped
         self.handled = handled
         if prev:

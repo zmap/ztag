@@ -22,8 +22,12 @@ class UpdaterTestCase(unittest.TestCase):
         for i in range(0, 100000):
             skipped += 1
             handled += 2
-            row = UpdateRow(skipped=skipped, handled=handled, prev=updater.prev)
-            row.time = float(i) / 100.0
+            row = UpdateRow(
+                skipped=skipped,
+                handled=handled,
+                time=float(i) / 100.0,
+                prev=updater.prev)
+
             if not updater.prev or (row.time - updater.prev.time) >= updater.frequency:
                 expected.append(row.get_csv())
 
@@ -31,4 +35,3 @@ class UpdaterTestCase(unittest.TestCase):
 
         self.assertEquals("\n".join(expected) + "\n", output.getvalue())
         updater.close()
-
