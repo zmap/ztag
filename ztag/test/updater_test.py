@@ -25,7 +25,7 @@ class UpdaterTestCase(unittest.TestCase):
             row = UpdateRow(
                 skipped=skipped,
                 handled=handled,
-                time=float(i) / 100.0,
+                updated_at=float(i) / 100.0,
                 prev=updater.prev)
 
             if not updater.prev or (row.time - updater.prev.time) >= updater.frequency:
