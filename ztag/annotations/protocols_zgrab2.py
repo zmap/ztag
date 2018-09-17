@@ -6,8 +6,9 @@ from ztag import protocols
 
 # Category tags: add the key tag to anything with any of the tags in the value.
 ZGRAB2_CATEGORY_TAGS = {
-    "database": set(["mssql", "mysql", "oracle", "postgres" ]),
+    "database": set(["mssql", "mysql", "oracle", "postgres", "mongodb"]),
 }
+
 
 def __process(self, obj, meta):
     tag = self.protocol.pretty_name
@@ -35,6 +36,8 @@ ZGRAB2_PROTOCOLS = [
     (protocols.MSSQL, protocols.MSSQL.BANNER, {"device_with_mssql": {"tags":["database", "mssql",]}}),
     (protocols.POSTGRES, protocols.POSTGRES.BANNER, {"device_with_postgres": {"tags":["database", "postgres",]}}),
     (protocols.ORACLE, protocols.ORACLE.BANNER, {"device_with_oracle": {"tags":["database", "oracle",]}}),
+    (protocols.IPP, protocols.IPP.BANNER, {"device_with_ipp": {"tags":["ipp"]}}),
+    (protocols.MONGODB, protocols.MONGODB.BANNER, {"device_with_mongodb": {"tags":["database", "mongodb"]}}),
 ]
 
 for proto, subproto, tests in ZGRAB2_PROTOCOLS:
