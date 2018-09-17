@@ -63,7 +63,10 @@ class Transform(object):
         try:
             return self._transform_object(obj)
         except (KeyError, TypeError, IndexError) as e:
-            raise IgnoreObject(original_exception=e)
+            import traceback
+            exc_info = traceback.format_exc()
+            raise IgnoreObject(exc_info)
+
 
     def _transform_object(self, obj):
         raise NotImplementedError
