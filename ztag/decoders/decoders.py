@@ -12,13 +12,7 @@ class JSONDecoder(Decoder):
         self.logger = logger
 
     def decode(self, s):
-        try:
-            return json.loads(s)
-        except ValueError as e:
-            self.logger.error(str(e))
-            self.logger.error(s.strip())
-            raise errors.IgnoreObject(e)
-
+        return json.loads(s)
 
 class TSVDecoder(Decoder):
 
