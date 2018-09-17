@@ -15,7 +15,10 @@ class HTTPSTransform(ZGrabTransform):
         super(HTTPSTransform, self).__init__(*args, **kwargs)
 
     def _transform_object(self, obj):
-        tls = obj['data']['tls']
+        try:
+            tls = obj['data']['tls']
+        except KeyError:
+            raise IgnoreObject('https missing tls')
         out, certificates = HTTPSTransform.make_tls_obj(tls)
         zout = ZMapTransformOutput()
         zout.transformed = out
