@@ -1,0 +1,32 @@
+{
+    "27017": {
+        "mongodb": {
+            "banner": {
+                "supported": true,
+                "is_master": {
+                    "is_master": true,
+                    "max_wire_version": 4,
+                    "max_bson_object_size": 16777216,
+                    "max_write_batch_size": 1000,
+                    "max_message_size_bytes": 48000000,
+                    "read_only": false
+                },
+                "build_info": {
+                    "version": "3.2.20",
+                    "git_version": "a7a144f40b70bfe290906eb33ff2714933544af8",
+                    "build_environment": {
+                        "dist_mod": "debian81",
+                        "dist_arch": "x86_64",
+                        "cc": "/opt/mongodbtoolchain/bin/gcc: gcc (GCC) 4.8.2",
+                        "cc_flags": "-fno-omit-frame-pointer -fPIC -fno-strict-aliasing -ggdb -pthread -Wall -Wsign-compare -Wno-unknown-pragmas -Winvalid-pch -Werror -O2 -Wno-unused-local-typedefs -Wno-unused-function -Wno-deprecated-declarations -Wno-unused-but-set-variable -Wno-missing-braces -fno-builtin-memcmp",
+                        "cxx": "/opt/mongodbtoolchain/bin/g++: g++ (GCC) 4.8.2",
+                        "cxx_flags": "-Wnon-virtual-dtor -Woverloaded-virtual -Wno-maybe-uninitialized -std=c++11",
+                        "link_flags": "-fPIC -pthread -Wl,-z,now -rdynamic -fuse-ld=gold -Wl,-z,noexecstack -Wl,--warn-execstack",
+                        "target_arch": "x86_64",
+                        "target_os": "linux"
+                    }
+                }
+            }
+        }
+    }
+}
