@@ -19,6 +19,6 @@ class MongoDBTransform(ZGrab2Transform):
         if not results:
             return zout
 
-        zout.transformed = copy.deepcopy(results)
+        zout.transformed.update(copy.deepcopy(results))
 
         return zout
