@@ -1,0 +1,69 @@
+{
+    "631": {
+        "ipp": {
+            "banner": {
+                "supported": true,
+                "version_major": 2,
+                "version_minor": 1,
+                "version_string": "IPP/2.1",
+                "cups_version": "CUPS/2.2",
+                "attributes": [
+                    {
+                        "name": "attributes-charset",
+                        "values": [
+                            {
+                                "raw": "dXRmLTg="
+                            }
+                        ],
+                        "tag": 71
+                    },
+                    {
+                        "name": "attributes-natural-language",
+                        "values": [
+                            {
+                                "raw": "ZW4tdXM="
+                            }
+                        ],
+                        "tag": 72
+                    },
+                    {
+                        "name": "status-message",
+                        "values": [
+                            {
+                                "raw": "VGhlIHByaW50ZXIgb3IgY2xhc3MgZG9lcyBub3QgZXhpc3Qu"
+                            }
+                        ],
+                        "tag": 65
+                    },
+                    {
+                        "name": "attributes-charset",
+                        "values": [
+                            {
+                                "raw": "dXRmLTg="
+                            }
+                        ],
+                        "tag": 71
+                    },
+                    {
+                        "name": "attributes-natural-language",
+                        "values": [
+                            {
+                                "raw": "ZW4tdXM="
+                            }
+                        ],
+                        "tag": 72
+                    },
+                    {
+                        "name": "status-message",
+                        "values": [
+                            {
+                                "raw": "Tm8gZGVzdGluYXRpb25zIGFkZGVkLg=="
+                            }
+                        ],
+                        "tag": 65
+                    }
+                ]
+            }
+        }
+    }
+}
