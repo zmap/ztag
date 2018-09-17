@@ -65,7 +65,7 @@ class Transform(object):
         except (KeyError, TypeError, IndexError) as e:
             import traceback
             exc_info = traceback.format_exc()
-            raise IgnoreObject(exc_info)
+            raise IgnoreObject(e, exc_info)
 
 
     def _transform_object(self, obj):
