@@ -11,3 +11,4 @@ class IPPPrinter(Annotation):
 
     def process(self, obj, meta):
         meta.global_metadata.device_type = Type.PRINTER
+        return meta
