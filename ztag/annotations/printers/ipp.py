@@ -7,7 +7,7 @@ class IPPPrinter(Annotation):
 
     protocol = protocols.IPP
     subprotocol = protocols.IPP.BANNER
-    port = 631
+    port = None
 
     def process(self, obj, meta):
         meta.global_metadata.device_type = Type.PRINTER
