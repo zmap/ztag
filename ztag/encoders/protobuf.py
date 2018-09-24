@@ -68,19 +68,7 @@ class ProtobufObjectEncoder(Encoder):
         for cert_dict in zout.certificates:
             ar = self.zsearch_definitions.anonstore_pb2.AnonymousRecord()
             c = ar.certificate
-            c.parsed = json.dumps(cert_dict["parsed"], sort_keys=True)
             c.raw = base64.b64decode(cert_dict["raw"])
-            c.sha1fp = cert_dict["parsed"]["fingerprint_sha1"].decode("hex")
-            c.sha256fp = cert_dict["parsed"]["fingerprint_sha256"].decode("hex")
-            valid_nss = cert_dict.get("nss_trusted", None)
-            if valid_nss is not None:
-                c.valid_nss = valid_nss
-                c.validation_timestamp = record.timestamp
-            c.parents.extend([p.decode("hex") for p in cert_dict.get("parents",
-                [])])
-            c.presented_chain.extend(presented_chain)
-            ar.sha256fp = c.sha256fp
-            ar.scan_id = self.scan_id
             out.certificates.append(ar)
         return out
 
