@@ -2,6 +2,17 @@ from ztag.transform import ZGrabTransform, ZMapTransformOutput
 from ztag import protocols, errors
 from ztag.transform import Transformable
 from ztag.errors import IgnoreObject
+from http import HTTPTransform
+
+
+class HTTPSGetTransform(HTTPTransform):
+    name = "https/generic"
+    port = None
+    protocol = protocols.HTTPS
+    subprotocol = protocols.HTTPS.GET
+
+    def __init__(self, *args, **kwargs):
+        super(HTTPSGetTransform, self).__init__(*args, **kwargs)
 
 
 class HTTPSTransform(ZGrabTransform):
