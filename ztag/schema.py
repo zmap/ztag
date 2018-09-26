@@ -214,6 +214,7 @@ ztag_http = SubRecord({
     "status_code":Unsigned16BitInteger(),
     "status_line":WhitespaceAnalyzedString(),
     "body":HTML(),
+    "tls": ztag_tls_type,
     "headers":zgrab_http_headers,
     "body_sha256":HexString(validation_policy="warn"),
     "title":WhitespaceAnalyzedString(),

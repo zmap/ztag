@@ -6,6 +6,7 @@ import re
 # That's right, I'm parsing HTML with regex
 title_regex = re.compile(r'<title>([\s\S]*?)<\/title>', re.IGNORECASE | re.UNICODE)
 
+
 class HTTPTransform(ZGrabTransform):
 
     name = "http/generic"
@@ -16,6 +17,28 @@ class HTTPTransform(ZGrabTransform):
     def __init__(self, *args, **kwargs):
         super(HTTPTransform, self).__init__(*args, **kwargs)
 
+    def find_tls_handshake(self, http):
+        """
+        Search for a tls_handshake field in http, giving preference to http_response['request'], and
+        falling back to the redirect_response_chain (in ascending order).
+        :param http: The wrapped parsed scan response.
+        :return: The tls_handshake field to use.
+        """
+        request_handshake = http['data']['http']['response']['request']['tls_handshake'].resolve()
+        if request_handshake is not None:
+            return request_handshake
+
+        chain = http['data']['http']['redirect_response_chain'].resolve()
+
+        if not chain:
+            return None
+
+        for redir in chain:
+            if 'request' in redir and 'tls_handshake' in redir['request']:
+                return redir['request']['tls_handshake']
+
+        return None
+
     def _transform_object(self, obj):
         http = Transformable(obj)
         http_response = http['data']['http']['response']
@@ -25,6 +48,15 @@ class HTTPTransform(ZGrabTransform):
         if error_component is not None and error_component == 'connect':
             raise errors.IgnoreObject("connection error")
 
+        tls_handshake = self.find_tls_handshake(http)
+        if tls_handshake:
+            try:
+                from ztag.transforms import HTTPSTransform
+                tls_out, tls_certificates = HTTPSTransform.make_tls_obj(tls_handshake)
+                out['tls'] = tls_out
+                zout.certificates = tls_certificates
+            except (TypeError, KeyError, IndexError):
+                pass
 
         if http_response is not None:
             status_line = http_response['status_line'].resolve()
