@@ -701,7 +701,7 @@ _zdb_location_fields = {
     "registered_country_code":String(),
 }
 
-zdb_location = SubRecord(_zdb_location_fields)
+zdb_location = SubRecord(_zdb_location_fields, category="Location")
 zdb_restricted_location = SubRecord(_zdb_location_fields, exclude=["bigquery",])
 
 zdb_as = SubRecord({
