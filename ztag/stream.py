@@ -115,6 +115,8 @@ class Stream(object):
                 if self.logger:
                     self.logger.debug(e.original_exception)
                     self.logger.trace(obj)
+                    if e.trback:
+                        self.logger.warn(e.trback)
                 skipped += 1
                 continue
         self.outgoing.cleanup()
