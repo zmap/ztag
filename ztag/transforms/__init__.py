@@ -7,6 +7,7 @@ from http import HTTPTransform
 from http import HTTPWWWTransform
 
 from https import HTTPSTransform
+from https import HTTPSGetTransform
 from https import HTTPSWWWTransform
 from https import HeartbleedTransform
 from https import RSAExportTransform

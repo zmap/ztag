@@ -1162,6 +1162,7 @@ ipv4_host = Record({
             Port(443):SubRecord({
                 "https":SubRecord({
                     "tls":ztag_tls,
+                    "get":ztag_http,
                     "heartbleed":ztag_heartbleed,
                     "dhe": ztag_dh,
                     "rsa_export": ztag_rsa_export,
