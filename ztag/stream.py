@@ -104,13 +104,28 @@ class Stream(object):
         for obj in self.incoming:
             self.put_update(handled=handled, skipped=skipped)
             try:
-                out = obj
+                out = [obj]
                 for transformer in self.transforms:
-                    out = transformer.transform(out)
-                    if out is None:
+                    next_out = []
+                    # Perform the transform on all of the present outputs, and collect the results
+                    # in next_out
+                    for o in out:
+                        ret = transformer.transform(o)
+                        if not isinstance(ret, tuple):
+                            if ret is not None and self.logger:
+                                self.logger.warn("Transformer %s did not return tuple: %s",
+                                                 str(transformer), str(ret))
+                            ret = (ret,)
+                        next_out.extend(ret)
+
+                    out = [o for o in next_out if o is not None]
+                    if len(out) == 0:
                         raise IgnoreObject()
-                self.outgoing.take(out)
-                handled += 1
+
+                for o in out:
+                    self.outgoing.take(o)
+                    handled += 1
+
             except IgnoreObject as e:
                 if self.logger:
                     self.logger.debug(e.original_exception)

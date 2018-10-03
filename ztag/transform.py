@@ -54,6 +54,17 @@ class TransformableEncoder(json.JSONEncoder):
         return json.JSONEncoder.default(self, o)
 
 
+class CompoundOutput(object):
+    def __init__(self, *args):
+        self.results = [ arg for arg in args ]
+
+    def get(self):
+        return tuple(v for v in self.results)
+
+    def __iter__(self):
+        return self.results.__iter__()
+
+
 class Transform(object):
 
     def __init__(self, *args, **kwargs):
@@ -61,7 +72,11 @@ class Transform(object):
 
     def transform(self, obj):
         try:
-            return self._transform_object(obj)
+            ret = self._transform_object(obj)
+            if isinstance(ret, CompoundOutput):
+                return tuple(v for v in ret)
+            else:
+                return ret,
         except (KeyError, TypeError, IndexError) as e:
             import traceback
             exc_info = traceback.format_exc()
@@ -158,8 +173,9 @@ class ZMapTransform(Transform):
 
     def transform(self, obj):
         out = super(ZMapTransform, self).transform(obj)
-        out.transformed['ip_address'] = obj['saddr']
-        out.transformed['timestamp'] = obj['timestamp_str']
+        for o in out:
+            o.transformed['ip_address'] = obj['saddr']
+            o.transformed['timestamp'] = obj['timestamp_str']
         return out
 
     @classmethod
@@ -192,14 +208,18 @@ class ZGrabTransform(ZMapTransform):
         # But...why is this a ZMapTransform in the first place?
         out = super(ZMapTransform, self).transform(obj)
         if "ip" in obj:
-            out.transformed['ip_address'] = obj['ip']
+            for o in out:
+                o.transformed['ip_address'] = obj['ip']
+
         if "domain" in obj:
             domain = obj['domain']
             if self.strip_domain_prefix:
                 if domain.startswith(self.strip_domain_prefix):
                     domain = domain[len(self.strip_domain_prefix):]
-            out.transformed['domain'] = domain
-        out.transformed['timestamp'] = obj['timestamp']
+            for o in out:
+                o.transformed['domain'] = domain
+        for o in out:
+            o.transformed['timestamp'] = obj['timestamp']
         return out
 
 
