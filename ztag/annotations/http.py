@@ -85,3 +85,29 @@ class HTTPServerParse(Annotation):
         return m
 
 
+class HTTPSServerParse(HTTPServerParse):
+    """
+    Do all of the same tagging for HTTPS that we do for HTTP
+    """
+
+    protocol = protocols.HTTPS
+    subprotocol = protocols.HTTPS.GET
+    port = None
+
+
+class HTTPSGetAnnotation(Annotation):
+    """
+    Explicit copy of the programmatically-generated HTTPAnnotation from protocols.py, but for HTTPS.
+    This is needed for two reasons: first, only the protocol name, and not the subprotocol name, is
+    used for the class name -- so there can only be one auto-annotation per protocol (and HTTPS.TLS
+    already fits); and second, we need to tag these with "http", not "https" (not least because with
+    redirects, the body returned may not have been fetched with https).
+    """
+    protocol = protocols.HTTPS
+    subprotocol = protocols.HTTPS.GET
+    port = None
+    tests = {"device_with_http":{"tags":["http",]}}
+
+    def process(self, obj, meta):
+        meta.tags.add(protocols.HTTP.pretty_name)
+        return meta

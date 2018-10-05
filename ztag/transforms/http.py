@@ -7,6 +7,16 @@ import re
 title_regex = re.compile(r'<title>([\s\S]*?)<\/title>', re.IGNORECASE | re.UNICODE)
 
 
+# Helper function to return a list containing all of the certificates in its arguments with no
+# duplicates (using the "raw" field for comparison)
+def certs_union(*args):
+    temp = {}
+    for certs in args:
+        for cert in certs:
+            temp[cert["raw"]] = cert
+    return [cert for cert in temp.values()]
+
+
 class HTTPTransform(ZGrabTransform):
 
     name = "http/generic"
@@ -17,25 +27,49 @@ class HTTPTransform(ZGrabTransform):
     def __init__(self, *args, **kwargs):
         super(HTTPTransform, self).__init__(*args, **kwargs)
 
-    def find_tls_handshake(self, http):
+    @staticmethod
+    def set_tls_handshakes(zout, http):
         """
-        Search for a tls_handshake field in http, giving preference to http_response['request'], and
-        falling back to the redirect_response_chain (in ascending order).
-        :param http: The wrapped parsed scan response.
-        :return: The tls_handshake field to use.
+        Populate zout.certificates and the TLS handshake fields in zout.transformed using the given
+        HTTP response.
+        If the final result has a TLS handshake, include that in the root 'tls' field. If there were
+        redirects, and the first one has a TLS handshake, include that in the root 'tls_initial'
+        field. If not, the tls_initial is the same as the tls field.
+        Certificates are collected from *all* handshakes (not just the first and last).
+        :param zout: The ZMapTransformOutput object to populate.
+        :param http: The wrapped parsed scan response (with response and redirect_response_chain
+                     in the root).
         """
-        request_handshake = http['data']['http']['response']['request']['tls_handshake'].resolve()
-        if request_handshake is not None:
-            return request_handshake
+        # Import locally to avoid circular dependency (TODO: move make_tls_obj out of https.py)
+        from ztag.transforms import HTTPSTransform
 
-        chain = http['data']['http']['redirect_response_chain'].resolve()
+        request_handshake = http['response']['request']['tls_handshake'].resolve()
+        if request_handshake is not None:
+            tls_out, tls_certificates = HTTPSTransform.make_tls_obj(request_handshake)
+            zout.transformed['tls'] = tls_out
+            zout.certificates = certs_union(zout.certificates, tls_certificates)
+
+        chain = http['redirect_response_chain'].resolve()
 
         if not chain:
-            return None
+            # No chain: if the request has a TLS handshake, it is also the tls_initial.
+            if 'tls' in zout.transformed:
+                zout.transformed['tls_initial'] = zout.transformed['tls']
+            return
 
-        for redir in chain:
-            if 'request' in redir and 'tls_handshake' in redir['request']:
-                return redir['request']['tls_handshake']
+        for idx, entry in enumerate(chain):
+            handshake = Transformable(entry)["request"]["tls_handshake"].resolve()
+            if handshake:
+                try:
+                    tls_out, tls_certificates = HTTPSTransform.make_tls_obj(handshake)
+                    zout.certificates = certs_union(zout.certificates, tls_certificates)
+                    if idx == 0:
+                        # Only the first entry in the chain can be the tls_initial.
+                        zout.transformed['tls_initial'] = tls_out
+                except (TypeError, KeyError, IndexError, errors.IgnoreObject):
+                    # Don't throw away the whole HTTP request just because you can't get its TLS
+                    # handshake.
+                    pass
 
         return None
 
@@ -44,19 +78,12 @@ class HTTPTransform(ZGrabTransform):
         http_response = http['data']['http']['response']
         zout = ZMapTransformOutput()
         out = dict()
+        zout.transformed = out
         error_component = http['error_component'].resolve()
         if error_component is not None and error_component == 'connect':
             raise errors.IgnoreObject("connection error")
 
-        tls_handshake = self.find_tls_handshake(http)
-        if tls_handshake:
-            try:
-                from ztag.transforms import HTTPSTransform
-                tls_out, tls_certificates = HTTPSTransform.make_tls_obj(tls_handshake)
-                out['tls'] = tls_out
-                zout.certificates = tls_certificates
-            except (TypeError, KeyError, IndexError):
-                pass
+        self.set_tls_handshakes(zout, http['data']['http'])
 
         if http_response is not None:
             status_line = http_response['status_line'].resolve()
@@ -77,6 +104,7 @@ class HTTPTransform(ZGrabTransform):
                         title = title[0:1024]
                     out['title'] = title.strip()
             if headers:
+                # FIXME: This modifies the input?
                 if "set_cookie" in headers:
                     del headers["set_cookie"]
                 if "date" in headers:
@@ -98,7 +126,6 @@ class HTTPTransform(ZGrabTransform):
         if len(out) == 0:
             raise errors.IgnoreObject("Empty output dict")
 
-        zout.transformed = out
         return zout
 
 

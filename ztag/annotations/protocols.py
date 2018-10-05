@@ -8,6 +8,7 @@ CATEGORY_TAGS = {
     "scada": set(["dnp", "modbus", "bacnet", "fox", "dnp3", "s7"]),
 }
 
+
 def __process(self, obj, meta):
     meta.tags.add(self.protocol.pretty_name)
     for category, protos in CATEGORY_TAGS.items():
@@ -36,13 +37,15 @@ PROTOCOLS = [
     (protocols.S7, protocols.S7.SZL, {"device_with_s7": {"tags":["s7","scada"]}}),
     (protocols.CWMP, protocols.CWMP.GET, {"device_with_cwmp": {"tags":["cwmp",]}}),
     (protocols.SMB, protocols.SMB.BANNER, {"device_with_smb": {"tags":["smb",]}}),
-    (protocols.UPNP, protocols.UPNP.DISCOVERY, {"device_with_upnp": {"tags":["upnp",]}}),
 ]
 
 for proto, subproto, tests in PROTOCOLS:
+    # FIXME: Since we only use the protocol, and not the sub-protocol, a single protocol with
+    #        multiple "protocol" annotations is not possible.
     name = "%sAnnotation" % proto.pretty_name.upper()
     c = type(name, (Annotation,), {"process":__process})
     c.protocol = proto
     c.subprotocol = subproto
     c.tests = tests
     setattr(sys.modules[__name__], name, c)
+
