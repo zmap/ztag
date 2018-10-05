@@ -1332,6 +1332,7 @@ ipv4_host = Record({
 website = Record({
             Port(443):SubRecord({
                 "https":SubRecord({
+                    "get":ztag_http,
                     "tls":ztag_tls,
                     "heartbleed":ztag_heartbleed,
                     "dhe": ztag_dh,
@@ -1344,6 +1345,7 @@ website = Record({
                 }),
                 "https_www":SubRecord({
                     "tls":ztag_tls,
+                    "get":ztag_http,
                 })
             }, category="443/HTTPS"),
             Port(80):SubRecord({
