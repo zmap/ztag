@@ -93,6 +93,32 @@ class HTTPSServerParse(HTTPServerParse):
     protocol = protocols.HTTPS
     subprotocol = protocols.HTTPS.GET
     port = None
+    tests = {
+        "nginx": {
+            "local_metadata": {
+                "product": "nginx",
+                "version": "1.4.6"
+            },
+            "global_metadata": {
+                "os": "Ubuntu"
+            }
+        },
+        "iis7": {
+            "local_metadata": {
+                "manufacturer": "Microsoft",
+                "product": "IIS",
+                "version": "7.5"
+            },
+            "global_metadata": {
+                "os": "Windows"
+            },
+        },
+        "nginx_simple": {
+            "local_metadata": {
+                "product": "nginx",
+            }
+        }
+    }
 
 
 class HTTPSGetAnnotation(Annotation):
@@ -106,7 +132,7 @@ class HTTPSGetAnnotation(Annotation):
     protocol = protocols.HTTPS
     subprotocol = protocols.HTTPS.GET
     port = None
-    tests = {"device_with_http":{"tags":["http",]}}
+    tests = {"device_with_https_get":{"tags":["http",]}}
 
     def process(self, obj, meta):
         meta.tags.add(protocols.HTTP.pretty_name)

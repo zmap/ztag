@@ -28,5 +28,35 @@
         "metadata": {}
       }
     }
+  },
+  "443": {
+    "https": {
+      "get": {
+        "body": "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Strict//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd\">\r\n<html xmlns=\"http://www.w3.org/1999/xhtml\">\r\n<head>\r\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=iso-8859-1\" />\r\n<title>IIS7</title>\r\n<style type=\"text/css\">\r\n<!--\r\nbody {\r\n\tcolor:#000000;\r\n\tbackground-color:#B3B3B3;\r\n\tmargin:0;\r\n}\r\n\r\n#container {\r\n\tmargin-left:auto;\r\n\tmargin-right:auto;\r\n\ttext-align:center;\r\n\t}\r\n\r\na img {\r\n\tborder:none;\r\n}\r\n\r\n-->\r\n</style>\r\n</head>\r\n<body>\r\n<div id=\"container\">\r\n<a href=\"http://go.microsoft.com/fwlink/?linkid=66138&amp;clcid=0x409\"><img src=\"welcome.png\" alt=\"IIS7\" width=\"571\" height=\"411\" /></a>\r\n</div>\r\n</body>\r\n</html>",
+        "headers": {
+          "content_length": "689",
+          "unknown": [
+            {
+              "value": "\"b84987b86fcd01:0\"",
+              "key": "etag"
+            },
+            {
+              "value": "Thu, 07 Sep 2017 05:35:52 GMT",
+              "key": "date"
+            }
+          ],
+          "x_powered_by": "ASP.NET",
+          "server": "Microsoft-IIS/7.5",
+          "last_modified": "Thu, 01 Oct 2015 20:16:24 GMT",
+          "content_type": "text/html",
+          "accept_ranges": "bytes"
+        },
+        "status_code": 200,
+        "title": "IIS7",
+        "status_line": "200 OK",
+        "body_sha256": "NwvkX2UnazuN5CoprfsSIPxEpeAYw34+m2L6fVtSP9A=",
+        "metadata": {}
+      }
+    }
   }
 }
