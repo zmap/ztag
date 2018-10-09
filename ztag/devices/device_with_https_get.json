@@ -1,0 +1,24 @@
+{
+    "443": {
+        "https": {
+            "get": {
+                "headers": {
+                    "content_length": "382315",
+                    "x_powered_by": "WAF/2.0",
+                    "server": "IIS",
+                    "last_modified": "Tue, 15 Sep 2015 18:07:54 GMT",
+                    "content_type": "text/html",
+                    "content_location": "http://107.189.180.115/index.html",
+                    "accept_ranges": "bytes"
+                },
+                "status_code": 200,
+                "status_line": "HTTP/1.1 200 OK",
+                "body_sha256": "Grlo8Z1tVX2jvWFq9AC57NBtI0q3kt8dy6iXMGt0YyY=",
+                "metadata": {
+                    "product": "HTTP Server",
+                    "manufacturer": "Apache"
+                }
+            }
+        }
+    }
+}

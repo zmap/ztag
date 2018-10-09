@@ -140,5 +140,23 @@
                 }
             }
         }
+    },
+    "443": {
+        "https": {
+            "get": {
+                "body": "<html><body></body></html>\n",
+                "body_sha256": "7C9E59vS67EmisfnoGAuwhBrx/2doXuQEtuBvlXL1IU=",
+                "status_code": 200,
+                "status_line": "HTTP/1.1 200 OK",
+                "headers": {
+                    "content_length": "27",
+                    "server": "nginx/1.4.6 (Ubuntu)",
+                    "connection": "keep-alive",
+                    "last_modified": "Thu, 13 Dec 2012 08:31:42 GMT",
+                    "content_type": "text/html",
+                    "accept_ranges": "bytes"
+                }
+            }
+        }
     }
 }
