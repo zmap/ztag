@@ -6,7 +6,7 @@ from http import HTTPTransform
 
 
 class HTTPSGetTransform(HTTPTransform):
-    name = "https/generic"
+    name = "https/get"
     port = None
     protocol = protocols.HTTPS
     subprotocol = protocols.HTTPS.GET
