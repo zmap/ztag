@@ -680,7 +680,9 @@ ztag_lookup_axfr = SubRecord({
             "tag":String(),
             "type":String(),
             "ttl":Unsigned32BitInteger(),
-            "value":String(),
+            # FIXME 2018/10/15: Conflict with auto-detected version in Elasticsearch (auto type
+            # FIXME 2018/10/15: is text, new type is keyword)
+            # "value":String(),
         })),
     })),
     "truncated":Boolean(),
